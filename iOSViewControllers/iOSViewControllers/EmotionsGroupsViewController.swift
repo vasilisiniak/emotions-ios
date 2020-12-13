@@ -43,7 +43,7 @@ public class EmotionsGroupsViewController: UIViewController {
         presenter.eventSwipeRight()
     }
     
-    private func onIndexChange(action: UIAction) {
+    private func onIndexChange(_: UIAction) {
         presenter.event(indexChange: emotionsGroupsView.segmentedControl.selectedSegmentIndex)
     }
     
@@ -82,18 +82,24 @@ extension EmotionsGroupsViewController: UITableViewDelegate {
 }
 
 extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
+    public func show(clearButtonEnabled: Bool) {
+        navigationItem.leftBarButtonItem?.isEnabled = clearButtonEnabled
+    }
+    
+    public func show(nextButtonEnabled: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = nextButtonEnabled
+    }
+    
     public func show(title: String) {
         self.title = title
     }
     
     public func show(clearButton: String) {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButton, handler: onClear)
-        navigationItem.leftBarButtonItem?.isEnabled = false
     }
     
     public func show(nextButton: String) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nextButton, handler: onNext)
-        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     public func show(emotionIndex: Int, selectedNames: [String]) {
@@ -103,8 +109,6 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     
     public func show(selectedEmotionsNames: String) {
         emotionsGroupsView.label.text = selectedEmotionsNames
-        navigationItem.leftBarButtonItem?.isEnabled = (selectedEmotionsNames.count > 0)
-        navigationItem.rightBarButtonItem?.isEnabled = (selectedEmotionsNames.count > 0)
         UIView.animate(withDuration: 0.15, animations: emotionsGroupsView.layoutIfNeeded)
     }
     

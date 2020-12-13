@@ -4,6 +4,8 @@ import UseCases
 public protocol EventNamePresenterOutput: class {
     func show(title: String)
     func show(backButton: String)
+    func show(addButton: String)
+    func show(addButtonEnabled: Bool)
     func show(placeholder: String)
     func show(selectedEmotions: String)
     func showKeyboard()
@@ -27,6 +29,18 @@ public class EventNamePresenterImpl: EventNamePresenter {
 }
 
 extension EventNamePresenterImpl: EventNameEventsHandler {
+    public func eventViewDidAppear() {
+        useCase.eventViewDidAppear()
+    }
+    
+    public func event(descriptionChanged: String?) {
+        useCase.event(descriptionChanged: descriptionChanged)
+    }
+    
+    public func eventAddTap() {
+        useCase.eventAddTap()
+    }
+    
     public func eventViewReady() {
         useCase.eventViewReady()
     }
@@ -37,6 +51,14 @@ extension EventNamePresenterImpl: EventNameEventsHandler {
 }
 
 extension EventNamePresenterImpl: EventNameUseCaseOutput {
+    public func present(addButton: String) {
+        output.show(addButton: addButton)
+    }
+    
+    public func present(addButtonEnabled: Bool) {
+        output.show(addButtonEnabled: addButtonEnabled)
+    }
+    
     public func present(title: String) {
         output.show(title: title)
     }

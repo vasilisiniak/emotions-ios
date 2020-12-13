@@ -5,6 +5,8 @@ public protocol EmotionsGroupsPresenterOutput: class {
     func show(title: String)
     func show(clearButton: String)
     func show(nextButton: String)
+    func show(clearButtonEnabled: Bool)
+    func show(nextButtonEnabled: Bool)
     func show(groupNames: [String])
     func show(selectedGroupIndex: Int)
     func show(emotionNames: [String], selectedNames: [String], color: UIColor)
@@ -60,6 +62,14 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
+    public func present(clearButtonEnabled: Bool) {
+        output.show(clearButtonEnabled: clearButtonEnabled)
+    }
+    
+    public func present(nextButtonEnabled: Bool) {
+        output.show(nextButtonEnabled: nextButtonEnabled)
+    }
+    
     public func present(title: String) {
         output.show(title: title)
     }

@@ -5,6 +5,8 @@ public protocol EmotionsGroupsUseCaseOutput: class {
     func present(title: String)
     func present(clearButton: String)
     func present(nextButton: String)
+    func present(clearButtonEnabled: Bool)
+    func present(nextButtonEnabled: Bool)
     func present(groups: [String])
     func present(emotions: [String], selected: [String], color: String)
     func present(selectedEmotions: [String])
@@ -40,6 +42,11 @@ public class EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         output.present(emotions: group.emotions, selected: selected, color: group.color)
     }
     
+    private func presentClearNextButtonsEnabled() {
+        output.present(clearButtonEnabled: selectedEmotions.count > 0)
+        output.present(nextButtonEnabled: selectedEmotions.count > 0)
+    }
+    
     // MARK: - Public
     
     public weak var output: EmotionsGroupsUseCaseOutput!
@@ -58,14 +65,16 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
         selectedEmotions = []
         output.present(selectedEmotions: selectedEmotions)
         presentEmotionsGroup()
+        presentClearNextButtonsEnabled()
     }
     
     public func eventViewReady() {
         output.present(title: "Выберите эмоции")
         output.present(clearButton: "Очистить")
-        output.present(nextButton: "Далее")
+        output.present(nextButton: "Далее❯")
         output.present(groups: emotionsProvider.emotionsGroups.map { $0.name })
         presentEmotionsGroup()
+        presentClearNextButtonsEnabled()
     }
     
     public func event(indexChange: Int) {
@@ -84,6 +93,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
         let index = emotions.firstIndex(of: select)!
         output.present(selectedEmotions: selectedEmotions)
         output.present(emotionIndex: index, selected: selectedEmotions)
+        presentClearNextButtonsEnabled()
     }
     
     public func eventSwipeLeft() {
