@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:iOSApp/iOSApp.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Viper">
+      <FileRef
+         location = "group:iOSViewControllers/iOSViewControllers.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Presenters/Presenters.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:UseCases/UseCases.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Model/Model.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:iOSControls/iOSControls.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Utils/Utils.xcodeproj">
+   </FileRef>
+</Workspace>
