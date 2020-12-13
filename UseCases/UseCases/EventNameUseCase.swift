@@ -7,6 +7,7 @@ public protocol EventNameUseCaseOutput: class {
     func present(selectedEmotions: [String])
     func presentKeyboard()
     func presentBack()
+    func presentEmotions()
 }
 
 public protocol EventNameEventsHandler {
@@ -59,6 +60,6 @@ extension EventNameUseCaseImpl: EventNameEventsHandler {
     }
     
     public func eventAddTap() {
-        print("TODO")
+        output.presentEmotions()
     }
 }

@@ -13,6 +13,7 @@ public protocol EventNamePresenterOutput: class {
 
 public protocol EventNameRouter: class {
     func routeBack()
+    func routeEmotions()
 }
 
 public protocol EventNamePresenter: EventNameEventsHandler {}
@@ -51,6 +52,10 @@ extension EventNamePresenterImpl: EventNameEventsHandler {
 }
 
 extension EventNamePresenterImpl: EventNameUseCaseOutput {
+    public func presentEmotions() {
+        router.routeEmotions()
+    }
+    
     public func present(addButton: String) {
         output.show(addButton: addButton)
     }

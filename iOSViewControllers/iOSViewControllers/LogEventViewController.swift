@@ -16,6 +16,14 @@ public class LogEventViewController: UINavigationController {
         presenter.eventViewReady()
     }
     
+    // MARK: - Private
+    
+    private var emotionsViewController: EmotionsGroupsViewController {
+        let emotionsViewController = EmotionsGroupsViewController()
+        configurator.configure(emotionsViewController: emotionsViewController, router: self)
+        return emotionsViewController
+    }
+    
     // MARK: - Public
     
     public var presenter: LogEventPresenter!
@@ -33,6 +41,10 @@ extension LogEventViewController: EmotionsGroupsRouter {
 }
 
 extension LogEventViewController: EventNameRouter {
+    public func routeEmotions() {
+        setViewControllers([emotionsViewController], animated: true)
+    }
+    
     public func routeBack() {
         popViewController(animated: true)
     }
@@ -40,8 +52,6 @@ extension LogEventViewController: EventNameRouter {
 
 extension LogEventViewController: LogEventPresenterOutput {
     public func showEmotions() {
-        let emotionsViewController = EmotionsGroupsViewController()
-        configurator.configure(emotionsViewController: emotionsViewController, router: self)
         pushViewController(emotionsViewController, animated: true)
     }
 }
