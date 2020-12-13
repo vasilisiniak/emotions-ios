@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355735A25863464007F15C8 /* EventNameConnector.swift */; };
 		836831A6258579970044B38C /* LogEventConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836831A5258579970044B38C /* LogEventConnector.swift */; };
 		8377F4892582CD7E006C9D2F /* iOSViewControllers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; };
 		8377F48A2582CD7E006C9D2F /* iOSViewControllers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -41,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8355735A25863464007F15C8 /* EventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameConnector.swift; sourceTree = "<group>"; };
 		836831A5258579970044B38C /* LogEventConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEventConnector.swift; sourceTree = "<group>"; };
 		8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSViewControllers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8392C7B925825A940015D722 /* iOSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,7 @@
 			children = (
 				8392C7BC25825A940015D722 /* AppDelegate.swift */,
 				83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */,
+				8355735A25863464007F15C8 /* EventNameConnector.swift */,
 				836831A5258579970044B38C /* LogEventConnector.swift */,
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,
@@ -184,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				836831A6258579970044B38C /* LogEventConnector.swift in Sources */,
+				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,
 			);

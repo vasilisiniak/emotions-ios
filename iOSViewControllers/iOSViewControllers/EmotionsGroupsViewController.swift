@@ -11,11 +11,6 @@ public class EmotionsGroupsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Выберите эмоции"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Очистить", handler: onClear)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Далее", handler: onNext)
-        navigationItem.leftBarButtonItem?.isEnabled = false
-        navigationItem.rightBarButtonItem?.isEnabled = false
         presenter.eventViewReady()
     }
     
@@ -87,6 +82,20 @@ extension EmotionsGroupsViewController: UITableViewDelegate {
 }
 
 extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
+    public func show(title: String) {
+        self.title = title
+    }
+    
+    public func show(clearButton: String) {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButton, handler: onClear)
+        navigationItem.leftBarButtonItem?.isEnabled = false
+    }
+    
+    public func show(nextButton: String) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: nextButton, handler: onNext)
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
     public func show(emotionIndex: Int, selectedNames: [String]) {
         self.selectedNames = selectedNames
         emotionsGroupsView.tableView.reloadRows(at: [IndexPath(row: emotionIndex, section: 0)], with: .automatic)

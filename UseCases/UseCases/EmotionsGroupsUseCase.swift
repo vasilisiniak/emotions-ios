@@ -2,12 +2,15 @@ import Foundation
 import Model
 
 public protocol EmotionsGroupsUseCaseOutput: class {
+    func present(title: String)
+    func present(clearButton: String)
+    func present(nextButton: String)
     func present(groups: [String])
     func present(emotions: [String], selected: [String], color: String)
     func present(selectedEmotions: [String])
     func present(selectedGroupIndex: Int)
     func present(emotionIndex: Int, selected: [String])
-    func presentNext()
+    func presentNext(selectedEmotions: [String])
 }
 
 public protocol EmotionsGroupsEventsHandler {
@@ -48,7 +51,7 @@ public class EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
 
 extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
     public func eventNext() {
-        output.presentNext()
+        output.presentNext(selectedEmotions: selectedEmotions)
     }
     
     public func eventClear() {
@@ -58,6 +61,9 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
     }
     
     public func eventViewReady() {
+        output.present(title: "Выберите эмоции")
+        output.present(clearButton: "Очистить")
+        output.present(nextButton: "Далее")
         output.present(groups: emotionsProvider.emotionsGroups.map { $0.name })
         presentEmotionsGroup()
     }

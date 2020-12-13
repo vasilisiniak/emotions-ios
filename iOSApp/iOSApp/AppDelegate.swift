@@ -25,6 +25,10 @@ import Presenters
 }
 
 extension AppDelegate: LogEventViewControllerConfigurator {
+    func configure(eventNameViewController: EventNameViewController, router: EventNameRouter, selectedEmotions: [String]) {
+        EventNameConnector(viewController: eventNameViewController, router: router, selectedEmotions: selectedEmotions).configure()
+    }
+    
     func configure(emotionsViewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter) {
         EmotionsGroupsConnector(viewController: emotionsViewController, router: router).configure()
     }

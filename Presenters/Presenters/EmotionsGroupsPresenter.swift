@@ -2,6 +2,9 @@ import UIKit
 import UseCases
 
 public protocol EmotionsGroupsPresenterOutput: class {
+    func show(title: String)
+    func show(clearButton: String)
+    func show(nextButton: String)
     func show(groupNames: [String])
     func show(selectedGroupIndex: Int)
     func show(emotionNames: [String], selectedNames: [String], color: UIColor)
@@ -10,7 +13,7 @@ public protocol EmotionsGroupsPresenterOutput: class {
 }
 
 public protocol EmotionsGroupsRouter: class {
-    func routeEventName()
+    func routeEventName(selectedEmotions: [String])
 }
 
 public protocol EmotionsGroupsPresenter: EmotionsGroupsEventsHandler {}
@@ -57,8 +60,20 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
-    public func presentNext() {
-        router.routeEventName()
+    public func present(title: String) {
+        output.show(title: title)
+    }
+    
+    public func present(clearButton: String) {
+        output.show(clearButton: clearButton)
+    }
+    
+    public func present(nextButton: String) {
+        output.show(nextButton: nextButton)
+    }
+    
+    public func presentNext(selectedEmotions: [String]) {
+        router.routeEventName(selectedEmotions: selectedEmotions)
     }
     
     public func present(emotionIndex: Int, selected: [String]) {

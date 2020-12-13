@@ -3,6 +3,7 @@ import Presenters
 
 public protocol LogEventViewControllerConfigurator {
     func configure(emotionsViewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter)
+    func configure(eventNameViewController: EventNameViewController, router: EventNameRouter, selectedEmotions: [String])
 }
 
 public class LogEventViewController: UINavigationController {
@@ -11,6 +12,7 @@ public class LogEventViewController: UINavigationController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
         presenter.eventViewReady()
     }
     
@@ -20,9 +22,19 @@ public class LogEventViewController: UINavigationController {
     public var configurator: LogEventViewControllerConfigurator!
 }
 
+extension LogEventViewController: UIGestureRecognizerDelegate {}
+
 extension LogEventViewController: EmotionsGroupsRouter {
-    public func routeEventName() {
-        pushViewController(UIViewController(), animated: true)
+    public func routeEventName(selectedEmotions: [String]) {
+        let eventNameViewController = EventNameViewController()
+        configurator.configure(eventNameViewController: eventNameViewController, router: self, selectedEmotions: selectedEmotions)
+        pushViewController(eventNameViewController, animated: true)
+    }
+}
+
+extension LogEventViewController: EventNameRouter {
+    public func routeBack() {
+        popViewController(animated: true)
     }
 }
 

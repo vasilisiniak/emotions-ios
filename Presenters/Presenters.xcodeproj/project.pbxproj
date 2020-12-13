@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835573582586320B007F15C8 /* EventNamePresenter.swift */; };
 		83A51B5C2582C60B005131D7 /* EmotionsGroupsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */; };
 		83A51B822582C903005131D7 /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B642582C6A3005131D7 /* UseCases.framework */; };
 		83A51B832582C903005131D7 /* UseCases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B642582C6A3005131D7 /* UseCases.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -31,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		835573582586320B007F15C8 /* EventNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamePresenter.swift; sourceTree = "<group>"; };
 		83A51B4D2582C5F5005131D7 /* Presenters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presenters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A51B512582C5F5005131D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionsGroupsPresenter.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				83A51B512582C5F5005131D7 /* Info.plist */,
 				83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */,
+				835573582586320B007F15C8 /* EventNamePresenter.swift */,
 				83B9EE6525857675007158F3 /* LogEventPresenter.swift */,
 			);
 			path = Presenters;
@@ -168,6 +171,7 @@
 			files = (
 				83B9EE6625857675007158F3 /* LogEventPresenter.swift in Sources */,
 				83A51B5C2582C60B005131D7 /* EmotionsGroupsPresenter.swift in Sources */,
+				835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

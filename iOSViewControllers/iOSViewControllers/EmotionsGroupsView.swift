@@ -62,6 +62,7 @@ class EmotionsGroupsView: UIView {
 
     let label: PaddedLabel = create {
         $0.font = UIFont.preferredFont(forTextStyle: .headline)
+        $0.adjustsFontForContentSizeCategory = true
         $0.numberOfLines = 0
         $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
