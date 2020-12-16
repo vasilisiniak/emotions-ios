@@ -10,7 +10,7 @@
 		8355735725862E5C007F15C8 /* EventNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355735625862E5C007F15C8 /* EventNameUseCase.swift */; };
 		83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */; };
 		83A51B852582C907005131D7 /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; };
-		83A51B862582C907005131D7 /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83A51B862582C907005131D7 /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83B9EE64258575B1007158F3 /* LogEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9EE63258575B1007158F3 /* LogEventUseCase.swift */; };
 /* End PBXBuildFile section */
 

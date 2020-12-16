@@ -10,10 +10,10 @@
 		835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835573582586320B007F15C8 /* EventNamePresenter.swift */; };
 		83A51B5C2582C60B005131D7 /* EmotionsGroupsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */; };
 		83A51B822582C903005131D7 /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B642582C6A3005131D7 /* UseCases.framework */; };
-		83A51B832582C903005131D7 /* UseCases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B642582C6A3005131D7 /* UseCases.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83A51B832582C903005131D7 /* UseCases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B642582C6A3005131D7 /* UseCases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83B9EE6625857675007158F3 /* LogEventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9EE6525857675007158F3 /* LogEventPresenter.swift */; };
 		83DE23EF2583F59F0098337E /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23EE2583F59F0098337E /* Utils.framework */; };
-		83DE23F02583F59F0098337E /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23EE2583F59F0098337E /* Utils.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83DE23F02583F59F0098337E /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23EE2583F59F0098337E /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */

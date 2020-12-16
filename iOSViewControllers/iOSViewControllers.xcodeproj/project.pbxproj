@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		83010ACF2584FE770037D024 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; };
-		83010AD02584FE770037D024 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83010AD02584FE770037D024 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		830BECF5258517FF00166851 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; };
-		830BECF6258517FF00166851 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		830BECF6258517FF00166851 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83557353258623D9007F15C8 /* EventNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83557352258623D9007F15C8 /* EventNameViewController.swift */; };
 		83557355258623F7007F15C8 /* EventNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83557354258623F7007F15C8 /* EventNameView.swift */; };
 		8377F47D2582CD1E006C9D2F /* EmotionsGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377F47A2582CD1E006C9D2F /* EmotionsGroupsViewController.swift */; };
 		8377F47E2582CD1E006C9D2F /* EmotionsGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377F47B2582CD1E006C9D2F /* EmotionsGroupsView.swift */; };
 		8377F4852582CD6C006C9D2F /* Presenters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4842582CD6C006C9D2F /* Presenters.framework */; };
-		8377F4862582CD6C006C9D2F /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4842582CD6C006C9D2F /* Presenters.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8377F4862582CD6C006C9D2F /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4842582CD6C006C9D2F /* Presenters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83B9EE5F25857500007158F3 /* LogEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9EE5E25857500007158F3 /* LogEventViewController.swift */; };
 /* End PBXBuildFile section */
 

@@ -1,5 +1,4 @@
 import UIKit
-import Utils
 
 public struct EmotionsGroup {
     

@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
+		833182B62589E35000B2C9A2 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		833182B72589E35000B2C9A2 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; };
+		833182B82589E35100B2C9A2 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355735A25863464007F15C8 /* EventNameConnector.swift */; };
 		836831A6258579970044B38C /* LogEventConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836831A5258579970044B38C /* LogEventConnector.swift */; };
 		8377F4892582CD7E006C9D2F /* iOSViewControllers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; };
-		8377F48A2582CD7E006C9D2F /* iOSViewControllers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8377F48A2582CD7E006C9D2F /* iOSViewControllers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8392C7BC25825A940015D722 /* AppDelegate.swift */; };
 		8392C7C625825A970015D722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C525825A970015D722 /* Assets.xcassets */; };
 		8392C7C925825A970015D722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C725825A970015D722 /* LaunchScreen.storyboard */; };
 		83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */; };
 		83A51B7A2582C8E1005131D7 /* Presenters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; };
-		83A51B7B2582C8E1005131D7 /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83A51B7B2582C8E1005131D7 /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83A51B7D2582C8E3005131D7 /* UseCases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B722582C7A0005131D7 /* UseCases.framework */; };
-		83A51B7E2582C8E3005131D7 /* UseCases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B722582C7A0005131D7 /* UseCases.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83A51B7E2582C8E3005131D7 /* UseCases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B722582C7A0005131D7 /* UseCases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83DE23CA2583990B0098337E /* Emotions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83DE23C92583990B0098337E /* Emotions.plist */; };
 		83DE23CC25839B7D0098337E /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; };
-		83DE23CD25839B7D0098337E /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		83DE23CD25839B7D0098337E /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +38,8 @@
 				83DE23CD25839B7D0098337E /* Model.framework in Embed Frameworks */,
 				83A51B7E2582C8E3005131D7 /* UseCases.framework in Embed Frameworks */,
 				83A51B7B2582C8E1005131D7 /* Presenters.framework in Embed Frameworks */,
+				833182B62589E35000B2C9A2 /* iOSControls.framework in Embed Frameworks */,
+				833182B82589E35100B2C9A2 /* Utils.framework in Embed Frameworks */,
 				8377F48A2582CD7E006C9D2F /* iOSViewControllers.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -42,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		833182B42589E35000B2C9A2 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8355735A25863464007F15C8 /* EventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameConnector.swift; sourceTree = "<group>"; };
 		836831A5258579970044B38C /* LogEventConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEventConnector.swift; sourceTree = "<group>"; };
 		8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSViewControllers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +73,8 @@
 				83DE23CC25839B7D0098337E /* Model.framework in Frameworks */,
 				83A51B7D2582C8E3005131D7 /* UseCases.framework in Frameworks */,
 				83A51B7A2582C8E1005131D7 /* Presenters.framework in Frameworks */,
+				833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */,
+				833182B72589E35000B2C9A2 /* Utils.framework in Frameworks */,
 				8377F4892582CD7E006C9D2F /* iOSViewControllers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +117,8 @@
 		83A51B682582C74E005131D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				833182B32589E35000B2C9A2 /* iOSControls.framework */,
+				833182B42589E35000B2C9A2 /* Utils.framework */,
 				8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */,
 				83A51B702582C7A0005131D7 /* Model.framework */,
 				83A51B722582C7A0005131D7 /* UseCases.framework */,
