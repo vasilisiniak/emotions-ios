@@ -18,7 +18,7 @@ public protocol EventNameRouter: class {
 
 public protocol EventNamePresenter: EventNameEventsHandler {}
 
-public class EventNamePresenterImpl: EventNamePresenter {
+public class EventNamePresenterImpl {
     
     // MARK: - Public
     
@@ -28,6 +28,8 @@ public class EventNamePresenterImpl: EventNamePresenter {
     
     public init() {}
 }
+
+extension EventNamePresenterImpl: EventNamePresenter {}
 
 extension EventNamePresenterImpl: EventNameEventsHandler {
     public func eventViewDidAppear() {

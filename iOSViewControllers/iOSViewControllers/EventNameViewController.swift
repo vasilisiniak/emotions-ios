@@ -22,7 +22,7 @@ public class EventNameViewController: UIViewController {
     
     // MARK: - Private
     
-    private lazy var eventNameView: EventNameView = EventNameViewController.create {
+    private lazy var eventNameView: View = EventNameViewController.create {
         let name = UITextField.textDidChangeNotification
         NotificationCenter.default.addObserver(forName: name, object: $0.textField, queue: .main, using: onTextChange)
     }

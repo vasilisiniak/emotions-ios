@@ -27,7 +27,7 @@ public protocol EmotionsGroupsEventsHandler {
 
 public protocol EmotionsGroupsUseCase: EmotionsGroupsEventsHandler {}
 
-public class EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
+public class EmotionsGroupsUseCaseImpl {
     
     // MARK: - Private
     
@@ -50,11 +50,12 @@ public class EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     // MARK: - Public
     
     public weak var output: EmotionsGroupsUseCaseOutput!
-    
     public init(emotionsProvider: EmotionsGroupsProvider) {
         self.emotionsProvider = emotionsProvider
     }
 }
+
+extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {}
 
 extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
     public func eventNext() {

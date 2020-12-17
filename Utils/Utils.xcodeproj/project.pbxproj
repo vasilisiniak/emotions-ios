@@ -50,10 +50,10 @@
 		83DE23DA25839C4B0098337E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				83DE23DC25839C4B0098337E /* Info.plist */,
 				83DE23E525839C6E0098337E /* UIColor+Utils.swift */,
 				83010ACB2584FDFC0037D024 /* NSObject+Utils.swift */,
 				832C0C242585595500AF2212 /* UIBarButtonItem+Utils.swift */,
+				83DE23DC25839C4B0098337E /* Info.plist */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

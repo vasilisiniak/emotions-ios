@@ -7,7 +7,7 @@ public protocol LogEventPresenterOutput: class {
 
 public protocol LogEventPresenter: LogEventEventsHandler {}
 
-public class LogEventPresenterImpl: LogEventPresenter {
+public class LogEventPresenterImpl {
     
     // MARK: - Public
     
@@ -16,6 +16,8 @@ public class LogEventPresenterImpl: LogEventPresenter {
     
     public init() {}
 }
+
+extension LogEventPresenterImpl: LogEventPresenter {}
 
 extension LogEventPresenterImpl: LogEventEventsHandler {
     public func eventViewReady() {

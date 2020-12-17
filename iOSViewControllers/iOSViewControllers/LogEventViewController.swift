@@ -16,6 +16,17 @@ public class LogEventViewController: UINavigationController {
         presenter.eventViewReady()
     }
     
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        title = ""
+    }
+    
+    // MARK: - NSCoding
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Private
     
     private var emotionsViewController: EmotionsGroupsViewController {
@@ -28,6 +39,12 @@ public class LogEventViewController: UINavigationController {
     
     public var presenter: LogEventPresenter!
     public var configurator: LogEventViewControllerConfigurator!
+    
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+        let tabBarIcon = UIImage(named: "LogEventTabBarIcon", in: Bundle(for: LogEventViewController.self), with: nil)
+        tabBarItem = UITabBarItem(title: nil, image: tabBarIcon, selectedImage: nil)
+    }
 }
 
 extension LogEventViewController: UIGestureRecognizerDelegate {}

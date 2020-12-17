@@ -46,8 +46,8 @@
 		830BECE7258517DC00166851 /* iOSControls */ = {
 			isa = PBXGroup;
 			children = (
-				830BECE9258517DC00166851 /* Info.plist */,
 				830BECF1258517EA00166851 /* PaddedLabel.swift */,
+				830BECE9258517DC00166851 /* Info.plist */,
 			);
 			path = iOSControls;
 			sourceTree = "<group>";

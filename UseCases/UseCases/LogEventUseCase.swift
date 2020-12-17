@@ -8,14 +8,15 @@ public protocol LogEventEventsHandler {
 
 public protocol LogEventUseCase: LogEventEventsHandler {}
 
-public class LogEventUseCaseImpl: LogEventUseCase {
+public class LogEventUseCaseImpl {
     
     // MARK: - Public
     
     public weak var output: LogEventUseCaseOutput!
-    
     public init() {}
 }
+
+extension LogEventUseCaseImpl: LogEventUseCase {}
 
 extension LogEventUseCaseImpl: LogEventEventsHandler {
     public func eventViewReady() {

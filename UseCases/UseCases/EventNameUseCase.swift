@@ -20,7 +20,7 @@ public protocol EventNameEventsHandler {
 
 public protocol EventNameUseCase: EventNameEventsHandler {}
 
-public class EventNameUseCaseImpl: EventNameUseCase {
+public class EventNameUseCaseImpl {
     
     // MARK: - Private
     
@@ -30,11 +30,12 @@ public class EventNameUseCaseImpl: EventNameUseCase {
     // MARK: - Public
     
     public weak var output: EventNameUseCaseOutput!
-    
     public init(selectedEmotions: [String]) {
         self.selectedEmotions = selectedEmotions
     }
 }
+
+extension EventNameUseCaseImpl: EventNameUseCase {}
 
 extension EventNameUseCaseImpl: EventNameEventsHandler {
     public func eventViewDidAppear() {

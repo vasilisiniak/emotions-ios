@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		833182CB2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */; };
 		8355735725862E5C007F15C8 /* EventNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355735625862E5C007F15C8 /* EventNameUseCase.swift */; };
 		83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */; };
 		83A51B852582C907005131D7 /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; };
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsUseCase.swift; sourceTree = "<group>"; };
 		8355735625862E5C007F15C8 /* EventNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameUseCase.swift; sourceTree = "<group>"; };
 		83A51B302582C5A4005131D7 /* UseCases.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UseCases.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A51B342582C5A4005131D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,10 +71,11 @@
 		83A51B322582C5A4005131D7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				83A51B342582C5A4005131D7 /* Info.plist */,
 				83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */,
 				8355735625862E5C007F15C8 /* EventNameUseCase.swift */,
 				83B9EE63258575B1007158F3 /* LogEventUseCase.swift */,
+				833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */,
+				83A51B342582C5A4005131D7 /* Info.plist */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			files = (
 				8355735725862E5C007F15C8 /* EventNameUseCase.swift in Sources */,
 				83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */,
+				833182CB2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift in Sources */,
 				83B9EE64258575B1007158F3 /* LogEventUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

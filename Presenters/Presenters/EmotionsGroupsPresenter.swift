@@ -21,7 +21,7 @@ public protocol EmotionsGroupsRouter: class {
 
 public protocol EmotionsGroupsPresenter: EmotionsGroupsEventsHandler {}
 
-public class EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
+public class EmotionsGroupsPresenterImpl {
     
     // MARK: - Public
     
@@ -31,6 +31,8 @@ public class EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
     
     public init() {}
 }
+
+extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {}
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
     public func eventNext() {

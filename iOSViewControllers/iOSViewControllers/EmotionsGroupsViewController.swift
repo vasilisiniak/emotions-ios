@@ -21,12 +21,14 @@ public class EmotionsGroupsViewController: UIViewController {
     // MARK: - Private
     
     private var emotionNames: [String] = [] {
-        didSet { emotionsGroupsView.tableView.reloadData() }
+        didSet {
+            emotionsGroupsView.tableView.reloadData()
+        }
     }
     
     private var selectedNames: [String] = []
     
-    private lazy var emotionsGroupsView: EmotionsGroupsView = EmotionsGroupsViewController.create {
+    private lazy var emotionsGroupsView: View = EmotionsGroupsViewController.create {
         $0.leftSwipeGestureRecognizer.addTarget(self, action: #selector(onLeftSwipe))
         $0.rightSwipeGestureRecognizer.addTarget(self, action: #selector(onRightSwipe))
         $0.tableView.dataSource = self

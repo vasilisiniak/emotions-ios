@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */; };
+		833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */; };
 		83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B202582C539005131D7 /* EmotionsGroup.swift */; };
 		83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B212582C539005131D7 /* EmotionsGroupsProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEvent.swift; sourceTree = "<group>"; };
+		833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsProvider.swift; sourceTree = "<group>"; };
 		83A51B132582C51C005131D7 /* Model.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Model.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A51B172582C51C005131D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83A51B202582C539005131D7 /* EmotionsGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionsGroup.swift; sourceTree = "<group>"; };
@@ -50,9 +54,11 @@
 		83A51B152582C51C005131D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				83A51B172582C51C005131D7 /* Info.plist */,
 				83A51B202582C539005131D7 /* EmotionsGroup.swift */,
 				83A51B212582C539005131D7 /* EmotionsGroupsProvider.swift */,
+				833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */,
+				833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */,
+				83A51B172582C51C005131D7 /* Info.plist */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */,
+				833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */,
 				83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */,
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
 			);

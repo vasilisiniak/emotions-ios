@@ -4,7 +4,7 @@ public protocol EmotionsGroupsProvider {
     var emotionsGroups: [EmotionsGroup] { get }
 }
 
-public class EmotionsGroupsProviderImpl: EmotionsGroupsProvider {
+public class EmotionsGroupsProviderImpl {
     
     // MARK: - Public
     
@@ -16,3 +16,5 @@ public class EmotionsGroupsProviderImpl: EmotionsGroupsProvider {
         emotionsGroups = try! decoder.decode(Array<EmotionsGroup>.self, from: data)
     }
 }
+
+extension EmotionsGroupsProviderImpl: EmotionsGroupsProvider {}
