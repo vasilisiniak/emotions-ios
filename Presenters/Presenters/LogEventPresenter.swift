@@ -9,7 +9,7 @@ public protocol LogEventPresenter {
     func eventViewReady()
 }
 
-public class LogEventPresenterImpl {
+public final class LogEventPresenterImpl {
     
     // MARK: - Public
     

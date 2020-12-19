@@ -3,7 +3,7 @@ import iOSControls
 
 extension EmotionsGroupsViewController {
 
-    class View: UIView {
+    final class View: UIView {
         
         // MARK: - NSCoding
         

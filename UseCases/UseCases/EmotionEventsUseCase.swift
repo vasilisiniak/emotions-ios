@@ -29,23 +29,33 @@ public protocol EmotionEventsUseCase {
     func eventOutputReady()
 }
 
-public class EmotionEventsUseCaseImpl {
+public final class EmotionEventsUseCaseImpl {
     
     // MARK: - Private
     
     private let eventsProvider: EmotionEventsProvider
     
+    private func presentEvents() {
+        let events = eventsProvider.events
+            .map { EmotionEventsUseCaseObjects.Event(event: $0) }
+            .sorted { $0.date.compare($1.date) == .orderedDescending }
+        output.present(events: events)
+    }
+    
     // MARK: - Public
     
     public weak var output: EmotionEventsUseCaseOutput!
+    
     public init(eventsProvider: EmotionEventsProvider) {
         self.eventsProvider = eventsProvider
+        self.eventsProvider.add { [weak self] in
+            self?.presentEvents()
+        }
     }
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func eventOutputReady() {
-        let events = eventsProvider.events.map { EmotionEventsUseCaseObjects.Event(event: $0) }
-        output.present(events: events)
+        presentEvents()
     }
 }

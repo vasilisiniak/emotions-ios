@@ -6,7 +6,7 @@ public protocol LogEventUseCase {
     func eventOutputReady()
 }
 
-public class LogEventUseCaseImpl {
+public final class LogEventUseCaseImpl {
     
     // MARK: - Public
     

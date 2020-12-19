@@ -4,7 +4,7 @@ public protocol EmotionsGroupsProvider {
     var emotionsGroups: [EmotionsGroup] { get }
 }
 
-public class EmotionsGroupsProviderImpl {
+public final class EmotionsGroupsProviderImpl {
     
     // MARK: - Public
     

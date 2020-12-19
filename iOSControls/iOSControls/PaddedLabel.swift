@@ -1,6 +1,6 @@
 import UIKit
 
-public class PaddedLabel: UILabel {
+public final class PaddedLabel: UILabel {
     
     // MARK: - UIView
     

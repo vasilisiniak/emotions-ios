@@ -24,7 +24,7 @@ public protocol EventNamePresenter {
     func event(descriptionChanged: String?)
 }
 
-public class EventNamePresenterImpl {
+public final class EventNamePresenterImpl {
     
     // MARK: - Public
     

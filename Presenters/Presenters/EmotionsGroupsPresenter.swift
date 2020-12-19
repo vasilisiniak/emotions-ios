@@ -29,7 +29,7 @@ public protocol EmotionsGroupsPresenter {
     func event(select: String)
 }
 
-public class EmotionsGroupsPresenterImpl {
+public final class EmotionsGroupsPresenterImpl {
     
     // MARK: - Public
     

@@ -1,25 +1,51 @@
 import Foundation
+import CoreData
+import Storage
+
+public typealias EmotionEventsProviderListener = () -> ()
 
 public protocol EmotionEventsProvider {
     var events: [EmotionEvent] { get }
     func log(event: EmotionEvent)
+    func add(listener: @escaping EmotionEventsProviderListener)
 }
 
-public class EmotionEventsProviderImpl {
+fileprivate extension EmotionEvent {
+    init(entity: NSManagedObject) {
+        date = entity.value(forKey: "date") as! Date
+        name = entity.value(forKey: "name") as! String
+        emotions = entity.value(forKey: "emotions") as! String
+    }
+}
+
+public final class EmotionEventsProviderImpl<EmotionEventEntity: NSManagedObject> {
+    
+    // MARK: - Private
+    
+    private let storage: Storage
     
     // MARK: - Public
     
-    public var events: [EmotionEvent] = [
-        EmotionEvent(date: Date(), name: "Купил мотоцикл", emotions: "Радость, Горе, Огорчение"),
-        EmotionEvent(date: Date(), name: "Приехала e-dostavka", emotions: "Радость, Горе, Огорчение, Радость, Горе, Огорчение, Радость, Горе, Огорчение, Радость, Горе, Огорчение"),
-        EmotionEvent(date: Date(), name: "Купил мотоцикл и приехала e-dostavka и ещё много много всякого", emotions: "Радость, Горе, Огорчение"),
-        EmotionEvent(date: Date(), name: "Купил мотоцикл и приехала e-dostavka и ещё много много всякого 2", emotions: "Радость, Горе, Огорчение, Радость, Горе, Огорчение, Радость, Горе, Огорчение, Радость, Горе, Огорчение")
-    ]
+    public var events: [EmotionEvent] {
+        let entities: [EmotionEventEntity] = storage.get()
+        return entities.map(EmotionEvent.init)
+    }
     
-    public init() {}
+    public init(storage: Storage) {
+        self.storage = storage
+    }
 }
 
 extension EmotionEventsProviderImpl: EmotionEventsProvider {
+    public func add(listener: @escaping EmotionEventsProviderListener) {
+        storage.add(listener: listener)
+    }
+    
     public func log(event: EmotionEvent) {
+        let entity: EmotionEventEntity = storage.create()
+        entity.setValue(event.date, forKey: "date")
+        entity.setValue(event.name, forKey: "name")
+        entity.setValue(event.emotions, forKey: "emotions")
+        storage.add(object: entity)
     }
 }

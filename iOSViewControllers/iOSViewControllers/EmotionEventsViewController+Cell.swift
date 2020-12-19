@@ -2,7 +2,7 @@ import UIKit
 
 extension EmotionEventsViewController {
     
-    class Cell: UITableViewCell {
+    final class Cell: UITableViewCell {
         
         // MARK: - UITableViewCell
         

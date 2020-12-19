@@ -22,7 +22,7 @@ public protocol EmotionsGroupsUseCase {
     func event(select: String)
 }
 
-public class EmotionsGroupsUseCaseImpl {
+public final class EmotionsGroupsUseCaseImpl {
     
     // MARK: - Private
     

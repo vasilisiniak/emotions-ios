@@ -2,7 +2,7 @@ import iOSViewControllers
 import Presenters
 import UseCases
 
-class LogEventConnector {
+final class LogEventConnector {
     
     // MARK: - Private
     

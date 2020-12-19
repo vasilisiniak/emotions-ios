@@ -3,8 +3,9 @@ import iOSViewControllers
 import Presenters
 import UseCases
 import Model
+import Storage
 
-class EmotionEventsConnector {
+final class EmotionEventsConnector {
     
     // MARK: - Private
     
@@ -14,8 +15,7 @@ class EmotionEventsConnector {
     
     // MARK: - Internal
     
-    init(viewController: EmotionEventsViewController) {
-        let provider = EmotionEventsProviderImpl()
+    init(viewController: EmotionEventsViewController, provider: EmotionEventsProvider) {
         self.viewController = viewController
         presenter = EmotionEventsPresenterImpl()
         useCase = EmotionEventsUseCaseImpl(eventsProvider: provider)

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import Presenters
 
-public class EventNameViewController: UIViewController {
+public final class EventNameViewController: UIViewController {
     
     // MARK: - UIViewController
     

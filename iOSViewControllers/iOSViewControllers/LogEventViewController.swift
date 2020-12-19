@@ -6,7 +6,7 @@ public protocol LogEventViewControllerComposer {
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String]) -> EventNameViewController
 }
 
-public class LogEventViewController: UINavigationController {
+public final class LogEventViewController: UINavigationController {
     
     // MARK: - UIViewController
     

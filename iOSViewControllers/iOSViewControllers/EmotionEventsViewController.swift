@@ -1,7 +1,7 @@
 import UIKit
 import Presenters
 
-public class EmotionEventsViewController: UIViewController {
+public final class EmotionEventsViewController: UIViewController {
     
     // MARK: - UIViewController
     
@@ -67,13 +67,13 @@ extension EmotionEventsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
         let event = eventsGroups[indexPath.section].events[indexPath.row]
         cell.nameLabel.text = event.name
-        cell.timeLabel.text = event.time
+        cell.timeLabel.text = event.timeString
         cell.emotionsLabel.text = event.emotions
         return cell
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return eventsGroups[section].date
+        return eventsGroups[section].dateString
     }
 }
 

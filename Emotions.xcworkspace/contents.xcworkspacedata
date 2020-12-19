@@ -21,6 +21,9 @@
       </FileRef>
    </Group>
    <FileRef
+      location = "group:Storage/Storage.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:iOSControls/iOSControls.xcodeproj">
    </FileRef>
    <FileRef

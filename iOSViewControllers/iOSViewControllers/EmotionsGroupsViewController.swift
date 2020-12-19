@@ -5,7 +5,7 @@ fileprivate extension UITableViewCell {
     static let reuseIdentifier = String(describing: UITableViewCell.self)
 }
 
-public class EmotionsGroupsViewController: UIViewController {
+public final class EmotionsGroupsViewController: UIViewController {
     
     // MARK: - UIViewController
     

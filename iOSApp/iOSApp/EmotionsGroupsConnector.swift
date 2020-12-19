@@ -4,7 +4,7 @@ import Presenters
 import UseCases
 import Model
 
-class EmotionsGroupsConnector {
+final class EmotionsGroupsConnector {
     
     // MARK: - Private
     
