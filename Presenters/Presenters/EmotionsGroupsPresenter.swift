@@ -19,7 +19,15 @@ public protocol EmotionsGroupsRouter: class {
     func routeEventName(selectedEmotions: [String])
 }
 
-public protocol EmotionsGroupsPresenter: EmotionsGroupsEventsHandler {}
+public protocol EmotionsGroupsPresenter {
+    func eventViewReady()
+    func eventSwipeLeft()
+    func eventSwipeRight()
+    func eventClear()
+    func eventNext()
+    func event(indexChange: Int)
+    func event(select: String)
+}
 
 public class EmotionsGroupsPresenterImpl {
     
@@ -32,9 +40,7 @@ public class EmotionsGroupsPresenterImpl {
     public init() {}
 }
 
-extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {}
-
-extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
+extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
     public func eventNext() {
         useCase.eventNext()
     }
@@ -44,7 +50,10 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
     }
     
     public func eventViewReady() {
-        useCase.eventViewReady()
+        output.show(title: "Выберите эмоции")
+        output.show(clearButton: "Очистить")
+        output.show(nextButton: "Далее❯")
+        useCase.eventOutputReady()
     }
     
     public func event(indexChange: Int) {
@@ -56,33 +65,21 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsEventsHandler {
     }
     
     public func eventSwipeLeft() {
-        useCase.eventSwipeLeft()
+        useCase.eventNextIndex()
     }
     
     public func eventSwipeRight() {
-        useCase.eventSwipeRight()
+        useCase.eventPrevIndex()
     }
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
-    public func present(clearButtonEnabled: Bool) {
-        output.show(clearButtonEnabled: clearButtonEnabled)
+    public func present(clearAvailable: Bool) {
+        output.show(clearButtonEnabled: clearAvailable)
     }
     
-    public func present(nextButtonEnabled: Bool) {
-        output.show(nextButtonEnabled: nextButtonEnabled)
-    }
-    
-    public func present(title: String) {
-        output.show(title: title)
-    }
-    
-    public func present(clearButton: String) {
-        output.show(clearButton: clearButton)
-    }
-    
-    public func present(nextButton: String) {
-        output.show(nextButton: nextButton)
+    public func present(nextAvailable: Bool) {
+        output.show(nextButtonEnabled: nextAvailable)
     }
     
     public func presentNext(selectedEmotions: [String]) {

@@ -32,7 +32,9 @@ public protocol EmotionEventsPresenterOutput: class {
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
 }
 
-public protocol EmotionEventsPresenter: EmotionEventsEventsHandler {}
+public protocol EmotionEventsPresenter {
+    func eventViewReady()
+}
 
 public class EmotionEventsPresenterImpl {
     
@@ -46,7 +48,7 @@ public class EmotionEventsPresenterImpl {
 
 extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public func eventViewReady() {
-        useCase.eventViewReady()
+        useCase.eventOutputReady()
     }
 }
 

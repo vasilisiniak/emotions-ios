@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "icons8-for-you.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "icons8-for-you.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },

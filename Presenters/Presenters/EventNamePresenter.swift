@@ -16,7 +16,13 @@ public protocol EventNameRouter: class {
     func routeEmotions()
 }
 
-public protocol EventNamePresenter: EventNameEventsHandler {}
+public protocol EventNamePresenter {
+    func eventViewReady()
+    func eventViewDidAppear()
+    func eventBackTap()
+    func eventAddTap()
+    func event(descriptionChanged: String?)
+}
 
 public class EventNamePresenterImpl {
     
@@ -29,11 +35,9 @@ public class EventNamePresenterImpl {
     public init() {}
 }
 
-extension EventNamePresenterImpl: EventNamePresenter {}
-
-extension EventNamePresenterImpl: EventNameEventsHandler {
+extension EventNamePresenterImpl: EventNamePresenter {
     public func eventViewDidAppear() {
-        useCase.eventViewDidAppear()
+        output.showKeyboard()
     }
     
     public func event(descriptionChanged: String?) {
@@ -41,15 +45,20 @@ extension EventNamePresenterImpl: EventNameEventsHandler {
     }
     
     public func eventAddTap() {
-        useCase.eventAddTap()
+        useCase.eventAdd()
     }
     
     public func eventViewReady() {
-        useCase.eventViewReady()
+        output.show(title: "Введите событие")
+        output.show(backButton: "❮Назад")
+        output.show(addButton: "Добавить")
+        output.show(addButtonEnabled: false)
+        output.show(placeholder: "Описание события")
+        useCase.eventOutputReady()
     }
     
     public func eventBackTap() {
-        useCase.eventBackTap()
+        useCase.eventBack()
     }
 }
 
@@ -58,32 +67,12 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         router.routeEmotions()
     }
     
-    public func present(addButton: String) {
-        output.show(addButton: addButton)
-    }
-    
-    public func present(addButtonEnabled: Bool) {
-        output.show(addButtonEnabled: addButtonEnabled)
-    }
-    
-    public func present(title: String) {
-        output.show(title: title)
-    }
-    
-    public func present(backButton: String) {
-        output.show(backButton: backButton)
-    }
-    
-    public func present(placeholder: String) {
-        output.show(placeholder: placeholder)
+    public func present(addAvailable: Bool) {
+        output.show(addButtonEnabled: addAvailable)
     }
     
     public func present(selectedEmotions: [String]) {
         output.show(selectedEmotions: selectedEmotions.joined(separator: ", "))
-    }
-    
-    public func presentKeyboard() {
-        output.showKeyboard()
     }
     
     public func presentBack() {

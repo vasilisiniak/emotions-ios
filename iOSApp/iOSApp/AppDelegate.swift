@@ -1,26 +1,17 @@
 import UIKit
-import iOSViewControllers
-import Presenters
 
-@UIApplicationMain class AppDelegate: UIResponder {
+@UIApplicationMain final class AppDelegate: UIResponder {
     
     // MARK: - Private
     
-    private var logEventViewController: LogEventViewController {
-        let viewController = LogEventViewController()
-        LogEventConnector(viewController: viewController, configurator: self).configure()
-        return viewController
-    }
-    
-    private var emotionEventsViewController: EmotionEventsViewController {
-        let viewController = EmotionEventsViewController()
-        EmotionEventsConnector(viewController: viewController).configure()
-        return viewController
-    }
+    private let compositionRoot = CompositionRoot()
     
     private var tabBarController: UITabBarController {
         let controller = UITabBarController()
-        controller.viewControllers = [logEventViewController, emotionEventsViewController]
+        controller.viewControllers = [
+            compositionRoot.logEventViewController,
+            compositionRoot.emotionEventsViewController
+        ]
         return controller
     }
     
@@ -35,15 +26,5 @@ extension AppDelegate: UIApplicationDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         return true
-    }
-}
-
-extension AppDelegate: LogEventViewControllerConfigurator {
-    func configure(eventNameViewController: EventNameViewController, router: EventNameRouter, selectedEmotions: [String]) {
-        EventNameConnector(viewController: eventNameViewController, router: router, selectedEmotions: selectedEmotions).configure()
-    }
-    
-    func configure(emotionsViewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter) {
-        EmotionsGroupsConnector(viewController: emotionsViewController, router: router).configure()
     }
 }

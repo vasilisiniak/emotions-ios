@@ -25,11 +25,9 @@ public protocol EmotionEventsUseCaseOutput: class {
     func present(events: [EmotionEventsUseCaseObjects.Event])
 }
 
-public protocol EmotionEventsEventsHandler {
-    func eventViewReady()
+public protocol EmotionEventsUseCase {
+    func eventOutputReady()
 }
-
-public protocol EmotionEventsUseCase: EmotionEventsEventsHandler {}
 
 public class EmotionEventsUseCaseImpl {
     
@@ -46,7 +44,7 @@ public class EmotionEventsUseCaseImpl {
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
-    public func eventViewReady() {
+    public func eventOutputReady() {
         let events = eventsProvider.events.map { EmotionEventsUseCaseObjects.Event(event: $0) }
         output.present(events: events)
     }

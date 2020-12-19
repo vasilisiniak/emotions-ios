@@ -1,9 +1,9 @@
 import UIKit
 import Presenters
 
-public protocol LogEventViewControllerConfigurator {
-    func configure(emotionsViewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter)
-    func configure(eventNameViewController: EventNameViewController, router: EventNameRouter, selectedEmotions: [String])
+public protocol LogEventViewControllerComposer {
+    func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController
+    func eventNameViewController(router: EventNameRouter, selectedEmotions: [String]) -> EventNameViewController
 }
 
 public class LogEventViewController: UINavigationController {
@@ -26,19 +26,11 @@ public class LogEventViewController: UINavigationController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Private
-    
-    private var emotionsViewController: EmotionsGroupsViewController {
-        let emotionsViewController = EmotionsGroupsViewController()
-        configurator.configure(emotionsViewController: emotionsViewController, router: self)
-        return emotionsViewController
-    }
-    
+        
     // MARK: - Public
     
     public var presenter: LogEventPresenter!
-    public var configurator: LogEventViewControllerConfigurator!
+    public var composer: LogEventViewControllerComposer!
     
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -51,14 +43,14 @@ extension LogEventViewController: UIGestureRecognizerDelegate {}
 
 extension LogEventViewController: EmotionsGroupsRouter {
     public func routeEventName(selectedEmotions: [String]) {
-        let eventNameViewController = EventNameViewController()
-        configurator.configure(eventNameViewController: eventNameViewController, router: self, selectedEmotions: selectedEmotions)
+        let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions)
         pushViewController(eventNameViewController, animated: true)
     }
 }
 
 extension LogEventViewController: EventNameRouter {
     public func routeEmotions() {
+        let emotionsViewController = composer.emotionsViewController(router: self)
         setViewControllers([emotionsViewController], animated: true)
     }
     
@@ -69,6 +61,7 @@ extension LogEventViewController: EventNameRouter {
 
 extension LogEventViewController: LogEventPresenterOutput {
     public func showEmotions() {
+        let emotionsViewController = composer.emotionsViewController(router: self)
         pushViewController(emotionsViewController, animated: true)
     }
 }

@@ -1,24 +1,16 @@
 public protocol EventNameUseCaseOutput: class {
-    func present(title: String)
-    func present(backButton: String)
-    func present(addButton: String)
-    func present(addButtonEnabled: Bool)
-    func present(placeholder: String)
     func present(selectedEmotions: [String])
-    func presentKeyboard()
+    func present(addAvailable: Bool)
     func presentBack()
     func presentEmotions()
 }
 
-public protocol EventNameEventsHandler {
-    func eventViewReady()
-    func eventViewDidAppear()
-    func eventBackTap()
+public protocol EventNameUseCase {
+    func eventOutputReady()
+    func eventBack()
     func event(descriptionChanged: String?)
-    func eventAddTap()
+    func eventAdd()
 }
-
-public protocol EventNameUseCase: EventNameEventsHandler {}
 
 public class EventNameUseCaseImpl {
     
@@ -35,32 +27,21 @@ public class EventNameUseCaseImpl {
     }
 }
 
-extension EventNameUseCaseImpl: EventNameUseCase {}
-
-extension EventNameUseCaseImpl: EventNameEventsHandler {
-    public func eventViewDidAppear() {
-        output.presentKeyboard()
-    }
-    
-    public func eventViewReady() {
-        output.present(title: "Введите событие")
-        output.present(backButton: "❮Назад")
-        output.present(addButton: "Добавить")
-        output.present(addButtonEnabled: false)
-        output.present(placeholder: "Описание события")
+extension EventNameUseCaseImpl: EventNameUseCase {
+    public func eventOutputReady() {
         output.present(selectedEmotions: selectedEmotions)
     }
     
-    public func eventBackTap() {
+    public func eventBack() {
         output.presentBack()
     }
     
     public func event(descriptionChanged: String?) {
         description = descriptionChanged
-        output.present(addButtonEnabled: (description ?? "").count > 0)
+        output.present(addAvailable: (description ?? "").count > 0)
     }
     
-    public func eventAddTap() {
+    public func eventAdd() {
         output.presentEmotions()
     }
 }

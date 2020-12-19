@@ -2,11 +2,9 @@ public protocol LogEventUseCaseOutput: class {
     func presentEmotions()
 }
 
-public protocol LogEventEventsHandler {
-    func eventViewReady()
+public protocol LogEventUseCase {
+    func eventOutputReady()
 }
-
-public protocol LogEventUseCase: LogEventEventsHandler {}
 
 public class LogEventUseCaseImpl {
     
@@ -16,10 +14,8 @@ public class LogEventUseCaseImpl {
     public init() {}
 }
 
-extension LogEventUseCaseImpl: LogEventUseCase {}
-
-extension LogEventUseCaseImpl: LogEventEventsHandler {
-    public func eventViewReady() {
+extension LogEventUseCaseImpl: LogEventUseCase {
+    public func eventOutputReady() {
         output.presentEmotions()
     }
 }

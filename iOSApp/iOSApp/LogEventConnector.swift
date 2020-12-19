@@ -7,21 +7,21 @@ class LogEventConnector {
     // MARK: - Private
     
     private let viewController: LogEventViewController
-    private let configurator: LogEventViewControllerConfigurator
+    private let composer: LogEventViewControllerComposer
     private let presenter: LogEventPresenterImpl
     private let useCase: LogEventUseCaseImpl
     
     // MARK: - Internal
     
-    init(viewController: LogEventViewController, configurator: LogEventViewControllerConfigurator) {
+    init(viewController: LogEventViewController, composer: LogEventViewControllerComposer) {
         self.viewController = viewController
-        self.configurator = configurator
+        self.composer = composer
         presenter = LogEventPresenterImpl()
         useCase = LogEventUseCaseImpl()
     }
     
     func configure() {
-        viewController.configurator = configurator
+        viewController.composer = composer
         viewController.presenter = presenter
         presenter.output = viewController
         presenter.useCase = useCase

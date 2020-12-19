@@ -5,7 +5,9 @@ public protocol LogEventPresenterOutput: class {
     func showEmotions()
 }
 
-public protocol LogEventPresenter: LogEventEventsHandler {}
+public protocol LogEventPresenter {
+    func eventViewReady()
+}
 
 public class LogEventPresenterImpl {
     
@@ -17,11 +19,9 @@ public class LogEventPresenterImpl {
     public init() {}
 }
 
-extension LogEventPresenterImpl: LogEventPresenter {}
-
-extension LogEventPresenterImpl: LogEventEventsHandler {
+extension LogEventPresenterImpl: LogEventPresenter {
     public func eventViewReady() {
-        useCase.eventViewReady()
+        useCase.eventOutputReady()
     }
 }
 

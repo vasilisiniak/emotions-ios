@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
 		833182B62589E35000B2C9A2 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		833182B72589E35000B2C9A2 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; };
@@ -49,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		833182B42589E35000B2C9A2 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsConnector.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				8392C7BC25825A940015D722 /* AppDelegate.swift */,
+				830C75A1258E633F00F964BC /* CompositionRoot.swift */,
 				83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */,
 				8355735A25863464007F15C8 /* EventNameConnector.swift */,
 				836831A5258579970044B38C /* LogEventConnector.swift */,
@@ -205,6 +208,7 @@
 				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,
+				830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */,
 				8332CA03258A237B00AA285A /* EmotionEventsConnector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

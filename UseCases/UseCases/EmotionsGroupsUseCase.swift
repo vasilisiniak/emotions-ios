@@ -2,11 +2,8 @@ import Foundation
 import Model
 
 public protocol EmotionsGroupsUseCaseOutput: class {
-    func present(title: String)
-    func present(clearButton: String)
-    func present(nextButton: String)
-    func present(clearButtonEnabled: Bool)
-    func present(nextButtonEnabled: Bool)
+    func present(clearAvailable: Bool)
+    func present(nextAvailable: Bool)
     func present(groups: [String])
     func present(emotions: [String], selected: [String], color: String)
     func present(selectedEmotions: [String])
@@ -15,17 +12,15 @@ public protocol EmotionsGroupsUseCaseOutput: class {
     func presentNext(selectedEmotions: [String])
 }
 
-public protocol EmotionsGroupsEventsHandler {
-    func eventViewReady()
+public protocol EmotionsGroupsUseCase {
+    func eventOutputReady()
     func eventClear()
     func eventNext()
     func event(indexChange: Int)
+    func eventNextIndex()
+    func eventPrevIndex()
     func event(select: String)
-    func eventSwipeLeft()
-    func eventSwipeRight()
 }
-
-public protocol EmotionsGroupsUseCase: EmotionsGroupsEventsHandler {}
 
 public class EmotionsGroupsUseCaseImpl {
     
@@ -42,9 +37,9 @@ public class EmotionsGroupsUseCaseImpl {
         output.present(emotions: group.emotions, selected: selected, color: group.color)
     }
     
-    private func presentClearNextButtonsEnabled() {
-        output.present(clearButtonEnabled: selectedEmotions.count > 0)
-        output.present(nextButtonEnabled: selectedEmotions.count > 0)
+    private func presentClearNextAvailable() {
+        output.present(clearAvailable: selectedEmotions.count > 0)
+        output.present(nextAvailable: selectedEmotions.count > 0)
     }
     
     // MARK: - Public
@@ -55,9 +50,7 @@ public class EmotionsGroupsUseCaseImpl {
     }
 }
 
-extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {}
-
-extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
+extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     public func eventNext() {
         output.presentNext(selectedEmotions: selectedEmotions)
     }
@@ -66,16 +59,13 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
         selectedEmotions = []
         output.present(selectedEmotions: selectedEmotions)
         presentEmotionsGroup()
-        presentClearNextButtonsEnabled()
+        presentClearNextAvailable()
     }
     
-    public func eventViewReady() {
-        output.present(title: "Выберите эмоции")
-        output.present(clearButton: "Очистить")
-        output.present(nextButton: "Далее❯")
+    public func eventOutputReady() {
         output.present(groups: emotionsProvider.emotionsGroups.map { $0.name })
         presentEmotionsGroup()
-        presentClearNextButtonsEnabled()
+        presentClearNextAvailable()
     }
     
     public func event(indexChange: Int) {
@@ -94,10 +84,10 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
         let index = emotions.firstIndex(of: select)!
         output.present(selectedEmotions: selectedEmotions)
         output.present(emotionIndex: index, selected: selectedEmotions)
-        presentClearNextButtonsEnabled()
+        presentClearNextAvailable()
     }
     
-    public func eventSwipeLeft() {
+    public func eventNextIndex() {
         if selectedGroupIndex == (emotionsProvider.emotionsGroups.count - 1) {
             selectedGroupIndex = 0
         }
@@ -107,7 +97,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsEventsHandler {
         self.presentEmotionsGroup()
     }
     
-    public func eventSwipeRight() {
+    public func eventPrevIndex() {
         if selectedGroupIndex == 0 {
             selectedGroupIndex = emotionsProvider.emotionsGroups.count - 1
         }
