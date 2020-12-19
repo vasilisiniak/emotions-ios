@@ -19,10 +19,6 @@ fileprivate extension NSManagedObject {
         let name = NSStringFromClass(self)
         return name.components(separatedBy: ".").last!
     }
-    
-    var entityName: String {
-        return (type(of: self) as NSManagedObject.Type).entityName
-    }
 }
 
 public final class CoreDataStorage {
