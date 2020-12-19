@@ -1,5 +1,4 @@
 import Foundation
-import CoreData
 import Storage
 
 public typealias EmotionEventsProviderListener = () -> ()
@@ -11,14 +10,14 @@ public protocol EmotionEventsProvider {
 }
 
 fileprivate extension EmotionEvent {
-    init(entity: NSManagedObject) {
+    init(entity: StorageItem) {
         date = entity.value(forKey: "date") as! Date
         name = entity.value(forKey: "name") as! String
         emotions = entity.value(forKey: "emotions") as! String
     }
 }
 
-public final class EmotionEventsProviderImpl<EmotionEventEntity: NSManagedObject> {
+public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageItem> {
     
     // MARK: - Private
     

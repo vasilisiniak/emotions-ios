@@ -9,6 +9,11 @@ public protocol Storage {
     func add(listener: @escaping StorageListener)
 }
 
+public protocol StorageItem {
+    func setValue(_ value: Any?, forKey key: String)
+    func value(forKey key: String) -> Any?
+}
+
 fileprivate extension NSManagedObject {
     class var entityName: String {
         let name = NSStringFromClass(self)
@@ -68,3 +73,5 @@ extension CoreDataStorage: Storage {
         try! backgroudContext.save()
     }
 }
+
+extension NSManagedObject: StorageItem {}
