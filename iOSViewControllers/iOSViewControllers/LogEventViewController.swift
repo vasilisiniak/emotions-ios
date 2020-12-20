@@ -1,7 +1,7 @@
 import UIKit
 import Presenters
 
-public protocol LogEventViewControllerComposer {
+public protocol LogEventViewControllerComposer: class {
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController
 }
@@ -30,7 +30,7 @@ public final class LogEventViewController: UINavigationController {
     // MARK: - Public
     
     public var presenter: LogEventPresenter!
-    public var composer: LogEventViewControllerComposer!
+    public weak var composer: LogEventViewControllerComposer!
     
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +52,7 @@ extension LogEventViewController: EventNameRouter {
     public func routeEmotions() {
         let emotionsViewController = composer.emotionsViewController(router: self)
         setViewControllers([emotionsViewController], animated: true)
+        presenter.eventEventCreated()
     }
     
     public func routeBack() {
@@ -60,6 +61,12 @@ extension LogEventViewController: EventNameRouter {
 }
 
 extension LogEventViewController: LogEventPresenterOutput {
+    public func show(message: String, button: String) {
+        let alert = UIAlertController(title: message, message: title, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     public func showEmotions() {
         let emotionsViewController = composer.emotionsViewController(router: self)
         pushViewController(emotionsViewController, animated: true)

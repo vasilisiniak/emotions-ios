@@ -1,7 +1,7 @@
 import UIKit
 import Presenters
 
-public protocol EmotionsViewControllerComposer {
+public protocol EmotionsViewControllerComposer: class {
     var logEventViewController: LogEventViewController { get }
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
@@ -19,7 +19,7 @@ public final class EmotionsViewController: UITabBarController {
     // MARK: - Public
     
     public var presenter: EmotionsPresenter!
-    public var composer: EmotionsViewControllerComposer!
+    public weak var composer: EmotionsViewControllerComposer!
 }
 
 extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
