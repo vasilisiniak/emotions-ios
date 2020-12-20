@@ -85,7 +85,12 @@ extension EmotionEventsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         isUpdating = true
         presenter.delete(indexPath: indexPath)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        if tableView.numberOfRows(inSection: indexPath.section) == 1 {
+            tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+        }
+        else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
         isUpdating = false
     }
 }

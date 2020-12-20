@@ -27,6 +27,14 @@ extension TrendsPresenterImpl: TrendsPresenter {
 
 extension TrendsPresenterImpl: TrendsUseCaseOutput {
     public func present(colors: [String]) {
-        output.show(colors: colors.map { UIColor(hex: $0) })
+        var colors = colors.map { UIColor(hex: $0) }
+        if colors.count == 0 {
+            colors.append(.white)
+            colors.append(.white)
+        }
+        else if colors.count == 1 {
+            colors.append(colors.first!)
+        }
+        output.show(colors: colors)
     }
 }
