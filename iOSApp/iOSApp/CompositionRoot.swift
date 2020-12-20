@@ -22,6 +22,12 @@ final class CompositionRoot {
         EmotionEventsConnector(viewController: viewController, provider: emotionEventsProvider).configure()
         return viewController
     }
+    
+    var trendsViewController: TrendsViewController {
+        let viewController = TrendsViewController()
+        TrendsConnector(viewController: viewController, provider: emotionEventsProvider).configure()
+        return viewController
+    }
 }
 
 extension CompositionRoot: LogEventViewControllerComposer {

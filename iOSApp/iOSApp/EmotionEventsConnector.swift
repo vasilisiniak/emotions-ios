@@ -3,7 +3,6 @@ import iOSViewControllers
 import Presenters
 import UseCases
 import Model
-import Storage
 
 final class EmotionEventsConnector {
     

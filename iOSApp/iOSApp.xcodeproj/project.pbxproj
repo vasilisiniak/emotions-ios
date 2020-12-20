@@ -23,6 +23,7 @@
 		8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8392C7BC25825A940015D722 /* AppDelegate.swift */; };
 		8392C7C625825A970015D722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C525825A970015D722 /* Assets.xcassets */; };
 		8392C7C925825A970015D722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C725825A970015D722 /* LaunchScreen.storyboard */; };
+		839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92D3258F52B9008C9C5A /* TrendsConnector.swift */; };
 		83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */; };
 		83A51B7A2582C8E1005131D7 /* Presenters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; };
 		83A51B7B2582C8E1005131D7 /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,6 +69,7 @@
 		8392C7C525825A970015D722 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8392C7C825825A970015D722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8392C7CA25825A970015D722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		839C92D3258F52B9008C9C5A /* TrendsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsConnector.swift; sourceTree = "<group>"; };
 		83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsGroupsConnector.swift; sourceTree = "<group>"; };
 		83A51B692582C74E005131D7 /* Presenters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Presenters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A51B702582C7A0005131D7 /* Model.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Model.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 				8355735A25863464007F15C8 /* EventNameConnector.swift */,
 				836831A5258579970044B38C /* LogEventConnector.swift */,
 				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
+				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				83921902258E842A00A7B69F /* Model.xcdatamodeld */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,
@@ -216,6 +219,7 @@
 				836831A6258579970044B38C /* LogEventConnector.swift in Sources */,
 				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
+				839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */,
 				83921904258E842A00A7B69F /* Model.xcdatamodeld in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,
 				830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */,

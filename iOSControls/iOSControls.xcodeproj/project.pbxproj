@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		830BECF2258517EB00166851 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830BECF1258517EA00166851 /* PaddedLabel.swift */; };
+		839C92CA258F4995008C9C5A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92C9258F4995008C9C5A /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		830BECE5258517DC00166851 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830BECE9258517DC00166851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		830BECF1258517EA00166851 /* PaddedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		839C92C9258F4995008C9C5A /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				830BECF1258517EA00166851 /* PaddedLabel.swift */,
+				839C92C9258F4995008C9C5A /* GradientView.swift */,
 				830BECE9258517DC00166851 /* Info.plist */,
 			);
 			path = iOSControls;
@@ -129,6 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				839C92CA258F4995008C9C5A /* GradientView.swift in Sources */,
 				830BECF2258517EB00166851 /* PaddedLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

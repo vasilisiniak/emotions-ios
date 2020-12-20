@@ -10,7 +10,8 @@ import UIKit
         let controller = UITabBarController()
         controller.viewControllers = [
             compositionRoot.logEventViewController,
-            compositionRoot.emotionEventsViewController
+            compositionRoot.emotionEventsViewController,
+            compositionRoot.trendsViewController
         ]
         return controller
     }
