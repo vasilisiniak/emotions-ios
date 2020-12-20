@@ -29,4 +29,7 @@
    <FileRef
       location = "group:Utils/Utils.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Design.sketch">
+   </FileRef>
 </Workspace>
