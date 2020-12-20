@@ -4,16 +4,14 @@ import iOSControls
 
 public final class EmotionEventsViewController: UIViewController {
     
-    // MARK: - Private
-    
-    private var isUpdating = false
-    
     // MARK: - UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        layoutTableView()
+        layoutSubviews()
+        noDataView.isHidden = true
+        noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
         presenter.eventViewReady()
     }
     
@@ -24,6 +22,9 @@ public final class EmotionEventsViewController: UIViewController {
     }
     
     // MARK: - Private
+    
+    private var isUpdating = false
+    private let noDataView = NoDataView()
     
     private var eventsGroups: [EmotionEventsPresenterObjects.EventsGroup] = [] {
         didSet {
@@ -39,16 +40,28 @@ public final class EmotionEventsViewController: UIViewController {
         $0.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
     
-    private func layoutTableView() {
+    private func layoutSubviews() {
         view.addSubview(tableView)
+        view.addSubview(noDataView)
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: view.topAnchor),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func onAddTap(action: UIAction) {
+        presenter.eventAddTap()
     }
     
     // MARK: - Public
@@ -84,7 +97,7 @@ extension EmotionEventsViewController: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         isUpdating = true
-        presenter.delete(indexPath: indexPath)
+        presenter.event(deleteIndexPath: indexPath)
         if tableView.numberOfRows(inSection: indexPath.section) == 1 {
             tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
         }
@@ -112,6 +125,19 @@ extension EmotionEventsViewController: UITableViewDelegate {
 }
 
 extension EmotionEventsViewController: EmotionEventsPresenterOutput {
+    public func show(noDataHidden: Bool) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.noDataView.alpha = noDataHidden ? 0 : 1
+        } completion: { [weak self] _ in
+            self?.noDataView.isHidden = noDataHidden
+        }
+    }
+    
+    public func show(noDataText: String, button: String) {
+        noDataView.label.text = noDataText
+        noDataView.button.setTitle(button, for: .normal)
+    }
+    
     public func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup]) {
         self.eventsGroups = eventsGroups
     }

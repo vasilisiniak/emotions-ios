@@ -2,10 +2,13 @@ import Model
 
 public protocol TrendsUseCaseOutput: class {
     func present(colors: [String])
+    func present(noData: Bool)
+    func presentEmotions()
 }
 
 public protocol TrendsUseCase {
     func eventOutputReady()
+    func eventAdd()
 }
 
 public final class TrendsUseCaseImpl {
@@ -19,6 +22,7 @@ public final class TrendsUseCaseImpl {
             .sorted { $0.date.compare($1.date) == .orderedAscending }
             .map { $0.color }
         output.present(colors: colors)
+        output.present(noData: colors.count < 2)
     }
     
     // MARK: - Public
@@ -34,6 +38,10 @@ public final class TrendsUseCaseImpl {
 }
 
 extension TrendsUseCaseImpl: TrendsUseCase {
+    public func eventAdd() {
+        output.presentEmotions()
+    }
+    
     public func eventOutputReady() {
         presentColors()
     }

@@ -12,6 +12,9 @@ public final class TrendsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        layoutNoDataView()
+        noDataView.isHidden = true
+        noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
         presenter.eventViewReady()
     }
     
@@ -24,6 +27,23 @@ public final class TrendsViewController: UIViewController {
     // MARK: - Private
     
     private let gradientView = GradientView()
+    private let noDataView = NoDataView()
+    
+    private func layoutNoDataView() {
+        view.addSubview(noDataView)
+        noDataView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noDataView.topAnchor.constraint(equalTo: view.topAnchor),
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func onAddTap(action: UIAction) {
+        presenter.eventAddTap()
+    }
     
     // MARK: - Public
     
@@ -37,6 +57,15 @@ public final class TrendsViewController: UIViewController {
 }
 
 extension TrendsViewController: TrendsPresenterOutput {
+    public func show(noDataHidden: Bool) {
+        noDataView.isHidden = noDataHidden
+    }
+    
+    public func show(noDataText: String, button: String) {
+        noDataView.label.text = noDataText
+        noDataView.button.setTitle(button, for: .normal)
+    }
+    
     public func show(colors: [UIColor]) {
         gradientView.colors = colors
     }

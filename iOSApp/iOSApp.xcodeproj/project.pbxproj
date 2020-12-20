@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013E258F8CAC00D744DF /* EmotionsConnector.swift */; };
 		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
 		833182B62589E35000B2C9A2 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8302013E258F8CAC00D744DF /* EmotionsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsConnector.swift; sourceTree = "<group>"; };
 		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		833182B42589E35000B2C9A2 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 				836831A5258579970044B38C /* LogEventConnector.swift */,
 				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
 				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
+				8302013E258F8CAC00D744DF /* EmotionsConnector.swift */,
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				83921902258E842A00A7B69F /* Model.xcdatamodeld */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,
@@ -219,6 +222,7 @@
 				836831A6258579970044B38C /* LogEventConnector.swift in Sources */,
 				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
+				8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */,
 				839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */,
 				83921904258E842A00A7B69F /* Model.xcdatamodeld in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,

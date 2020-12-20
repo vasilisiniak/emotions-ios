@@ -59,12 +59,19 @@ public enum EmotionEventsPresenterObjects {
 }
 
 public protocol EmotionEventsPresenterOutput: class {
+    func show(noDataText: String, button: String)
+    func show(noDataHidden: Bool)
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
+}
+
+public protocol EmotionEventsRouter: class {
+    func routeEmotions()
 }
 
 public protocol EmotionEventsPresenter {
     func eventViewReady()
-    func delete(indexPath: IndexPath)
+    func event(deleteIndexPath: IndexPath)
+    func eventAddTap()
 }
 
 public final class EmotionEventsPresenterImpl {
@@ -77,23 +84,37 @@ public final class EmotionEventsPresenterImpl {
     // MARK: - Public
     
     public weak var output: EmotionEventsPresenterOutput!
+    public weak var router: EmotionEventsRouter!
     public var useCase: EmotionEventsUseCase!
     
     public init() {}
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
+    public func eventAddTap() {
+        useCase.eventAdd()
+    }
+    
     public func eventViewReady() {
+        output.show(noDataText: "Здесь отображаются события и эмоции, которые они вызвали. Но пока записей нет", button: "Добавить запись")
         useCase.eventOutputReady()
     }
     
-    public func delete(indexPath: IndexPath) {
-        let event = groups[indexPath.section].events[indexPath.row]
-        useCase.delete(event: events.first { $0.date == event.date }!)
+    public func event(deleteIndexPath: IndexPath) {
+        let event = groups[deleteIndexPath.section].events[deleteIndexPath.row]
+        useCase.event(deleteEvent: events.first { $0.date == event.date }!)
     }
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
+    public func presentEmotions() {
+        router.routeEmotions()
+    }
+    
+    public func present(noData: Bool) {
+        output.show(noDataHidden: !noData)
+    }
+    
     public func present(events: [EmotionEventsUseCaseObjects.Event]) {
         self.events = events
         let events = events.map { EmotionEventsPresenterObjects.EventsGroup.Event(event: $0) }

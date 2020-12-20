@@ -25,11 +25,14 @@ public enum EmotionEventsUseCaseObjects {
 
 public protocol EmotionEventsUseCaseOutput: class {
     func present(events: [EmotionEventsUseCaseObjects.Event])
+    func present(noData: Bool)
+    func presentEmotions()
 }
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
-    func delete(event: EmotionEventsUseCaseObjects.Event)
+    func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
+    func eventAdd()
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -43,6 +46,7 @@ public final class EmotionEventsUseCaseImpl {
             .map { EmotionEventsUseCaseObjects.Event(event: $0) }
             .sorted { $0.date.compare($1.date) == .orderedDescending }
         output.present(events: events)
+        output.present(noData: events.count == 0)
     }
     
     // MARK: - Public
@@ -58,12 +62,16 @@ public final class EmotionEventsUseCaseImpl {
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
+    public func eventAdd() {
+        output.presentEmotions()
+    }
+    
     public func eventOutputReady() {
         presentEvents()
     }
     
-    public func delete(event: EmotionEventsUseCaseObjects.Event) {
-        eventsProvider.delete(event: eventsProvider.events.first { $0.date == event.date }!)
+    public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
+        eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
         presentEvents()
     }
 }

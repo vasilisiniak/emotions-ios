@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		83010ACF2584FE770037D024 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; };
 		83010AD02584FE770037D024 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83020139258F899000D744DF /* EmotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020138258F899000D744DF /* EmotionsViewController.swift */; };
+		83020144258F91A400D744DF /* TrendsViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020143258F91A400D744DF /* TrendsViewController+View.swift */; };
 		830BECF5258517FF00166851 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; };
 		830BECF6258517FF00166851 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		830C7592258A2B5100F964BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 830C7591258A2B5100F964BC /* Media.xcassets */; };
@@ -22,6 +24,7 @@
 		8377F4862582CD6C006C9D2F /* Presenters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4842582CD6C006C9D2F /* Presenters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		839C92CE258F4ACE008C9C5A /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */; };
 		83B9EE5F25857500007158F3 /* LogEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9EE5E25857500007158F3 /* LogEventViewController.swift */; };
+		83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D82BC8258F80D000FB3B5E /* EmotionEventsViewController+View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		83010ACE2584FE770037D024 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		83020138258F899000D744DF /* EmotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsViewController.swift; sourceTree = "<group>"; };
+		83020143258F91A400D744DF /* TrendsViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+View.swift"; sourceTree = "<group>"; };
 		830BECF4258517FF00166851 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830C7591258A2B5100F964BC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionEventsViewController+Cell.swift"; sourceTree = "<group>"; };
@@ -55,6 +60,7 @@
 		8377F4842582CD6C006C9D2F /* Presenters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Presenters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsViewController.swift; sourceTree = "<group>"; };
 		83B9EE5E25857500007158F3 /* LogEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventViewController.swift; sourceTree = "<group>"; };
+		83D82BC8258F80D000FB3B5E /* EmotionEventsViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionEventsViewController+View.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +103,11 @@
 				83557352258623D9007F15C8 /* EventNameViewController.swift */,
 				83B9EE5E25857500007158F3 /* LogEventViewController.swift */,
 				830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */,
+				83D82BC8258F80D000FB3B5E /* EmotionEventsViewController+View.swift */,
 				8332CA00258A1F2500AA285A /* EmotionEventsViewController.swift */,
+				83020143258F91A400D744DF /* TrendsViewController+View.swift */,
 				839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */,
+				83020138258F899000D744DF /* EmotionsViewController.swift */,
 				830C7591258A2B5100F964BC /* Media.xcassets */,
 				8377F4712582CD09006C9D2F /* Info.plist */,
 			);
@@ -196,8 +205,11 @@
 			files = (
 				8377F47E2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift in Sources */,
 				8377F47D2582CD1E006C9D2F /* EmotionsGroupsViewController.swift in Sources */,
+				83020139258F899000D744DF /* EmotionsViewController.swift in Sources */,
 				830C7594258A2F3700F964BC /* EmotionEventsViewController+Cell.swift in Sources */,
+				83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */,
 				83557353258623D9007F15C8 /* EventNameViewController.swift in Sources */,
+				83020144258F91A400D744DF /* TrendsViewController+View.swift in Sources */,
 				839C92CE258F4ACE008C9C5A /* TrendsViewController.swift in Sources */,
 				83B9EE5F25857500007158F3 /* LogEventViewController.swift in Sources */,
 				83557355258623F7007F15C8 /* EventNameViewController+View.swift in Sources */,

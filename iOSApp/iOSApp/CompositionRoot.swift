@@ -11,21 +11,9 @@ final class CompositionRoot {
     
     // MARK: - Internal
     
-    var logEventViewController: LogEventViewController {
-        let viewController = LogEventViewController()
-        LogEventConnector(viewController: viewController, composer: self).configure()
-        return viewController
-    }
-    
-    var emotionEventsViewController: EmotionEventsViewController {
-        let viewController = EmotionEventsViewController()
-        EmotionEventsConnector(viewController: viewController, provider: emotionEventsProvider).configure()
-        return viewController
-    }
-    
-    var trendsViewController: TrendsViewController {
-        let viewController = TrendsViewController()
-        TrendsConnector(viewController: viewController, provider: emotionEventsProvider).configure()
+    var emotionsViewController: EmotionsViewController {
+        let viewController = EmotionsViewController()
+        EmotionsConnector(viewController: viewController, composer: self).configure()
         return viewController
     }
 }
@@ -48,5 +36,25 @@ extension CompositionRoot: LogEventViewControllerComposer {
         )
         connector.configure()
         return eventNameViewController
+    }
+}
+
+extension CompositionRoot: EmotionsViewControllerComposer {
+    var logEventViewController: LogEventViewController {
+        let viewController = LogEventViewController()
+        LogEventConnector(viewController: viewController, composer: self).configure()
+        return viewController
+    }
+    
+    func trendsViewController(router: TrendsRouter) -> TrendsViewController {
+        let viewController = TrendsViewController()
+        TrendsConnector(viewController: viewController, router: router, provider: emotionEventsProvider).configure()
+        return viewController
+    }
+    
+    func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
+        let viewController = EmotionEventsViewController()
+        EmotionEventsConnector(viewController: viewController, router: router, provider: emotionEventsProvider).configure()
+        return viewController
     }
 }

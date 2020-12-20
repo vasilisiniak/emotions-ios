@@ -9,13 +9,15 @@ final class TrendsConnector {
     // MARK: - Private
     
     private let viewController: TrendsViewController
+    private let router: TrendsRouter
     private let presenter: TrendsPresenterImpl
     private let useCase: TrendsUseCaseImpl
     
     // MARK: - Internal
     
-    init(viewController: TrendsViewController, provider: EmotionEventsProvider) {
+    init(viewController: TrendsViewController, router: TrendsRouter, provider: EmotionEventsProvider) {
         self.viewController = viewController
+        self.router = router
         presenter = TrendsPresenterImpl()
         useCase = TrendsUseCaseImpl(eventsProvider: provider)
     }
@@ -23,6 +25,7 @@ final class TrendsConnector {
     func configure() {
         viewController.presenter = presenter
         presenter.output = viewController
+        presenter.router = router
         presenter.useCase = useCase
         useCase.output = presenter
     }
