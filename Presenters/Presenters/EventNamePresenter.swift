@@ -8,6 +8,7 @@ public protocol EventNamePresenterOutput: class {
     func show(addButtonEnabled: Bool)
     func show(placeholder: String)
     func show(selectedEmotions: String)
+    func show(color: UIColor)
     func showKeyboard()
 }
 
@@ -71,8 +72,9 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         output.show(addButtonEnabled: addAvailable)
     }
     
-    public func present(selectedEmotions: [String]) {
+    public func present(selectedEmotions: [String], color: String) {
         output.show(selectedEmotions: selectedEmotions.joined(separator: ", "))
+        output.show(color: UIColor(hex: color))
     }
     
     public func presentBack() {

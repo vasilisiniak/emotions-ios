@@ -45,6 +45,11 @@ public final class EventNameViewController: UIViewController {
 }
 
 extension EventNameViewController: EventNamePresenterOutput {
+    public func show(color: UIColor) {
+        eventNameView.label.backgroundColor = color.withAlphaComponent(0.2)
+        eventNameView.backgroundView.backgroundColor = color.withAlphaComponent(0.2)
+    }
+    
     public func show(addButtonEnabled: Bool) {
         navigationItem.rightBarButtonItem?.isEnabled = addButtonEnabled
     }

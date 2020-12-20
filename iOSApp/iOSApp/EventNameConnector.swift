@@ -15,11 +15,17 @@ final class EventNameConnector {
     
     // MARK: - Internal
     
-    init(viewController: EventNameViewController, router: EventNameRouter, provider: EmotionEventsProvider, selectedEmotions: [String]) {
+    init(
+        viewController: EventNameViewController,
+        router: EventNameRouter,
+        provider: EmotionEventsProvider,
+        selectedEmotions: [String],
+        color: String
+    ) {
         self.viewController = viewController
         self.router = router
         presenter = EventNamePresenterImpl()
-        useCase = EventNameUseCaseImpl(provider: provider, selectedEmotions: selectedEmotions)
+        useCase = EventNameUseCaseImpl(provider: provider, selectedEmotions: selectedEmotions, color: color)
     }
     
     func configure() {

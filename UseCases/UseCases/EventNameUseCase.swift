@@ -2,7 +2,7 @@ import Foundation
 import Model
 
 public protocol EventNameUseCaseOutput: class {
-    func present(selectedEmotions: [String])
+    func present(selectedEmotions: [String], color: String)
     func present(addAvailable: Bool)
     func presentBack()
     func presentEmotions()
@@ -21,21 +21,23 @@ public final class EventNameUseCaseImpl {
     
     private let provider: EmotionEventsProvider
     private let selectedEmotions: [String]
+    private let color: String
     private var description: String?
     
     // MARK: - Public
     
     public weak var output: EventNameUseCaseOutput!
     
-    public init(provider: EmotionEventsProvider, selectedEmotions: [String]) {
+    public init(provider: EmotionEventsProvider, selectedEmotions: [String], color: String) {
         self.provider = provider
         self.selectedEmotions = selectedEmotions
+        self.color = color
     }
 }
 
 extension EventNameUseCaseImpl: EventNameUseCase {
     public func eventOutputReady() {
-        output.present(selectedEmotions: selectedEmotions)
+        output.present(selectedEmotions: selectedEmotions, color: color)
     }
     
     public func eventBack() {
@@ -48,7 +50,7 @@ extension EventNameUseCaseImpl: EventNameUseCase {
     }
     
     public func eventAdd() {
-        let event = EmotionEvent(date: Date(), name: description!, emotions: selectedEmotions.joined(separator: ", "))
+        let event = EmotionEvent(date: Date(), name: description!, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)
         output.presentEmotions()
     }

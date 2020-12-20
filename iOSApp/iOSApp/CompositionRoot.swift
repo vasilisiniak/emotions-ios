@@ -31,13 +31,14 @@ extension CompositionRoot: LogEventViewControllerComposer {
         return emotionsViewController
     }
     
-    func eventNameViewController(router: EventNameRouter, selectedEmotions: [String]) -> EventNameViewController {
+    func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
         let connector = EventNameConnector(
             viewController: eventNameViewController,
             router: router,
             provider: emotionEventsProvider,
-            selectedEmotions: selectedEmotions
+            selectedEmotions: selectedEmotions,
+            color: color
         )
         connector.configure()
         return eventNameViewController

@@ -11,12 +11,12 @@ public protocol EmotionsGroupsPresenterOutput: class {
     func show(groupNames: [String])
     func show(selectedGroupIndex: Int)
     func show(emotionNames: [String], selectedNames: [String], color: UIColor)
-    func show(selectedEmotionsNames: String)
+    func show(selectedEmotionsNames: String, color: UIColor)
     func show(emotionIndex: Int, selectedNames: [String])
 }
 
 public protocol EmotionsGroupsRouter: class {
-    func routeEventName(selectedEmotions: [String])
+    func routeEventName(selectedEmotions: [String], color: String)
 }
 
 public protocol EmotionsGroupsPresenter {
@@ -82,8 +82,8 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
         output.show(nextButtonEnabled: nextAvailable)
     }
     
-    public func presentNext(selectedEmotions: [String]) {
-        router.routeEventName(selectedEmotions: selectedEmotions)
+    public func presentNext(selectedEmotions: [String], color: String) {
+        router.routeEventName(selectedEmotions: selectedEmotions, color: color)
     }
     
     public func present(emotionIndex: Int, selected: [String]) {
@@ -98,8 +98,8 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
         output.show(emotionNames: emotions, selectedNames: selected, color: UIColor(hex: color))
     }
     
-    public func present(selectedEmotions: [String]) {
-        output.show(selectedEmotionsNames: selectedEmotions.joined(separator: ", "))
+    public func present(selectedEmotions: [String], color: String) {
+        output.show(selectedEmotionsNames: selectedEmotions.joined(separator: ", "), color: UIColor(hex: color))
     }
     
     public func present(selectedGroupIndex: Int) {

@@ -57,18 +57,18 @@ extension EmotionEventsViewController {
         
         let nameLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = UIFont.preferredFont(forTextStyle: .headline)
+            $0.font = .preferredFont(forTextStyle: .headline)
             $0.numberOfLines = 0
         }
         
         let timeLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = UIFont.preferredFont(forTextStyle: .subheadline)
+            $0.font = .preferredFont(forTextStyle: .subheadline)
         }
         
         let emotionsLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = UIFont.preferredFont(forTextStyle: .body)
+            $0.font = .preferredFont(forTextStyle: .body)
             $0.numberOfLines = 0
         }
     }

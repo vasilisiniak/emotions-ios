@@ -54,14 +54,14 @@ extension EmotionsGroupsViewController {
         let segmentedControl: UISegmentedControl = create {
             UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).adjustsFontForContentSizeCategory = true
             let font = UIFont.preferredFont(forTextStyle: .callout)
-            let boldFont = UIFontMetrics(forTextStyle: .callout).scaledFont(for: UIFont.boldSystemFont(ofSize: font.pointSize))
+            let boldFont = UIFontMetrics(forTextStyle: .callout).scaledFont(for: .boldSystemFont(ofSize: font.pointSize))
             $0.setTitleTextAttributes([.font : font], for: .normal)
             $0.setTitleTextAttributes([.font : boldFont], for: .selected)
             $0.backgroundColor = .clear
         }
 
         let label: PaddedLabel = create {
-            $0.font = UIFont.preferredFont(forTextStyle: .headline)
+            $0.font = .preferredFont(forTextStyle: .headline)
             $0.adjustsFontForContentSizeCategory = true
             $0.numberOfLines = 0
             $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

@@ -3,7 +3,7 @@ import Presenters
 
 public protocol LogEventViewControllerComposer {
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController
-    func eventNameViewController(router: EventNameRouter, selectedEmotions: [String]) -> EventNameViewController
+    func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController
 }
 
 public final class LogEventViewController: UINavigationController {
@@ -42,8 +42,8 @@ public final class LogEventViewController: UINavigationController {
 extension LogEventViewController: UIGestureRecognizerDelegate {}
 
 extension LogEventViewController: EmotionsGroupsRouter {
-    public func routeEventName(selectedEmotions: [String]) {
-        let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions)
+    public func routeEventName(selectedEmotions: [String], color: String) {
+        let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions, color: color)
         pushViewController(eventNameViewController, animated: true)
     }
 }

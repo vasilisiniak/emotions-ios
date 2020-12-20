@@ -14,15 +14,22 @@ extension EventNameViewController {
         // MARK: - Private
         
         private func addSubviews() {
+            addSubview(backgroundView)
             addSubview(textField)
             addSubview(label)
         }
         
         private func makeConstraints() {
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
             textField.translatesAutoresizingMaskIntoConstraints = false
             label.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
+                backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                backgroundView.topAnchor.constraint(equalTo: topAnchor),
+                backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                
                 textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
                 textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
@@ -35,14 +42,17 @@ extension EventNameViewController {
         
         // MARK: - Internal
         
+        let backgroundView = UIView()
+        
         let textField: UITextField = create {
             $0.borderStyle = .roundedRect
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = UIFont.preferredFont(forTextStyle: .body)
+            $0.font = .preferredFont(forTextStyle: .body)
+            $0.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         }
         
         let label: PaddedLabel = create {
-            $0.font = UIFont.preferredFont(forTextStyle: .headline)
+            $0.font = .preferredFont(forTextStyle: .headline)
             $0.adjustsFontForContentSizeCategory = true
             $0.numberOfLines = 0
             $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

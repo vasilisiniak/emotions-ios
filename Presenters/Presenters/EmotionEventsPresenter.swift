@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import UseCases
 
 public enum EmotionEventsPresenterObjects {
@@ -30,11 +31,12 @@ public enum EmotionEventsPresenterObjects {
             let dateString: String
             
             init(event: EmotionEventsUseCaseObjects.Event) {
-                self.date = event.date
-                self.timeString = Event.timeFormatter.string(from: event.date)
-                self.dateString = Event.dateFormatter.string(from: event.date)
-                self.name = event.name
-                self.emotions = event.emotions
+                date = event.date
+                timeString = Event.timeFormatter.string(from: event.date)
+                dateString = Event.dateFormatter.string(from: event.date)
+                name = event.name
+                emotions = event.emotions
+                color = UIColor(hex: event.color)
             }
             
             // MARK: - Public
@@ -42,6 +44,7 @@ public enum EmotionEventsPresenterObjects {
             public let timeString: String
             public let name: String
             public let emotions: String
+            public let color: UIColor
         }
         
         // MARK: - Fileprivate

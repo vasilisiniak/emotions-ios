@@ -109,8 +109,9 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         emotionsGroupsView.tableView.reloadRows(at: [IndexPath(row: emotionIndex, section: 0)], with: .automatic)
     }
     
-    public func show(selectedEmotionsNames: String) {
+    public func show(selectedEmotionsNames: String, color: UIColor) {
         emotionsGroupsView.label.text = selectedEmotionsNames
+        emotionsGroupsView.label.backgroundColor = color.withAlphaComponent(0.4)
         UIView.animate(withDuration: 0.15, animations: emotionsGroupsView.layoutIfNeeded)
     }
     
@@ -130,8 +131,8 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         self.selectedNames = selectedNames
         
         UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.4)
-            self?.emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.4)
+            self?.emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
+            self?.emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
         }
     }
 }

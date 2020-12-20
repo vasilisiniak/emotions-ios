@@ -8,9 +8,10 @@ public enum EmotionEventsUseCaseObjects {
         // MARK: - Fileprivate
         
         fileprivate init(event: EmotionEvent) {
-            self.date = event.date
-            self.name = event.name
-            self.emotions = event.emotions
+            date = event.date
+            name = event.name
+            emotions = event.emotions
+            color = event.color
         }
         
         // MARK: - Public
@@ -18,6 +19,7 @@ public enum EmotionEventsUseCaseObjects {
         public let date: Date
         public let name: String
         public let emotions: String
+        public let color: String
     }
 }
 

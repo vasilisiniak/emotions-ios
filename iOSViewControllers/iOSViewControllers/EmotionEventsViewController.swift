@@ -1,7 +1,12 @@
 import UIKit
 import Presenters
+import iOSControls
 
 public final class EmotionEventsViewController: UIViewController {
+    
+    // MARK: - Private
+    
+    private var isUpdating = false
     
     // MARK: - UIViewController
     
@@ -22,12 +27,15 @@ public final class EmotionEventsViewController: UIViewController {
     
     private var eventsGroups: [EmotionEventsPresenterObjects.EventsGroup] = [] {
         didSet {
-            tableView.reloadData()
+            if !isUpdating {
+                tableView.reloadData()
+            }
         }
     }
     
     private lazy var tableView: UITableView = EmotionEventsViewController.create {
         $0.dataSource = self
+        $0.delegate = self
         $0.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
     
@@ -69,15 +77,32 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.nameLabel.text = event.name
         cell.timeLabel.text = event.timeString
         cell.emotionsLabel.text = event.emotions
+        cell.backgroundColor = .systemBackground
+        cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return eventsGroups[section].dateString
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        isUpdating = true
+        presenter.delete(indexPath: indexPath)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        isUpdating = false
+    }
+}
+
+extension EmotionEventsViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = PaddedLabel()
+        let font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .boldSystemFont(ofSize: font.pointSize))
+        label.textInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        label.backgroundColor = .systemBackground
+        label.text = eventsGroups[section].dateString
+        return label
     }
     
-    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        presenter.delete(indexPath: indexPath)
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
 }
 

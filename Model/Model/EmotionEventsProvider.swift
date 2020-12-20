@@ -15,6 +15,7 @@ fileprivate extension EmotionEvent {
         date = entity.value(forKey: "date") as! Date
         name = entity.value(forKey: "name") as! String
         emotions = entity.value(forKey: "emotions") as! String
+        color = entity.value(forKey: "color") as! String
     }
 }
 
@@ -52,6 +53,7 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         entity.setValue(event.date, forKey: "date")
         entity.setValue(event.name, forKey: "name")
         entity.setValue(event.emotions, forKey: "emotions")
+        entity.setValue(event.color, forKey: "color")
         storage.add(entity: entity)
     }
 }
