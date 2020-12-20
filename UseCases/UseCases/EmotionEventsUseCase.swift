@@ -27,6 +27,7 @@ public protocol EmotionEventsUseCaseOutput: class {
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
+    func delete(event: EmotionEventsUseCaseObjects.Event)
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -56,6 +57,11 @@ public final class EmotionEventsUseCaseImpl {
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func eventOutputReady() {
+        presentEvents()
+    }
+    
+    public func delete(event: EmotionEventsUseCaseObjects.Event) {
+        eventsProvider.delete(event: eventsProvider.events.first { $0.date == event.date }!)
         presentEvents()
     }
 }

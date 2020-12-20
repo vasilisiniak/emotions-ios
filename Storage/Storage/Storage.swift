@@ -4,12 +4,13 @@ public typealias StorageListener = () -> ()
 
 public protocol Storage {
     func create<T>() -> T
-    func add(object: Any)
+    func add<T>(entity: T)
+    func delete<T>(entity: T)
     func get<T>() -> [T]
     func add(listener: @escaping StorageListener)
 }
 
-public protocol StorageItem {
+public protocol StorageEntity {
     func setValue(_ value: Any?, forKey key: String)
     func value(forKey key: String) -> Any?
 }
@@ -47,6 +48,12 @@ public final class CoreDataStorage {
 }
 
 extension CoreDataStorage: Storage {
+    public func delete<T>(entity: T) {
+        let entity = entity as! NSManagedObject
+        backgroudContext.delete(backgroudContext.object(with: entity.objectID))
+        try! backgroudContext.save()
+    }
+    
     public func add(listener: @escaping StorageListener) {
         let name = NSManagedObjectContext.didSaveObjectsNotification
         NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
@@ -65,9 +72,9 @@ extension CoreDataStorage: Storage {
         return try! container.viewContext.fetch(request) as! [T]
     }
     
-    public func add(object: Any) {
+    public func add<T>(entity: T) {
         try! backgroudContext.save()
     }
 }
 
-extension NSManagedObject: StorageItem {}
+extension NSManagedObject: StorageEntity {}

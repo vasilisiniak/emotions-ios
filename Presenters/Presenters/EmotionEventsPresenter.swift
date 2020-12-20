@@ -61,9 +61,15 @@ public protocol EmotionEventsPresenterOutput: class {
 
 public protocol EmotionEventsPresenter {
     func eventViewReady()
+    func delete(indexPath: IndexPath)
 }
 
 public final class EmotionEventsPresenterImpl {
+    
+    // MARK: - Private
+    
+    private var events: [EmotionEventsUseCaseObjects.Event] = []
+    private var groups: [EmotionEventsPresenterObjects.EventsGroup] = []
     
     // MARK: - Public
     
@@ -77,13 +83,19 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public func eventViewReady() {
         useCase.eventOutputReady()
     }
+    
+    public func delete(indexPath: IndexPath) {
+        let event = groups[indexPath.section].events[indexPath.row]
+        useCase.delete(event: events.first { $0.date == event.date }!)
+    }
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     public func present(events: [EmotionEventsUseCaseObjects.Event]) {
+        self.events = events
         let events = events.map { EmotionEventsPresenterObjects.EventsGroup.Event(event: $0) }
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }
-        let groups = groupedEvents
+        groups = groupedEvents
             .map { EmotionEventsPresenterObjects.EventsGroup(date: $0.value.first!.date, dateString: $0.key, events: $0.value) }
             .sorted { $0.date.compare($1.date) == .orderedDescending }
         output.show(eventsGroups: groups)

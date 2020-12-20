@@ -75,6 +75,10 @@ extension EmotionEventsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return eventsGroups[section].dateString
     }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        presenter.delete(indexPath: indexPath)
+    }
 }
 
 extension EmotionEventsViewController: EmotionEventsPresenterOutput {
