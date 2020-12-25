@@ -14,6 +14,21 @@
 		833182B72589E35000B2C9A2 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; };
 		833182B82589E35100B2C9A2 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8332CA03258A237B00AA285A /* EmotionEventsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */; };
+		834448DB25966FB500F68B84 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DA25966FB500F68B84 /* WidgetKit.framework */; };
+		834448DD25966FB500F68B84 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DC25966FB500F68B84 /* SwiftUI.framework */; };
+		834448E025966FB500F68B84 /* iOSWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448DF25966FB500F68B84 /* iOSWidget.swift */; };
+		834448E225966FB800F68B84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834448E125966FB800F68B84 /* Assets.xcassets */; };
+		834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 834448D925966FB500F68B84 /* iOSWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		834448F52596777300F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
+		834449002596790600F68B84 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83921902258E842A00A7B69F /* Model.xcdatamodeld */; };
+		834449012596791800F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
+		834449022596797500F68B84 /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; };
+		834449032596797500F68B84 /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8344490425967DA800F68B84 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; };
+		8344490525967DA800F68B84 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		834449082596813200F68B84 /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83444906259680FC00F68B84 /* WidgetProvider.swift */; };
+		8344490A2596819C00F68B84 /* EmotionsColorsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834449092596819C00F68B84 /* EmotionsColorsEntry.swift */; };
+		8344490C259682CC00F68B84 /* EmotionsColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8344490B259682CC00F68B84 /* EmotionsColorsView.swift */; };
 		8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355735A25863464007F15C8 /* EventNameConnector.swift */; };
 		836831A6258579970044B38C /* LogEventConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836831A5258579970044B38C /* LogEventConnector.swift */; };
 		8377F4892582CD7E006C9D2F /* iOSViewControllers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */; };
@@ -35,7 +50,40 @@
 		83DE23CD25839B7D0098337E /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		834448E425966FB800F68B84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8392C7B125825A940015D722 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 834448D825966FB500F68B84;
+			remoteInfo = iOSWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		834448EA25966FB800F68B84 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		834448F22596723500F68B84 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				834449032596797500F68B84 /* Model.framework in Embed Frameworks */,
+				8344490525967DA800F68B84 /* Utils.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83A51B7C2582C8E1005131D7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,6 +109,18 @@
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		833182B42589E35000B2C9A2 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsConnector.swift; sourceTree = "<group>"; };
+		834448D925966FB500F68B84 /* iOSWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iOSWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		834448DA25966FB500F68B84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		834448DC25966FB500F68B84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		834448DF25966FB500F68B84 /* iOSWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWidget.swift; sourceTree = "<group>"; };
+		834448E125966FB800F68B84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		834448E325966FB800F68B84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		834448EC2596711000F68B84 /* iOSWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidgetExtension.entitlements; sourceTree = "<group>"; };
+		834448ED2596712700F68B84 /* iOSApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSApp.entitlements; sourceTree = "<group>"; };
+		834448F42596777300F68B84 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		83444906259680FC00F68B84 /* WidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetProvider.swift; sourceTree = "<group>"; };
+		834449092596819C00F68B84 /* EmotionsColorsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsColorsEntry.swift; sourceTree = "<group>"; };
+		8344490B259682CC00F68B84 /* EmotionsColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsColorsView.swift; sourceTree = "<group>"; };
 		8355735A25863464007F15C8 /* EventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameConnector.swift; sourceTree = "<group>"; };
 		836831A5258579970044B38C /* LogEventConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEventConnector.swift; sourceTree = "<group>"; };
 		8377F4882582CD7E006C9D2F /* iOSViewControllers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSViewControllers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +140,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		834448D625966FB500F68B84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				834449022596797500F68B84 /* Model.framework in Frameworks */,
+				8344490425967DA800F68B84 /* Utils.framework in Frameworks */,
+				834448DD25966FB500F68B84 /* SwiftUI.framework in Frameworks */,
+				834448DB25966FB500F68B84 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8392C7B625825A940015D722 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -97,10 +168,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		834448DE25966FB500F68B84 /* iOSWidget */ = {
+			isa = PBXGroup;
+			children = (
+				834448DF25966FB500F68B84 /* iOSWidget.swift */,
+				83444906259680FC00F68B84 /* WidgetProvider.swift */,
+				834449092596819C00F68B84 /* EmotionsColorsEntry.swift */,
+				8344490B259682CC00F68B84 /* EmotionsColorsView.swift */,
+				834448E125966FB800F68B84 /* Assets.xcassets */,
+				834448E325966FB800F68B84 /* Info.plist */,
+				834448EC2596711000F68B84 /* iOSWidgetExtension.entitlements */,
+			);
+			path = iOSWidget;
+			sourceTree = "<group>";
+		};
+		834448F32596776100F68B84 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				834448F42596777300F68B84 /* AppGroup.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		8392C7B025825A940015D722 = {
 			isa = PBXGroup;
 			children = (
 				8392C7BB25825A940015D722 /* iOSApp */,
+				834448DE25966FB500F68B84 /* iOSWidget */,
+				834448F32596776100F68B84 /* Shared */,
 				8392C7BA25825A940015D722 /* Products */,
 				83A51B682582C74E005131D7 /* Frameworks */,
 			);
@@ -110,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				8392C7B925825A940015D722 /* iOSApp.app */,
+				834448D925966FB500F68B84 /* iOSWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,6 +226,7 @@
 				8392C7C525825A970015D722 /* Assets.xcassets */,
 				8392C7C725825A970015D722 /* LaunchScreen.storyboard */,
 				8392C7CA25825A970015D722 /* Info.plist */,
+				834448ED2596712700F68B84 /* iOSApp.entitlements */,
 			);
 			path = iOSApp;
 			sourceTree = "<group>";
@@ -144,6 +241,8 @@
 				83A51B702582C7A0005131D7 /* Model.framework */,
 				83A51B722582C7A0005131D7 /* UseCases.framework */,
 				83A51B692582C74E005131D7 /* Presenters.framework */,
+				834448DA25966FB500F68B84 /* WidgetKit.framework */,
+				834448DC25966FB500F68B84 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,6 +250,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		834448D825966FB500F68B84 /* iOSWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 834448E725966FB800F68B84 /* Build configuration list for PBXNativeTarget "iOSWidgetExtension" */;
+			buildPhases = (
+				834448D525966FB500F68B84 /* Sources */,
+				834448D625966FB500F68B84 /* Frameworks */,
+				834448D725966FB500F68B84 /* Resources */,
+				834448F22596723500F68B84 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOSWidgetExtension;
+			productName = iOSWidgetExtension;
+			productReference = 834448D925966FB500F68B84 /* iOSWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8392C7B825825A940015D722 /* iOSApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8392C7CD25825A970015D722 /* Build configuration list for PBXNativeTarget "iOSApp" */;
@@ -159,10 +276,12 @@
 				8392C7B625825A940015D722 /* Frameworks */,
 				8392C7B725825A940015D722 /* Resources */,
 				83A51B7C2582C8E1005131D7 /* Embed Frameworks */,
+				834448EA25966FB800F68B84 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				834448E525966FB800F68B84 /* PBXTargetDependency */,
 			);
 			name = iOSApp;
 			productName = iOSApp;
@@ -175,9 +294,12 @@
 		8392C7B125825A940015D722 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1220;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					834448D825966FB500F68B84 = {
+						CreatedOnToolsVersion = 12.3;
+					};
 					8392C7B825825A940015D722 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -197,11 +319,20 @@
 			projectRoot = "";
 			targets = (
 				8392C7B825825A940015D722 /* iOSApp */,
+				834448D825966FB500F68B84 /* iOSWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		834448D725966FB500F68B84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				834448E225966FB800F68B84 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8392C7B725825A940015D722 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,6 +346,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		834448D525966FB500F68B84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8344490C259682CC00F68B84 /* EmotionsColorsView.swift in Sources */,
+				834448E025966FB500F68B84 /* iOSWidget.swift in Sources */,
+				8344490A2596819C00F68B84 /* EmotionsColorsEntry.swift in Sources */,
+				834449012596791800F68B84 /* AppGroup.swift in Sources */,
+				834449082596813200F68B84 /* WidgetProvider.swift in Sources */,
+				834449002596790600F68B84 /* Model.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8392C7B525825A940015D722 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,6 +368,7 @@
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
 				8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */,
 				839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */,
+				834448F52596777300F68B84 /* AppGroup.swift in Sources */,
 				83921904258E842A00A7B69F /* Model.xcdatamodeld in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,
 				830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */,
@@ -232,6 +377,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		834448E525966FB800F68B84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 834448D825966FB500F68B84 /* iOSWidgetExtension */;
+			targetProxy = 834448E425966FB800F68B84 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8392C7C725825A970015D722 /* LaunchScreen.storyboard */ = {
@@ -245,6 +398,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		834448E825966FB800F68B84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = iOSWIdget/iOSWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286U469VZ4;
+				INFOPLIST_FILE = iOSWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.emotions.iOSWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		834448E925966FB800F68B84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = iOSWIdget/iOSWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 286U469VZ4;
+				INFOPLIST_FILE = iOSWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.emotions.iOSWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		8392C7CB25825A970015D722 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -364,8 +565,10 @@
 		8392C7CE25825A970015D722 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOSApp/iOSApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 286U469VZ4;
 				INFOPLIST_FILE = iOSApp/Info.plist;
@@ -373,7 +576,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.iOSApp;
+				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.emotions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -383,8 +586,10 @@
 		8392C7CF25825A970015D722 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iOSApp/iOSApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 286U469VZ4;
 				INFOPLIST_FILE = iOSApp/Info.plist;
@@ -392,7 +597,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.iOSApp;
+				PRODUCT_BUNDLE_IDENTIFIER = by.vasili.siniak.emotions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -402,6 +607,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		834448E725966FB800F68B84 /* Build configuration list for PBXNativeTarget "iOSWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				834448E825966FB800F68B84 /* Debug */,
+				834448E925966FB800F68B84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8392C7B425825A940015D722 /* Build configuration list for PBXProject "iOSApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

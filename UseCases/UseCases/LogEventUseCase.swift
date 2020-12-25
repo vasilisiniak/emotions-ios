@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 
 public protocol LogEventUseCaseOutput: class {
     func presentEmotions()
@@ -46,6 +47,8 @@ public final class LogEventUseCaseImpl {
 
 extension LogEventUseCaseImpl: LogEventUseCase {
     public func eventEventCreated() {
+        WidgetCenter.shared.reloadAllTimelines()
+        
         if !firstCreation {
             firstCreation = true
             output.presentFirstCreation()

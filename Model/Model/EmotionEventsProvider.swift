@@ -27,17 +27,17 @@ public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageEntity> 
     
     // MARK: - Public
     
-    public var events: [EmotionEvent] {
-        let entities: [EmotionEventEntity] = storage.get()
-        return entities.map(EmotionEvent.init)
-    }
-    
     public init(storage: Storage) {
         self.storage = storage
     }
 }
 
 extension EmotionEventsProviderImpl: EmotionEventsProvider {
+    public var events: [EmotionEvent] {
+        let entities: [EmotionEventEntity] = storage.get()
+        return entities.map(EmotionEvent.init)
+    }
+    
     public func delete(event: EmotionEvent) {
         let entities: [EmotionEventEntity] = storage.get()
         let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!

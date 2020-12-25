@@ -1,13 +1,7 @@
 import iOSViewControllers
 import Presenters
-import Model
-import Storage
 
 final class CompositionRoot {
-    
-    // MARK: - Private
-    
-    private let emotionEventsProvider = EmotionEventsProviderImpl<EmotionEventEntity>(storage: CoreDataStorage(model: "Model"))
     
     // MARK: - Internal
     
@@ -30,7 +24,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
         let connector = EventNameConnector(
             viewController: eventNameViewController,
             router: router,
-            provider: emotionEventsProvider,
+            provider: AppGroup.emotionEventsProvider,
             selectedEmotions: selectedEmotions,
             color: color
         )
@@ -48,13 +42,13 @@ extension CompositionRoot: EmotionsViewControllerComposer {
     
     func trendsViewController(router: TrendsRouter) -> TrendsViewController {
         let viewController = TrendsViewController()
-        TrendsConnector(viewController: viewController, router: router, provider: emotionEventsProvider).configure()
+        TrendsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider).configure()
         return viewController
     }
     
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
         let viewController = EmotionEventsViewController()
-        EmotionEventsConnector(viewController: viewController, router: router, provider: emotionEventsProvider).configure()
+        EmotionEventsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider).configure()
         return viewController
     }
 }

@@ -31,10 +31,11 @@ public final class CoreDataStorage {
     
     // MARK: - Public
     
-    public init(model: String, type: String = NSSQLiteStoreType) {
+    public init(model: String, type: String = NSSQLiteStoreType, url: URL? = nil) {
         container = NSPersistentContainer(name: model)
         
-        let description = NSPersistentStoreDescription(url: container.persistentStoreDescriptions.first!.url!)
+        let storeURL = container.persistentStoreDescriptions.first!.url!
+        let description = NSPersistentStoreDescription(url: url ?? storeURL)
         description.type = type
         container.persistentStoreDescriptions = [description]
         
