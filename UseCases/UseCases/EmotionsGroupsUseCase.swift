@@ -1,11 +1,29 @@
 import Foundation
 import Model
 
+public enum EmotionsGroupsUseCaseObjects {
+    
+    public struct Emotion {
+        
+        // MARK: - Fileprivate
+        
+        fileprivate init(event: EmotionsGroup.Emotion) {
+            name = event.name
+            meaning = event.meaning
+        }
+        
+        // MARK: - Public
+        
+        public let name: String
+        public let meaning: String
+    }
+}
+
 public protocol EmotionsGroupsUseCaseOutput: class {
     func present(clearAvailable: Bool)
     func present(nextAvailable: Bool)
     func present(groups: [String])
-    func present(emotions: [String], selected: [String], color: String)
+    func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String)
     func present(selectedEmotions: [String], color: String)
     func present(selectedGroupIndex: Int)
     func present(emotionIndex: Int, selected: [String])
@@ -38,16 +56,16 @@ public final class EmotionsGroupsUseCaseImpl {
     }
     
     private func updateSelectedColor() {
-        let counts = emotionsProvider.emotionsGroups.map { $0.emotions.filter { selectedEmotions.contains($0) }.count }
+        let counts = emotionsProvider.emotionsGroups.map { $0.emotions.filter { selectedEmotions.contains($0.name) }.count }
         let index = counts.firstIndex { $0 == counts.max() }!
         selectedColor = emotionsProvider.emotionsGroups[index].color
     }
     
     private func presentEmotionsGroup() {
         let group = emotionsProvider.emotionsGroups[selectedGroupIndex]
-        let selected = selectedEmotions.filter { group.emotions.contains($0) }
+        let selected = selectedEmotions.filter { group.emotions.map { $0.name }.contains($0) }
         output.present(selectedGroupIndex: selectedGroupIndex)
-        output.present(emotions: group.emotions, selected: selected, color: group.color)
+        output.present(emotions: group.emotions.map(EmotionsGroupsUseCaseObjects.Emotion.init), selected: selected, color: group.color)
     }
     
     private func presentClearNextAvailable() {
@@ -93,7 +111,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         else {
             selectedEmotions.append(select)
         }
-        let emotions = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
+        let emotions = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions.map { $0.name }
         let index = emotions.firstIndex(of: select)!
         output.present(emotionIndex: index, selected: selectedEmotions)
         presentClearNextAvailable()

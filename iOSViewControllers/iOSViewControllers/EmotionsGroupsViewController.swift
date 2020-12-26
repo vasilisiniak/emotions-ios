@@ -20,7 +20,7 @@ public final class EmotionsGroupsViewController: UIViewController {
     
     // MARK: - Private
     
-    private var emotionNames: [String] = [] {
+    private var emotions: [EmotionsGroupsPresenterObjects.Emotion] = [] {
         didSet {
             emotionsGroupsView.tableView.reloadData()
         }
@@ -64,22 +64,29 @@ public final class EmotionsGroupsViewController: UIViewController {
 
 extension EmotionsGroupsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return emotionNames.count
+        return emotions.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = emotionNames[indexPath.row]
+        cell.textLabel?.text = emotions[indexPath.row].name
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
-        cell.accessoryType = selectedNames.contains(emotionNames[indexPath.row]) ? .checkmark : .none
+        cell.accessoryType = selectedNames.contains(emotions[indexPath.row].name) ? .checkmark : .none
         return cell
     }
 }
 
 extension EmotionsGroupsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.event(select: emotionNames[indexPath.row])
+        presenter.event(select: emotions[indexPath.row].name)
+    }
+    
+    public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let meaning = emotions[indexPath.row].meaning
+        return UIContextMenuConfiguration(identifier: nil) {
+            Menu(text: meaning, width: tableView.bounds.size.width - 50)
+        }
     }
 }
 
@@ -126,8 +133,8 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         emotionsGroupsView.segmentedControl.selectedSegmentIndex = selectedGroupIndex
     }
     
-    public func show(emotionNames: [String], selectedNames: [String], color: UIColor) {
-        self.emotionNames = emotionNames
+    public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
+        self.emotions = emotions
         self.selectedNames = selectedNames
         
         UIView.animate(withDuration: 0.3) { [weak self] in

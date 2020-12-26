@@ -9,22 +9,102 @@
 		<string>ffec59</string>
 		<key>emotions</key>
 		<array>
-			<string>Радость</string>
-			<string>Восторг</string>
-			<string>Надежда</string>
-			<string>Гордость</string>
-			<string>Нежность</string>
-			<string>Благодарность</string>
-			<string>Восхищение</string>
-			<string>Любовь</string>
-			<string>Умиротворение</string>
-			<string>Умиление</string>
-			<string>Безмятежность</string>
-			<string>Воодушевление</string>
-			<string>Азарт</string>
-			<string>Ликование</string>
-			<string>Симпатия</string>
-			<string>Предвкушение</string>
+            <dict>
+                <key>name</key>
+                <string>Радость</string>
+                <key>meaning</key>
+                <string>Чувство удовольствия, внутреннего удовлетворения, весёлое настроение</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Восторг</string>
+                <key>meaning</key>
+                <string>Сильный подъём радостных чувств, душевный порыв. Высшая степень творческого воодушевления. Состояние исключительной радости, восхищение чем-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Надежда</string>
+                <key>meaning</key>
+                <string>Душевное состояние, связанное с ожиданием чего-либо хорошего, благоприятного</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Гордость</string>
+                <key>meaning</key>
+                <string>Чувство собственного достоинства, самоуважения. Чувство удовлетворения от достигнутых успехов, от сознания важности, значительности деятельности</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Нежность</string>
+                <key>meaning</key>
+                <string>Нежное чувство, ласковость и мягкость в отношениях к кому-нибудь</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Благодарность</string>
+                <key>meaning</key>
+                <string>Чувство признательности (а также выражение такого чувства) за оказанное внимание, услугу, сделанное добро</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Восхищение</string>
+                <key>meaning</key>
+                <string>Ощущение сильнейшей радости, очарованности кем-либо или чем-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Любовь</string>
+                <key>meaning</key>
+                <string>Чувство глубокой привязанности к кому-либо, чему-либо. Чувство расположения, симпатии к кому-либо. Чувство горячей сердечной склонности, влечение к другому человеку. Внутреннее стремление, влечение, склонность, тяготение к чему-либо. Пристрастие к чему-либо, предпочтение чего-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Умиротворение</string>
+                <key>meaning</key>
+                <string>Состояние спокойствия, безмятежности в мыслях и в чувствах, когда всё ясно и понятно и нет нужды в опасениях</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Умиление</string>
+                <key>meaning</key>
+                <string>ежное, теплое чувство, возбуждаемое чем-либо трогательным</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Безмятежность</string>
+                <key>meaning</key>
+                <string>Невозмутимо спокойное состояние</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Воодушевление</string>
+                <key>meaning</key>
+                <string>Повышенное желание что-то делать</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Азарт</string>
+                <key>meaning</key>
+                <string>Сильное возбуждение, вызванное страстной увлечённостью</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Ликование</string>
+                <key>meaning</key>
+                <string>Бурная радость, выражение восторг</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Симпатия</string>
+                <key>meaning</key>
+                <string>Расположение, благожелательное отношение к кому-либо, чему-либо. Взаимное влечение, общность в чём-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Предвкушение</string>
+                <key>meaning</key>
+                <string>Мысленное представление, внутреннее ощущение чего-либо заранее, предварительное переживание воображением этого представления, ощущения ожидаемого</string>
+            </dict>
 		</array>
 	</dict>
 	<dict>
@@ -34,21 +114,96 @@
 		<string>ffb997</string>
 		<key>emotions</key>
 		<array>
-			<string>Гнев</string>
-			<string>Раздражение</string>
-			<string>Возмущение</string>
-			<string>Недовольство</string>
-			<string>Отвращение</string>
-			<string>Презрение</string>
-			<string>Бешенство</string>
-			<string>Обида</string>
-			<string>Злость</string>
-			<string>Досада</string>
-			<string>Зависть</string>
-			<string>Негодование</string>
-			<string>Злорадство</string>
-			<string>Неприязнь</string>
-			<string>Ревность</string>
+            <dict>
+                <key>name</key>
+                <string>Гнев</string>
+                <key>meaning</key>
+                <string>Чувство сильного, яростного возмущения</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Раздражение</string>
+                <key>meaning</key>
+                <string>Чувство острого недовольства, досады, злости</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Возмущение</string>
+                <key>meaning</key>
+                <string>Очень сильное недовольство, негодование</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Недовольство</string>
+                <key>meaning</key>
+                <string>Отсутствие удовлетворённости, отрицательное отношение к кому-чему-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Отвращение</string>
+                <key>meaning</key>
+                <string>Крайняя неприязнь, в высшей степени отрицательное чувство по отношению к кому-либо или чему-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Презрение</string>
+                <key>meaning</key>
+                <string>Чувство полного пренебрежения, крайнего неуважения к кому-либо, чему-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Бешенство</string>
+                <key>meaning</key>
+                <string>Крайняя степень раздражения, буйная ярость</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Обида</string>
+                <key>meaning</key>
+                <string>Несправедливо причиненное огорчение, оскорбление. Чувство горечи, досады, вызываемое несправедливым, оскорбительным отношением к себе</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Злость</string>
+                <key>meaning</key>
+                <string>Резкое и сильное отрицательное чувство</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Досада</string>
+                <key>meaning</key>
+                <string>Чувство обиды, раздражения в связи с чем-либо неприятным</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Зависть</string>
+                <key>meaning</key>
+                <string>Чувство досады, вызванное превосходством, благополучием другого. Желанием иметь то, что есть у другого</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Негодование</string>
+                <key>meaning</key>
+                <string>Крайнее недовольство</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Злорадство</string>
+                <key>meaning</key>
+                <string>Чувство удовлетворения, злобной радости, испытываемое при неудаче или несчастье кого-либо другого</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Неприязнь</string>
+                <key>meaning</key>
+                <string>Недружелюбное, враждебное отношение к кому-либо или чему-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Ревность</string>
+                <key>meaning</key>
+                <string>Мучительное сомнение в чьей-либо верности, любви, преданности. Подозрение в неверности, в привязанности, большей любви к кому-либо ещё. Зависть к успеху другого, нежелание делить что-либо с кем-либо</string>
+            </dict>
 		</array>
 	</dict>
 	<dict>
@@ -58,17 +213,72 @@
 		<string>b6cec7</string>
 		<key>emotions</key>
 		<array>
-			<string>Печаль</string>
-			<string>Грусть</string>
-			<string>Разочарование</string>
-			<string>Тоска</string>
-			<string>Сочувствие</string>
-			<string>Отчаяние</string>
-			<string>Скорбь</string>
-			<string>Сожаление</string>
-			<string>Огорчение</string>
-			<string>Жалость</string>
-			<string>Горе</string>
+            <dict>
+                <key>name</key>
+                <string>Печаль</string>
+                <key>meaning</key>
+                <string>Спокойное переживание утраты, душевная горечь</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Грусть</string>
+                <key>meaning</key>
+                <string>Чувство печали, лёгкого огорчения</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Разочарование</string>
+                <key>meaning</key>
+                <string>Чувство неудовлетворенности, вызванное несбывшимися, неоправдавшимися ожиданиями, надеждами или мечтаниями</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Тоска</string>
+                <key>meaning</key>
+                <string>Сильное душевное томление, душевная тревога в соединении с грустью и скукой, тягостное уныние</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Сочувствие</string>
+                <key>meaning</key>
+                <string>Отзывчивое отношение к чужому чувству, преимущественно горестному, сострадание</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Отчаяние</string>
+                <key>meaning</key>
+                <string>Душевное состояние крайней безнадёжности, ощущение безвыходности, безысходности, отсутствия перспективы. Потеря, отсутствие надежды</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Скорбь</string>
+                <key>meaning</key>
+                <string>Крайняя печаль, горесть, тяжёлое переживание, ощущение утраты</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Сожаление</string>
+                <key>meaning</key>
+                <string>Чувство печали, огорчения по поводу невозможности, невозвратимости, утраты чего-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Огорчение</string>
+                <key>meaning</key>
+                <string>Чувство горечи. Неприятность. Расстройство</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Жалость</string>
+                <key>meaning</key>
+                <string>Cострадание, соболезнование</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Горе</string>
+                <key>meaning</key>
+                <string>Bнтенсивное эмоциональное состояние, сопутствующее потере кого-то или чего-то, с кем или с чем у человека была глубокая эмоциональная связь</string>
+            </dict>
 		</array>
 	</dict>
 	<dict>
@@ -78,17 +288,72 @@
 		<string>6b3074</string>
 		<key>emotions</key>
 		<array>
-			<string>Страх</string>
-			<string>Беспокойство</string>
-			<string>Тревога</string>
-			<string>Ужас</string>
-			<string>Паника</string>
-			<string>Испуг</string>
-			<string>Волнение</string>
-			<string>Настороженность</string>
-			<string>Боязнь</string>
-			<string>Опасение</string>
-			<string>Трепет</string>
+            <dict>
+                <key>name</key>
+                <string>Страх</string>
+                <key>meaning</key>
+                <string>Состояние крайней тревоги и беспокойства от испуга, от грозящей или ожидаемой опасности. Боязнь, ужас</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Беспокойство</string>
+                <key>meaning</key>
+                <string>Тревожное состояние души, волнение</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Тревога</string>
+                <key>meaning</key>
+                <string>Чувство беспокойства, волнения в ожидании неприятности или опасности</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Ужас</string>
+                <key>meaning</key>
+                <string>Чувство иррационального панического страха, доводящее до оцепенения или исступления</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Паника</string>
+                <key>meaning</key>
+                <string>Внезапное чувство страха, настолько сильное, что подавляет логическое мышление</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Испуг</string>
+                <key>meaning</key>
+                <string>Внезапное чувство страха</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Волнение</string>
+                <key>meaning</key>
+                <string>Чувство беспокойства, тревоги, душевное возбуждение</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Настороженность</string>
+                <key>meaning</key>
+                <string>Напряжённая внимательность в ожидании чего-либо</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Боязнь</string>
+                <key>meaning</key>
+                <string>Робость, страх или беспокойство</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Опасение</string>
+                <key>meaning</key>
+                <string>Предчувствие опасности или каких-либо негативных событий</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Трепет</string>
+                <key>meaning</key>
+                <string>Сильное волнение от чего-либо, страх чего-либо</string>
+            </dict>
 		</array>
 	</dict>
 	<dict>
@@ -98,11 +363,36 @@
 		<string>6bb6bc</string>
 		<key>emotions</key>
 		<array>
-			<string>Стыд</string>
-			<string>Вина</string>
-			<string>Смущение</string>
-			<string>Неловкость</string>
-			<string>Неудобство</string>
+            <dict>
+                <key>name</key>
+                <string>Стыд</string>
+                <key>meaning</key>
+                <string>Смущение, вызванное прилюдным нарушением принятых в обществе норм либо обнаружением такого нарушения</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Вина</string>
+                <key>meaning</key>
+                <string>Ответственность за совершение предосудительного деяния, причастность к совершению преступления</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Смущение</string>
+                <key>meaning</key>
+                <string>Чувство и состояние замешательства, неловкости</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Неловкость</string>
+                <key>meaning</key>
+                <string>Состояние стеснительности, смущения, стыда</string>
+            </dict>
+            <dict>
+                <key>name</key>
+                <string>Неудобство</string>
+                <key>meaning</key>
+                <string>Состояние неловкости, затруднительности, смущения</string>
+            </dict>
 		</array>
 	</dict>
 </array>

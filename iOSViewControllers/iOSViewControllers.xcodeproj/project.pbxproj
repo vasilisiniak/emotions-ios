@@ -15,6 +15,7 @@
 		830BECF6258517FF00166851 /* iOSControls.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 830BECF4258517FF00166851 /* iOSControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		830C7592258A2B5100F964BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 830C7591258A2B5100F964BC /* Media.xcassets */; };
 		830C7594258A2F3700F964BC /* EmotionEventsViewController+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */; };
+		831631B9259695C70052661E /* EmotionsGroupsViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */; };
 		8332CA01258A1F2500AA285A /* EmotionEventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8332CA00258A1F2500AA285A /* EmotionEventsViewController.swift */; };
 		83557353258623D9007F15C8 /* EventNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83557352258623D9007F15C8 /* EventNameViewController.swift */; };
 		83557355258623F7007F15C8 /* EventNameViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83557354258623F7007F15C8 /* EventNameViewController+View.swift */; };
@@ -50,6 +51,7 @@
 		830BECF4258517FF00166851 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830C7591258A2B5100F964BC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionEventsViewController+Cell.swift"; sourceTree = "<group>"; };
+		831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionsGroupsViewController+Menu.swift"; sourceTree = "<group>"; };
 		8332CA00258A1F2500AA285A /* EmotionEventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsViewController.swift; sourceTree = "<group>"; };
 		83557352258623D9007F15C8 /* EventNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameViewController.swift; sourceTree = "<group>"; };
 		83557354258623F7007F15C8 /* EventNameViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventNameViewController+View.swift"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				8377F47B2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift */,
+				831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */,
 				8377F47A2582CD1E006C9D2F /* EmotionsGroupsViewController.swift */,
 				83557354258623F7007F15C8 /* EventNameViewController+View.swift */,
 				83557352258623D9007F15C8 /* EventNameViewController.swift */,
@@ -210,6 +213,7 @@
 				83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */,
 				83557353258623D9007F15C8 /* EventNameViewController.swift in Sources */,
 				83020144258F91A400D744DF /* TrendsViewController+View.swift in Sources */,
+				831631B9259695C70052661E /* EmotionsGroupsViewController+Menu.swift in Sources */,
 				839C92CE258F4ACE008C9C5A /* TrendsViewController.swift in Sources */,
 				83B9EE5F25857500007158F3 /* LogEventViewController.swift in Sources */,
 				83557355258623F7007F15C8 /* EventNameViewController+View.swift in Sources */,
