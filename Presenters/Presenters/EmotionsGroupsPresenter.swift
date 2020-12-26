@@ -31,6 +31,7 @@ public protocol EmotionsGroupsPresenterOutput: class {
     func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor)
     func show(selectedEmotionsNames: String, color: UIColor)
     func show(emotionIndex: Int, selectedNames: [String])
+    func show(message: String, button: String)
 }
 
 public protocol EmotionsGroupsRouter: class {
@@ -92,6 +93,10 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
+    public func presentFirstLaunch() {
+        output.show(message: "Задержите палец на эмоции, чтобы увидеть её описание", button: "OK")
+    }
+    
     public func present(clearAvailable: Bool) {
         output.show(clearButtonEnabled: clearAvailable)
     }

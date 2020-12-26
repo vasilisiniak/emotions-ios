@@ -62,7 +62,7 @@ extension LogEventViewController: EventNameRouter {
 
 extension LogEventViewController: LogEventPresenterOutput {
     public func show(message: String, button: String) {
-        let alert = UIAlertController(title: message, message: title, preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }

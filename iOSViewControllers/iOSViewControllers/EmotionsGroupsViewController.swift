@@ -142,4 +142,10 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
             self?.emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
         }
     }
+    
+    public func show(message: String, button: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }

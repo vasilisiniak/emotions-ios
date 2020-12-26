@@ -28,6 +28,7 @@ public protocol EmotionsGroupsUseCaseOutput: class {
     func present(selectedGroupIndex: Int)
     func present(emotionIndex: Int, selected: [String])
     func presentNext(selectedEmotions: [String], color: String)
+    func presentFirstLaunch()
 }
 
 public protocol EmotionsGroupsUseCase {
@@ -42,7 +43,20 @@ public protocol EmotionsGroupsUseCase {
 
 public final class EmotionsGroupsUseCaseImpl {
     
+    private enum Constants {
+        fileprivate static let FirstLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.FirstLaunchKey"
+    }
+    
     // MARK: - Private
+    
+    private var firstLaunch: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Constants.FirstLaunchKey)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.FirstLaunchKey)
+        }
+    }
     
     private let emotionsProvider: EmotionsGroupsProvider
     private var selectedGroupIndex = 0
@@ -71,6 +85,13 @@ public final class EmotionsGroupsUseCaseImpl {
     private func presentClearNextAvailable() {
         output.present(clearAvailable: selectedEmotions.count > 0)
         output.present(nextAvailable: selectedEmotions.count > 0)
+    }
+    
+    private func presentFirstLaunch() {
+        if !firstLaunch {
+            firstLaunch = true
+            output.presentFirstLaunch()
+        }
     }
     
     // MARK: - Public
@@ -102,6 +123,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     public func event(indexChange: Int) {
         self.selectedGroupIndex = indexChange
         presentEmotionsGroup()
+        presentFirstLaunch()
     }
     
     public func event(select: String) {
@@ -124,7 +146,8 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         else {
             selectedGroupIndex += 1
         }
-        self.presentEmotionsGroup()
+        presentEmotionsGroup()
+        presentFirstLaunch()
     }
     
     public func eventPrevIndex() {
@@ -134,6 +157,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         else {
             selectedGroupIndex -= 1
         }
-        self.presentEmotionsGroup()
+        presentEmotionsGroup()
+        presentFirstLaunch()
     }
 }
