@@ -77,7 +77,7 @@ public final class EmotionsGroupsUseCaseImpl {
     
     private func presentEmotionsGroup() {
         let group = emotionsProvider.emotionsGroups[selectedGroupIndex]
-        let selected = selectedEmotions.filter { group.emotions.map { $0.name }.contains($0) }
+        let selected = selectedEmotions.filter { group.emotions.map(\.name).contains($0) }
         output.present(selectedGroupIndex: selectedGroupIndex)
         output.present(emotions: group.emotions.map(EmotionsGroupsUseCaseObjects.Emotion.init), selected: selected, color: group.color)
     }
@@ -115,7 +115,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     }
     
     public func eventOutputReady() {
-        output.present(groups: emotionsProvider.emotionsGroups.map { $0.name })
+        output.present(groups: emotionsProvider.emotionsGroups.map(\.name))
         presentEmotionsGroup()
         presentClearNextAvailable()
     }
@@ -133,7 +133,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         else {
             selectedEmotions.append(select)
         }
-        let emotions = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions.map { $0.name }
+        let emotions = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions.map(\.name)
         let index = emotions.firstIndex(of: select)!
         output.present(emotionIndex: index, selected: selectedEmotions)
         presentClearNextAvailable()

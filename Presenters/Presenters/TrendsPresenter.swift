@@ -44,7 +44,7 @@ extension TrendsPresenterImpl: TrendsUseCaseOutput {
     }
     
     public func present(colors: [String]) {
-        output.show(colors: colors.map { UIColor(hex: $0) })
+        output.show(colors: colors.map(UIColor.init(hex:)))
     }
     
     public func present(noData: Bool) {

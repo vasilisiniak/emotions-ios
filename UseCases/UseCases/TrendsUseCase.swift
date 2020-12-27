@@ -20,7 +20,7 @@ public final class TrendsUseCaseImpl {
     private func presentColors() {
         let colors = eventsProvider.events
             .sorted { $0.date.compare($1.date) == .orderedAscending }
-            .map { $0.color }
+            .map(\.color)
         output.present(colors: colors)
         output.present(noData: colors.count < 2)
     }

@@ -34,7 +34,7 @@ public final class GradientView: UIView {
             return colors.map(UIColor.init(cgColor:))
         }
         set {
-            gradientLayer.colors = newValue.map { $0.cgColor }
+            gradientLayer.colors = newValue.map(\.cgColor)
         }
     }
 }

@@ -117,7 +117,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     
     public func present(events: [EmotionEventsUseCaseObjects.Event]) {
         self.events = events
-        let events = events.map { EmotionEventsPresenterObjects.EventsGroup.Event(event: $0) }
+        let events = events.map(EmotionEventsPresenterObjects.EventsGroup.Event.init(event:))
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }
         groups = groupedEvents
             .map { EmotionEventsPresenterObjects.EventsGroup(date: $0.value.first!.date, dateString: $0.key, events: $0.value) }
