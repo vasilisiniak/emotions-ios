@@ -121,7 +121,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }
         groups = groupedEvents
             .map { EmotionEventsPresenterObjects.EventsGroup(date: $0.value.first!.date, dateString: $0.key, events: $0.value) }
-            .sorted { $0.date.compare($1.date) == .orderedDescending }
+            .sorted { $0.date > $1.date }
         output.show(eventsGroups: groups)
     }
 }

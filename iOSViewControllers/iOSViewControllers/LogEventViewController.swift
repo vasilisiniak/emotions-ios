@@ -67,6 +67,15 @@ extension LogEventViewController: LogEventPresenterOutput {
         present(alert, animated: true, completion: nil)
     }
     
+    public func showWidgetAlert(message: String, okButton: String, infoButton: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
+            self?.presenter.eventWidgetInfo()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
     public func showEmotions() {
         let emotionsViewController = composer.emotionsViewController(router: self)
         pushViewController(emotionsViewController, animated: true)

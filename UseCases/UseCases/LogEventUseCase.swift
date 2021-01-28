@@ -3,13 +3,16 @@ import WidgetKit
 
 public protocol LogEventUseCaseOutput: class {
     func presentEmotions()
-    func presentFirstCreation()
-    func presentSecondCreation()
+    func presentDairyInfo()
+    func presentColorMapInfo()
+    func presentWidgetInfo()
+    func presentWidgetHelp()
 }
 
 public protocol LogEventUseCase {
     func eventOutputReady()
     func eventEventCreated()
+    func eventWidgetInfo()
 }
 
 public final class LogEventUseCaseImpl {
@@ -17,6 +20,7 @@ public final class LogEventUseCaseImpl {
     private enum Constants {
         fileprivate static let FirstCreationKey = "UseCases.LogEventUseCaseImpl.FirstCreationKey"
         fileprivate static let SecondCreationKey = "UseCases.LogEventUseCaseImpl.SecondCreationKey"
+        fileprivate static let ThirdCreationKey = "UseCases.LogEventUseCaseImpl.ThirdCreationKey"
     }
     
     // MARK: - Private
@@ -39,6 +43,15 @@ public final class LogEventUseCaseImpl {
         }
     }
     
+    private var thirdCreation: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Constants.ThirdCreationKey)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.ThirdCreationKey)
+        }
+    }
+    
     // MARK: - Public
     
     public weak var output: LogEventUseCaseOutput!
@@ -51,15 +64,23 @@ extension LogEventUseCaseImpl: LogEventUseCase {
         
         if !firstCreation {
             firstCreation = true
-            output.presentFirstCreation()
+            output.presentDairyInfo()
         }
         else if !secondCreation {
             secondCreation = true
-            output.presentSecondCreation()
+            output.presentColorMapInfo()
+        }
+        else if !thirdCreation {
+            thirdCreation = true
+            output.presentWidgetInfo()
         }
     }
     
     public func eventOutputReady() {
         output.presentEmotions()
+    }
+    
+    public func eventWidgetInfo() {
+        output.presentWidgetHelp()
     }
 }

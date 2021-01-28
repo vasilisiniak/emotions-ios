@@ -45,7 +45,7 @@ public final class EmotionEventsUseCaseImpl {
     private func presentEvents() {
         let events = eventsProvider.events
             .map(EmotionEventsUseCaseObjects.Event.init(event:))
-            .sorted { $0.date.compare($1.date) == .orderedDescending }
+            .sorted { $0.date > $1.date }
         output.present(events: events)
         output.present(noData: events.count == 0)
     }
