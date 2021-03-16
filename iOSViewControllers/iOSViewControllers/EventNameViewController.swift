@@ -23,8 +23,8 @@ public final class EventNameViewController: UIViewController {
     // MARK: - Private
     
     private lazy var eventNameView: View = EventNameViewController.create {
-        let name = UITextField.textDidChangeNotification
-        NotificationCenter.default.addObserver(forName: name, object: $0.textField, queue: .main, using: onTextChange)
+        let name = UITextView.textDidChangeNotification
+        NotificationCenter.default.addObserver(forName: name, object: $0.textView, queue: .main, using: onTextChange)
     }
     
     private func onBack() {
@@ -36,7 +36,7 @@ public final class EventNameViewController: UIViewController {
     }
     
     private func onTextChange(_: Notification) {
-        presenter.event(descriptionChanged: eventNameView.textField.text)
+        presenter.event(descriptionChanged: eventNameView.textView.text)
     }
     
     // MARK: - Public
@@ -66,15 +66,11 @@ extension EventNameViewController: EventNamePresenterOutput {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: addButton, handler: onAdd)
     }
     
-    public func show(placeholder: String) {
-        eventNameView.textField.placeholder = placeholder
-    }
-    
     public func show(selectedEmotions: String) {
         eventNameView.label.text = selectedEmotions
     }
     
     public func showKeyboard() {
-        eventNameView.textField.becomeFirstResponder()
+        eventNameView.textView.becomeFirstResponder()
     }
 }

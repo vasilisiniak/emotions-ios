@@ -15,13 +15,13 @@ extension EventNameViewController {
         
         private func addSubviews() {
             addSubview(backgroundView)
-            addSubview(textField)
+            addSubview(textView)
             addSubview(label)
         }
         
         private func makeConstraints() {
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            textField.translatesAutoresizingMaskIntoConstraints = false
+            textView.translatesAutoresizingMaskIntoConstraints = false
             label.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
@@ -30,10 +30,10 @@ extension EventNameViewController {
                 backgroundView.topAnchor.constraint(equalTo: topAnchor),
                 backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
                 
-                textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
-                textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
-                textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
-                textField.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -9),
+                textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
+                textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+                textView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
+                textView.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -9),
                 
                 label.leadingAnchor.constraint(equalTo: leadingAnchor),
                 label.trailingAnchor.constraint(equalTo: trailingAnchor)
@@ -44,11 +44,13 @@ extension EventNameViewController {
         
         let backgroundView = UIView()
         
-        let textField: UITextField = create {
-            $0.borderStyle = .roundedRect
+        let textView: ExpandableTextView = create {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = .preferredFont(forTextStyle: .body)
             $0.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            if let font = $0.font {
+                $0.heightConstraints = (min: font.lineHeight + 18, max: font.lineHeight * 10)
+            }
         }
         
         let label: PaddedLabel = create {

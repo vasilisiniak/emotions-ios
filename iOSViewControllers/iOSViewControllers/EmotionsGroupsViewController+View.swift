@@ -31,7 +31,8 @@ extension EmotionsGroupsViewController {
                 segmenedControlBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
                 segmenedControlBackground.topAnchor.constraint(equalTo: topAnchor),
                 segmenedControlBackground.bottomAnchor.constraint(equalTo: label.topAnchor),
-                
+
+                segmentedControl.heightAnchor.constraint(equalToConstant: 36),
                 segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
                 segmentedControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),

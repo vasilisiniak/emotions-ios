@@ -6,7 +6,6 @@ public protocol EventNamePresenterOutput: class {
     func show(backButton: String)
     func show(addButton: String)
     func show(addButtonEnabled: Bool)
-    func show(placeholder: String)
     func show(selectedEmotions: String)
     func show(color: UIColor)
     func showKeyboard()
@@ -54,7 +53,6 @@ extension EventNamePresenterImpl: EventNamePresenter {
         output.show(backButton: "❮Назад")
         output.show(addButton: "Добавить")
         output.show(addButtonEnabled: false)
-        output.show(placeholder: "Описание события")
         useCase.eventOutputReady()
     }
     
