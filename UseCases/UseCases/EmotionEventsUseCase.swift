@@ -27,11 +27,13 @@ public enum EmotionEventsUseCaseObjects {
 public protocol EmotionEventsUseCaseOutput: class {
     func present(events: [EmotionEventsUseCaseObjects.Event])
     func present(noData: Bool)
+    func present(shareEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
 }
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
+    func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func eventAdd()
 }
@@ -69,6 +71,10 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     
     public func eventOutputReady() {
         presentEvents()
+    }
+
+    public func event(shareEvent: EmotionEventsUseCaseObjects.Event) {
+        output.present(shareEvent: shareEvent)
     }
     
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {

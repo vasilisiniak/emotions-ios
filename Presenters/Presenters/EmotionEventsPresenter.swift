@@ -66,10 +66,12 @@ public protocol EmotionEventsPresenterOutput: class {
 
 public protocol EmotionEventsRouter: class {
     func routeEmotions()
+    func route(shareText: String)
 }
 
 public protocol EmotionEventsPresenter {
     func eventViewReady()
+    func event(shareIndexPath: IndexPath)
     func event(deleteIndexPath: IndexPath)
     func eventAddTap()
 }
@@ -99,6 +101,11 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         output.show(noDataText: "Здесь отображаются события и эмоции, которые они вызвали. Но пока записей нет", button: "Добавить запись")
         useCase.eventOutputReady()
     }
+
+    public func event(shareIndexPath: IndexPath) {
+        let event = groups[shareIndexPath.section].events[shareIndexPath.row]
+        useCase.event(shareEvent: events.first { $0.date == event.date }!)
+    }
     
     public func event(deleteIndexPath: IndexPath) {
         let event = groups[deleteIndexPath.section].events[deleteIndexPath.row]
@@ -113,6 +120,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     
     public func present(noData: Bool) {
         output.show(noDataHidden: !noData)
+    }
+
+    public func present(shareEvent: EmotionEventsUseCaseObjects.Event) {
+        router.route(shareText: "Я чувствую \(shareEvent.emotions): \"\(shareEvent.name)\"")
     }
     
     public func present(events: [EmotionEventsUseCaseObjects.Event]) {

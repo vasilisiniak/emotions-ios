@@ -26,6 +26,11 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     public func routeEmotions() {
         selectedIndex = 0
     }
+
+    public func route(shareText: String) {
+        let controller = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 extension EmotionsViewController: EmotionsPresenterOutput {

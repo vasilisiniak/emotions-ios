@@ -25,12 +25,14 @@ extension EmotionEventsViewController {
         private func addSubviews() {
             contentView.addSubview(nameLabel)
             contentView.addSubview(timeLabel)
+            contentView.addSubview(shareButton)
             contentView.addSubview(emotionsLabel)
         }
         
         private func makeConstraints() {
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             timeLabel.translatesAutoresizingMaskIntoConstraints = false
+            shareButton.translatesAutoresizingMaskIntoConstraints = false
             emotionsLabel.translatesAutoresizingMaskIntoConstraints = false
             
             timeLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -46,6 +48,9 @@ extension EmotionEventsViewController {
                 
                 timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
                 timeLabel.trailingAnchor.constraint(equalTo: emotionsLabel.trailingAnchor),
+
+                shareButton.rightAnchor.constraint(equalTo: timeLabel.rightAnchor, constant: 2),
+                shareButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
                 
                 emotionsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
             ])
@@ -64,6 +69,11 @@ extension EmotionEventsViewController {
         let timeLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = .preferredFont(forTextStyle: .subheadline)
+        }
+
+        let shareButton: UIButton = create {
+            let image = UIImage(named: "ShareIcon", in: Bundle(for: Cell.self), with: nil)
+            $0.setImage(image, for: .normal)
         }
         
         let emotionsLabel: UILabel = create {
