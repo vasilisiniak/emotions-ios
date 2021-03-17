@@ -62,17 +62,23 @@ public protocol EmotionEventsPresenterOutput: class {
     func show(noDataText: String, button: String)
     func show(noDataHidden: Bool)
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
+    func show(message: String, button: String)
 }
 
 public protocol EmotionEventsRouter: class {
     func routeEmotions()
     func route(shareText: String)
+    func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date)
 }
 
 public protocol EmotionEventsPresenter {
+    var deleteTitle: String { get }
+    var editTitle: String { get }
+
     func eventViewReady()
     func event(shareIndexPath: IndexPath)
     func event(deleteIndexPath: IndexPath)
+    func event(editIndexPath: IndexPath)
     func eventAddTap()
 }
 
@@ -93,6 +99,14 @@ public final class EmotionEventsPresenterImpl {
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
+    public var deleteTitle: String {
+        "Удалить"
+    }
+
+    public var editTitle: String {
+        "Изменить"
+    }
+
     public func eventAddTap() {
         useCase.eventAdd()
     }
@@ -111,11 +125,20 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         let event = groups[deleteIndexPath.section].events[deleteIndexPath.row]
         useCase.event(deleteEvent: events.first { $0.date == event.date }!)
     }
+
+    public func event(editIndexPath: IndexPath) {
+        let event = groups[editIndexPath.section].events[editIndexPath.row]
+        useCase.event(editEvent: events.first { $0.date == event.date }!)
+    }
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     public func presentEmotions() {
         router.routeEmotions()
+    }
+
+    public func presentSwipeInfo() {
+        output.show(message: "Свайпните запись влево чтобы редактировать или удалить", button: "ОК")
     }
     
     public func present(noData: Bool) {
@@ -134,5 +157,9 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
             .map { EmotionEventsPresenterObjects.EventsGroup(date: $0.value.first!.date, dateString: $0.key, events: $0.value) }
             .sorted { $0.date > $1.date }
         output.show(eventsGroups: groups)
+    }
+
+    public func present(editEvent: EmotionEventsUseCaseObjects.Event) {
+        router.route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event(event: editEvent), date: editEvent.date)
     }
 }

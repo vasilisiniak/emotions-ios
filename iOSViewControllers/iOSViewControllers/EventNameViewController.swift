@@ -69,6 +69,10 @@ extension EventNameViewController: EventNamePresenterOutput {
     public func show(selectedEmotions: String) {
         eventNameView.label.text = selectedEmotions
     }
+
+    public func show(emotion: String) {
+        eventNameView.textView.text = emotion
+    }
     
     public func showKeyboard() {
         eventNameView.textView.becomeFirstResponder()

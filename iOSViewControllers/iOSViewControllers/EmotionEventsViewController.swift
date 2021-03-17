@@ -63,6 +63,22 @@ public final class EmotionEventsViewController: UIViewController {
     private func onAddTap(action: UIAction) {
         presenter.eventAddTap()
     }
+
+    private func delete(indexPath: IndexPath) {
+        isUpdating = true
+        presenter.event(deleteIndexPath: indexPath)
+        if tableView.numberOfRows(inSection: indexPath.section) == 1 {
+            tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+        }
+        else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        isUpdating = false
+    }
+
+    private func edit(indexPath: IndexPath) {
+        presenter.event(editIndexPath: indexPath)
+    }
     
     // MARK: - Public
     
@@ -97,17 +113,20 @@ extension EmotionEventsViewController: UITableViewDataSource {
         }), for: .touchUpInside)
         return cell
     }
-    
-    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        isUpdating = true
-        presenter.event(deleteIndexPath: indexPath)
-        if tableView.numberOfRows(inSection: indexPath.section) == 1 {
-            tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+
+    public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: presenter.deleteTitle) { [weak self] (action, view, completion) in
+            self?.delete(indexPath: indexPath)
+            completion(true)
         }
-        else {
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+
+        let editAction = UIContextualAction(style: .normal, title: presenter.editTitle) { [weak self] (action, view, completion) in
+            self?.edit(indexPath: indexPath)
+            completion(true)
         }
-        isUpdating = false
+        editAction.backgroundColor = .systemYellow
+
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
 }
 
@@ -143,5 +162,11 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
     
     public func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup]) {
         self.eventsGroups = eventsGroups
+    }
+
+    public func show(message: String, button: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

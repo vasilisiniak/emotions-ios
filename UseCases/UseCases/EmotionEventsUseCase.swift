@@ -28,19 +28,35 @@ public protocol EmotionEventsUseCaseOutput: class {
     func present(events: [EmotionEventsUseCaseObjects.Event])
     func present(noData: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)
+    func present(editEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
+    func presentSwipeInfo()
 }
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
     func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
+    func event(editEvent: EmotionEventsUseCaseObjects.Event)
     func eventAdd()
 }
 
 public final class EmotionEventsUseCaseImpl {
-    
+
+    private enum Constants {
+        fileprivate static let FirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"
+    }
+
     // MARK: - Private
+
+    private var firstEventDisplay: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Constants.FirstEventDisplay)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.FirstEventDisplay)
+        }
+    }
     
     private let eventsProvider: EmotionEventsProvider
     
@@ -71,6 +87,11 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     
     public func eventOutputReady() {
         presentEvents()
+
+        if !firstEventDisplay && eventsProvider.events.count > 0 {
+            firstEventDisplay = true
+            output.presentSwipeInfo()
+        }
     }
 
     public func event(shareEvent: EmotionEventsUseCaseObjects.Event) {
@@ -81,5 +102,9 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
         eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
         WidgetCenter.shared.reloadAllTimelines()
         presentEvents()
+    }
+
+    public func event(editEvent: EmotionEventsUseCaseObjects.Event) {
+        output.present(editEvent: editEvent)
     }
 }

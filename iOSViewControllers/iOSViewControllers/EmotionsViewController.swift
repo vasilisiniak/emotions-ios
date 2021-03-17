@@ -3,6 +3,7 @@ import Presenters
 
 public protocol EmotionsViewControllerComposer: class {
     var logEventViewController: LogEventViewController { get }
+    func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
 }
@@ -24,12 +25,34 @@ public final class EmotionsViewController: UITabBarController {
 
 extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     public func routeEmotions() {
-        selectedIndex = 0
+        if let presentedViewController = presentedViewController {
+            presentedViewController.dismiss(animated: true, completion: nil)
+        }
+        else {
+            selectedIndex = 0
+        }
     }
 
     public func route(shareText: String) {
         let controller = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         present(controller, animated: true, completion: nil)
+    }
+
+    public func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date) {
+        let controller = composer.editEventNameViewController(
+            router: self,
+            emotion: editEvent.name,
+            date: date,
+            selectedEmotions: editEvent.emotions.components(separatedBy: ", "),
+            color: editEvent.color.hex
+        )
+        present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+    }
+}
+
+extension EmotionsViewController: EventNameRouter {
+    public func routeBack() {
+        presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }
 

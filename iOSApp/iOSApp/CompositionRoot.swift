@@ -1,3 +1,4 @@
+import Foundation
 import iOSViewControllers
 import Presenters
 
@@ -38,6 +39,21 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         let viewController = LogEventViewController()
         LogEventConnector(viewController: viewController, composer: self).configure()
         return viewController
+    }
+
+    func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController {
+        let eventNameViewController = EventNameViewController()
+        let connector = EditEventNameConnector(
+            viewController: eventNameViewController,
+            router: router,
+            provider: AppGroup.emotionEventsProvider,
+            emotion: emotion,
+            date: date,
+            selectedEmotions: selectedEmotions,
+            color: color
+        )
+        connector.configure()
+        return eventNameViewController
     }
     
     func trendsViewController(router: TrendsRouter) -> TrendsViewController {

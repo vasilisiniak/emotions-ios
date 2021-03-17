@@ -7,6 +7,7 @@ public protocol EventNamePresenterOutput: class {
     func show(addButton: String)
     func show(addButtonEnabled: Bool)
     func show(selectedEmotions: String)
+    func show(emotion: String)
     func show(color: UIColor)
     func showKeyboard()
 }
@@ -50,9 +51,6 @@ extension EventNamePresenterImpl: EventNamePresenter {
     
     public func eventViewReady() {
         output.show(title: "Введите событие")
-        output.show(backButton: "❮Назад")
-        output.show(addButton: "Добавить")
-        output.show(addButtonEnabled: false)
         useCase.eventOutputReady()
     }
     
@@ -62,8 +60,22 @@ extension EventNamePresenterImpl: EventNamePresenter {
 }
 
 extension EventNamePresenterImpl: EventNameUseCaseOutput {
+    public func presentBackAddButtons() {
+        output.show(backButton: "❮Назад")
+        output.show(addButton: "Добавить")
+    }
+
+    public func presentCancelSaveButtons() {
+        output.show(backButton: "Отмена")
+        output.show(addButton: "Сохранить")
+    }
+
     public func presentEmotions() {
         router.routeEmotions()
+    }
+
+    public func present(emotion: String) {
+        output.show(emotion: emotion)
     }
     
     public func present(addAvailable: Bool) {

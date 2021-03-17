@@ -6,6 +6,7 @@ public protocol Storage {
     func create<T>() -> T
     func add<T>(entity: T)
     func delete<T>(entity: T)
+    func save<T>(entity: T)
     func get<T>() -> [T]
     func add(listener: @escaping StorageListener)
 }
@@ -75,6 +76,15 @@ extension CoreDataStorage: Storage {
     
     public func add<T>(entity: T) {
         try! backgroudContext.save()
+    }
+
+    public func save<T>(entity: T) {
+        let entity = entity as! NSManagedObject
+        var context = entity.managedObjectContext
+        repeat {
+            try? context?.save()
+            context = context?.parent
+        } while context != nil
     }
 }
 

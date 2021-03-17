@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		167E16A7260223F300A8B0EC /* EditEventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */; };
 		8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013E258F8CAC00D744DF /* EmotionsConnector.swift */; };
 		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
@@ -104,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameConnector.swift; sourceTree = "<group>"; };
 		8302013E258F8CAC00D744DF /* EmotionsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsConnector.swift; sourceTree = "<group>"; };
 		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +219,7 @@
 				830C75A1258E633F00F964BC /* CompositionRoot.swift */,
 				83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */,
 				8355735A25863464007F15C8 /* EventNameConnector.swift */,
+				167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */,
 				836831A5258579970044B38C /* LogEventConnector.swift */,
 				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
 				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
@@ -369,6 +372,7 @@
 				8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */,
 				839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */,
 				834448F52596777300F68B84 /* AppGroup.swift in Sources */,
+				167E16A7260223F300A8B0EC /* EditEventNameConnector.swift in Sources */,
 				83921904258E842A00A7B69F /* Model.xcdatamodeld in Sources */,
 				83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */,
 				830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */,

@@ -7,6 +7,7 @@ public protocol EmotionEventsProvider {
     var events: [EmotionEvent] { get }
     func log(event: EmotionEvent)
     func delete(event: EmotionEvent)
+    func update(event: EmotionEvent)
     func add(listener: @escaping EmotionEventsProviderListener)
 }
 
@@ -55,5 +56,15 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         entity.setValue(event.emotions, forKey: "emotions")
         entity.setValue(event.color, forKey: "color")
         storage.add(entity: entity)
+    }
+
+    public func update(event: EmotionEvent) {
+        let entities: [EmotionEventEntity] = storage.get()
+        let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!
+        entity.setValue(event.date, forKey: "date")
+        entity.setValue(event.name, forKey: "name")
+        entity.setValue(event.emotions, forKey: "emotions")
+        entity.setValue(event.color, forKey: "color")
+        storage.save(entity: entity)
     }
 }

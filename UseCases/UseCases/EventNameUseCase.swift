@@ -3,9 +3,12 @@ import Model
 
 public protocol EventNameUseCaseOutput: class {
     func present(selectedEmotions: [String], color: String)
+    func present(emotion: String)
     func present(addAvailable: Bool)
     func presentBack()
     func presentEmotions()
+    func presentBackAddButtons()
+    func presentCancelSaveButtons()
 }
 
 public protocol EventNameUseCase {
@@ -38,6 +41,8 @@ public final class EventNameUseCaseImpl {
 extension EventNameUseCaseImpl: EventNameUseCase {
     public func eventOutputReady() {
         output.present(selectedEmotions: selectedEmotions, color: color)
+        output.presentBackAddButtons()
+        output.present(addAvailable: false)
     }
     
     public func eventBack() {
