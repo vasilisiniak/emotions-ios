@@ -41,6 +41,12 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         return viewController
     }
 
+    func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController {
+        let viewController = AppInfoViewController()
+        AppInfoConnector(viewController: viewController, router: router).configure()
+        return viewController
+    }
+
     func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
         let connector = EditEventNameConnector(

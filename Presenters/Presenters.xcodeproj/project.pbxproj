@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		167E16AB26024BDA00A8B0EC /* AppInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */; };
 		8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013A258F8BD200D744DF /* EmotionsPresenter.swift */; };
 		833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */; };
 		835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835573582586320B007F15C8 /* EventNamePresenter.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoPresenter.swift; sourceTree = "<group>"; };
 		8302013A258F8BD200D744DF /* EmotionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsPresenter.swift; sourceTree = "<group>"; };
 		833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsPresenter.swift; sourceTree = "<group>"; };
 		835573582586320B007F15C8 /* EventNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamePresenter.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				83B9EE6525857675007158F3 /* LogEventPresenter.swift */,
 				833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */,
 				839C92D1258F4F4A008C9C5A /* TrendsPresenter.swift */,
+				167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */,
 				8302013A258F8BD200D744DF /* EmotionsPresenter.swift */,
 				83A51B512582C5F5005131D7 /* Info.plist */,
 			);
@@ -183,6 +186,7 @@
 				835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */,
 				839C92D2258F4F4A008C9C5A /* TrendsPresenter.swift in Sources */,
 				8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */,
+				167E16AB26024BDA00A8B0EC /* AppInfoPresenter.swift in Sources */,
 				833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

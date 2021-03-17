@@ -1,8 +1,10 @@
 import UIKit
+import MessageUI
 import Presenters
 
 public protocol EmotionsViewControllerComposer: class {
     var logEventViewController: LogEventViewController { get }
+    func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController
     func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
@@ -25,8 +27,8 @@ public final class EmotionsViewController: UITabBarController {
 
 extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     public func routeEmotions() {
-        if let presentedViewController = presentedViewController {
-            presentedViewController.dismiss(animated: true, completion: nil)
+        if presentedViewController != nil {
+            dismiss(animated: true, completion: nil)
         }
         else {
             selectedIndex = 0
@@ -52,7 +54,21 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
 
 extension EmotionsViewController: EventNameRouter {
     public func routeBack() {
-        presentedViewController?.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension EmotionsViewController: AppInfoRouter {
+    public func route(emailTheme: String, email: String) {
+        let controller = MFMailComposeViewController()
+        controller.setSubject(emailTheme)
+        controller.setToRecipients([email])
+        controller.mailComposeDelegate = self
+        present(controller, animated: true, completion: nil)
+    }
+
+    public func route(url: String) {
+        UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
     }
 }
 
@@ -61,7 +77,16 @@ extension EmotionsViewController: EmotionsPresenterOutput {
         viewControllers = [
             composer.logEventViewController,
             composer.emotionEventsViewController(router: self),
-            composer.trendsViewController(router: self)
+            composer.trendsViewController(router: self),
+            composer.appInfoViewController(router: self)
         ]
+    }
+}
+
+extension EmotionsViewController: UINavigationControllerDelegate { }
+
+extension EmotionsViewController: MFMailComposeViewControllerDelegate {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
     }
 }
