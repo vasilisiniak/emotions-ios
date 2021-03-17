@@ -32,4 +32,7 @@
    <FileRef
       location = "group:Design.sketch">
    </FileRef>
+   <FileRef
+      location = "group:readme.md">
+   </FileRef>
 </Workspace>

@@ -25,9 +25,7 @@
 		834449002596790600F68B84 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83921902258E842A00A7B69F /* Model.xcdatamodeld */; };
 		834449012596791800F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
 		834449022596797500F68B84 /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; };
-		834449032596797500F68B84 /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B702582C7A0005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8344490425967DA800F68B84 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; };
-		8344490525967DA800F68B84 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B42589E35000B2C9A2 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		834449082596813200F68B84 /* WidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83444906259680FC00F68B84 /* WidgetProvider.swift */; };
 		8344490A2596819C00F68B84 /* EmotionsColorsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834449092596819C00F68B84 /* EmotionsColorsEntry.swift */; };
 		8344490C259682CC00F68B84 /* EmotionsColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8344490B259682CC00F68B84 /* EmotionsColorsView.swift */; };
@@ -72,18 +70,6 @@
 				834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		834448F22596723500F68B84 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				834449032596797500F68B84 /* Model.framework in Embed Frameworks */,
-				8344490525967DA800F68B84 /* Utils.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83A51B7C2582C8E1005131D7 /* Embed Frameworks */ = {
@@ -263,7 +249,6 @@
 				834448D525966FB500F68B84 /* Sources */,
 				834448D625966FB500F68B84 /* Frameworks */,
 				834448D725966FB500F68B84 /* Resources */,
-				834448F22596723500F68B84 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

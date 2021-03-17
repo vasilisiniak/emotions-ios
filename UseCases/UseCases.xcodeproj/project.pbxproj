@@ -14,23 +14,8 @@
 		839C92D0258F4E47008C9C5A /* TrendsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92CF258F4E47008C9C5A /* TrendsUseCase.swift */; };
 		83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */; };
 		83A51B852582C907005131D7 /* Model.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; };
-		83A51B862582C907005131D7 /* Model.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B612582C686005131D7 /* Model.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83B9EE64258575B1007158F3 /* LogEventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B9EE63258575B1007158F3 /* LogEventUseCase.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		83A51B872582C907005131D7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				83A51B862582C907005131D7 /* Model.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameUseCase.swift; sourceTree = "<group>"; };
@@ -118,7 +103,6 @@
 				83A51B2C2582C5A4005131D7 /* Sources */,
 				83A51B2D2582C5A4005131D7 /* Frameworks */,
 				83A51B2E2582C5A4005131D7 /* Resources */,
-				83A51B872582C907005131D7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

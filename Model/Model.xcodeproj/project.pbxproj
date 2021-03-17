@@ -10,24 +10,9 @@
 		833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */; };
 		833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */; };
 		8378D063258E91E80024FC65 /* Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378D062258E91E80024FC65 /* Storage.framework */; };
-		8378D064258E91E80024FC65 /* Storage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8378D062258E91E80024FC65 /* Storage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B202582C539005131D7 /* EmotionsGroup.swift */; };
 		83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B212582C539005131D7 /* EmotionsGroupsProvider.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		8378D065258E91E90024FC65 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8378D064258E91E80024FC65 /* Storage.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEvent.swift; sourceTree = "<group>"; };
@@ -111,7 +96,6 @@
 				83A51B0F2582C51C005131D7 /* Sources */,
 				83A51B102582C51C005131D7 /* Frameworks */,
 				83A51B112582C51C005131D7 /* Resources */,
-				8378D065258E91E90024FC65 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
