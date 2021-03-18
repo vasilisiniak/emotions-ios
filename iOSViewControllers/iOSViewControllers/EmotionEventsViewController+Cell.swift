@@ -47,7 +47,7 @@ extension EmotionEventsViewController {
                 nameLabel.leadingAnchor.constraint(equalTo: emotionsLabel.leadingAnchor),
                 
                 timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-                timeLabel.trailingAnchor.constraint(equalTo: emotionsLabel.trailingAnchor),
+                timeLabel.leadingAnchor.constraint(equalTo: emotionsLabel.trailingAnchor),
 
                 shareButton.rightAnchor.constraint(equalTo: timeLabel.rightAnchor, constant: 2),
                 shareButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),

@@ -19,7 +19,6 @@
 		834448DB25966FB500F68B84 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DA25966FB500F68B84 /* WidgetKit.framework */; };
 		834448DD25966FB500F68B84 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DC25966FB500F68B84 /* SwiftUI.framework */; };
 		834448E025966FB500F68B84 /* iOSWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448DF25966FB500F68B84 /* iOSWidget.swift */; };
-		834448E225966FB800F68B84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834448E125966FB800F68B84 /* Assets.xcassets */; };
 		834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 834448D925966FB500F68B84 /* iOSWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		834448F52596777300F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
 		834449002596790600F68B84 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83921902258E842A00A7B69F /* Model.xcdatamodeld */; };
@@ -103,7 +102,6 @@
 		834448DA25966FB500F68B84 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		834448DC25966FB500F68B84 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		834448DF25966FB500F68B84 /* iOSWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWidget.swift; sourceTree = "<group>"; };
-		834448E125966FB800F68B84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		834448E325966FB800F68B84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		834448EC2596711000F68B84 /* iOSWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSWidgetExtension.entitlements; sourceTree = "<group>"; };
 		834448ED2596712700F68B84 /* iOSApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOSApp.entitlements; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 				83444906259680FC00F68B84 /* WidgetProvider.swift */,
 				834449092596819C00F68B84 /* EmotionsColorsEntry.swift */,
 				8344490B259682CC00F68B84 /* EmotionsColorsView.swift */,
-				834448E125966FB800F68B84 /* Assets.xcassets */,
 				834448E325966FB800F68B84 /* Info.plist */,
 				834448EC2596711000F68B84 /* iOSWidgetExtension.entitlements */,
 			);
@@ -320,7 +317,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834448E225966FB800F68B84 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
