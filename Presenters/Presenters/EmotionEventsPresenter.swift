@@ -58,14 +58,14 @@ public enum EmotionEventsPresenterObjects {
     }
 }
 
-public protocol EmotionEventsPresenterOutput: class {
+public protocol EmotionEventsPresenterOutput: AnyObject {
     func show(noDataText: String, button: String)
     func show(noDataHidden: Bool)
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
     func show(message: String, button: String)
 }
 
-public protocol EmotionEventsRouter: class {
+public protocol EmotionEventsRouter: AnyObject {
     func routeEmotions()
     func route(shareText: String)
     func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date)

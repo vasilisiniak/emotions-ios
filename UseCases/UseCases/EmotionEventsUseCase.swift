@@ -24,7 +24,7 @@ public enum EmotionEventsUseCaseObjects {
     }
 }
 
-public protocol EmotionEventsUseCaseOutput: class {
+public protocol EmotionEventsUseCaseOutput: AnyObject {
     func present(events: [EmotionEventsUseCaseObjects.Event])
     func present(noData: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)

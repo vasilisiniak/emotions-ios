@@ -1,7 +1,7 @@
 import UIKit
 import UseCases
 
-public protocol EventNamePresenterOutput: class {
+public protocol EventNamePresenterOutput: AnyObject {
     func show(title: String)
     func show(backButton: String)
     func show(addButton: String)
@@ -12,7 +12,7 @@ public protocol EventNamePresenterOutput: class {
     func showKeyboard()
 }
 
-public protocol EventNameRouter: class {
+public protocol EventNameRouter: AnyObject {
     func routeBack()
     func routeEmotions()
 }

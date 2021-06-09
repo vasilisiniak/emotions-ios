@@ -1,13 +1,13 @@
 import UIKit
 import UseCases
 
-public protocol TrendsPresenterOutput: class {
+public protocol TrendsPresenterOutput: AnyObject {
     func show(noDataText: String, button: String)
     func show(noDataHidden: Bool)
     func show(colors: [UIColor])
 }
 
-public protocol TrendsRouter: class {
+public protocol TrendsRouter: AnyObject {
     func routeEmotions()
 }
 

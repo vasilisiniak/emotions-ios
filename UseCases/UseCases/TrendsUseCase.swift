@@ -1,6 +1,6 @@
 import Model
 
-public protocol TrendsUseCaseOutput: class {
+public protocol TrendsUseCaseOutput: AnyObject {
     func present(colors: [String])
     func present(noData: Bool)
     func presentEmotions()

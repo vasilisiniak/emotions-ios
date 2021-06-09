@@ -50,11 +50,11 @@ public enum AppInfoPresenterObjects {
     }
 }
 
-public protocol AppInfoPresenterOutput: class {
+public protocol AppInfoPresenterOutput: AnyObject {
     func show(sections: [AppInfoPresenterObjects.Section])
 }
 
-public protocol AppInfoRouter: class {
+public protocol AppInfoRouter: AnyObject {
     func route(emailTheme: String, email: String)
     func route(url: String)
 }

@@ -20,7 +20,7 @@ public enum EmotionsGroupsPresenterObjects {
     }
 }
 
-public protocol EmotionsGroupsPresenterOutput: class {
+public protocol EmotionsGroupsPresenterOutput: AnyObject {
     func show(title: String)
     func show(clearButton: String)
     func show(nextButton: String)
@@ -34,7 +34,7 @@ public protocol EmotionsGroupsPresenterOutput: class {
     func show(message: String, button: String)
 }
 
-public protocol EmotionsGroupsRouter: class {
+public protocol EmotionsGroupsRouter: AnyObject {
     func routeEventName(selectedEmotions: [String], color: String)
 }
 

@@ -1,7 +1,7 @@
 import Foundation
 import WidgetKit
 
-public protocol LogEventUseCaseOutput: class {
+public protocol LogEventUseCaseOutput: AnyObject {
     func presentEmotions()
     func presentDairyInfo()
     func presentColorMapInfo()

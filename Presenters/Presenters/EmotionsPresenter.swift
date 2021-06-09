@@ -1,7 +1,7 @@
 import UIKit
 import UseCases
 
-public protocol EmotionsPresenterOutput: class {
+public protocol EmotionsPresenterOutput: AnyObject {
     func showEmotions()
 }
 

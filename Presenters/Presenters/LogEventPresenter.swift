@@ -1,7 +1,7 @@
 import UIKit
 import UseCases
 
-public protocol LogEventPresenterOutput: class {
+public protocol LogEventPresenterOutput: AnyObject {
     func showEmotions()
     func show(message: String, button: String)
     func showWidgetAlert(message: String, okButton: String, infoButton: String)

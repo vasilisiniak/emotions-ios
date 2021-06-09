@@ -1,4 +1,4 @@
-public protocol EmotionsUseCaseOutput: class {
+public protocol EmotionsUseCaseOutput: AnyObject {
     func presentEmotions()
 }
 

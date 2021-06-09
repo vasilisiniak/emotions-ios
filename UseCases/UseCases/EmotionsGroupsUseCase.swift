@@ -19,7 +19,7 @@ public enum EmotionsGroupsUseCaseObjects {
     }
 }
 
-public protocol EmotionsGroupsUseCaseOutput: class {
+public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func present(clearAvailable: Bool)
     func present(nextAvailable: Bool)
     func present(groups: [String])

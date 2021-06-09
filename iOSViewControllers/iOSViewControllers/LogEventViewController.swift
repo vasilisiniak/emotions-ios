@@ -1,7 +1,7 @@
 import UIKit
 import Presenters
 
-public protocol LogEventViewControllerComposer: class {
+public protocol LogEventViewControllerComposer: AnyObject {
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController
 }

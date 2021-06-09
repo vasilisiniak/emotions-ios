@@ -1,7 +1,7 @@
 import Foundation
 import Model
 
-public protocol EventNameUseCaseOutput: class {
+public protocol EventNameUseCaseOutput: AnyObject {
     func present(selectedEmotions: [String], color: String)
     func present(emotion: String)
     func present(addAvailable: Bool)

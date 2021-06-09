@@ -2,7 +2,7 @@ import UIKit
 import MessageUI
 import Presenters
 
-public protocol EmotionsViewControllerComposer: class {
+public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
     func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController
     func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
