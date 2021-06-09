@@ -64,7 +64,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
     
     func trendsViewController(router: TrendsRouter) -> TrendsViewController {
         let viewController = TrendsViewController()
-        TrendsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider).configure()
+        TrendsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider, settings: AppGroup.settings).configure()
         return viewController
     }
     

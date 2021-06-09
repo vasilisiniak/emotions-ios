@@ -7,14 +7,19 @@ public final class TrendsViewController: UIViewController {
     // MARK: - UIViewController
     
     public override func loadView() {
-        view = gradientView
+        view = trendsView
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        layoutNoDataView()
-        noDataView.isHidden = true
-        noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
+
+        trendsView.noDataView.isHidden = true
+        trendsView.noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
+
+        trendsView.dateRangePicker.addAction(UIAction { [weak self, trendsView] _ in
+            self?.presenter.event(selectedRange: trendsView.dateRangePicker.selectedRange)
+        }, for: .valueChanged)
+
         presenter.eventViewReady()
     }
     
@@ -25,21 +30,8 @@ public final class TrendsViewController: UIViewController {
     }
     
     // MARK: - Private
-    
-    private let gradientView = GradientView()
-    private let noDataView = NoDataView()
-    
-    private func layoutNoDataView() {
-        view.addSubview(noDataView)
-        noDataView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noDataView.topAnchor.constraint(equalTo: view.topAnchor),
-            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
+
+    private let trendsView = View()
     
     private func onAddTap(action: UIAction) {
         presenter.eventAddTap()
@@ -58,15 +50,32 @@ public final class TrendsViewController: UIViewController {
 
 extension TrendsViewController: TrendsPresenterOutput {
     public func show(noDataHidden: Bool) {
-        noDataView.isHidden = noDataHidden
+        trendsView.noDataView.isHidden = noDataHidden
     }
     
-    public func show(noDataText: String, button: String) {
-        noDataView.label.text = noDataText
-        noDataView.button.setTitle(button, for: .normal)
+    public func show(noDataText: String, button: String?) {
+        trendsView.noDataView.label.text = noDataText
+        trendsView.noDataView.button.setTitle(button, for: .normal)
+        trendsView.noDataView.button.isHidden = (button == nil)
     }
     
     public func show(colors: [UIColor]) {
-        gradientView.colors = colors
+        trendsView.gradientView.colors = colors
+    }
+
+    public func show(range: (min: Date, max: Date)) {
+        trendsView.dateRangePicker.range = range
+    }
+
+    public func show(selectedRange: (min: Date?, max: Date?)) {
+        trendsView.dateRangePicker.selectedRange = selectedRange
+    }
+
+    public func show(rangeTitle: String) {
+        trendsView.dateRangePicker.titleLabel.text = rangeTitle
+    }
+
+    public func show(rangeHidden: Bool) {
+        trendsView.dateRangePicker.isHidden = rangeHidden
     }
 }

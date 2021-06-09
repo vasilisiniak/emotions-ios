@@ -1,51 +1,52 @@
 import UIKit
+import iOSControls
 
 extension TrendsViewController {
-    
-    final class NoDataView: UIView {
-        
+
+    final class View: UIView {
+
         // MARK: - NSCoding
-        
+
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
+
         // MARK: - Private
-        
+
         private func addSubviews() {
-            addSubview(label)
-            addSubview(button)
+            addSubview(gradientView)
+            addSubview(noDataView)
+            addSubview(dateRangePicker)
         }
-        
+
         private func makeConstraints() {
-            label.translatesAutoresizingMaskIntoConstraints = false
-            button.translatesAutoresizingMaskIntoConstraints = false
-            
+            gradientView.translatesAutoresizingMaskIntoConstraints = false
+            noDataView.translatesAutoresizingMaskIntoConstraints = false
+            dateRangePicker.translatesAutoresizingMaskIntoConstraints = false
+
             NSLayoutConstraint.activate([
-                label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-                label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-                label.centerXAnchor.constraint(equalTo: centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
-                label.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -30),
-                label.centerXAnchor.constraint(equalTo: button.centerXAnchor)
+                gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                gradientView.topAnchor.constraint(equalTo: topAnchor),
+                gradientView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+                dateRangePicker.leadingAnchor.constraint(equalTo: leadingAnchor),
+                dateRangePicker.trailingAnchor.constraint(equalTo: trailingAnchor),
+                dateRangePicker.topAnchor.constraint(equalTo: topAnchor),
+
+                noDataView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                noDataView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                noDataView.topAnchor.constraint(equalTo: topAnchor),
+                noDataView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
         }
-        
+
         // MARK: - Internal
-        
-        let label: UILabel = create {
-            $0.font = .preferredFont(forTextStyle: .body)
-            $0.adjustsFontForContentSizeCategory = true
-            $0.textAlignment = .center
-            $0.numberOfLines = 0
-        }
-        
-        let button: UIButton = {
-            let button = UIButton(type: .system)
-            button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-            return button
-        }()
-        
+
+        let gradientView = GradientView()
+        let noDataView = NoDataView()
+        let dateRangePicker = DateRangePicker()
+
         init() {
             super.init(frame: .zero)
             backgroundColor = .systemBackground

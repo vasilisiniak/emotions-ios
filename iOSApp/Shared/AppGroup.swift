@@ -9,4 +9,9 @@ enum AppGroup {
         let storage = CoreDataStorage(model: "Model", url: storeURL)
         return EmotionEventsProviderImpl<EmotionEventEntity>(storage: storage)
     }()
+
+    static let settings: Settings = {
+        let defaults = UserDefaults(suiteName: "group.by.vasili.siniak.emotions")!
+        return SettingsImpl(defaults: defaults)
+    }()
 }

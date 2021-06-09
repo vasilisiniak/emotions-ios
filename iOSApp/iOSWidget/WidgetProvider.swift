@@ -20,7 +20,7 @@ struct WidgetProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<EmotionsColorsEntry>) -> ()) {
-        let colors = AppGroup.emotionEventsProvider.events.map { UIColor(hex: $0.color) }
+        let colors = AppGroup.emotionEventsProvider.events.filtered(range: AppGroup.settings.range).map { UIColor(hex: $0.color) }
         let entry = EmotionsColorsEntry(date: Date(), colors: colors)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)

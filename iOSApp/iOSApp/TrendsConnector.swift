@@ -15,11 +15,11 @@ final class TrendsConnector {
     
     // MARK: - Internal
     
-    init(viewController: TrendsViewController, router: TrendsRouter, provider: EmotionEventsProvider) {
+    init(viewController: TrendsViewController, router: TrendsRouter, provider: EmotionEventsProvider, settings: Settings) {
         self.viewController = viewController
         self.router = router
         presenter = TrendsPresenterImpl()
-        useCase = TrendsUseCaseImpl(eventsProvider: provider)
+        useCase = TrendsUseCaseImpl(eventsProvider: provider, settings: settings)
     }
     
     func configure() {

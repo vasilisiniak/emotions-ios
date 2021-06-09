@@ -1,4 +1,5 @@
 import Foundation
+import MessageUI
 
 public enum AppInfoPresenterObjects {
 
@@ -52,6 +53,7 @@ public enum AppInfoPresenterObjects {
 
 public protocol AppInfoPresenterOutput: AnyObject {
     func show(sections: [AppInfoPresenterObjects.Section])
+    func showEmailAlert(message: String, okButton: String, infoButton: String)
 }
 
 public protocol AppInfoRouter: AnyObject {
@@ -61,6 +63,7 @@ public protocol AppInfoRouter: AnyObject {
 
 public protocol AppInfoPresenter {
     func eventViewReady()
+    func eventEmailInfo()
     func event(selectIndexPath: IndexPath)
 }
 
@@ -84,11 +87,24 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
     }
 
     public func event(selectIndexPath: IndexPath) {
+        guard MFMailComposeViewController.canSendMail() else {
+            output.showEmailAlert(
+                message: "Для связи с разработчиком нужно добавить почтовый аккаунт в приложение «Почта»",
+                okButton: "OK",
+                infoButton: "Как это сделать"
+            )
+            return
+        }
+
         switch sections[selectIndexPath.section].rows[selectIndexPath.row] {
         case .contactSuggest: router.route(emailTheme: "[Emotions][Suggest]", email: "vasili.siniak+emotions@gmail.com")
         case .contactReport: router.route(emailTheme: "[Emotions][Report]", email: "vasili.siniak+emotions@gmail.com")
         case .designSuggest: router.route(emailTheme: "[Emotions][Design]", email: "vasili.siniak+emotions@gmail.com")
         case .infoSourceCode: router.route(url: "https://github.com/vasilisiniak/emotions-ios")
         }
+    }
+
+    public func eventEmailInfo() {
+        UIApplication.shared.open(URL(string: "https://support.apple.com/ru-ru/HT201320")!)
     }
 }
