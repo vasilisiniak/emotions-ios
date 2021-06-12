@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16AC776726755A8E0029B7CC /* LinkActivityItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776626755A8E0029B7CC /* LinkActivityItem.swift */; };
+		16AC7769267569F70029B7CC /* Bundle+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC7768267569F70029B7CC /* Bundle+Utils.swift */; };
 		83010ACC2584FDFC0037D024 /* NSObject+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83010ACB2584FDFC0037D024 /* NSObject+Utils.swift */; };
 		832C0C252585595500AF2212 /* UIBarButtonItem+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832C0C242585595500AF2212 /* UIBarButtonItem+Utils.swift */; };
 		83DE23E625839C6E0098337E /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE23E525839C6E0098337E /* UIColor+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16AC776626755A8E0029B7CC /* LinkActivityItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkActivityItem.swift; sourceTree = "<group>"; };
+		16AC7768267569F70029B7CC /* Bundle+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Utils.swift"; sourceTree = "<group>"; };
 		83010ACB2584FDFC0037D024 /* NSObject+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Utils.swift"; sourceTree = "<group>"; };
 		832C0C242585595500AF2212 /* UIBarButtonItem+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Utils.swift"; sourceTree = "<group>"; };
 		83DE23D825839C4B0098337E /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +57,8 @@
 				83DE23E525839C6E0098337E /* UIColor+Utils.swift */,
 				83010ACB2584FDFC0037D024 /* NSObject+Utils.swift */,
 				832C0C242585595500AF2212 /* UIBarButtonItem+Utils.swift */,
+				16AC776626755A8E0029B7CC /* LinkActivityItem.swift */,
+				16AC7768267569F70029B7CC /* Bundle+Utils.swift */,
 				83DE23DC25839C4B0098337E /* Info.plist */,
 			);
 			path = Utils;
@@ -136,8 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16AC7769267569F70029B7CC /* Bundle+Utils.swift in Sources */,
 				832C0C252585595500AF2212 /* UIBarButtonItem+Utils.swift in Sources */,
 				83010ACC2584FDFC0037D024 /* NSObject+Utils.swift in Sources */,
+				16AC776726755A8E0029B7CC /* LinkActivityItem.swift in Sources */,
 				83DE23E625839C6E0098337E /* UIColor+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

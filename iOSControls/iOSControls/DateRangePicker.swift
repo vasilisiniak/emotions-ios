@@ -37,11 +37,11 @@ public final class DateRangePicker: UIControl {
         addSubview(titleLabel)
         addSubview(stackView)
 
-        stackView.insertArrangedSubview(resetToDateButton, at: 0)
-        stackView.insertArrangedSubview(toDatePicker, at: 0)
-        stackView.insertArrangedSubview(dashLabel, at: 0)
-        stackView.insertArrangedSubview(fromDatePicker, at: 0)
-        stackView.insertArrangedSubview(resetFromDateButton, at: 0)
+        stackView.addArrangedSubview(resetFromDateButton)
+        stackView.addArrangedSubview(fromDatePicker)
+        stackView.addArrangedSubview(dashLabel)
+        stackView.addArrangedSubview(toDatePicker)
+        stackView.addArrangedSubview(resetToDateButton)
 
         stackView.setCustomSpacing(10, after: dashLabel)
         stackView.setCustomSpacing(10, after: fromDatePicker)

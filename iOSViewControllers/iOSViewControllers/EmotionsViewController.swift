@@ -70,6 +70,12 @@ extension EmotionsViewController: AppInfoRouter {
     public func route(url: String) {
         UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
     }
+
+    public func route(shareItem: UIActivityItemSource) {
+        let activityViewController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
+        present(activityViewController, animated: true, completion: nil)
+    }
 }
 
 extension EmotionsViewController: EmotionsPresenterOutput {
