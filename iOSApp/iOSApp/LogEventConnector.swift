@@ -1,6 +1,7 @@
 import iOSViewControllers
 import Presenters
 import UseCases
+import Model
 
 final class LogEventConnector {
     
@@ -13,11 +14,11 @@ final class LogEventConnector {
     
     // MARK: - Internal
     
-    init(viewController: LogEventViewController, composer: LogEventViewControllerComposer) {
+    init(viewController: LogEventViewController, composer: LogEventViewControllerComposer, promoManager: PromoManager) {
         self.viewController = viewController
         self.composer = composer
         presenter = LogEventPresenterImpl()
-        useCase = LogEventUseCaseImpl()
+        useCase = LogEventUseCaseImpl(promoManager: promoManager)
     }
     
     func configure() {

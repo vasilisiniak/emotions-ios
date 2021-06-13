@@ -1,5 +1,6 @@
 import Foundation
 import WidgetKit
+import Model
 
 public protocol LogEventUseCaseOutput: AnyObject {
     func presentEmotions()
@@ -7,6 +8,8 @@ public protocol LogEventUseCaseOutput: AnyObject {
     func presentColorMapInfo()
     func presentWidgetInfo()
     func presentWidgetHelp()
+    func presentRate()
+    func presentShare()
 }
 
 public protocol LogEventUseCase {
@@ -51,11 +54,16 @@ public final class LogEventUseCaseImpl {
             UserDefaults.standard.setValue(newValue, forKey: Constants.ThirdCreationKey)
         }
     }
+
+    private let promoManager: PromoManager
     
     // MARK: - Public
     
     public weak var output: LogEventUseCaseOutput!
-    public init() {}
+
+    public init(promoManager: PromoManager) {
+        self.promoManager = promoManager
+    }
 }
 
 extension LogEventUseCaseImpl: LogEventUseCase {
@@ -74,6 +82,9 @@ extension LogEventUseCaseImpl: LogEventUseCase {
             thirdCreation = true
             output.presentWidgetInfo()
         }
+        else {
+            promoManager.trackActivityEnded(sender: self)
+        }
     }
     
     public func eventOutputReady() {
@@ -82,5 +93,15 @@ extension LogEventUseCaseImpl: LogEventUseCase {
     
     public func eventWidgetInfo() {
         output.presentWidgetHelp()
+    }
+}
+
+extension LogEventUseCaseImpl: PromoManagerSender {
+    public func presentShare() {
+        output.presentShare()
+    }
+
+    public func presentRate() {
+        output.presentRate()
     }
 }

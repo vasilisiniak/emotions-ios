@@ -4,7 +4,7 @@ import UIKit
 extension Bundle {
 
     public var appName: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+        return object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
     }
 
     public var appIcon: UIImage? {
@@ -17,5 +17,9 @@ extension Bundle {
             return nil
         }
         return UIImage(named: lastIcon)
+    }
+
+    public var appVersion: String? {
+        return object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 }

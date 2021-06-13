@@ -1,10 +1,13 @@
 import Foundation
 import iOSViewControllers
 import Presenters
+import Model
 
 final class CompositionRoot {
     
     // MARK: - Internal
+
+    let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
     
     var emotionsViewController: EmotionsViewController {
         let viewController = EmotionsViewController()
@@ -37,7 +40,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
 extension CompositionRoot: EmotionsViewControllerComposer {
     var logEventViewController: LogEventViewController {
         let viewController = LogEventViewController()
-        LogEventConnector(viewController: viewController, composer: self).configure()
+        LogEventConnector(viewController: viewController, composer: self, promoManager: promoManager).configure()
         return viewController
     }
 

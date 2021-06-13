@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		16AC776026710E210029B7CC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* Settings.swift */; };
+		16AC776B26761E470029B7CC /* PromoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776A26761E470029B7CC /* PromoManager.swift */; };
 		833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */; };
 		833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */; };
 		8378D063258E91E80024FC65 /* Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378D062258E91E80024FC65 /* Storage.framework */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		16AC775F26710E210029B7CC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		16AC776A26761E470029B7CC /* PromoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoManager.swift; sourceTree = "<group>"; };
 		833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEvent.swift; sourceTree = "<group>"; };
 		833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsProvider.swift; sourceTree = "<group>"; };
 		8378D062258E91E80024FC65 /* Storage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Storage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 				833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */,
 				833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */,
 				16AC775F26710E210029B7CC /* Settings.swift */,
+				16AC776A26761E470029B7CC /* PromoManager.swift */,
 				83A51B172582C51C005131D7 /* Info.plist */,
 			);
 			path = Model;
@@ -160,6 +163,7 @@
 				83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */,
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
 				16AC776026710E210029B7CC /* Settings.swift in Sources */,
+				16AC776B26761E470029B7CC /* PromoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

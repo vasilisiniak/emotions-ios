@@ -61,9 +61,26 @@ extension LogEventViewController: EventNameRouter {
 }
 
 extension LogEventViewController: LogEventPresenterOutput {
+    public func show(share: UIActivityItemSource) {
+        let activityViewController = UIActivityViewController(activityItems: [share], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    public func showShareAlert(message: String, okButton: String, cancelButton: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: { [weak self] _ in
+            self?.presenter.eventShare()
+        }))
+        alert.addAction(UIAlertAction(title: cancelButton, style: .cancel, handler: { [weak self] _ in
+            self?.presenter.eventCancelShare()
+        }))
         present(alert, animated: true, completion: nil)
     }
     

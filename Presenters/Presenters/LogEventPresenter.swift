@@ -1,16 +1,22 @@
 import UIKit
+import StoreKit
 import UseCases
+import Utils
 
 public protocol LogEventPresenterOutput: AnyObject {
     func showEmotions()
     func show(message: String, button: String)
     func showWidgetAlert(message: String, okButton: String, infoButton: String)
+    func showShareAlert(message: String, okButton: String, cancelButton: String)
+    func show(share: UIActivityItemSource)
 }
 
 public protocol LogEventPresenter {
     func eventViewReady()
     func eventEventCreated()
     func eventWidgetInfo()
+    func eventShare()
+    func eventCancelShare()
 }
 
 public final class LogEventPresenterImpl {
@@ -24,6 +30,15 @@ public final class LogEventPresenterImpl {
 }
 
 extension LogEventPresenterImpl: LogEventPresenter {
+    public func eventCancelShare() {
+        output.show(message: "Вы можете поделиться приложением позже на вкладке «О приложении»", button: "OK")
+    }
+
+    public func eventShare() {
+        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: "https://apps.apple.com/app/id1558896129"), icon: Bundle.main.appIcon)
+        output.show(share: item)
+    }
+
     public func eventEventCreated() {
         useCase.eventEventCreated()
     }
@@ -38,6 +53,14 @@ extension LogEventPresenterImpl: LogEventPresenter {
 }
 
 extension LogEventPresenterImpl: LogEventUseCaseOutput {
+    public func presentRate() {
+        SKStoreReviewController.requestReview(in: UIApplication.shared.scene)
+    }
+
+    public func presentShare() {
+        output.showShareAlert(message: "Может быть это приложение будет полезно кому-то из ваших друзей?", okButton: "Поделиться приложением", cancelButton: "Не сейчас")
+    }
+
     public func presentDairyInfo() {
         output.show(message: "Запись сделана. Её можно увидеть на вкладке дневника", button: "OK")
     }
