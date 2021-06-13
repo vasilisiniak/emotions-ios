@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		167E169F2600C0E300A8B0EC /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E169E2600C0E200A8B0EC /* ExpandableTextView.swift */; };
 		16AC775C2670C5210029B7CC /* DateRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775B2670C5210029B7CC /* DateRangePicker.swift */; };
+		16DF071F2676798D00B40C1B /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DF071E2676798D00B40C1B /* Utils.framework */; };
 		830BECF2258517EB00166851 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830BECF1258517EA00166851 /* PaddedLabel.swift */; };
 		839C92CA258F4995008C9C5A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92C9258F4995008C9C5A /* GradientView.swift */; };
 /* End PBXBuildFile section */
@@ -16,6 +17,7 @@
 /* Begin PBXFileReference section */
 		167E169E2600C0E200A8B0EC /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		16AC775B2670C5210029B7CC /* DateRangePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePicker.swift; sourceTree = "<group>"; };
+		16DF071E2676798D00B40C1B /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830BECE5258517DC00166851 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		830BECE9258517DC00166851 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		830BECF1258517EA00166851 /* PaddedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
@@ -27,17 +29,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16DF071F2676798D00B40C1B /* Utils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16DF071D2676798D00B40C1B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16DF071E2676798D00B40C1B /* Utils.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		830BECDB258517DC00166851 = {
 			isa = PBXGroup;
 			children = (
 				830BECE7258517DC00166851 /* iOSControls */,
 				830BECE6258517DC00166851 /* Products */,
+				16DF071D2676798D00B40C1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
