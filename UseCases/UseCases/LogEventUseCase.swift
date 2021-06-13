@@ -1,21 +1,27 @@
 import Foundation
 import WidgetKit
+import UIKit
 import Model
+import Utils
 
 public protocol LogEventUseCaseOutput: AnyObject {
     func presentEmotions()
     func presentDairyInfo()
     func presentColorMapInfo()
     func presentWidgetInfo()
-    func presentWidgetHelp()
+    func presentWidgetHelp(link: String)
     func presentRate()
-    func presentShare()
+    func presentShare(item: UIActivityItemSource)
+    func presentShareInfo()
+    func presentShareLater()
 }
 
 public protocol LogEventUseCase {
     func eventOutputReady()
     func eventEventCreated()
     func eventWidgetInfo()
+    func eventShare()
+    func eventCancelShare()
 }
 
 public final class LogEventUseCaseImpl {
@@ -56,17 +62,28 @@ public final class LogEventUseCaseImpl {
     }
 
     private let promoManager: PromoManager
+    private let appLink: String
     
     // MARK: - Public
     
     public weak var output: LogEventUseCaseOutput!
 
-    public init(promoManager: PromoManager) {
+    public init(promoManager: PromoManager, appLink: String) {
         self.promoManager = promoManager
+        self.appLink = appLink
     }
 }
 
 extension LogEventUseCaseImpl: LogEventUseCase {
+    public func eventShare() {
+        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
+        output.presentShare(item: item)
+    }
+
+    public func eventCancelShare() {
+        output.presentShareLater()
+    }
+
     public func eventEventCreated() {
         WidgetCenter.shared.reloadAllTimelines()
         
@@ -92,13 +109,13 @@ extension LogEventUseCaseImpl: LogEventUseCase {
     }
     
     public func eventWidgetInfo() {
-        output.presentWidgetHelp()
+        output.presentWidgetHelp(link: "https://support.apple.com/ru-ru/HT207122")
     }
 }
 
 extension LogEventUseCaseImpl: PromoManagerSender {
     public func presentShare() {
-        output.presentShare()
+        output.presentShareInfo()
     }
 
     public func presentRate() {

@@ -1,7 +1,6 @@
 import Foundation
 import MessageUI
-import LinkPresentation
-import Utils
+import UseCases
 
 public enum AppInfoPresenterObjects {
 
@@ -87,6 +86,7 @@ public class AppInfoPresenterImpl {
     // MARK: - Public
 
     public weak var output: AppInfoPresenterOutput!
+    public var useCase: AppInfoUseCase!
     public weak var router: AppInfoRouter!
 
     public init() {}
@@ -102,11 +102,6 @@ public class AppInfoPresenterImpl {
         }
         router.route(emailTheme: emailTheme, email: email)
     }
-
-    private func share() {
-        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: "https://apps.apple.com/app/id1558896129"), icon: Bundle.main.appIcon)
-        router.route(shareItem: item)
-    }
 }
 
 extension AppInfoPresenterImpl: AppInfoPresenter {
@@ -116,16 +111,30 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
 
     public func event(selectIndexPath: IndexPath) {
         switch sections[selectIndexPath.section].rows[selectIndexPath.row] {
-        case .promoRate: router.route(url: "https://apps.apple.com/app/id1558896129?action=write-review")
-        case .promoShare: share()
-        case .contactSuggest: route(emailTheme: "[Emotions][Suggest]", email: "vasili.siniak+emotions@gmail.com")
-        case .contactReport: route(emailTheme: "[Emotions][Report]", email: "vasili.siniak+emotions@gmail.com")
-        case .designSuggest: route(emailTheme: "[Emotions][Design]", email: "vasili.siniak+emotions@gmail.com")
-        case .infoSourceCode: router.route(url: "https://github.com/vasilisiniak/emotions-ios")
+        case .promoRate: useCase.event(.review)
+        case .promoShare: useCase.event(.share)
+        case .contactSuggest: useCase.event(.suggest)
+        case .contactReport: useCase.event(.report)
+        case .designSuggest: useCase.event(.designSuggest)
+        case .infoSourceCode: useCase.event(.sourceCode)
         }
     }
 
     public func eventEmailInfo() {
-        UIApplication.shared.open(URL(string: "https://support.apple.com/ru-ru/HT201320")!)
+        useCase.event(.emailInfo)
+    }
+}
+
+extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
+    public func present(emailTheme: String, email: String) {
+        route(emailTheme: emailTheme, email: email)
+    }
+
+    public func present(url: String) {
+        router.route(url: url)
+    }
+
+    public func present(share: UIActivityItemSource) {
+        router.route(shareItem: share)
     }
 }

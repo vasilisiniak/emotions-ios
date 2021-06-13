@@ -31,12 +31,11 @@ public final class LogEventPresenterImpl {
 
 extension LogEventPresenterImpl: LogEventPresenter {
     public func eventCancelShare() {
-        output.show(message: "Вы можете поделиться приложением позже на вкладке «О приложении»", button: "OK")
+        useCase.eventCancelShare()
     }
 
     public func eventShare() {
-        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: "https://apps.apple.com/app/id1558896129"), icon: Bundle.main.appIcon)
-        output.show(share: item)
+        useCase.eventShare()
     }
 
     public func eventEventCreated() {
@@ -53,12 +52,20 @@ extension LogEventPresenterImpl: LogEventPresenter {
 }
 
 extension LogEventPresenterImpl: LogEventUseCaseOutput {
+    public func presentShareInfo() {
+        output.showShareAlert(message: "Может быть это приложение будет полезно кому-то из ваших друзей?", okButton: "Поделиться приложением", cancelButton: "Не сейчас")
+    }
+
+    public func presentShareLater() {
+        output.show(message: "Вы можете поделиться приложением позже на вкладке «О приложении»", button: "OK")
+    }
+
     public func presentRate() {
         SKStoreReviewController.requestReview(in: UIApplication.shared.scene)
     }
 
-    public func presentShare() {
-        output.showShareAlert(message: "Может быть это приложение будет полезно кому-то из ваших друзей?", okButton: "Поделиться приложением", cancelButton: "Не сейчас")
+    public func presentShare(item: UIActivityItemSource) {
+        output.show(share: item)
     }
 
     public func presentDairyInfo() {
@@ -73,8 +80,8 @@ extension LogEventPresenterImpl: LogEventUseCaseOutput {
         output.showWidgetAlert(message: "Можно добавить виджет с цветовой картой эмоций на экран «Домой»", okButton: "OK", infoButton: "Как это сделать")
     }
     
-    public func presentWidgetHelp() {
-        UIApplication.shared.open(URL(string: "https://support.apple.com/ru-ru/HT207122")!)
+    public func presentWidgetHelp(link: String) {
+        UIApplication.shared.open(URL(string: link)!)
     }
 
     public func presentEmotions() {

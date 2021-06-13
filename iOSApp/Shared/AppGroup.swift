@@ -14,4 +14,6 @@ enum AppGroup {
         let defaults = UserDefaults(suiteName: "group.by.vasili.siniak.emotions")!
         return SettingsImpl(defaults: defaults)
     }()
+
+    static let appLink = "https://apps.apple.com/app/id1558896129"
 }
