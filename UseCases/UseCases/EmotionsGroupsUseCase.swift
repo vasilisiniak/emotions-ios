@@ -29,6 +29,7 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func present(emotionIndex: Int, selected: [String])
     func presentNext(selectedEmotions: [String], color: String)
     func presentFirstLaunch()
+    func presentSecondLaunch()
 }
 
 public protocol EmotionsGroupsUseCase {
@@ -45,6 +46,7 @@ public final class EmotionsGroupsUseCaseImpl {
     
     private enum Constants {
         fileprivate static let FirstLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.FirstLaunchKey"
+        fileprivate static let SecondLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.SecondLaunchKey"
     }
     
     // MARK: - Private
@@ -55,6 +57,15 @@ public final class EmotionsGroupsUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstLaunchKey)
+        }
+    }
+
+    private var secondLaunch: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Constants.SecondLaunchKey)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.SecondLaunchKey)
         }
     }
     
@@ -91,6 +102,10 @@ public final class EmotionsGroupsUseCaseImpl {
         if !firstLaunch {
             firstLaunch = true
             output.presentFirstLaunch()
+        }
+        else if !secondLaunch {
+            secondLaunch = true
+            output.presentSecondLaunch()
         }
     }
     

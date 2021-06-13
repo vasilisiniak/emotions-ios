@@ -96,7 +96,11 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
     public func presentFirstLaunch() {
         output.show(message: "Задержите палец на эмоции, чтобы увидеть её описание", button: "OK")
     }
-    
+
+    public func presentSecondLaunch() {
+        output.show(message: "Вкладки можно преключать свайпом влево или вправо", button: "OK")
+    }
+
     public func present(clearAvailable: Bool) {
         output.show(clearButtonEnabled: clearAvailable)
     }
