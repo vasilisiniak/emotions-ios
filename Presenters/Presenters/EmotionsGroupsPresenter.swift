@@ -1,4 +1,5 @@
 import UIKit
+import StoreKit
 import UseCases
 import Utils
 
@@ -32,6 +33,8 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
     func show(selectedEmotionsNames: String, color: UIColor)
     func show(emotionIndex: Int, selectedNames: [String])
     func show(message: String, button: String)
+    func show(shareAlertMessage: String, okButton: String, cancelButton: String)
+    func show(share: UIActivityItemSource)
 }
 
 public protocol EmotionsGroupsRouter: AnyObject {
@@ -46,6 +49,9 @@ public protocol EmotionsGroupsPresenter {
     func eventNext()
     func event(indexChange: Int)
     func event(select: String)
+    func eventDidHideInfo()
+    func eventShare()
+    func eventCancelShare()
 }
 
 public final class EmotionsGroupsPresenterImpl {
@@ -60,6 +66,18 @@ public final class EmotionsGroupsPresenterImpl {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
+    public func eventShare() {
+        useCase.eventShare()
+    }
+
+    public func eventCancelShare() {
+        useCase.eventCancelShare()
+    }
+
+    public func eventDidHideInfo() {
+        useCase.eventDidHideInfo()
+    }
+
     public func eventNext() {
         useCase.eventNext()
     }
@@ -93,6 +111,22 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
+    public func presentShareInfo() {
+        output.show(shareAlertMessage: "Может быть это приложение будет полезно кому-то из ваших друзей?", okButton: "Поделиться приложением", cancelButton: "Не сейчас")
+    }
+
+    public func presentShareLater() {
+        output.show(message: "Вы можете поделиться приложением позже на вкладке «О приложении»", button: "OK")
+    }
+
+    public func presentRate() {
+        SKStoreReviewController.requestReview(in: UIApplication.shared.scene)
+    }
+
+    public func presentShare(item: UIActivityItemSource) {
+        output.show(share: item)
+    }
+
     public func presentFirstLaunch() {
         output.show(message: "Задержите палец на эмоции, чтобы увидеть её описание", button: "OK")
     }

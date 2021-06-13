@@ -85,12 +85,31 @@ extension EmotionsGroupsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let meaning = emotions[indexPath.row].meaning
         return UIContextMenuConfiguration(identifier: nil) {
-            Menu(text: meaning, width: tableView.bounds.size.width - 50)
+            Menu(text: meaning, width: tableView.bounds.size.width - 50) { [weak self] in
+                self?.presenter.eventDidHideInfo()
+            }
         }
     }
 }
 
 extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
+    public func show(share: UIActivityItemSource) {
+        let activityViewController = UIActivityViewController(activityItems: [share], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
+        present(activityViewController, animated: true, completion: nil)
+    }
+
+    public func show(shareAlertMessage: String, okButton: String, cancelButton: String) {
+        let alert = UIAlertController(title: shareAlertMessage, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: { [weak self] _ in
+            self?.presenter.eventShare()
+        }))
+        alert.addAction(UIAlertAction(title: cancelButton, style: .cancel, handler: { [weak self] _ in
+            self?.presenter.eventCancelShare()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
     public func show(clearButtonEnabled: Bool) {
         navigationItem.leftBarButtonItem?.isEnabled = clearButtonEnabled
     }

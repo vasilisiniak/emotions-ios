@@ -15,12 +15,12 @@ final class EmotionsGroupsConnector {
     
     // MARK: - Internal
     
-    init(viewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter) {
+    init(viewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter, promoManager: PromoManager, appLink: String) {
         let provider = EmotionsGroupsProviderImpl(url: Bundle.main.url(forResource: "Emotions", withExtension: "plist")!)
         self.viewController = viewController
         self.router = router
         presenter = EmotionsGroupsPresenterImpl()
-        useCase = EmotionsGroupsUseCaseImpl(emotionsProvider: provider)
+        useCase = EmotionsGroupsUseCaseImpl(emotionsProvider: provider, promoManager: promoManager, appLink: appLink)
     }
     
     func configure() {

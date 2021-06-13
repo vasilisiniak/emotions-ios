@@ -19,7 +19,7 @@ final class CompositionRoot {
 extension CompositionRoot: LogEventViewControllerComposer {
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController {
         let emotionsViewController = EmotionsGroupsViewController()
-        EmotionsGroupsConnector(viewController: emotionsViewController, router: router).configure()
+        EmotionsGroupsConnector(viewController: emotionsViewController, router: router, promoManager: promoManager, appLink: AppGroup.appLink).configure()
         return emotionsViewController
     }
     

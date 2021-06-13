@@ -38,14 +38,23 @@ extension EmotionsGroupsViewController {
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }
+
+        private let handler: Handler
         
         // MARK: - Internal
+
+        typealias Handler = () -> Void
         
-        init(text: String, width: CGFloat) {
+        init(text: String, width: CGFloat, handler: @escaping Handler) {
+            self.handler = handler
             super.init(nibName: nil, bundle: nil)
             let label = createLabel(text: text, width: width)
             view = label
             preferredContentSize = label.frame.size
+        }
+
+        deinit {
+            handler()
         }
     }
 }

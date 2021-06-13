@@ -1,5 +1,7 @@
 import Foundation
+import UIKit
 import Model
+import Utils
 
 public enum EmotionsGroupsUseCaseObjects {
     
@@ -30,6 +32,10 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func presentNext(selectedEmotions: [String], color: String)
     func presentFirstLaunch()
     func presentSecondLaunch()
+    func presentRate()
+    func presentShare(item: UIActivityItemSource)
+    func presentShareInfo()
+    func presentShareLater()
 }
 
 public protocol EmotionsGroupsUseCase {
@@ -40,6 +46,9 @@ public protocol EmotionsGroupsUseCase {
     func eventNextIndex()
     func eventPrevIndex()
     func event(select: String)
+    func eventDidHideInfo()
+    func eventShare()
+    func eventCancelShare()
 }
 
 public final class EmotionsGroupsUseCaseImpl {
@@ -70,6 +79,8 @@ public final class EmotionsGroupsUseCaseImpl {
     }
     
     private let emotionsProvider: EmotionsGroupsProvider
+    private let promoManager: PromoManager
+    private let appLink: String
     private var selectedGroupIndex = 0
     private var selectedColor: String!
     
@@ -112,12 +123,27 @@ public final class EmotionsGroupsUseCaseImpl {
     // MARK: - Public
     
     public weak var output: EmotionsGroupsUseCaseOutput!
-    public init(emotionsProvider: EmotionsGroupsProvider) {
+    public init(emotionsProvider: EmotionsGroupsProvider, promoManager: PromoManager, appLink: String) {
         self.emotionsProvider = emotionsProvider
+        self.promoManager = promoManager
+        self.appLink = appLink
     }
 }
 
 extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
+    public func eventShare() {
+        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
+        output.presentShare(item: item)
+    }
+
+    public func eventCancelShare() {
+        output.presentShareLater()
+    }
+
+    public func eventDidHideInfo() {
+        promoManager.trackActivityEnded(sender: self)
+    }
+
     public func eventNext() {
         output.presentNext(selectedEmotions: selectedEmotions, color: selectedColor)
     }
@@ -174,5 +200,15 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         }
         presentEmotionsGroup()
         presentFirstLaunch()
+    }
+}
+
+extension EmotionsGroupsUseCaseImpl: PromoManagerSender {
+    public func presentRate() {
+        output.presentRate()
+    }
+
+    public func presentShare() {
+        output.presentShareInfo()
     }
 }
