@@ -91,7 +91,7 @@ extension PromoManagerImpl: PromoManager {
                 present(rate: sender)
             }
         }
-        else if !shownRateAtLeastOnce {
+        else if !shownShareAtLeastOnce {
             if launchesSinceLastAction > 10 {
                 present(share: sender)
             }
