@@ -10,12 +10,12 @@ public protocol EmotionsPresenter {
 }
 
 public final class EmotionsPresenterImpl {
-    
+
     // MARK: - Public
-    
+
     public weak var output: EmotionsPresenterOutput!
     public var useCase: EmotionsUseCase!
-    
+
     public init() {}
 }
 

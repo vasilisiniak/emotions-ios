@@ -5,23 +5,23 @@ import UseCases
 import Model
 
 final class TrendsConnector {
-    
+
     // MARK: - Private
-    
+
     private let viewController: TrendsViewController
     private let router: TrendsRouter
     private let presenter: TrendsPresenterImpl
     private let useCase: TrendsUseCaseImpl
-    
+
     // MARK: - Internal
-    
+
     init(viewController: TrendsViewController, router: TrendsRouter, provider: EmotionEventsProvider, settings: Settings) {
         self.viewController = viewController
         self.router = router
         presenter = TrendsPresenterImpl()
         useCase = TrendsUseCaseImpl(eventsProvider: provider, settings: settings)
     }
-    
+
     func configure() {
         viewController.presenter = presenter
         presenter.output = viewController

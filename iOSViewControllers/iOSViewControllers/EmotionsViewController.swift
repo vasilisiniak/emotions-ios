@@ -11,16 +11,16 @@ public protocol EmotionsViewControllerComposer: AnyObject {
 }
 
 public final class EmotionsViewController: UITabBarController {
-    
+
     // MARK: - UIViewController
-        
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.eventViewReady()
     }
-        
+
     // MARK: - Public
-    
+
     public var presenter: EmotionsPresenter!
     public weak var composer: EmotionsViewControllerComposer!
 }

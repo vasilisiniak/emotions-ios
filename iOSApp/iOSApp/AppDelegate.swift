@@ -1,13 +1,13 @@
 import UIKit
 
 @UIApplicationMain final class AppDelegate: UIResponder {
-    
+
     // MARK: - Private
-    
+
     private let compositionRoot = CompositionRoot()
-    
+
     // MARK: - Internal
-    
+
     var window: UIWindow?
 }
 

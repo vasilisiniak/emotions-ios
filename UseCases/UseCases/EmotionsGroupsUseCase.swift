@@ -4,18 +4,18 @@ import Model
 import Utils
 
 public enum EmotionsGroupsUseCaseObjects {
-    
+
     public struct Emotion {
-        
+
         // MARK: - Fileprivate
-        
+
         fileprivate init(event: EmotionsGroup.Emotion) {
             name = event.name
             meaning = event.meaning
         }
-        
+
         // MARK: - Public
-        
+
         public let name: String
         public let meaning: String
     }
@@ -52,14 +52,14 @@ public protocol EmotionsGroupsUseCase {
 }
 
 public final class EmotionsGroupsUseCaseImpl {
-    
+
     private enum Constants {
         fileprivate static let FirstLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.FirstLaunchKey"
         fileprivate static let SecondLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.SecondLaunchKey"
     }
-    
+
     // MARK: - Private
-    
+
     private var firstLaunch: Bool {
         get {
             UserDefaults.standard.bool(forKey: Constants.FirstLaunchKey)
@@ -77,38 +77,38 @@ public final class EmotionsGroupsUseCaseImpl {
             UserDefaults.standard.setValue(newValue, forKey: Constants.SecondLaunchKey)
         }
     }
-    
+
     private let emotionsProvider: EmotionsGroupsProvider
     private let promoManager: PromoManager
     private let appLink: String
     private var selectedGroupIndex = 0
     private var selectedColor: String!
-    
+
     private var selectedEmotions: [String] = [] {
         didSet {
             updateSelectedColor()
             output.present(selectedEmotions: selectedEmotions, color: selectedColor)
         }
     }
-    
+
     private func updateSelectedColor() {
         let counts = emotionsProvider.emotionsGroups.map { $0.emotions.filter { selectedEmotions.contains($0.name) }.count }
         let index = counts.firstIndex { $0 == counts.max() }!
         selectedColor = emotionsProvider.emotionsGroups[index].color
     }
-    
+
     private func presentEmotionsGroup() {
         let group = emotionsProvider.emotionsGroups[selectedGroupIndex]
         let selected = selectedEmotions.filter { group.emotions.map(\.name).contains($0) }
         output.present(selectedGroupIndex: selectedGroupIndex)
         output.present(emotions: group.emotions.map(EmotionsGroupsUseCaseObjects.Emotion.init), selected: selected, color: group.color)
     }
-    
+
     private func presentClearNextAvailable() {
         output.present(clearAvailable: selectedEmotions.count > 0)
         output.present(nextAvailable: selectedEmotions.count > 0)
     }
-    
+
     private func presentFirstLaunch() {
         if !firstLaunch {
             firstLaunch = true
@@ -119,9 +119,9 @@ public final class EmotionsGroupsUseCaseImpl {
             output.presentSecondLaunch()
         }
     }
-    
+
     // MARK: - Public
-    
+
     public weak var output: EmotionsGroupsUseCaseOutput!
     public init(emotionsProvider: EmotionsGroupsProvider, promoManager: PromoManager, appLink: String) {
         self.emotionsProvider = emotionsProvider
@@ -147,26 +147,26 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     public func eventNext() {
         output.presentNext(selectedEmotions: selectedEmotions, color: selectedColor)
     }
-    
+
     public func eventClear() {
         selectedEmotions = []
         output.present(selectedEmotions: selectedEmotions, color: selectedColor)
         presentEmotionsGroup()
         presentClearNextAvailable()
     }
-    
+
     public func eventOutputReady() {
         output.present(groups: emotionsProvider.emotionsGroups.map(\.name))
         presentEmotionsGroup()
         presentClearNextAvailable()
     }
-    
+
     public func event(indexChange: Int) {
         self.selectedGroupIndex = indexChange
         presentEmotionsGroup()
         presentFirstLaunch()
     }
-    
+
     public func event(select: String) {
         if selectedEmotions.contains(select) {
             selectedEmotions = selectedEmotions.filter { $0 != select }
@@ -179,7 +179,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         output.present(emotionIndex: index, selected: selectedEmotions)
         presentClearNextAvailable()
     }
-    
+
     public func eventNextIndex() {
         if selectedGroupIndex == (emotionsProvider.emotionsGroups.count - 1) {
             selectedGroupIndex = 0
@@ -190,7 +190,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         presentEmotionsGroup()
         presentFirstLaunch()
     }
-    
+
     public func eventPrevIndex() {
         if selectedGroupIndex == 0 {
             selectedGroupIndex = emotionsProvider.emotionsGroups.count - 1

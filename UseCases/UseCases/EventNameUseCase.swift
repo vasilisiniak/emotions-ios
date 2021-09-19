@@ -19,18 +19,18 @@ public protocol EventNameUseCase {
 }
 
 public final class EventNameUseCaseImpl {
-    
+
     // MARK: - Private
-    
+
     private let provider: EmotionEventsProvider
     private let selectedEmotions: [String]
     private let color: String
     private var description: String?
-    
+
     // MARK: - Public
-    
+
     public weak var output: EventNameUseCaseOutput!
-    
+
     public init(provider: EmotionEventsProvider, selectedEmotions: [String], color: String) {
         self.provider = provider
         self.selectedEmotions = selectedEmotions
@@ -44,16 +44,16 @@ extension EventNameUseCaseImpl: EventNameUseCase {
         output.presentBackAddButtons()
         output.present(addAvailable: false)
     }
-    
+
     public func eventBack() {
         output.presentBack()
     }
-    
+
     public func event(descriptionChanged: String?) {
         description = descriptionChanged
         output.present(addAvailable: (description ?? "").count > 0)
     }
-    
+
     public func eventAdd() {
         let event = EmotionEvent(date: Date(), name: description!, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)

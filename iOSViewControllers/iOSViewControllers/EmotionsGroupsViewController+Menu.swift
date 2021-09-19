@@ -17,11 +17,11 @@ fileprivate extension PaddedLabel {
 }
 
 extension EmotionsGroupsViewController {
-    
+
     final class Menu: UIViewController {
-        
+
         // MARK: - NSCoding
-        
+
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -34,9 +34,9 @@ extension EmotionsGroupsViewController {
             label.frame = CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude)
             label.sizeToPaddedFit()
         }
-        
+
         // MARK: - Private
-        
+
         private func createLabel(text: String) -> PaddedLabel {
             let label = PaddedLabel()
             label.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -53,11 +53,11 @@ extension EmotionsGroupsViewController {
         private let handler: Handler
         private let width: CGFloat
         private var label: PaddedLabel!
-        
+
         // MARK: - Internal
 
         typealias Handler = () -> Void
-        
+
         init(text: String, width: CGFloat, handler: @escaping Handler) {
             self.width = width
             self.handler = handler

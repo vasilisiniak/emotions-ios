@@ -5,16 +5,16 @@ import UseCases
 import Model
 
 final class EventNameConnector {
-    
+
     // MARK: - Private
-    
+
     private let viewController: EventNameViewController
     private let router: EventNameRouter
     private let presenter: EventNamePresenterImpl
     private let useCase: EventNameUseCaseImpl
-    
+
     // MARK: - Internal
-    
+
     init(
         viewController: EventNameViewController,
         router: EventNameRouter,
@@ -27,7 +27,7 @@ final class EventNameConnector {
         presenter = EventNamePresenterImpl()
         useCase = EventNameUseCaseImpl(provider: provider, selectedEmotions: selectedEmotions, color: color)
     }
-    
+
     func configure() {
         viewController.presenter = presenter
         presenter.output = viewController

@@ -26,13 +26,13 @@ public protocol EventNamePresenter {
 }
 
 public final class EventNamePresenterImpl {
-    
+
     // MARK: - Public
-    
+
     public weak var output: EventNamePresenterOutput!
     public weak var router: EventNameRouter!
     public var useCase: EventNameUseCase!
-    
+
     public init() {}
 }
 
@@ -40,20 +40,20 @@ extension EventNamePresenterImpl: EventNamePresenter {
     public func eventViewDidAppear() {
         output.showKeyboard()
     }
-    
+
     public func event(descriptionChanged: String?) {
         useCase.event(descriptionChanged: descriptionChanged)
     }
-    
+
     public func eventAddTap() {
         useCase.eventAdd()
     }
-    
+
     public func eventViewReady() {
         output.show(title: "Введите событие")
         useCase.eventOutputReady()
     }
-    
+
     public func eventBackTap() {
         useCase.eventBack()
     }
@@ -77,16 +77,16 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
     public func present(emotion: String) {
         output.show(emotion: emotion)
     }
-    
+
     public func present(addAvailable: Bool) {
         output.show(addButtonEnabled: addAvailable)
     }
-    
+
     public func present(selectedEmotions: [String], color: String) {
         output.show(selectedEmotions: selectedEmotions.joined(separator: ", "))
         output.show(color: UIColor(hex: color))
     }
-    
+
     public func presentBack() {
         router.routeBack()
     }

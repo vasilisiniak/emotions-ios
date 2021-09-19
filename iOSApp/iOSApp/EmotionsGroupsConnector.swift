@@ -5,16 +5,16 @@ import UseCases
 import Model
 
 final class EmotionsGroupsConnector {
-    
+
     // MARK: - Private
-    
+
     private let viewController: EmotionsGroupsViewController
     private let router: EmotionsGroupsRouter
     private let presenter: EmotionsGroupsPresenterImpl
     private let useCase: EmotionsGroupsUseCaseImpl
-    
+
     // MARK: - Internal
-    
+
     init(viewController: EmotionsGroupsViewController, router: EmotionsGroupsRouter, promoManager: PromoManager, appLink: String) {
         let provider = EmotionsGroupsProviderImpl(url: Bundle.main.url(forResource: "Emotions", withExtension: "plist")!)
         self.viewController = viewController
@@ -22,7 +22,7 @@ final class EmotionsGroupsConnector {
         presenter = EmotionsGroupsPresenterImpl()
         useCase = EmotionsGroupsUseCaseImpl(emotionsProvider: provider, promoManager: promoManager, appLink: appLink)
     }
-    
+
     func configure() {
         viewController.presenter = presenter
         presenter.output = viewController

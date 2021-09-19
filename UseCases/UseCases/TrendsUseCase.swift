@@ -17,12 +17,12 @@ public protocol TrendsUseCase {
 }
 
 public final class TrendsUseCaseImpl {
-    
+
     // MARK: - Private
-    
+
     private let eventsProvider: EmotionEventsProvider
     private let settings: Settings
-    
+
     private func presentColors() {
         let events = eventsProvider.events
         guard events.count > 1 else {
@@ -52,9 +52,9 @@ public final class TrendsUseCaseImpl {
     }
 
     // MARK: - Public
-    
+
     public weak var output: TrendsUseCaseOutput!
-    
+
     public init(eventsProvider: EmotionEventsProvider, settings: Settings) {
         self.eventsProvider = eventsProvider
         self.settings = settings
@@ -69,7 +69,7 @@ extension TrendsUseCaseImpl: TrendsUseCase {
     public func eventAdd() {
         output.presentEmotions()
     }
-    
+
     public func eventOutputReady() {
         presentRange()
         presentColors()

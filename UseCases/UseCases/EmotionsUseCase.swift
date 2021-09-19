@@ -7,9 +7,9 @@ public protocol EmotionsUseCase {
 }
 
 public final class EmotionsUseCaseImpl {
-    
+
     // MARK: - Public
-    
+
     public weak var output: EmotionsUseCaseOutput!
     public init() {}
 }

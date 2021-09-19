@@ -4,11 +4,11 @@ import Presenters
 import Model
 
 final class CompositionRoot {
-    
+
     // MARK: - Internal
 
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
-    
+
     var emotionsViewController: EmotionsViewController {
         let viewController = EmotionsViewController()
         EmotionsConnector(viewController: viewController, composer: self).configure()
@@ -22,7 +22,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
         EmotionsGroupsConnector(viewController: emotionsViewController, router: router, promoManager: promoManager, appLink: AppGroup.appLink).configure()
         return emotionsViewController
     }
-    
+
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
         let connector = EventNameConnector(
@@ -64,13 +64,13 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         connector.configure()
         return eventNameViewController
     }
-    
+
     func trendsViewController(router: TrendsRouter) -> TrendsViewController {
         let viewController = TrendsViewController()
         TrendsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider, settings: AppGroup.settings).configure()
         return viewController
     }
-    
+
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
         let viewController = EmotionEventsViewController()
         EmotionEventsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider).configure()

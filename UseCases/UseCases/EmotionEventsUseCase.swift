@@ -3,20 +3,20 @@ import WidgetKit
 import Model
 
 public enum EmotionEventsUseCaseObjects {
-    
+
     public struct Event {
-        
+
         // MARK: - Fileprivate
-        
+
         fileprivate init(event: EmotionEvent) {
             date = event.date
             name = event.name
             emotions = event.emotions
             color = event.color
         }
-        
+
         // MARK: - Public
-        
+
         public let date: Date
         public let name: String
         public let emotions: String
@@ -57,9 +57,9 @@ public final class EmotionEventsUseCaseImpl {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstEventDisplay)
         }
     }
-    
+
     private let eventsProvider: EmotionEventsProvider
-    
+
     private func presentEvents() {
         let events = eventsProvider.events
             .map(EmotionEventsUseCaseObjects.Event.init(event:))
@@ -67,11 +67,11 @@ public final class EmotionEventsUseCaseImpl {
         output.present(events: events)
         output.present(noData: events.count == 0)
     }
-    
+
     // MARK: - Public
-    
+
     public weak var output: EmotionEventsUseCaseOutput!
-    
+
     public init(eventsProvider: EmotionEventsProvider) {
         self.eventsProvider = eventsProvider
         self.eventsProvider.add { [weak self] in
@@ -84,7 +84,7 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func eventAdd() {
         output.presentEmotions()
     }
-    
+
     public func eventOutputReady() {
         presentEvents()
 
@@ -97,7 +97,7 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func event(shareEvent: EmotionEventsUseCaseObjects.Event) {
         output.present(shareEvent: shareEvent)
     }
-    
+
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
         eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
         WidgetCenter.shared.reloadAllTimelines()

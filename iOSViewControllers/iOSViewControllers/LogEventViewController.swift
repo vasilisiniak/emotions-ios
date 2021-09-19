@@ -7,31 +7,31 @@ public protocol LogEventViewControllerComposer: AnyObject {
 }
 
 public final class LogEventViewController: UINavigationController {
-    
+
     // MARK: - UIViewController
-    
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
         presenter.eventViewReady()
     }
-    
+
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         title = ""
     }
-    
+
     // MARK: - NSCoding
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+
     // MARK: - Public
-    
+
     public var presenter: LogEventPresenter!
     public weak var composer: LogEventViewControllerComposer!
-    
+
     public init() {
         super.init(nibName: nil, bundle: nil)
         let tabBarIcon = UIImage(named: "LogEventTabBarIcon", in: Bundle(for: LogEventViewController.self), with: nil)
@@ -54,7 +54,7 @@ extension LogEventViewController: EventNameRouter {
         setViewControllers([emotionsViewController], animated: true)
         presenter.eventEventCreated()
     }
-    
+
     public func routeBack() {
         popViewController(animated: true)
     }
@@ -66,7 +66,7 @@ extension LogEventViewController: LogEventPresenterOutput {
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
         present(activityViewController, animated: true, completion: nil)
     }
-    
+
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
@@ -83,7 +83,7 @@ extension LogEventViewController: LogEventPresenterOutput {
         }))
         present(alert, animated: true, completion: nil)
     }
-    
+
     public func showWidgetAlert(message: String, okButton: String, infoButton: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
@@ -92,7 +92,7 @@ extension LogEventViewController: LogEventPresenterOutput {
         }))
         present(alert, animated: true, completion: nil)
     }
-    
+
     public func showEmotions() {
         let emotionsViewController = composer.emotionsViewController(router: self)
         pushViewController(emotionsViewController, animated: true)

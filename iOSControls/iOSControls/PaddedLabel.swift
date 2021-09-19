@@ -1,9 +1,9 @@
 import UIKit
 
 public final class PaddedLabel: UILabel {
-    
+
     // MARK: - UIView
-    
+
     public override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         if size == .zero {
@@ -15,15 +15,15 @@ public final class PaddedLabel: UILabel {
             return CGSize(width: width, height: height)
         }
     }
-    
+
     // MARK: - UILabel
-    
+
     public override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: textInsets))
     }
-    
+
     // MARK: - Public
-    
+
     public var textInsets: UIEdgeInsets = .zero {
         didSet {
             setNeedsLayout()

@@ -5,11 +5,11 @@ public protocol EmotionsGroupsProvider {
 }
 
 public final class EmotionsGroupsProviderImpl {
-    
+
     // MARK: - Public
-    
+
     public let emotionsGroups: [EmotionsGroup]
-    
+
     public init(url: URL) {
         let data = try! Data(contentsOf: url)
         let decoder = PropertyListDecoder()

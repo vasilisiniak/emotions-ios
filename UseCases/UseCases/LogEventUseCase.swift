@@ -25,15 +25,15 @@ public protocol LogEventUseCase {
 }
 
 public final class LogEventUseCaseImpl {
-    
+
     private enum Constants {
         fileprivate static let FirstCreationKey = "UseCases.LogEventUseCaseImpl.FirstCreationKey"
         fileprivate static let SecondCreationKey = "UseCases.LogEventUseCaseImpl.SecondCreationKey"
         fileprivate static let ThirdCreationKey = "UseCases.LogEventUseCaseImpl.ThirdCreationKey"
     }
-    
+
     // MARK: - Private
-    
+
     private var firstCreation: Bool {
         get {
             UserDefaults.standard.bool(forKey: Constants.FirstCreationKey)
@@ -42,7 +42,7 @@ public final class LogEventUseCaseImpl {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstCreationKey)
         }
     }
-    
+
     private var secondCreation: Bool {
         get {
             UserDefaults.standard.bool(forKey: Constants.SecondCreationKey)
@@ -51,7 +51,7 @@ public final class LogEventUseCaseImpl {
             UserDefaults.standard.setValue(newValue, forKey: Constants.SecondCreationKey)
         }
     }
-    
+
     private var thirdCreation: Bool {
         get {
             UserDefaults.standard.bool(forKey: Constants.ThirdCreationKey)
@@ -63,9 +63,9 @@ public final class LogEventUseCaseImpl {
 
     private let promoManager: PromoManager
     private let appLink: String
-    
+
     // MARK: - Public
-    
+
     public weak var output: LogEventUseCaseOutput!
 
     public init(promoManager: PromoManager, appLink: String) {
@@ -86,7 +86,7 @@ extension LogEventUseCaseImpl: LogEventUseCase {
 
     public func eventEventCreated() {
         WidgetCenter.shared.reloadAllTimelines()
-        
+
         if !firstCreation {
             firstCreation = true
             output.presentDairyInfo()
@@ -103,11 +103,11 @@ extension LogEventUseCaseImpl: LogEventUseCase {
             promoManager.trackActivityEnded(sender: self)
         }
     }
-    
+
     public func eventOutputReady() {
         output.presentEmotions()
     }
-    
+
     public func eventWidgetInfo() {
         output.presentWidgetHelp(link: "https://support.apple.com/ru-ru/HT207122")
     }
