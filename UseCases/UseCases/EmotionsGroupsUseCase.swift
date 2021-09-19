@@ -36,6 +36,7 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func presentShare(item: UIActivityItemSource)
     func presentShareInfo()
     func presentShareLater()
+    func presentNotFound()
 }
 
 public protocol EmotionsGroupsUseCase {
@@ -49,6 +50,7 @@ public protocol EmotionsGroupsUseCase {
     func eventDidHideInfo()
     func eventShare()
     func eventCancelShare()
+    func eventNotFound()
 }
 
 public final class EmotionsGroupsUseCaseImpl {
@@ -200,6 +202,10 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         }
         presentEmotionsGroup()
         presentFirstLaunch()
+    }
+
+    public func eventNotFound() {
+        output.presentNotFound()
     }
 }
 

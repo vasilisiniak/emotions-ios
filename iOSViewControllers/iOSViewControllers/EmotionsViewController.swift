@@ -58,13 +58,13 @@ extension EmotionsViewController: EventNameRouter {
     }
 }
 
-extension EmotionsViewController: AppInfoRouter {
+extension EmotionsViewController: AppInfoRouter, LogEventRouter {
     public func route(emailTheme: String, email: String) {
         let controller = MFMailComposeViewController()
         controller.setSubject(emailTheme)
         controller.setToRecipients([email])
         controller.mailComposeDelegate = self
-        present(controller, animated: true, completion: nil)
+        topPresentedViewController.present(controller, animated: true, completion: nil)
     }
 
     public func route(url: String) {

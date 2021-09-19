@@ -13,11 +13,19 @@ final class AppInfoConnector {
 
     // MARK: - Internal
 
-    init(viewController: AppInfoViewController, router: AppInfoRouter, appLink: String) {
+    init(
+        viewController: AppInfoViewController,
+        router: AppInfoRouter,
+        appLink: String,
+        email: String,
+        github: String,
+        emailInfo: String,
+        emailTheme: String
+    ) {
         self.viewController = viewController
         self.router = router
         presenter = AppInfoPresenterImpl()
-        useCase = AppInfoUseCaseImpl(appLink: appLink)
+        useCase = AppInfoUseCaseImpl(appLink: appLink, email: email, github: github, emailInfo: emailInfo, emailTheme: emailTheme)
     }
 
     func configure() {

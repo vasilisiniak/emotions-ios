@@ -9,14 +9,26 @@ final class CompositionRoot {
 
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
 
-    var emotionsViewController: EmotionsViewController {
+    lazy var emotionsViewController: EmotionsViewController = {
         let viewController = EmotionsViewController()
         EmotionsConnector(viewController: viewController, composer: self).configure()
         return viewController
-    }
+    }()
 }
 
 extension CompositionRoot: LogEventViewControllerComposer {
+    func emotionNotFoundViewController(router: EmotionNotFoundRouter) -> EmotionNotFoundViewController {
+        let emotionNotFoundViewController = EmotionNotFoundViewController()
+        EmotionNotFoundConnector(
+            viewController: emotionNotFoundViewController,
+            router: router,
+            email: AppGroup.email,
+            emailInfo: AppGroup.emailInfo,
+            emailTheme: AppGroup.emailTheme
+        ).configure()
+        return emotionNotFoundViewController
+    }
+
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController {
         let emotionsViewController = EmotionsGroupsViewController()
         EmotionsGroupsConnector(viewController: emotionsViewController, router: router, promoManager: promoManager, appLink: AppGroup.appLink).configure()
@@ -25,14 +37,13 @@ extension CompositionRoot: LogEventViewControllerComposer {
 
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
-        let connector = EventNameConnector(
+        EventNameConnector(
             viewController: eventNameViewController,
             router: router,
             provider: AppGroup.emotionEventsProvider,
             selectedEmotions: selectedEmotions,
             color: color
-        )
-        connector.configure()
+        ).configure()
         return eventNameViewController
     }
 }
@@ -40,19 +51,27 @@ extension CompositionRoot: LogEventViewControllerComposer {
 extension CompositionRoot: EmotionsViewControllerComposer {
     var logEventViewController: LogEventViewController {
         let viewController = LogEventViewController()
-        LogEventConnector(viewController: viewController, composer: self, promoManager: promoManager, appLink: AppGroup.appLink).configure()
+        LogEventConnector(viewController: viewController, router: emotionsViewController, composer: self, promoManager: promoManager, appLink: AppGroup.appLink).configure()
         return viewController
     }
 
     func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController {
         let viewController = AppInfoViewController()
-        AppInfoConnector(viewController: viewController, router: router, appLink: AppGroup.appLink).configure()
+        AppInfoConnector(
+            viewController: viewController,
+            router: router,
+            appLink: AppGroup.appLink,
+            email: AppGroup.email,
+            github: AppGroup.github,
+            emailInfo: AppGroup.emailInfo,
+            emailTheme: AppGroup.emailTheme
+        ).configure()
         return viewController
     }
 
     func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
-        let connector = EditEventNameConnector(
+        EditEventNameConnector(
             viewController: eventNameViewController,
             router: router,
             provider: AppGroup.emotionEventsProvider,
@@ -60,8 +79,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             date: date,
             selectedEmotions: selectedEmotions,
             color: color
-        )
-        connector.configure()
+        ).configure()
         return eventNameViewController
     }
 

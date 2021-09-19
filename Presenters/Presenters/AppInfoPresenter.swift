@@ -83,14 +83,6 @@ public class AppInfoPresenterImpl {
 
     private let sections: [AppInfoPresenterObjects.Section] = [.promo, .contact, .design, .info]
 
-    // MARK: - Public
-
-    public weak var output: AppInfoPresenterOutput!
-    public var useCase: AppInfoUseCase!
-    public weak var router: AppInfoRouter!
-
-    public init() {}
-
     private func route(emailTheme: String, email: String) {
         guard MFMailComposeViewController.canSendMail() else {
             output.showEmailAlert(
@@ -102,6 +94,14 @@ public class AppInfoPresenterImpl {
         }
         router.route(emailTheme: emailTheme, email: email)
     }
+
+    // MARK: - Public
+
+    public weak var output: AppInfoPresenterOutput!
+    public var useCase: AppInfoUseCase!
+    public weak var router: AppInfoRouter!
+
+    public init() {}
 }
 
 extension AppInfoPresenterImpl: AppInfoPresenter {

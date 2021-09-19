@@ -27,15 +27,13 @@ public protocol AppInfoUseCase {
 
 public final class AppInfoUseCaseImpl {
 
-    private enum Constants {
-        static let email = "vasili.siniak+emotions@gmail.com"
-        static let github = "https://github.com/vasilisiniak/emotions-ios"
-        static let emailInfo = "https://support.apple.com/ru-ru/HT201320"
-    }
-
     // MARK: - Private
 
     private let appLink: String
+    private let email: String
+    private let github: String
+    private let emailInfo: String
+    private let emailTheme: String
 
     private func share() {
         let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
@@ -46,21 +44,25 @@ public final class AppInfoUseCaseImpl {
 
     public weak var output: AppInfoUseCaseOutput!
 
-    public init(appLink: String) {
+    public init(appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
         self.appLink = appLink
+        self.email = email
+        self.github = github
+        self.emailInfo = emailInfo
+        self.emailTheme = emailTheme
     }
 }
 
 extension AppInfoUseCaseImpl: AppInfoUseCase {
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
         switch event {
-        case .suggest: output.present(emailTheme: "[Emotions][Suggest]", email: Constants.email)
-        case .report: output.present(emailTheme: "[Emotions][Report]", email: Constants.email)
-        case .designSuggest: output.present(emailTheme: "[Emotions][Design]", email: Constants.email)
+        case .suggest: output.present(emailTheme: "\(emailTheme)[Suggest]", email: email)
+        case .report: output.present(emailTheme: "\(emailTheme)[Report]", email: email)
+        case .designSuggest: output.present(emailTheme: "\(emailTheme)[Design]", email: email)
         case .review: output.present(url: "\(appLink)?action=write-review")
         case .share: share()
-        case .sourceCode: output.present(url: Constants.github)
-        case .emailInfo: output.present(url: Constants.emailInfo)
+        case .sourceCode: output.present(url: github)
+        case .emailInfo: output.present(url: emailInfo)
         }
     }
 }

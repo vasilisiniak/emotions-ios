@@ -11,12 +11,19 @@ public protocol LogEventPresenterOutput: AnyObject {
     func show(share: UIActivityItemSource)
 }
 
+public protocol LogEventRouter: AnyObject {
+    func route(emailTheme: String, email: String)
+    func route(url: String)
+}
+
 public protocol LogEventPresenter {
     func eventViewReady()
     func eventEventCreated()
     func eventWidgetInfo()
     func eventShare()
     func eventCancelShare()
+    func event(url: String)
+    func event(emailTheme: String, email: String)
 }
 
 public final class LogEventPresenterImpl {
@@ -25,11 +32,20 @@ public final class LogEventPresenterImpl {
 
     public weak var output: LogEventPresenterOutput!
     public var useCase: LogEventUseCase!
+    public weak var router: LogEventRouter!
 
     public init() {}
 }
 
 extension LogEventPresenterImpl: LogEventPresenter {
+    public func event(url: String) {
+        router.route(url: url)
+    }
+    
+    public func event(emailTheme: String, email: String) {
+        router.route(emailTheme: emailTheme, email: email)
+    }
+    
     public func eventCancelShare() {
         useCase.eventCancelShare()
     }

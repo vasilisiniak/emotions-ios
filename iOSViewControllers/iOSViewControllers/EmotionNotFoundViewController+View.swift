@@ -1,8 +1,8 @@
 import UIKit
 
-extension TrendsViewController {
+extension EmotionNotFoundViewController {
 
-    final class NoDataView: UIView {
+    final class View: UIView {
 
         // MARK: - NSCoding
 
@@ -24,10 +24,12 @@ extension TrendsViewController {
             NSLayoutConstraint.activate([
                 label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
                 label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-                label.centerXAnchor.constraint(equalTo: centerXAnchor),
-                label.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -30),
-                label.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -30),
-                label.centerXAnchor.constraint(equalTo: button.centerXAnchor)
+                label.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
+
+                button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 50),
+                button.centerXAnchor.constraint(equalTo: centerXAnchor),
+                button.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.9),
+                button.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -30)
             ])
         }
 
@@ -35,14 +37,16 @@ extension TrendsViewController {
 
         let label: UILabel = create {
             $0.font = .preferredFont(forTextStyle: .body)
+            $0.textColor = .label
             $0.adjustsFontForContentSizeCategory = true
-            $0.textAlignment = .center
+            $0.adjustsFontSizeToFitWidth = true
             $0.numberOfLines = 0
         }
 
         let button: UIButton = {
             let button = UIButton(type: .system)
             button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+            button.setTitle("Предложить эмоцию", for: .normal)
             button.adjustsImageSizeForAccessibilityContentSizeCategory = true
             return button
         }()

@@ -43,6 +43,7 @@ extension EmotionEventsViewController {
         let button: UIButton = {
             let button = UIButton(type: .system)
             button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+            button.adjustsImageSizeForAccessibilityContentSizeCategory = true
             return button
         }()
 

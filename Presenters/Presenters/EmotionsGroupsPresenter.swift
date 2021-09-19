@@ -29,6 +29,7 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
     func show(nextButtonEnabled: Bool)
     func show(groupNames: [String])
     func show(selectedGroupIndex: Int)
+    func show(notFound: String)
     func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor)
     func show(selectedEmotionsNames: String, color: UIColor)
     func show(emotionIndex: Int, selectedNames: [String])
@@ -39,6 +40,7 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
 
 public protocol EmotionsGroupsRouter: AnyObject {
     func routeEventName(selectedEmotions: [String], color: String)
+    func routeNotFound()
 }
 
 public protocol EmotionsGroupsPresenter {
@@ -52,6 +54,7 @@ public protocol EmotionsGroupsPresenter {
     func eventDidHideInfo()
     func eventShare()
     func eventCancelShare()
+    func eventNotFound()
 }
 
 public final class EmotionsGroupsPresenterImpl {
@@ -90,6 +93,7 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
         output.show(title: "Выберите эмоции")
         output.show(clearButton: "Очистить")
         output.show(nextButton: "Далее❯")
+        output.show(notFound: "Моей эмоции нет в списке")
         useCase.eventOutputReady()
     }
 
@@ -107,6 +111,10 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 
     public func eventSwipeRight() {
         useCase.eventPrevIndex()
+    }
+
+    public func eventNotFound() {
+        useCase.eventNotFound()
     }
 }
 
@@ -166,5 +174,9 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
 
     public func present(selectedGroupIndex: Int) {
         output.show(selectedGroupIndex: selectedGroupIndex)
+    }
+
+    public func presentNotFound() {
+        router.routeNotFound()
     }
 }

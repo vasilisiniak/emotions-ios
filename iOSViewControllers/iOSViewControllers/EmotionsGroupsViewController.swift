@@ -7,6 +7,11 @@ fileprivate extension UITableViewCell {
 
 public final class EmotionsGroupsViewController: UIViewController {
 
+    private enum Section: Int, CaseIterable {
+        case emotions
+        case notFound
+    }
+
     // MARK: - UIViewController
 
     public override func viewDidLoad() {
@@ -27,6 +32,12 @@ public final class EmotionsGroupsViewController: UIViewController {
             guard emotionsGroupsView.tableView.numberOfRows(inSection: 0) > 0 else { return }
             emotionsGroupsView.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             emotionsGroupsView.tableView.flashScrollIndicators()
+        }
+    }
+
+    private var notFoundText: String? {
+        didSet {
+            emotionsGroupsView.tableView.reloadData()
         }
     }
 
@@ -67,26 +78,53 @@ public final class EmotionsGroupsViewController: UIViewController {
 }
 
 extension EmotionsGroupsViewController: UITableViewDataSource {
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return emotions.count
+        switch Section(rawValue: section)! {
+        case .emotions: return emotions.count
+        case .notFound: return 1
+        }
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = emotions[indexPath.row].name
-        cell.selectionStyle = .none
         cell.backgroundColor = .clear
-        cell.accessoryType = selectedNames.contains(emotions[indexPath.row].name) ? .checkmark : .none
+
+        switch Section(rawValue: indexPath.section)! {
+        case .emotions:
+            cell.textLabel?.textColor = cell.textLabel?.textColor?.withAlphaComponent(1)
+            cell.textLabel?.text = emotions[indexPath.row].name
+            cell.accessoryType = selectedNames.contains(emotions[indexPath.row].name) ? .checkmark : .none
+            cell.accessoryView?.alpha = 1
+            cell.selectionStyle = .none
+        case .notFound:
+            cell.textLabel?.textColor = cell.textLabel?.textColor?.withAlphaComponent(0.2)
+            cell.textLabel?.text = notFoundText
+            cell.accessoryType = .disclosureIndicator
+            cell.accessoryView?.alpha = 0.2
+            cell.selectionStyle = .gray
+        }
+
         return cell
     }
 }
 
 extension EmotionsGroupsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.event(select: emotions[indexPath.row].name)
+        switch Section(rawValue: indexPath.section)! {
+        case .emotions:
+            presenter.event(select: emotions[indexPath.row].name)
+        case .notFound:
+            tableView.deselectRow(at: indexPath, animated: true)
+            presenter.eventNotFound()
+        }
     }
 
     public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard Section(rawValue: indexPath.section) == .emotions else { return nil }
         let meaning = emotions[indexPath.row].meaning
         return UIContextMenuConfiguration(identifier: nil) {
             Menu(text: meaning, width: tableView.bounds.size.width - 50) { [weak self] in
@@ -126,6 +164,10 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         self.title = title
     }
 
+    public func show(notFound: String) {
+        notFoundText = notFound
+    }
+
     public func show(clearButton: String) {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButton, handler: onClear)
     }
@@ -160,9 +202,9 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         self.emotions = emotions
         self.selectedNames = selectedNames
 
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
-            self?.emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
+        UIView.animate(withDuration: 0.3) { [emotionsGroupsView] in
+            emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
         }
     }
 

@@ -4,6 +4,7 @@ import Presenters
 public protocol LogEventViewControllerComposer: AnyObject {
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController
+    func emotionNotFoundViewController(router: EmotionNotFoundRouter) -> EmotionNotFoundViewController
 }
 
 public final class LogEventViewController: UINavigationController {
@@ -42,6 +43,12 @@ public final class LogEventViewController: UINavigationController {
 extension LogEventViewController: UIGestureRecognizerDelegate {}
 
 extension LogEventViewController: EmotionsGroupsRouter {
+    public func routeNotFound() {
+        let emotionNotFoundViewController = composer.emotionNotFoundViewController(router: self)
+        let navigationController = UINavigationController(rootViewController: emotionNotFoundViewController)
+        present(navigationController, animated: true)
+    }
+
     public func routeEventName(selectedEmotions: [String], color: String) {
         let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions, color: color)
         pushViewController(eventNameViewController, animated: true)
@@ -57,6 +64,20 @@ extension LogEventViewController: EventNameRouter {
 
     public func routeBack() {
         popViewController(animated: true)
+    }
+}
+
+extension LogEventViewController: EmotionNotFoundRouter {
+    public func route(emailTheme: String, email: String) {
+        presenter.event(emailTheme: emailTheme, email: email)
+    }
+
+    public func route(url: String) {
+        presenter.event(url: url)
+    }
+
+    public func routeClose() {
+        presentedViewController?.dismiss(animated: true)
     }
 }
 

@@ -68,7 +68,9 @@ extension EmotionsGroupsViewController {
             $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
 
-        let tableView = UITableView()
+        let tableView: UITableView = create {
+            $0.tableFooterView = UIView()
+        }
 
         let leftSwipeGestureRecognizer: UISwipeGestureRecognizer = {
             let recognizer = UISwipeGestureRecognizer()
