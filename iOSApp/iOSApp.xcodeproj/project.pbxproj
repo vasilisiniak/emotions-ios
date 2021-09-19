@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		167E16A7260223F300A8B0EC /* EditEventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */; };
 		167E16AD26024FD100A8B0EC /* AppInfoConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */; };
+		167F7CA426F7BC3C0074DCAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */; };
 		8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013E258F8CAC00D744DF /* EmotionsConnector.swift */; };
 		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
@@ -37,7 +38,6 @@
 		83921904258E842A00A7B69F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83921902258E842A00A7B69F /* Model.xcdatamodeld */; };
 		8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8392C7BC25825A940015D722 /* AppDelegate.swift */; };
 		8392C7C625825A970015D722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C525825A970015D722 /* Assets.xcassets */; };
-		8392C7C925825A970015D722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8392C7C725825A970015D722 /* LaunchScreen.storyboard */; };
 		839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839C92D3258F52B9008C9C5A /* TrendsConnector.swift */; };
 		83A51B032582B765005131D7 /* EmotionsGroupsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */; };
 		83A51B7A2582C8E1005131D7 /* Presenters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A51B692582C74E005131D7 /* Presenters.framework */; };
@@ -93,6 +93,7 @@
 /* Begin PBXFileReference section */
 		167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameConnector.swift; sourceTree = "<group>"; };
 		167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConnector.swift; sourceTree = "<group>"; };
+		167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8302013E258F8CAC00D744DF /* EmotionsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsConnector.swift; sourceTree = "<group>"; };
 		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,7 +118,6 @@
 		8392C7B925825A940015D722 /* iOSApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8392C7BC25825A940015D722 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8392C7C525825A970015D722 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8392C7C825825A970015D722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8392C7CA25825A970015D722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		839C92D3258F52B9008C9C5A /* TrendsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsConnector.swift; sourceTree = "<group>"; };
 		83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsGroupsConnector.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				83921902258E842A00A7B69F /* Model.xcdatamodeld */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,
-				8392C7C725825A970015D722 /* LaunchScreen.storyboard */,
+				167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */,
 				8392C7CA25825A970015D722 /* Info.plist */,
 				834448ED2596712700F68B84 /* iOSApp.entitlements */,
 			);
@@ -299,7 +299,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
-				Base,
 			);
 			mainGroup = 8392C7B025825A940015D722;
 			productRefGroup = 8392C7BA25825A940015D722 /* Products */;
@@ -324,8 +323,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				167F7CA426F7BC3C0074DCAA /* LaunchScreen.storyboard in Resources */,
 				83DE23CA2583990B0098337E /* Emotions.plist in Resources */,
-				8392C7C925825A970015D722 /* LaunchScreen.storyboard in Resources */,
 				8392C7C625825A970015D722 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,17 +373,6 @@
 			targetProxy = 834448E425966FB800F68B84 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8392C7C725825A970015D722 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8392C7C825825A970015D722 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		834448E825966FB800F68B84 /* Debug */ = {
