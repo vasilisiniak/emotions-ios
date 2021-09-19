@@ -162,7 +162,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     }
 
     public func event(indexChange: Int) {
-        self.selectedGroupIndex = indexChange
+        selectedGroupIndex = indexChange
         presentEmotionsGroup()
         presentFirstLaunch()
     }
