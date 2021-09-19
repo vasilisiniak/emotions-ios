@@ -74,6 +74,7 @@ extension EmotionEventsViewController {
         let shareButton: UIButton = create {
             let image = UIImage(named: "ShareIcon", in: Bundle(for: Cell.self), with: nil)
             $0.setImage(image, for: .normal)
+            $0.tintColor = UIColor(named: "ShareIconColor", in: Bundle(for: Cell.self), compatibleWith: nil)
         }
 
         let emotionsLabel: UILabel = create {
