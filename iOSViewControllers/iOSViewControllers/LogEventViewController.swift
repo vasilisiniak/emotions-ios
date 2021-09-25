@@ -85,13 +85,13 @@ extension LogEventViewController: LogEventPresenterOutput {
     public func show(share: UIActivityItemSource) {
         let activityViewController = UIActivityViewController(activityItems: [share], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
-        present(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true)
     }
 
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: button, style: .default))
+        present(alert, animated: true)
     }
 
     public func showShareAlert(message: String, okButton: String, cancelButton: String) {
@@ -102,16 +102,16 @@ extension LogEventViewController: LogEventPresenterOutput {
         alert.addAction(UIAlertAction(title: cancelButton, style: .cancel, handler: { [weak self] _ in
             self?.presenter.eventCancelShare()
         }))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 
     public func showWidgetAlert(message: String, okButton: String, infoButton: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
             self?.presenter.eventWidgetInfo()
         }))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 
     public func showEmotions() {

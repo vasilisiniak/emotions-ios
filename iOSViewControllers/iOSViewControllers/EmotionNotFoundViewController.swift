@@ -23,9 +23,9 @@ public final class EmotionNotFoundViewController: UIViewController {
     // MARK: - Private
 
     private lazy var emotionNotFoundView: View = Self.create {
-        $0.button.addAction(UIAction(handler: { [weak self] _ in
+        $0.button.addAction(UIAction { [weak self] _ in
             self?.presenter.eventSuggest()
-        }), for: .touchUpInside)
+        }, for: .touchUpInside)
     }
 
     // MARK: - Public
@@ -34,20 +34,20 @@ public final class EmotionNotFoundViewController: UIViewController {
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction(handler: { [weak self] _ in
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { [weak self] _ in
             self?.presenter.eventClose()
-        }))
+        })
     }
 }
 
 extension EmotionNotFoundViewController: EmotionNotFoundPresenterOutput {
     public func showEmailAlert(message: String, okButton: String, infoButton: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
             self?.presenter.eventEmailInfo()
         }))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 
     public func show(info: String) {

@@ -35,7 +35,7 @@ public final class EmotionsViewController: UITabBarController {
 extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     public func routeEmotions() {
         if presentedViewController != nil {
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: true)
         }
         else {
             selectedIndex = 0
@@ -44,7 +44,7 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
 
     public func route(shareText: String) {
         let controller = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-        present(controller, animated: true, completion: nil)
+        present(controller, animated: true)
     }
 
     public func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date) {
@@ -55,13 +55,13 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
             selectedEmotions: editEvent.emotions.components(separatedBy: ", "),
             color: editEvent.color.hex
         )
-        present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
+        present(UINavigationController(rootViewController: controller), animated: true)
     }
 }
 
 extension EmotionsViewController: EventNameRouter {
     public func routeBack() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 
@@ -71,17 +71,17 @@ extension EmotionsViewController: AppInfoRouter, LogEventRouter {
         controller.setSubject(emailTheme)
         controller.setToRecipients([email])
         controller.mailComposeDelegate = self
-        topPresentedViewController.present(controller, animated: true, completion: nil)
+        topPresentedViewController.present(controller, animated: true)
     }
 
     public func route(url: String) {
-        UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: url)!, options: [:])
     }
 
     public func route(shareItem: UIActivityItemSource) {
         let activityViewController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
-        present(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true)
     }
 }
 
@@ -100,6 +100,6 @@ extension EmotionsViewController: UINavigationControllerDelegate { }
 
 extension EmotionsViewController: MFMailComposeViewControllerDelegate {
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }

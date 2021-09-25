@@ -59,11 +59,11 @@ extension EventNameViewController: EventNamePresenterOutput {
     }
 
     public func show(backButton: String) {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButton, handler: onBack)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: backButton) { [weak self] in self?.onBack()}
     }
 
     public func show(addButton: String) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: addButton, handler: onAdd)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: addButton) { [weak self] in self?.onAdd()}
     }
 
     public func show(selectedEmotions: String) {

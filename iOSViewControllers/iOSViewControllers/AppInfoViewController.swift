@@ -77,10 +77,10 @@ extension AppInfoViewController: AppInfoPresenterOutput {
 
     public func showEmailAlert(message: String, okButton: String, infoButton: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButton, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
             self?.presenter.eventEmailInfo()
         }))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 }

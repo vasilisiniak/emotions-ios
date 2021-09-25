@@ -14,7 +14,9 @@ public final class TrendsViewController: UIViewController {
         super.viewDidLoad()
 
         trendsView.noDataView.isHidden = true
-        trendsView.noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
+        trendsView.noDataView.button.addAction(UIAction { [weak self] in
+            self?.onAddTap(action: $0)
+        }, for: .touchUpInside)
 
         trendsView.dateRangePicker.addAction(UIAction { [weak self, trendsView] _ in
             self?.presenter.event(selectedRange: trendsView.dateRangePicker.selectedRange)

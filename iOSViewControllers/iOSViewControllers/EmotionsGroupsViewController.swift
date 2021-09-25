@@ -53,7 +53,9 @@ public final class EmotionsGroupsViewController: UIViewController {
         $0.tableView.dataSource = self
         $0.tableView.delegate = self
         $0.tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
-        $0.segmentedControl.addAction(UIAction(handler: onIndexChange), for: .valueChanged)
+        $0.segmentedControl.addAction(UIAction { [weak self] in
+            self?.onIndexChange($0)
+        }, for: .valueChanged)
     }
 
     @objc private func onLeftSwipe() {
@@ -142,7 +144,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     public func show(share: UIActivityItemSource) {
         let activityViewController = UIActivityViewController(activityItems: [share], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
-        present(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true)
     }
 
     public func show(shareAlertMessage: String, okButton: String, cancelButton: String) {
@@ -153,7 +155,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         alert.addAction(UIAlertAction(title: cancelButton, style: .cancel, handler: { [weak self] _ in
             self?.presenter.eventCancelShare()
         }))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 
     public func show(clearButtonEnabled: Bool) {
@@ -173,11 +175,11 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     }
 
     public func show(clearButton: String) {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButton, handler: onClear)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButton) { [weak self] in self?.onClear() }
     }
 
     public func show(nextButton: String) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: nextButton, handler: onNext)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: nextButton) { [weak self] in self?.onNext() }
     }
 
     public func show(emotionIndex: Int, selectedNames: [String]) {
@@ -214,7 +216,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
 
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: button, style: .default))
+        present(alert, animated: true)
     }
 }

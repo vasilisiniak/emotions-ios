@@ -11,7 +11,9 @@ public final class EmotionEventsViewController: UIViewController {
         view.backgroundColor = .systemBackground
         layoutSubviews()
         noDataView.isHidden = true
-        noDataView.button.addAction(UIAction(handler: onAddTap), for: .touchUpInside)
+        noDataView.button.addAction(UIAction { [weak self] in
+            self?.onAddTap(action: $0)
+        }, for: .touchUpInside)
         presenter.eventViewReady()
     }
 
@@ -108,19 +110,19 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
-        cell.shareButton.addAction(UIAction(handler: { [weak self]_ in
+        cell.shareButton.addAction(UIAction { [weak self]_ in
             self?.presenter.event(shareIndexPath: indexPath)
-        }), for: .touchUpInside)
+        }, for: .touchUpInside)
         return cell
     }
 
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: presenter.deleteTitle) { [weak self] (action, view, completion) in
+        let deleteAction = UIContextualAction(style: .destructive, title: presenter.deleteTitle) { [weak self] (_, _, completion) in
             self?.delete(indexPath: indexPath)
             completion(true)
         }
 
-        let editAction = UIContextualAction(style: .normal, title: presenter.editTitle) { [weak self] (action, view, completion) in
+        let editAction = UIContextualAction(style: .normal, title: presenter.editTitle) { [weak self] (_, _, completion) in
             self?.edit(indexPath: indexPath)
             completion(true)
         }
@@ -166,7 +168,7 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
 
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: button, style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: button, style: .default))
+        present(alert, animated: true)
     }
 }
