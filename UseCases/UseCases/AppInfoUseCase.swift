@@ -12,6 +12,7 @@ public enum AppInfoUseCaseObjects {
         case share
         case sourceCode
         case emailInfo
+        case donate
     }
 }
 
@@ -63,6 +64,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         case .share: share()
         case .sourceCode: output.present(url: github)
         case .emailInfo: output.present(url: emailInfo)
+        case .donate: output.present(url: "\(github)/blob/release/readme.md")
         }
     }
 }

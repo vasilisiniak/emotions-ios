@@ -13,6 +13,7 @@ public enum AppInfoPresenterObjects {
             case contactReport
             case designSuggest
             case infoSourceCode
+            case donate
 
             public var title: String {
                 switch self {
@@ -22,12 +23,14 @@ public enum AppInfoPresenterObjects {
                 case .contactReport: return "Сообщить о проблеме"
                 case .designSuggest: return "Предложить дизайн"
                 case .infoSourceCode: return "Посмотреть исходный код"
+                case .donate: return "Поддержать разработчика"
                 }
             }
         }
 
         case promo
         case contact
+        case donate
         case design
         case info
 
@@ -35,6 +38,7 @@ public enum AppInfoPresenterObjects {
             switch self {
             case .promo: return [.promoRate, .promoShare]
             case .contact: return [.contactSuggest, .contactReport]
+            case .donate: return [.donate]
             case .design: return [.designSuggest]
             case .info: return [.infoSourceCode]
             }
@@ -44,6 +48,7 @@ public enum AppInfoPresenterObjects {
             switch self {
             case .promo: return "App Store"
             case .contact: return "Связь с разработчиком"
+            case .donate: return ""
             case .design: return "Дизайнерам"
             case .info: return "Другим разработчикам"
             }
@@ -53,6 +58,7 @@ public enum AppInfoPresenterObjects {
             switch self {
             case .promo: return nil
             case .contact: return nil
+            case .donate: return "Это вовсе не обязательно! Но я буду очень благодарен :)"
             case .design: return "Я умею программировать, но совсем плох в дизайне. Это приложение — лучшее, что я могу"
             case .info: return nil
             }
@@ -81,7 +87,7 @@ public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private let sections: [AppInfoPresenterObjects.Section] = [.promo, .contact, .design, .info]
+    private let sections: [AppInfoPresenterObjects.Section] = [.promo, .contact, .donate, .design, .info]
 
     private func route(emailTheme: String, email: String) {
         guard MFMailComposeViewController.canSendMail() else {
@@ -117,6 +123,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .contactReport: useCase.event(.report)
         case .designSuggest: useCase.event(.designSuggest)
         case .infoSourceCode: useCase.event(.sourceCode)
+        case .donate: useCase.event(.donate)
         }
     }
 
