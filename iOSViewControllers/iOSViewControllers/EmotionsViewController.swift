@@ -14,6 +14,13 @@ public final class EmotionsViewController: UITabBarController {
 
     // MARK: - UIViewController
 
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.eventViewReady()
