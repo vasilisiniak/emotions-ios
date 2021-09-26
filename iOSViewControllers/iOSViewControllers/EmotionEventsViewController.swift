@@ -8,13 +8,36 @@ public final class EmotionEventsViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .systemBackground
         layoutSubviews()
+
         noDataView.isHidden = true
         noDataView.button.addAction(UIAction { [weak self] in
             self?.onAddTap(action: $0)
         }, for: .touchUpInside)
+
+        blurView.isHidden = true
+
         presenter.eventViewReady()
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        appObservers = [
+            NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { [weak self] _ in
+                self?.presenter.eventStartUnsafe()
+            },
+            NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+                self?.blurView.isHidden = true
+            }
+        ]
+    }
+
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        appObservers = nil
     }
 
     // MARK: - NSCoding
@@ -27,6 +50,9 @@ public final class EmotionEventsViewController: UIViewController {
 
     private var isUpdating = false
     private let noDataView = NoDataView()
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+
+    private var appObservers: [NSObjectProtocol]?
 
     private var eventsGroups: [EmotionEventsPresenterObjects.EventsGroup] = [] {
         didSet {
@@ -45,9 +71,11 @@ public final class EmotionEventsViewController: UIViewController {
     private func layoutSubviews() {
         view.addSubview(tableView)
         view.addSubview(noDataView)
+        view.addSubview(blurView)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         noDataView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -58,7 +86,12 @@ public final class EmotionEventsViewController: UIViewController {
             noDataView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             noDataView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             noDataView.topAnchor.constraint(equalTo: view.topAnchor),
-            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            noDataView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -155,6 +188,10 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
         } completion: { [weak self] _ in
             self?.noDataView.isHidden = noDataHidden
         }
+    }
+
+    public func show(blur: Bool) {
+        blurView.isHidden = !blur
     }
 
     public func show(noDataText: String, button: String) {

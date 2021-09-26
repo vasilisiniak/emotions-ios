@@ -2,6 +2,7 @@ import Foundation
 
 public protocol Settings: AnyObject {
     var range: (min: Date?, max: Date?) { get set }
+    var protectSensitiveData: Bool { get set }
 }
 
 public final class SettingsImpl {
@@ -9,6 +10,7 @@ public final class SettingsImpl {
     private enum Constants {
         fileprivate static let RangeMinKey = "Model.SettingsImpl.RangeMinKey"
         fileprivate static let RangeMaxKey = "Model.SettingsImpl.RangeMaxKey"
+        fileprivate static let ProtectSensitiveDataKey = "Model.SettingsImpl.ProtectSensitiveDataKey"
     }
 
     // MARK: - Private
@@ -33,6 +35,16 @@ extension SettingsImpl: Settings {
         set {
             defaults.setValue(newValue.min, forKey: Constants.RangeMinKey)
             defaults.setValue(newValue.max, forKey: Constants.RangeMaxKey)
+            defaults.synchronize()
+        }
+    }
+
+    public var protectSensitiveData: Bool {
+        get {
+            defaults.bool(forKey: Constants.ProtectSensitiveDataKey)
+        }
+        set {
+            defaults.set(newValue, forKey: Constants.ProtectSensitiveDataKey)
             defaults.synchronize()
         }
     }

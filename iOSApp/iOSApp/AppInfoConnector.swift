@@ -1,6 +1,7 @@
 import iOSViewControllers
 import Presenters
 import UseCases
+import Model
 
 final class AppInfoConnector {
 
@@ -16,6 +17,7 @@ final class AppInfoConnector {
     init(
         viewController: AppInfoViewController,
         router: AppInfoRouter,
+        settings: Settings,
         appLink: String,
         email: String,
         github: String,
@@ -25,7 +27,7 @@ final class AppInfoConnector {
         self.viewController = viewController
         self.router = router
         presenter = AppInfoPresenterImpl()
-        useCase = AppInfoUseCaseImpl(appLink: appLink, email: email, github: github, emailInfo: emailInfo, emailTheme: emailTheme)
+        useCase = AppInfoUseCaseImpl(settings: settings, appLink: appLink, email: email, github: github, emailInfo: emailInfo, emailTheme: emailTheme)
     }
 
     func configure() {

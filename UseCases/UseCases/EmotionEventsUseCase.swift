@@ -27,6 +27,7 @@ public enum EmotionEventsUseCaseObjects {
 public protocol EmotionEventsUseCaseOutput: AnyObject {
     func present(events: [EmotionEventsUseCaseObjects.Event])
     func present(noData: Bool)
+    func present(blur: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)
     func present(editEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
@@ -39,6 +40,7 @@ public protocol EmotionEventsUseCase {
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
     func eventAdd()
+    func eventStartUnsafe()
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -58,6 +60,7 @@ public final class EmotionEventsUseCaseImpl {
         }
     }
 
+    private let settings: Settings
     private let eventsProvider: EmotionEventsProvider
 
     private func presentEvents() {
@@ -72,7 +75,8 @@ public final class EmotionEventsUseCaseImpl {
 
     public weak var output: EmotionEventsUseCaseOutput!
 
-    public init(eventsProvider: EmotionEventsProvider) {
+    public init(settings: Settings, eventsProvider: EmotionEventsProvider) {
+        self.settings = settings
         self.eventsProvider = eventsProvider
         self.eventsProvider.add { [weak self] in
             self?.presentEvents()
@@ -81,6 +85,10 @@ public final class EmotionEventsUseCaseImpl {
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
+    public func eventStartUnsafe() {
+        output.present(blur: settings.protectSensitiveData)
+    }
+
     public func eventAdd() {
         output.presentEmotions()
     }

@@ -4,9 +4,15 @@ import UseCases
 
 public enum AppInfoPresenterObjects {
 
-    public enum Section {
+    public enum Section: Equatable {
 
-        public enum Row {
+        public enum Row: Equatable {
+
+            public enum Style {
+                case disclosure
+                case switcher
+            }
+
             case promoRate
             case promoShare
             case contactSuggest
@@ -14,6 +20,7 @@ public enum AppInfoPresenterObjects {
             case designSuggest
             case infoSourceCode
             case donate
+            case protect(protect: Bool)
 
             public var title: String {
                 switch self {
@@ -24,6 +31,21 @@ public enum AppInfoPresenterObjects {
                 case .designSuggest: return "Предложить дизайн"
                 case .infoSourceCode: return "Посмотреть исходный код"
                 case .donate: return "Поддержать разработчика"
+                case .protect: return "Прятать личные данные"
+                }
+            }
+
+            public var style: Style {
+                switch self {
+                case .protect: return .switcher
+                default: return .disclosure
+                }
+            }
+
+            public var value: Any? {
+                switch self {
+                case .protect(let protect): return protect
+                default: return nil
                 }
             }
         }
@@ -33,6 +55,7 @@ public enum AppInfoPresenterObjects {
         case donate
         case design
         case info
+        case settings(protect: Bool)
 
         public var rows: [Row] {
             switch self {
@@ -41,6 +64,7 @@ public enum AppInfoPresenterObjects {
             case .donate: return [.donate]
             case .design: return [.designSuggest]
             case .info: return [.infoSourceCode]
+            case .settings(let protect): return [.protect(protect: protect)]
             }
         }
 
@@ -51,6 +75,7 @@ public enum AppInfoPresenterObjects {
             case .donate: return ""
             case .design: return "Дизайнерам"
             case .info: return "Другим разработчикам"
+            case .settings: return "Настройки"
             }
         }
 
@@ -61,13 +86,14 @@ public enum AppInfoPresenterObjects {
             case .donate: return "Это вовсе не обязательно! Но я буду очень благодарен :)"
             case .design: return "Я умею программировать, но совсем плох в дизайне. Это приложение — лучшее, что я могу"
             case .info: return nil
+            case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"
             }
         }
     }
 }
 
 public protocol AppInfoPresenterOutput: AnyObject {
-    func show(sections: [AppInfoPresenterObjects.Section])
+    func show(sections: [AppInfoPresenterObjects.Section], update: IndexPath?)
     func showEmailAlert(message: String, okButton: String, infoButton: String)
 }
 
@@ -81,13 +107,16 @@ public protocol AppInfoPresenter {
     func eventViewReady()
     func eventEmailInfo()
     func event(selectIndexPath: IndexPath)
+    func event(switcher: Bool, indexPath: IndexPath)
 }
 
 public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private let sections: [AppInfoPresenterObjects.Section] = [.promo, .contact, .donate, .design, .info]
+    private func sections(protect: Bool = false) -> [AppInfoPresenterObjects.Section] {
+        [.settings(protect: protect), .promo, .contact, .donate, .design, .info]
+    }
 
     private func route(emailTheme: String, email: String) {
         guard MFMailComposeViewController.canSendMail() else {
@@ -111,12 +140,20 @@ public class AppInfoPresenterImpl {
 }
 
 extension AppInfoPresenterImpl: AppInfoPresenter {
+    public func event(switcher: Bool, indexPath: IndexPath) {
+        switch sections()[indexPath.section].rows[indexPath.row] {
+        case .protect: useCase.event(protect: switcher)
+        default: fatalError()
+        }
+    }
+
     public func eventViewReady() {
-        output.show(sections: sections)
+        output.show(sections: sections(protect: false), update: nil)
+        useCase.eventViewReady()
     }
 
     public func event(selectIndexPath: IndexPath) {
-        switch sections[selectIndexPath.section].rows[selectIndexPath.row] {
+        switch sections()[selectIndexPath.section].rows[selectIndexPath.row] {
         case .promoRate: useCase.event(.review)
         case .promoShare: useCase.event(.share)
         case .contactSuggest: useCase.event(.suggest)
@@ -124,6 +161,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .designSuggest: useCase.event(.designSuggest)
         case .infoSourceCode: useCase.event(.sourceCode)
         case .donate: useCase.event(.donate)
+        case .protect: fatalError()
         }
     }
 
@@ -133,6 +171,14 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
 }
 
 extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
+    public func present(protect: Bool) {
+        let sections = sections(protect: protect)
+        let section = sections.firstIndex(of: .settings(protect: protect))!
+        let row = AppInfoPresenterObjects.Section.settings(protect: protect).rows.firstIndex(of: .protect(protect: protect))!
+
+        output.show(sections: sections, update: IndexPath(row: row, section: section))
+    }
+
     public func present(emailTheme: String, email: String) {
         route(emailTheme: emailTheme, email: email)
     }

@@ -47,11 +47,6 @@ public class AppInfoViewController: UIViewController {
 
     // MARK: - Private
 
-    private var sections: [AppInfoPresenterObjects.Section]? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
@@ -59,6 +54,8 @@ public class AppInfoViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
+
+    private var sections: [AppInfoPresenterObjects.Section]?
 
     // MARK: - Public
 
@@ -122,8 +119,15 @@ extension AppInfoViewController: UITableViewDelegate {
 }
 
 extension AppInfoViewController: AppInfoPresenterOutput {
-    public func show(sections: [AppInfoPresenterObjects.Section]) {
+    public func show(sections: [AppInfoPresenterObjects.Section], update: IndexPath?) {
         self.sections = sections
+
+        guard let update = update, view.window != nil else {
+            tableView.reloadData()
+            return
+        }
+
+        tableView.reloadRows(at: [update], with: .automatic)
     }
 
     public func showEmailAlert(message: String, okButton: String, infoButton: String) {

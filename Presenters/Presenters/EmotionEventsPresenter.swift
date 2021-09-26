@@ -61,6 +61,7 @@ public enum EmotionEventsPresenterObjects {
 public protocol EmotionEventsPresenterOutput: AnyObject {
     func show(noDataText: String, button: String)
     func show(noDataHidden: Bool)
+    func show(blur: Bool)
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
     func show(message: String, button: String)
 }
@@ -80,6 +81,7 @@ public protocol EmotionEventsPresenter {
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
     func eventAddTap()
+    func eventStartUnsafe()
 }
 
 public final class EmotionEventsPresenterImpl {
@@ -99,6 +101,10 @@ public final class EmotionEventsPresenterImpl {
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
+    public func eventStartUnsafe() {
+        useCase.eventStartUnsafe()
+    }
+
     public var deleteTitle: String {
         "Удалить"
     }
@@ -143,6 +149,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func present(noData: Bool) {
         output.show(noDataHidden: !noData)
+    }
+
+    public func present(blur: Bool) {
+        output.show(blur: blur)
     }
 
     public func present(shareEvent: EmotionEventsUseCaseObjects.Event) {

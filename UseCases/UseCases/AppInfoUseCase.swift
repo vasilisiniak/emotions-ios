@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Utils
+import Model
 
 public enum AppInfoUseCaseObjects {
 
@@ -20,16 +21,20 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
+    func present(protect: Bool)
 }
 
 public protocol AppInfoUseCase {
     func event(_ event: AppInfoUseCaseObjects.ShareEvent)
+    func event(protect: Bool)
+    func eventViewReady()
 }
 
 public final class AppInfoUseCaseImpl {
 
     // MARK: - Private
 
+    private let settings: Settings
     private let appLink: String
     private let email: String
     private let github: String
@@ -45,7 +50,8 @@ public final class AppInfoUseCaseImpl {
 
     public weak var output: AppInfoUseCaseOutput!
 
-    public init(appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
+    public init(settings: Settings, appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
+        self.settings = settings
         self.appLink = appLink
         self.email = email
         self.github = github
@@ -55,6 +61,15 @@ public final class AppInfoUseCaseImpl {
 }
 
 extension AppInfoUseCaseImpl: AppInfoUseCase {
+    public func event(protect: Bool) {
+        settings.protectSensitiveData = protect
+        output.present(protect: settings.protectSensitiveData)
+    }
+
+    public func eventViewReady() {
+        output.present(protect: settings.protectSensitiveData)
+    }
+
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
         switch event {
         case .suggest: output.present(emailTheme: "\(emailTheme)[Suggest]", email: email)

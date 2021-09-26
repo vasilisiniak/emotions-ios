@@ -60,6 +60,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         AppInfoConnector(
             viewController: viewController,
             router: router,
+            settings: AppGroup.settings,
             appLink: AppGroup.appLink,
             email: AppGroup.email,
             github: AppGroup.github,
@@ -91,7 +92,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
 
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
         let viewController = EmotionEventsViewController()
-        EmotionEventsConnector(viewController: viewController, router: router, provider: AppGroup.emotionEventsProvider).configure()
+        EmotionEventsConnector(viewController: viewController, router: router, settings: AppGroup.settings, provider: AppGroup.emotionEventsProvider).configure()
         return viewController
     }
 }
