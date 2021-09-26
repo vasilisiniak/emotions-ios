@@ -5,43 +5,38 @@ fileprivate extension UITableViewCell {
     static let reuseIdentifier = String(describing: UITableViewCell.self)
 }
 
-public class AppInfoViewController: UITableViewController {
+public class AppInfoViewController: UIViewController {
 
     // MARK: - UIViewController
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(tableView)
+        view.addSubview(blurView)
+
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
+    }
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter.eventViewReady()
-    }
-
-    // MARK: - UITableViewController
-
-    public override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections?.count ?? 0
-    }
-
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections?[section].rows.count ?? 0
-    }
-
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = sections?[indexPath.section].rows[indexPath.row].title
-        return cell
-    }
-
-    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections?[section].title
-    }
-
-    public override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sections?[section].subtitle
-    }
-
-    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.event(selectIndexPath: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - NSCoding
@@ -57,16 +52,72 @@ public class AppInfoViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
 
     // MARK: - Public
 
     public var presenter: AppInfoPresenter!
 
     public init() {
-        super.init(style: .insetGrouped)
+        super.init(nibName: nil, bundle: nil)
         let tabBarIcon = UIImage(named: "AppInfoTabBarIcon", in: Bundle(for: AppInfoViewController.self), with: nil)
         tabBarItem = UITabBarItem(title: "", image: tabBarIcon, selectedImage: nil)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+    }
+}
+
+extension AppInfoViewController: UITableViewDataSource {
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return sections?.count ?? 0
+    }
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections?[section].rows.count ?? 0
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
+        let row = sections?[indexPath.section].rows[indexPath.row]
+        cell.textLabel?.text = row?.title
+
+        switch row!.style {
+        case .disclosure:
+            cell.accessoryView = nil
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .gray
+        case .switcher:
+            let switcher = UISwitch(frame: .zero, primaryAction: UIAction { [weak self] in
+                let value = ($0.sender as? UISwitch)?.isOn == true
+                self?.presenter.event(switcher: value, indexPath: indexPath)
+            })
+            switcher.isOn = (row?.value as? Bool) == true
+            cell.accessoryView = switcher
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+        }
+
+        return cell
+    }
+
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections?[section].title
+    }
+
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return sections?[section].subtitle
+    }
+}
+
+extension AppInfoViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard sections?[indexPath.section].rows[indexPath.row].style == .disclosure else { return }
+        presenter.event(selectIndexPath: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
