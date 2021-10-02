@@ -1,6 +1,10 @@
 import Foundation
+import Utils
 
 public protocol Settings: AnyObject {
+    typealias Observer = (Settings) -> Void
+    func add(observer: @escaping Observer) -> AnyObject
+
     var range: (min: Date?, max: Date?) { get set }
     var protectSensitiveData: Bool { get set }
 }
@@ -16,6 +20,11 @@ public final class SettingsImpl {
     // MARK: - Private
 
     private let defaults: UserDefaults
+    private var observers: [UUID: Observer] = [:]
+
+    private func notify() {
+        observers.values.forEach { $0(self) }
+    }
 
     // MARK: - Public
 
@@ -36,6 +45,8 @@ extension SettingsImpl: Settings {
             defaults.setValue(newValue.min, forKey: Constants.RangeMinKey)
             defaults.setValue(newValue.max, forKey: Constants.RangeMaxKey)
             defaults.synchronize()
+
+            notify()
         }
     }
 
@@ -46,6 +57,14 @@ extension SettingsImpl: Settings {
         set {
             defaults.set(newValue, forKey: Constants.ProtectSensitiveDataKey)
             defaults.synchronize()
+
+            notify()
         }
+    }
+
+    public func add(observer: @escaping Observer) -> AnyObject {
+        let token = Token { [weak self] in self?.observers[$0] = nil }
+        observers[token.id] = observer
+        return token
     }
 }

@@ -40,6 +40,7 @@ public final class LogEventUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstCreationKey)
+            UserDefaults.standard.synchronize()
         }
     }
 
@@ -49,6 +50,7 @@ public final class LogEventUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.SecondCreationKey)
+            UserDefaults.standard.synchronize()
         }
     }
 
@@ -58,6 +60,7 @@ public final class LogEventUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.ThirdCreationKey)
+            UserDefaults.standard.synchronize()
         }
     }
 

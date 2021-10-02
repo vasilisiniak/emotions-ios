@@ -1,9 +1,11 @@
 import UIKit
+import Model
 
 @UIApplicationMain final class AppDelegate: UIResponder {
 
     // MARK: - Private
 
+    private let analytics = AnalyticsManager(settings: AppGroup.settings)
     private let compositionRoot = CompositionRoot()
 
     // MARK: - Internal

@@ -57,6 +57,7 @@ public final class EmotionEventsUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstEventDisplay)
+            UserDefaults.standard.synchronize()
         }
     }
 

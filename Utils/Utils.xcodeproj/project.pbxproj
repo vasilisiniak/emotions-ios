@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1607940A2708ADB400572275 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160794092708ADB400572275 /* Token.swift */; };
 		1645532526F7F92900C3E376 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645532426F7F92900C3E376 /* UIViewController+Utils.swift */; };
 		16AC776726755A8E0029B7CC /* LinkActivityItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776626755A8E0029B7CC /* LinkActivityItem.swift */; };
 		16AC7769267569F70029B7CC /* Bundle+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC7768267569F70029B7CC /* Bundle+Utils.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160794092708ADB400572275 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		1645532426F7F92900C3E376 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		16AC776626755A8E0029B7CC /* LinkActivityItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkActivityItem.swift; sourceTree = "<group>"; };
 		16AC7768267569F70029B7CC /* Bundle+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Utils.swift"; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				16AC776C267622B10029B7CC /* Date+Utils.swift */,
 				16AC776E267626FD0029B7CC /* UIApplication+Utils.swift */,
 				1645532426F7F92900C3E376 /* UIViewController+Utils.swift */,
+				160794092708ADB400572275 /* Token.swift */,
 				83DE23DC25839C4B0098337E /* Info.plist */,
 			);
 			path = Utils;
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1607940A2708ADB400572275 /* Token.swift in Sources */,
 				1645532526F7F92900C3E376 /* UIViewController+Utils.swift in Sources */,
 				16AC776F267626FD0029B7CC /* UIApplication+Utils.swift in Sources */,
 				16AC7769267569F70029B7CC /* Bundle+Utils.swift in Sources */,

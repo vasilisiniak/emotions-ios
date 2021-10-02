@@ -68,6 +68,7 @@ public final class EmotionsGroupsUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstLaunchKey)
+            UserDefaults.standard.synchronize()
         }
     }
 
@@ -77,6 +78,7 @@ public final class EmotionsGroupsUseCaseImpl {
         }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.SecondLaunchKey)
+            UserDefaults.standard.synchronize()
         }
     }
 
