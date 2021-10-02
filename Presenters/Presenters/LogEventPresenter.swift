@@ -84,7 +84,7 @@ extension LogEventPresenterImpl: LogEventUseCaseOutput {
         output.show(share: item)
     }
 
-    public func presentDairyInfo() {
+    public func presentDiaryInfo() {
         output.show(message: "Запись сделана. Её можно увидеть на вкладке дневника", button: "OK")
     }
 

@@ -6,7 +6,7 @@ import Utils
 
 public protocol LogEventUseCaseOutput: AnyObject {
     func presentEmotions()
-    func presentDairyInfo()
+    func presentDiaryInfo()
     func presentColorMapInfo()
     func presentWidgetInfo()
     func presentWidgetHelp(link: String)
@@ -92,7 +92,7 @@ extension LogEventUseCaseImpl: LogEventUseCase {
 
         if !firstCreation {
             firstCreation = true
-            output.presentDairyInfo()
+            output.presentDiaryInfo()
         }
         else if !secondCreation {
             secondCreation = true
