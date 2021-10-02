@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160794042708925300572275 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 160794032708925300572275 /* GoogleService-Info.plist */; };
 		1645532326F7F28F00C3E376 /* EmotionNotFoundConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */; };
 		167E16A7260223F300A8B0EC /* EditEventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */; };
 		167E16AD26024FD100A8B0EC /* AppInfoConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		160794032708925300572275 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionNotFoundConnector.swift; sourceTree = "<group>"; };
 		167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameConnector.swift; sourceTree = "<group>"; };
 		167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConnector.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				8392C7C525825A970015D722 /* Assets.xcassets */,
 				167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */,
 				8392C7CA25825A970015D722 /* Info.plist */,
+				160794032708925300572275 /* GoogleService-Info.plist */,
 				834448ED2596712700F68B84 /* iOSApp.entitlements */,
 			);
 			path = iOSApp;
@@ -265,7 +268,9 @@
 			buildPhases = (
 				8392C7B525825A940015D722 /* Sources */,
 				8392C7B625825A940015D722 /* Frameworks */,
+				16079407270894F100572275 /* Copy GoogleService-Info.plist */,
 				8392C7B725825A940015D722 /* Resources */,
+				160794082708991A00572275 /* Clear GoogleService-Info.plist */,
 				83A51B7C2582C8E1005131D7 /* Embed Frameworks */,
 				834448EA25966FB800F68B84 /* Embed App Extensions */,
 			);
@@ -327,12 +332,57 @@
 			buildActionMask = 2147483647;
 			files = (
 				167F7CA426F7BC3C0074DCAA /* LaunchScreen.storyboard in Resources */,
+				160794042708925300572275 /* GoogleService-Info.plist in Resources */,
 				83DE23CA2583990B0098337E /* Emotions.plist in Resources */,
 				8392C7C625825A970015D722 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16079407270894F100572275 /* Copy GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../private.GoogleService-Info.plist",
+			);
+			name = "Copy GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/$(PROJECT_NAME)/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 2>/dev/null\nexit 0\n";
+			showEnvVarsInLog = 0;
+		};
+		160794082708991A00572275 /* Clear GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(PROJECT_NAME)/GoogleService-Info.plist",
+			);
+			name = "Clear GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "grep -vE 'key|string|true|false' \"${SCRIPT_INPUT_FILE_0}\" | tee \"${SCRIPT_INPUT_FILE_0}\" 1>/dev/null\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		834448D525966FB500F68B84 /* Sources */ = {
