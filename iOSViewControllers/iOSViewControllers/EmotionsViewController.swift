@@ -1,6 +1,7 @@
 import UIKit
 import MessageUI
 import Presenters
+import SafariServices
 
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
@@ -23,8 +24,14 @@ public final class EmotionsViewController: UITabBarController {
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard !initialized else { return }
         presenter.eventViewReady()
+        initialized = true
     }
+
+    // MARK: - Private
+
+    private var initialized = false
 
     // MARK: - Public
 
@@ -75,7 +82,7 @@ extension EmotionsViewController: AppInfoRouter, LogEventRouter {
     }
 
     public func route(url: String) {
-        UIApplication.shared.open(URL(string: url)!, options: [:])
+        topPresentedViewController.present(SFSafariViewController(url: URL(string: url)!), animated: true)
     }
 
     public func route(shareItem: UIActivityItemSource) {

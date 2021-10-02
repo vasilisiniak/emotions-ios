@@ -97,7 +97,7 @@ extension LogEventPresenterImpl: LogEventUseCaseOutput {
     }
 
     public func presentWidgetHelp(link: String) {
-        UIApplication.shared.open(URL(string: link)!)
+        router.route(url: link)
     }
 
     public func presentEmotions() {
