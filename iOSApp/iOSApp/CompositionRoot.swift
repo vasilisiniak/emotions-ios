@@ -5,6 +5,10 @@ import Model
 
 final class CompositionRoot {
 
+    // MARK: - Private
+
+    private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
+
     // MARK: - Internal
 
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
@@ -22,6 +26,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
         EmotionNotFoundConnector(
             viewController: emotionNotFoundViewController,
             router: router,
+            analytics: analytics,
             email: AppGroup.email,
             emailInfo: AppGroup.emailInfo,
             emailTheme: AppGroup.emailTheme
@@ -31,7 +36,13 @@ extension CompositionRoot: LogEventViewControllerComposer {
 
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController {
         let emotionsViewController = EmotionsGroupsViewController()
-        EmotionsGroupsConnector(viewController: emotionsViewController, router: router, promoManager: promoManager, appLink: AppGroup.appLink).configure()
+        EmotionsGroupsConnector(
+            viewController: emotionsViewController,
+            router: router,
+            analytics: analytics,
+            promoManager: promoManager,
+            appLink: AppGroup.appLink
+        ).configure()
         return emotionsViewController
     }
 
@@ -41,6 +52,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
             viewController: eventNameViewController,
             router: router,
             provider: AppGroup.emotionEventsProvider,
+            analytics: analytics,
             selectedEmotions: selectedEmotions,
             color: color
         ).configure()
@@ -61,6 +73,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             viewController: viewController,
             router: router,
             settings: AppGroup.settings,
+            analytics: analytics,
             appLink: AppGroup.appLink,
             email: AppGroup.email,
             github: AppGroup.github,
@@ -92,7 +105,13 @@ extension CompositionRoot: EmotionsViewControllerComposer {
 
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
         let viewController = EmotionEventsViewController()
-        EmotionEventsConnector(viewController: viewController, router: router, settings: AppGroup.settings, provider: AppGroup.emotionEventsProvider).configure()
+        EmotionEventsConnector(
+            viewController: viewController,
+            router: router,
+            settings: AppGroup.settings,
+            analytics: analytics,
+            provider: AppGroup.emotionEventsProvider
+        ).configure()
         return viewController
     }
 }

@@ -24,10 +24,6 @@ public final class EmotionNotFoundPresenterImpl {
 
     // MARK: - Private
 
-    private let email: String
-    private let emailInfo: String
-    private let emailTheme: String
-
     private func route(emailTheme: String, email: String) {
         guard MFMailComposeViewController.canSendMail() else {
             output.showEmailAlert(
@@ -44,21 +40,18 @@ public final class EmotionNotFoundPresenterImpl {
 
     public weak var output: EmotionNotFoundPresenterOutput!
     public weak var router: EmotionNotFoundRouter!
+    public var useCase: EmotionNotFoundUseCase!
 
-    public init(email: String, emailInfo: String, emailTheme: String) {
-        self.email = email
-        self.emailInfo = emailInfo
-        self.emailTheme = emailTheme
-    }
+    public init() {}
 }
 
 extension EmotionNotFoundPresenterImpl: EmotionNotFoundPresenter {
     public func eventEmailInfo() {
-        router.route(url: emailInfo)
+        useCase.eventEmailInfo()
     }
 
     public func eventSuggest() {
-        route(emailTheme: "\(emailTheme)[Emotion]", email: email)
+        useCase.eventSuggest()
     }
     
     public func eventClose() {
@@ -76,5 +69,15 @@ extension EmotionNotFoundPresenterImpl: EmotionNotFoundPresenter {
             """
         )
         output.show(button: "Предложить эмоцию")
+    }
+}
+
+extension EmotionNotFoundPresenterImpl: EmotionNotFoundUseCaseOutput {
+    public func present(url: String) {
+        router.route(url: url)
+    }
+
+    public func present(emailTheme: String, email: String) {
+        route(emailTheme: emailTheme, email: email)
     }
 }

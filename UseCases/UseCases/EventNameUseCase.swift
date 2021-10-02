@@ -23,6 +23,7 @@ public final class EventNameUseCaseImpl {
     // MARK: - Private
 
     private let provider: EmotionEventsProvider
+    private let analytics: AnalyticsManager
     private let selectedEmotions: [String]
     private let color: String
     private var description: String?
@@ -31,8 +32,9 @@ public final class EventNameUseCaseImpl {
 
     public weak var output: EventNameUseCaseOutput!
 
-    public init(provider: EmotionEventsProvider, selectedEmotions: [String], color: String) {
+    public init(provider: EmotionEventsProvider, analytics: AnalyticsManager, selectedEmotions: [String], color: String) {
         self.provider = provider
+        self.analytics = analytics
         self.selectedEmotions = selectedEmotions
         self.color = color
     }
@@ -57,6 +59,7 @@ extension EventNameUseCaseImpl: EventNameUseCase {
     public func eventAdd() {
         let event = EmotionEvent(date: Date(), name: description!, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)
+        analytics.track(.eventCreated)
         output.presentEmotions()
     }
 }

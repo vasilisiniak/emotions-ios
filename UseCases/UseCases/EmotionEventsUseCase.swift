@@ -62,6 +62,7 @@ public final class EmotionEventsUseCaseImpl {
     }
 
     private let settings: Settings
+    private let analytics: AnalyticsManager
     private let eventsProvider: EmotionEventsProvider
 
     private func presentEvents() {
@@ -76,12 +77,11 @@ public final class EmotionEventsUseCaseImpl {
 
     public weak var output: EmotionEventsUseCaseOutput!
 
-    public init(settings: Settings, eventsProvider: EmotionEventsProvider) {
+    public init(settings: Settings, analytics: AnalyticsManager, eventsProvider: EmotionEventsProvider) {
         self.settings = settings
+        self.analytics = analytics
         self.eventsProvider = eventsProvider
-        self.eventsProvider.add { [weak self] in
-            self?.presentEvents()
-        }
+        self.eventsProvider.add { [weak self] in self?.presentEvents() }
     }
 }
 
@@ -104,16 +104,19 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     }
 
     public func event(shareEvent: EmotionEventsUseCaseObjects.Event) {
+        analytics.track(.shareEvent)
         output.present(shareEvent: shareEvent)
     }
 
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
+        analytics.track(.deleteEvent)
         eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
         WidgetCenter.shared.reloadAllTimelines()
         presentEvents()
     }
 
     public func event(editEvent: EmotionEventsUseCaseObjects.Event) {
+        analytics.track(.editEvent)
         output.present(editEvent: editEvent)
     }
 }

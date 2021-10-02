@@ -35,6 +35,7 @@ public final class AppInfoUseCaseImpl {
     // MARK: - Private
 
     private let settings: Settings
+    private let analytics: AnalyticsManager
     private let appLink: String
     private let email: String
     private let github: String
@@ -50,8 +51,9 @@ public final class AppInfoUseCaseImpl {
 
     public weak var output: AppInfoUseCaseOutput!
 
-    public init(settings: Settings, appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
+    public init(settings: Settings, analytics: AnalyticsManager, appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
         self.settings = settings
+        self.analytics = analytics
         self.appLink = appLink
         self.email = email
         self.github = github
@@ -72,14 +74,29 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
         switch event {
-        case .suggest: output.present(emailTheme: "\(emailTheme)[Suggest]", email: email)
-        case .report: output.present(emailTheme: "\(emailTheme)[Report]", email: email)
-        case .designSuggest: output.present(emailTheme: "\(emailTheme)[Design]", email: email)
-        case .review: output.present(url: "\(appLink)?action=write-review")
-        case .share: share()
-        case .sourceCode: output.present(url: github)
-        case .emailInfo: output.present(url: emailInfo)
-        case .donate: output.present(url: "\(github)/blob/release/readme.md")
+        case .suggest:
+            analytics.track(.suggestImprove)
+            output.present(emailTheme: "\(emailTheme)[Suggest]", email: email)
+        case .report:
+            analytics.track(.report)
+            output.present(emailTheme: "\(emailTheme)[Report]", email: email)
+        case .designSuggest:
+            analytics.track(.suggestDesign)
+            output.present(emailTheme: "\(emailTheme)[Design]", email: email)
+        case .review:
+            analytics.track(.rate)
+            output.present(url: "\(appLink)?action=write-review")
+        case .share:
+            analytics.track(.share)
+            share()
+        case .sourceCode:
+            analytics.track(.sourceCode)
+            output.present(url: github)
+        case .emailInfo:
+            output.present(url: emailInfo)
+        case .donate:
+            analytics.track(.donate)
+            output.present(url: "\(github)/blob/release/readme.md")
         }
     }
 }

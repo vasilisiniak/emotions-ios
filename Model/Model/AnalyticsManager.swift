@@ -3,7 +3,42 @@ import FirebaseAnalytics
 import WidgetKit
 import UIKit
 
-public final class AnalyticsManager {
+public enum AnalyticsEvent {
+    case emotionNotFound
+    case emotionDetails(emotion: String)
+    case eventCreated
+    case shareEvent
+    case deleteEvent
+    case editEvent
+    case rate
+    case share
+    case suggestEmotion
+    case suggestImprove
+    case report
+    case donate
+    case suggestDesign
+    case sourceCode
+
+    var name: String {
+        switch self {
+        case .emotionDetails: return "emotionDetails"
+        default: return "\(self)"
+        }
+    }
+
+    var params: [String: Any]? {
+        switch self {
+        case .emotionDetails(let emotion): return ["emotion": emotion]
+        default: return nil
+        }
+    }
+}
+
+public protocol AnalyticsManager {
+    func track(_ event: AnalyticsEvent)
+}
+
+public final class AnalyticsManagerImpl {
 
     // MARK: - Private
 
@@ -61,11 +96,18 @@ public final class AnalyticsManager {
         observers = [
             NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [weak self] _ in
                 self?.trackWidgetProperties()
+                Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
             },
             NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
                 self?.trackDefaultsProperties()
             },
             settings.add { [weak self] in self?.trackSettingsProperties($0) }
         ]
+    }
+}
+
+extension AnalyticsManagerImpl: AnalyticsManager {
+    public func track(_ event: AnalyticsEvent) {
+        Analytics.logEvent(event.name, parameters: event.params)
     }
 }

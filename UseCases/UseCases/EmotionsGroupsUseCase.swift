@@ -47,6 +47,7 @@ public protocol EmotionsGroupsUseCase {
     func eventNextIndex()
     func eventPrevIndex()
     func event(select: String)
+    func eventWillShowInfo(emotion: String)
     func eventDidHideInfo()
     func eventShare()
     func eventCancelShare()
@@ -83,6 +84,7 @@ public final class EmotionsGroupsUseCaseImpl {
     }
 
     private let emotionsProvider: EmotionsGroupsProvider
+    private let analytics: AnalyticsManager
     private let promoManager: PromoManager
     private let appLink: String
     private var selectedGroupIndex = 0
@@ -127,8 +129,9 @@ public final class EmotionsGroupsUseCaseImpl {
     // MARK: - Public
 
     public weak var output: EmotionsGroupsUseCaseOutput!
-    public init(emotionsProvider: EmotionsGroupsProvider, promoManager: PromoManager, appLink: String) {
+    public init(emotionsProvider: EmotionsGroupsProvider, analytics: AnalyticsManager, promoManager: PromoManager, appLink: String) {
         self.emotionsProvider = emotionsProvider
+        self.analytics = analytics
         self.promoManager = promoManager
         self.appLink = appLink
     }
@@ -142,6 +145,10 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
 
     public func eventCancelShare() {
         output.presentShareLater()
+    }
+
+    public func eventWillShowInfo(emotion: String) {
+        analytics.track(.emotionDetails(emotion: emotion))
     }
 
     public func eventDidHideInfo() {
@@ -207,6 +214,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     }
 
     public func eventNotFound() {
+        analytics.track(.emotionNotFound)
         output.presentNotFound()
     }
 }

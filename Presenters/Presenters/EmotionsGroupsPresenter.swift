@@ -51,6 +51,7 @@ public protocol EmotionsGroupsPresenter {
     func eventNext()
     func event(indexChange: Int)
     func event(select: String)
+    func eventWillShowInfo(emotion: String)
     func eventDidHideInfo()
     func eventShare()
     func eventCancelShare()
@@ -75,6 +76,10 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 
     public func eventCancelShare() {
         useCase.eventCancelShare()
+    }
+
+    public func eventWillShowInfo(emotion: String) {
+        useCase.eventWillShowInfo(emotion: emotion)
     }
 
     public func eventDidHideInfo() {

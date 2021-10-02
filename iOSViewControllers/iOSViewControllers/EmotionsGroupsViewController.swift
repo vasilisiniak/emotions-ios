@@ -131,6 +131,7 @@ extension EmotionsGroupsViewController: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard Section(rawValue: indexPath.section) == .emotions else { return nil }
+        presenter.eventWillShowInfo(emotion: emotions[indexPath.row].name)
         let meaning = emotions[indexPath.row].meaning
         return UIContextMenuConfiguration(identifier: nil) {
             Menu(text: meaning, width: tableView.bounds.size.width - 50) { [weak self] in

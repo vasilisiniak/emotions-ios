@@ -18,6 +18,7 @@ final class AppInfoConnector {
         viewController: AppInfoViewController,
         router: AppInfoRouter,
         settings: Settings,
+        analytics: AnalyticsManager,
         appLink: String,
         email: String,
         github: String,
@@ -27,7 +28,15 @@ final class AppInfoConnector {
         self.viewController = viewController
         self.router = router
         presenter = AppInfoPresenterImpl()
-        useCase = AppInfoUseCaseImpl(settings: settings, appLink: appLink, email: email, github: github, emailInfo: emailInfo, emailTheme: emailTheme)
+        useCase = AppInfoUseCaseImpl(
+            settings: settings,
+            analytics: analytics,
+            appLink: appLink,
+            email: email,
+            github: github,
+            emailInfo: emailInfo,
+            emailTheme: emailTheme
+        )
     }
 
     func configure() {
