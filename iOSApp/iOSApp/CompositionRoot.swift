@@ -63,7 +63,14 @@ extension CompositionRoot: LogEventViewControllerComposer {
 extension CompositionRoot: EmotionsViewControllerComposer {
     var logEventViewController: LogEventViewController {
         let viewController = LogEventViewController()
-        LogEventConnector(viewController: viewController, router: emotionsViewController, composer: self, promoManager: promoManager, appLink: AppGroup.appLink).configure()
+        LogEventConnector(
+            viewController: viewController,
+            router: emotionsViewController,
+            composer: self,
+            promoManager: promoManager,
+            analytics: analytics,
+            appLink: AppGroup.appLink
+        ).configure()
         return viewController
     }
 

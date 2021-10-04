@@ -65,22 +65,34 @@ public final class LogEventUseCaseImpl {
     }
 
     private let promoManager: PromoManager
+    private let analytics: AnalyticsManager
     private let appLink: String
+
+    private func share() {
+        analytics.track(.share)
+        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
+        output.presentShare(item: item)
+    }
+
+    private func rate() {
+        analytics.track(.rate)
+        output.presentRate()
+    }
 
     // MARK: - Public
 
     public weak var output: LogEventUseCaseOutput!
 
-    public init(promoManager: PromoManager, appLink: String) {
+    public init(promoManager: PromoManager, analytics: AnalyticsManager, appLink: String) {
         self.promoManager = promoManager
+        self.analytics = analytics
         self.appLink = appLink
     }
 }
 
 extension LogEventUseCaseImpl: LogEventUseCase {
     public func eventShare() {
-        let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
-        output.presentShare(item: item)
+        share()
     }
 
     public func eventCancelShare() {
@@ -122,6 +134,6 @@ extension LogEventUseCaseImpl: PromoManagerSender {
     }
 
     public func presentRate() {
-        output.presentRate()
+        rate()
     }
 }
