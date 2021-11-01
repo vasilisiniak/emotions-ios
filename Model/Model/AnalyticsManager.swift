@@ -42,6 +42,13 @@ public final class AnalyticsManagerImpl {
 
     // MARK: - Private
 
+    #if DEBUG
+        private let optout = true
+    #else
+        private let optout = false
+    #endif
+
+
     private var observers: [AnyObject] = []
 
     private var hasValidFirebaseConfig: Bool {
@@ -81,6 +88,8 @@ public final class AnalyticsManagerImpl {
     // MARK: - Public
 
     public init(settings: Settings) {
+        guard !optout else { return }
+
         guard hasValidFirebaseConfig else {
             print("GoogleService-Info.plist is not setup, skipping Firebase initialization")
             return
@@ -108,6 +117,7 @@ public final class AnalyticsManagerImpl {
 
 extension AnalyticsManagerImpl: AnalyticsManager {
     public func track(_ event: AnalyticsEvent) {
+        guard !optout else { return }
         Analytics.logEvent(event.name, parameters: event.params)
     }
 }
