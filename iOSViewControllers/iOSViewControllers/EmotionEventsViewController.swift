@@ -143,7 +143,9 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
-        cell.shareButton.addAction(UIAction { [weak self]_ in
+        cell.shareButton.addAction(UIAction { [weak self, weak cell] _ in
+            guard let cell = cell else { return }
+            guard let indexPath = self?.tableView.indexPath(for: cell) else { return }
             self?.presenter.event(shareIndexPath: indexPath)
         }, for: .touchUpInside)
         return cell
