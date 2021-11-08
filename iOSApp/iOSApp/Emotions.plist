@@ -29,36 +29,6 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>Гордость</string>
-				<key>meaning</key>
-				<string>Чувство собственного достоинства, самоуважения. Чувство удовлетворения от достигнутых успехов, от сознания важности, значительности деятельности</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Нежность</string>
-				<key>meaning</key>
-				<string>Нежное чувство, ласковость и мягкость в отношениях к кому-нибудь</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Благодарность</string>
-				<key>meaning</key>
-				<string>Чувство признательности (а также выражение такого чувства) за оказанное внимание, услугу, сделанное добро</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Восхищение</string>
-				<key>meaning</key>
-				<string>Ощущение сильнейшей радости, очарованности кем-либо или чем-либо</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Любовь</string>
-				<key>meaning</key>
-				<string>Чувство глубокой привязанности к кому-либо, чему-либо. Чувство расположения, симпатии к кому-либо. Чувство горячей сердечной склонности, влечение к другому человеку. Внутреннее стремление, влечение, склонность, тяготение к чему-либо. Пристрастие к чему-либо, предпочтение чего-либо</string>
-			</dict>
-			<dict>
-				<key>name</key>
 				<string>Умиротворение</string>
 				<key>meaning</key>
 				<string>Состояние спокойствия, безмятежности в мыслях и в чувствах, когда всё ясно и понятно и нет нужды в опасениях</string>
@@ -92,12 +62,6 @@
 				<string>Ликование</string>
 				<key>meaning</key>
 				<string>Бурная радость, выражение восторг</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Симпатия</string>
-				<key>meaning</key>
-				<string>Расположение, благожелательное отношение к кому-либо, чему-либо. Взаимное влечение, общность в чём-либо</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -344,12 +308,6 @@
 				<string>Тоска</string>
 				<key>meaning</key>
 				<string>Сильное душевное томление, душевная тревога в соединении с грустью и скукой, тягостное уныние</string>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>Сочувствие</string>
-				<key>meaning</key>
-				<string>Отзывчивое отношение к чужому чувству, преимущественно горестному, сострадание</string>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -600,15 +558,6 @@
 				<key>meaning</key>
 				<string>Состояние крайнего удивления, замешательства, потрясения</string>
 			</dict>
-		</array>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>Стыд</string>
-		<key>color</key>
-		<string>6bb6bc</string>
-		<key>emotions</key>
-		<array>
 			<dict>
 				<key>name</key>
 				<string>Стыд</string>
@@ -638,6 +587,153 @@
 				<string>Неудобство</string>
 				<key>meaning</key>
 				<string>Состояние неловкости, затруднительности, смущения</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Любовь</string>
+		<key>color</key>
+		<string>c83b6e</string>
+		<key>emotions</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Любовь</string>
+				<key>meaning</key>
+				<string>Чувство глубокой привязанности к кому-либо, чему-либо. Чувство расположения, симпатии к кому-либо. Чувство горячей сердечной склонности, влечение к другому человеку. Внутреннее стремление, влечение, склонность, тяготение к чему-либо. Пристрастие к чему-либо, предпочтение чего-либо</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Нежность</string>
+				<key>meaning</key>
+				<string>Нежное чувство, ласковость и мягкость в отношениях к кому-нибудь</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Теплота</string>
+				<key>meaning</key>
+				<string>Это передавать другим своё внутреннее тепло, проявлять доброе, сердечное, отзывчивое отношение ко всем живым существам</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Сочувствие</string>
+				<key>meaning</key>
+				<string>Отзывчивое отношение к чужому чувству, преимущественно горестному, сострадание</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Блаженство</string>
+				<key>meaning</key>
+				<string>Полное и невозмутимое счастье и наслаждение, чувство высшего удовольствия</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Доверие</string>
+				<key>meaning</key>
+				<string>Уверенность и вера в чью-то добросовестность, искренность, в правильность чего-то</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Безопасность</string>
+				<key>meaning</key>
+				<string>Ощущение защищённости себя, своих интересов, чувств и эмоций, способность отражать неприятности</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Благодарность</string>
+				<key>meaning</key>
+				<string>Чувство признательности (а также выражение такого чувства) за оказанное внимание, услугу, сделанное добро</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Спокойствие</string>
+				<key>meaning</key>
+				<string>Уравновешенное, спокойное состояние духа, отсутствие забот, тревог, волнений</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Симпатия</string>
+				<key>meaning</key>
+				<string>Расположение, благожелательное отношение к кому-либо, чему-либо. Взаимное влечение, общность в чём-либо</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Идентичность</string>
+				<key>meaning</key>
+				<string>Отождествление себя с другим человеком или группой, с художественным персонажем. Проекция, приписывание другому человеку своих черт, мотивов, мыслей и чувств</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Гордость</string>
+				<key>meaning</key>
+				<string>Чувство собственного достоинства, самоуважения. Чувство удовлетворения от достигнутых успехов, от сознания важности, значительности деятельности</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Восхищение</string>
+				<key>meaning</key>
+				<string>Ощущение сильнейшей радости, очарованности кем-либо или чем-либо</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Уважение</string>
+				<key>meaning</key>
+				<string>Это принимать, ценить и почитать человека таким, какой он есть, не пытаясь его изменить</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Самоценность</string>
+				<key>meaning</key>
+				<string>Понимание своего образа, его целостности, принятие себя, независимо от каких-либо факторов. Ощущение внутренней гармонии, цельности, уверенности в себе</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Влюблённость</string>
+				<key>meaning</key>
+				<string>Сильное положительно окрашенное чувство, направленное на другого человека</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Любовь к себе</string>
+				<key>meaning</key>
+				<string>Естественная и радостная забота о себе, своем теле, уме, душе и духе. Полное принятие своих качеств</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Очарованность</string>
+				<key>meaning</key>
+				<string>Большое восхищение и пленённость кем-то или чем-то</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Смирение</string>
+				<key>meaning</key>
+				<string>Спокойная реакция на негативные факторы; осознать; принять все так, как есть; принять ситуацию; перестать противиться, сопротивляться; принять неизбежность; всё так, как должно быть; такова жизнь; характерность момента; свойственность мира</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Искренность</string>
+				<key>meaning</key>
+				<string>Чистота и полнота выражения чувств, отсутствие противоречий</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Дружелюбие</string>
+				<key>meaning</key>
+				<string>Доброжелательное отношение, стремление к мирному доброму сосуществованию, к мирному спокойному решению возникающих конфликтов. Тёплое чувство, лишённое мелких обид</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Доброта</string>
+				<key>meaning</key>
+				<string>Отзывчивость, душевное и нежное расположение к людям, стремление делать добро другим</string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Взаимовыручка</string>
+				<key>meaning</key>
+				<string>Желание оказать поддержку и ожидание получить поддержку взамен</string>
 			</dict>
 		</array>
 	</dict>
