@@ -14,6 +14,7 @@ import Model
 
 extension AppDelegate: UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        compositionRoot.migrationManager.migrate()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = compositionRoot.emotionsViewController
         window?.makeKeyAndVisible()

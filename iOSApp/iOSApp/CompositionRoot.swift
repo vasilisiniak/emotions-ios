@@ -12,6 +12,7 @@ final class CompositionRoot {
     // MARK: - Internal
 
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
+    let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
 
     lazy var emotionsViewController: EmotionsViewController = {
         let viewController = EmotionsViewController()
