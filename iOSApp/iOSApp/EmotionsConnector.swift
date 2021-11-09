@@ -1,6 +1,7 @@
 import iOSViewControllers
 import Presenters
 import UseCases
+import Model
 
 final class EmotionsConnector {
 
@@ -13,11 +14,11 @@ final class EmotionsConnector {
 
     // MARK: - Internal
 
-    init(viewController: EmotionsViewController, composer: EmotionsViewControllerComposer) {
+    init(viewController: EmotionsViewController, newsManager: NewsManager, composer: EmotionsViewControllerComposer) {
         self.viewController = viewController
         self.composer = composer
         presenter = EmotionsPresenterImpl()
-        useCase = EmotionsUseCaseImpl()
+        useCase = EmotionsUseCaseImpl(newsManager: newsManager)
     }
 
     func configure() {

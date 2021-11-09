@@ -13,10 +13,11 @@ final class CompositionRoot {
 
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
     let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
+    let newsManager: NewsManager = NewsManagerImpl()
 
     lazy var emotionsViewController: EmotionsViewController = {
         let viewController = EmotionsViewController()
-        EmotionsConnector(viewController: viewController, composer: self).configure()
+        EmotionsConnector(viewController: viewController, newsManager: newsManager, composer: self).configure()
         return viewController
     }()
 }

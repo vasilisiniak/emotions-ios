@@ -10,6 +10,7 @@
 		1607940027088E5B00572275 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 160793FF27088E5B00572275 /* FirebaseAnalytics */; };
 		160794022708908000572275 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160794012708908000572275 /* AnalyticsManager.swift */; };
 		160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB57527395B3F0060BA7E /* MigrationManager.swift */; };
+		160BB578273A78E10060BA7E /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB577273A78E10060BA7E /* NewsManager.swift */; };
 		167F7CA526F7C9F80074DCAA /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23E92583F4410098337E /* Utils.framework */; };
 		16AC776026710E210029B7CC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* Settings.swift */; };
 		16AC776B26761E470029B7CC /* PromoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776A26761E470029B7CC /* PromoManager.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		160794012708908000572275 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		160BB57527395B3F0060BA7E /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
+		160BB577273A78E10060BA7E /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		16AC775F26710E210029B7CC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		16AC776A26761E470029B7CC /* PromoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoManager.swift; sourceTree = "<group>"; };
 		833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEvent.swift; sourceTree = "<group>"; };
@@ -76,8 +78,9 @@
 				16AC775F26710E210029B7CC /* Settings.swift */,
 				16AC776A26761E470029B7CC /* PromoManager.swift */,
 				160794012708908000572275 /* AnalyticsManager.swift */,
-				83A51B172582C51C005131D7 /* Info.plist */,
 				160BB57527395B3F0060BA7E /* MigrationManager.swift */,
+				160BB577273A78E10060BA7E /* NewsManager.swift */,
+				83A51B172582C51C005131D7 /* Info.plist */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */,
+				160BB578273A78E10060BA7E /* NewsManager.swift in Sources */,
 				160794022708908000572275 /* AnalyticsManager.swift in Sources */,
 				833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */,
 				83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */,

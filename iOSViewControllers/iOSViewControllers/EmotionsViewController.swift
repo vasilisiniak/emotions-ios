@@ -29,6 +29,11 @@ public final class EmotionsViewController: UITabBarController {
         initialized = true
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.eventViewIsShown()
+    }
+
     // MARK: - Private
 
     private var initialized = false
@@ -100,6 +105,12 @@ extension EmotionsViewController: EmotionsPresenterOutput {
             composer.trendsViewController(router: self),
             composer.appInfoViewController(router: self)
         ]
+    }
+
+    public func show(message: String, title: String, button: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: button, style: .default))
+        present(alert, animated: true)
     }
 }
 
