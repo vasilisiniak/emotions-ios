@@ -204,8 +204,8 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     }
 
     public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
-        self.emotions = emotions
         self.selectedNames = selectedNames
+        self.emotions = emotions
 
         UIView.animate(withDuration: 0.3) { [emotionsGroupsView] in
             emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
