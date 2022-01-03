@@ -17,6 +17,8 @@ public final class NewsManagerImpl {
 
     // MARK: - Private
 
+    private let eventsProvider: EmotionEventsProvider
+
     private var lastNewsVersion: String? {
         get { UserDefaults.standard.string(forKey: Constants.VersionKey) }
         set { UserDefaults.standard.setValue(newValue, forKey: Constants.VersionKey); UserDefaults.standard.synchronize() }
@@ -26,19 +28,26 @@ public final class NewsManagerImpl {
         "1.0": (version: "1.7", news: [.v_1_7_addedLove])
     ]
 
+    var isFreshInstall: Bool {
+        (lastNewsVersion == nil) && eventsProvider.events.isEmpty
+    }
+
     // MARK: - Public
 
-    public init() {}
+    public init(eventsProvider: EmotionEventsProvider) {
+        self.eventsProvider = eventsProvider
+    }
 }
 
 extension NewsManagerImpl: NewsManager {
     public func news() -> [News] {
         var news: [News] = []
+        let ignoreNews = isFreshInstall
         while true {
             guard let list = newsList[lastNewsVersion ?? "1.0"] else { break }
             news += list.news
             lastNewsVersion = list.version
         }
-        return news
+        return ignoreNews ? [] : news
     }
 }
