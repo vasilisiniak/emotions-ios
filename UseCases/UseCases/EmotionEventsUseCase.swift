@@ -32,15 +32,21 @@ public protocol EmotionEventsUseCaseOutput: AnyObject {
     func present(editEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
     func presentSwipeInfo()
+    func presentFaceIdError()
+    func present(url: String)
 }
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
+    func eventOutputToBeShown()
+    func eventOutputIsShown(info: String)
     func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
     func eventAdd()
     func eventStartUnsafe()
+    func eventEndUnsafe(info: String)
+    func eventFaceIdInfo()
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -62,8 +68,10 @@ public final class EmotionEventsUseCaseImpl {
     }
 
     private let settings: Settings
+    private let lock: LockManager
     private let analytics: AnalyticsManager
     private let eventsProvider: EmotionEventsProvider
+    private let faceIdInfo: String
 
     private func presentEvents() {
         let events = eventsProvider.events
@@ -73,21 +81,66 @@ public final class EmotionEventsUseCaseImpl {
         output.present(noData: events.count == 0)
     }
 
+    private func unlockEvents(info: String) {
+        lock.evaluate(info: info) { [output] available, passed in
+            DispatchQueue.main.async {
+                guard available else {
+                    output?.presentFaceIdError()
+                    return
+                }
+                if passed {
+                    output?.present(blur: false)
+                }
+                else {
+                    output?.presentEmotions()
+                }
+            }
+        }
+    }
+
     // MARK: - Public
 
     public weak var output: EmotionEventsUseCaseOutput!
 
-    public init(settings: Settings, analytics: AnalyticsManager, eventsProvider: EmotionEventsProvider) {
+    public init(
+        settings: Settings,
+        lock: LockManager,
+        analytics: AnalyticsManager,
+        eventsProvider: EmotionEventsProvider,
+        faceIdInfo: String
+    ) {
         self.settings = settings
+        self.lock = lock
         self.analytics = analytics
         self.eventsProvider = eventsProvider
+        self.faceIdInfo = faceIdInfo
         self.eventsProvider.add { [weak self] in self?.presentEvents() }
     }
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
+    public func eventOutputToBeShown() {
+        guard settings.useFaceId else { return }
+        output.present(blur: true)
+    }
+
+    public func eventOutputIsShown(info: String) {
+        guard settings.useFaceId else { return }
+        unlockEvents(info: info)
+    }
+
     public func eventStartUnsafe() {
         output.present(blur: settings.protectSensitiveData)
+    }
+
+    public func eventEndUnsafe(info: String) {
+        if settings.useFaceId {
+            output.present(blur: true)
+            unlockEvents(info: info)
+        }
+        else {
+            output.present(blur: false)
+        }
     }
 
     public func eventAdd() {
@@ -118,5 +171,9 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func event(editEvent: EmotionEventsUseCaseObjects.Event) {
         analytics.track(.editEvent)
         output.present(editEvent: editEvent)
+    }
+
+    public func eventFaceIdInfo() {
+        output.present(url: faceIdInfo)
     }
 }

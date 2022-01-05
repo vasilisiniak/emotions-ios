@@ -121,8 +121,10 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             viewController: viewController,
             router: router,
             settings: AppGroup.settings,
+            lock: lock,
             analytics: analytics,
-            provider: AppGroup.emotionEventsProvider
+            provider: AppGroup.emotionEventsProvider,
+            faceIdInfo: AppGroup.faceIdInfo
         ).configure()
         return viewController
     }

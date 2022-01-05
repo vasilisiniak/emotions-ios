@@ -64,12 +64,14 @@ public protocol EmotionEventsPresenterOutput: AnyObject {
     func show(blur: Bool)
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
     func show(message: String, button: String)
+    func showFaceIdAlert(message: String, okButton: String, infoButton: String)
 }
 
 public protocol EmotionEventsRouter: AnyObject {
     func routeEmotions()
     func route(shareText: String)
     func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date)
+    func route(url: String)
 }
 
 public protocol EmotionEventsPresenter {
@@ -77,11 +79,15 @@ public protocol EmotionEventsPresenter {
     var editTitle: String { get }
 
     func eventViewReady()
+    func eventViewWillAppear()
+    func eventViewDidAppear()
     func event(shareIndexPath: IndexPath)
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
     func eventAddTap()
     func eventStartUnsafe()
+    func eventEndUnsafe()
+    func eventFaceIdInfo()
 }
 
 public final class EmotionEventsPresenterImpl {
@@ -101,8 +107,20 @@ public final class EmotionEventsPresenterImpl {
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
+    public func eventViewWillAppear() {
+        useCase.eventOutputToBeShown()
+    }
+
+    public func eventViewDidAppear() {
+        useCase.eventOutputIsShown(info: "Получить доступ к дневнику")
+    }
+
     public func eventStartUnsafe() {
         useCase.eventStartUnsafe()
+    }
+
+    public func eventEndUnsafe() {
+        useCase.eventEndUnsafe(info: "Получить доступ к дневнику")
     }
 
     public var deleteTitle: String {
@@ -135,6 +153,14 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public func event(editIndexPath: IndexPath) {
         let event = groups[editIndexPath.section].events[editIndexPath.row]
         useCase.event(editEvent: events.first { $0.date == event.date }!)
+    }
+
+    public func eventFaceIdInfo() {
+        useCase.eventFaceIdInfo()
+    }
+
+    public func present(url: String) {
+        router.route(url: url)
     }
 }
 
@@ -171,5 +197,13 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func present(editEvent: EmotionEventsUseCaseObjects.Event) {
         router.route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event(event: editEvent), date: editEvent.date)
+    }
+
+    public func presentFaceIdError() {
+        output.showFaceIdAlert(
+            message: "Для функции защиты паролем нужно включить код-пароль в настройках устройства",
+            okButton: "OK",
+            infoButton: "Как это сделать"
+        )
     }
 }

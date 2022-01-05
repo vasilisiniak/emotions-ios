@@ -15,11 +15,25 @@ final class EmotionEventsConnector {
 
     // MARK: - Internal
 
-    init(viewController: EmotionEventsViewController, router: EmotionEventsRouter, settings: Settings, analytics: AnalyticsManager, provider: EmotionEventsProvider) {
+    init(
+        viewController: EmotionEventsViewController,
+        router: EmotionEventsRouter,
+        settings: Settings,
+        lock: LockManager,
+        analytics: AnalyticsManager,
+        provider: EmotionEventsProvider,
+        faceIdInfo: String
+    ) {
         self.viewController = viewController
         self.router = router
         presenter = EmotionEventsPresenterImpl()
-        useCase = EmotionEventsUseCaseImpl(settings: settings, analytics: analytics, eventsProvider: provider)
+        useCase = EmotionEventsUseCaseImpl(
+            settings: settings,
+            lock: lock,
+            analytics: analytics,
+            eventsProvider: provider,
+            faceIdInfo: faceIdInfo
+        )
     }
 
     func configure() {

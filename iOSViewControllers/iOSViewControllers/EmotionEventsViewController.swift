@@ -22,6 +22,11 @@ public final class EmotionEventsViewController: UIViewController {
         presenter.eventViewReady()
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.eventViewWillAppear()
+    }
+
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -30,13 +35,16 @@ public final class EmotionEventsViewController: UIViewController {
                 self?.presenter.eventStartUnsafe()
             },
             NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
-                self?.blurView.isHidden = true
+                self?.presenter.eventEndUnsafe()
             }
         ]
+
+        presenter.eventViewDidAppear()
     }
 
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        appObservers?.forEach { NotificationCenter.default.removeObserver($0) }
         appObservers = nil
     }
 
@@ -193,7 +201,19 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
     }
 
     public func show(blur: Bool) {
-        blurView.isHidden = !blur
+        guard blurView.isHidden != !blur else { return }
+
+        if blur {
+            blurView.isHidden = false
+        }
+        else {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseIn, .beginFromCurrentState]) { [blurView] in
+                blurView.alpha = 0
+            } completion: { [blurView] _ in
+                blurView.isHidden = true
+                blurView.alpha = 1
+            }
+        }
     }
 
     public func show(noDataText: String, button: String) {
@@ -208,6 +228,15 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default))
+        present(alert, animated: true)
+    }
+
+    public func showFaceIdAlert(message: String, okButton: String, infoButton: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default))
+        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
+            self?.presenter.eventFaceIdInfo()
+        }))
         present(alert, animated: true)
     }
 }
