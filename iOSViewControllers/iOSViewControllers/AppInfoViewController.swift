@@ -119,15 +119,15 @@ extension AppInfoViewController: UITableViewDelegate {
 }
 
 extension AppInfoViewController: AppInfoPresenterOutput {
-    public func show(sections: [AppInfoPresenterObjects.Section], update: IndexPath?) {
+    public func show(sections: [AppInfoPresenterObjects.Section], update: [IndexPath]) {
         self.sections = sections
 
-        guard let update = update, view.window != nil else {
+        guard !update.isEmpty, view.window != nil else {
             tableView.reloadData()
             return
         }
 
-        tableView.reloadRows(at: [update], with: .automatic)
+        tableView.reloadRows(at: update, with: .automatic)
     }
 
     public func showEmailAlert(message: String, okButton: String, infoButton: String) {
@@ -135,6 +135,15 @@ extension AppInfoViewController: AppInfoPresenterOutput {
         alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
             self?.presenter.eventEmailInfo()
+        }))
+        present(alert, animated: true)
+    }
+
+    public func showFaceIdAlert(message: String, okButton: String, infoButton: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: okButton, style: .default))
+        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
+            self?.presenter.eventFaceIdInfo()
         }))
         present(alert, animated: true)
     }

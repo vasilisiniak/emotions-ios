@@ -19,10 +19,12 @@ final class AppInfoConnector {
         router: AppInfoRouter,
         settings: Settings,
         analytics: AnalyticsManager,
+        lock: LockManager,
         appLink: String,
         email: String,
         github: String,
         emailInfo: String,
+        faceIdInfo: String,
         emailTheme: String
     ) {
         self.viewController = viewController
@@ -31,10 +33,12 @@ final class AppInfoConnector {
         useCase = AppInfoUseCaseImpl(
             settings: settings,
             analytics: analytics,
+            lock: lock,
             appLink: appLink,
             email: email,
             github: github,
             emailInfo: emailInfo,
+            faceIdInfo: faceIdInfo,
             emailTheme: emailTheme
         )
     }

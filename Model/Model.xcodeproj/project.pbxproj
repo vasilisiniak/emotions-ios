@@ -14,6 +14,7 @@
 		167F7CA526F7C9F80074DCAA /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23E92583F4410098337E /* Utils.framework */; };
 		16AC776026710E210029B7CC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* Settings.swift */; };
 		16AC776B26761E470029B7CC /* PromoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776A26761E470029B7CC /* PromoManager.swift */; };
+		16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC2BB62782FBE400A96C5F /* LockManager.swift */; };
 		833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */; };
 		833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */; };
 		8378D063258E91E80024FC65 /* Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8378D062258E91E80024FC65 /* Storage.framework */; };
@@ -27,6 +28,7 @@
 		160BB577273A78E10060BA7E /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		16AC775F26710E210029B7CC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		16AC776A26761E470029B7CC /* PromoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoManager.swift; sourceTree = "<group>"; };
+		16EC2BB62782FBE400A96C5F /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
 		833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEvent.swift; sourceTree = "<group>"; };
 		833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsProvider.swift; sourceTree = "<group>"; };
 		8378D062258E91E80024FC65 /* Storage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Storage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,7 @@
 				160794012708908000572275 /* AnalyticsManager.swift */,
 				160BB57527395B3F0060BA7E /* MigrationManager.swift */,
 				160BB577273A78E10060BA7E /* NewsManager.swift */,
+				16EC2BB62782FBE400A96C5F /* LockManager.swift */,
 				83A51B172582C51C005131D7 /* Info.plist */,
 			);
 			path = Model;
@@ -183,6 +186,7 @@
 				833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */,
 				83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */,
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
+				16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */,
 				16AC776026710E210029B7CC /* Settings.swift in Sources */,
 				160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */,
 				16AC776B26761E470029B7CC /* PromoManager.swift in Sources */,

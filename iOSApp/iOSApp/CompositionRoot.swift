@@ -8,6 +8,7 @@ final class CompositionRoot {
     // MARK: - Private
 
     private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
+    private let lock = LockManagerImpl()
 
     // MARK: - Internal
 
@@ -83,10 +84,12 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             router: router,
             settings: AppGroup.settings,
             analytics: analytics,
+            lock: lock,
             appLink: AppGroup.appLink,
             email: AppGroup.email,
             github: AppGroup.github,
             emailInfo: AppGroup.emailInfo,
+            faceIdInfo: AppGroup.faceIdInfo,
             emailTheme: AppGroup.emailTheme
         ).configure()
         return viewController

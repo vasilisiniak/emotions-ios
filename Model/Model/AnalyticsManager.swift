@@ -69,6 +69,7 @@ public final class AnalyticsManagerImpl {
 
     private func trackSettingsProperties(_ settings: Settings) {
         Analytics.setUserProperty("\(settings.protectSensitiveData)", forName: "blur_enabled")
+        Analytics.setUserProperty("\(settings.useFaceId)", forName: "faceid_enabled")
     }
 
     private func trackDefaultsProperties() {

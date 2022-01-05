@@ -13,6 +13,7 @@ public enum AppInfoUseCaseObjects {
         case share
         case sourceCode
         case emailInfo
+        case faceIdInfo
         case donate
     }
 }
@@ -21,12 +22,14 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
-    func present(protect: Bool)
+    func present(protect: Bool, faceId: Bool)
+    func presentFaceIdError()
 }
 
 public protocol AppInfoUseCase {
     func event(_ event: AppInfoUseCaseObjects.ShareEvent)
-    func event(protect: Bool)
+    func event(protect: Bool, info: String)
+    func event(faceId: Bool, info: String)
     func eventViewReady()
 }
 
@@ -36,10 +39,12 @@ public final class AppInfoUseCaseImpl {
 
     private let settings: Settings
     private let analytics: AnalyticsManager
+    private let lock: LockManager
     private let appLink: String
     private let email: String
     private let github: String
     private let emailInfo: String
+    private let faceIdInfo: String
     private let emailTheme: String
 
     private func share() {
@@ -47,29 +52,69 @@ public final class AppInfoUseCaseImpl {
         output.present(share: item)
     }
 
+    private func evaluate(info: String, operation: @escaping () -> ()) {
+        lock.evaluate(info: info) { [settings, output] available, passed in
+            DispatchQueue.main.async {
+                if !available {
+                    output?.presentFaceIdError()
+                }
+                if passed {
+                    operation()
+                }
+                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
+            }
+        }
+    }
+
     // MARK: - Public
 
     public weak var output: AppInfoUseCaseOutput!
 
-    public init(settings: Settings, analytics: AnalyticsManager, appLink: String, email: String, github: String, emailInfo: String, emailTheme: String) {
+    public init(
+        settings: Settings,
+        analytics: AnalyticsManager,
+        lock: LockManager,
+        appLink: String,
+        email: String,
+        github: String,
+        emailInfo: String,
+        faceIdInfo: String,
+        emailTheme: String
+    ) {
         self.settings = settings
         self.analytics = analytics
+        self.lock = lock
         self.appLink = appLink
         self.email = email
         self.github = github
         self.emailInfo = emailInfo
+        self.faceIdInfo = faceIdInfo
         self.emailTheme = emailTheme
     }
 }
 
 extension AppInfoUseCaseImpl: AppInfoUseCase {
-    public func event(protect: Bool) {
-        settings.protectSensitiveData = protect
-        output.present(protect: settings.protectSensitiveData)
+    public func event(protect: Bool, info: String) {
+        if !protect && settings.useFaceId {
+            evaluate(info: info) { [settings] in
+                settings.protectSensitiveData = false
+                settings.useFaceId = false
+            }
+        } else {
+            settings.protectSensitiveData = protect
+            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
+        }
+    }
+
+    public func event(faceId: Bool, info: String) {
+        evaluate(info: info) { [settings] in
+            settings.protectSensitiveData = true
+            settings.useFaceId = faceId
+        }
     }
 
     public func eventViewReady() {
-        output.present(protect: settings.protectSensitiveData)
+        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
     }
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
@@ -94,6 +139,8 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             output.present(url: github)
         case .emailInfo:
             output.present(url: emailInfo)
+        case .faceIdInfo:
+            output.present(url: faceIdInfo)
         case .donate:
             analytics.track(.donate)
             output.present(url: "\(github)/blob/release/readme.md")

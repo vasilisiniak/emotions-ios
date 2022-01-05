@@ -21,6 +21,7 @@ public enum AppInfoPresenterObjects {
             case infoSourceCode
             case donate
             case protect(protect: Bool)
+            case faceId(enabled: Bool)
 
             public var title: String {
                 switch self {
@@ -32,12 +33,14 @@ public enum AppInfoPresenterObjects {
                 case .infoSourceCode: return "Посмотреть исходный код"
                 case .donate: return "Поддержать разработчика"
                 case .protect: return "Прятать личные данные"
+                case .faceId: return "Защитить паролем"
                 }
             }
 
             public var style: Style {
                 switch self {
                 case .protect: return .switcher
+                case .faceId: return .switcher
                 default: return .disclosure
                 }
             }
@@ -45,6 +48,7 @@ public enum AppInfoPresenterObjects {
             public var value: Any? {
                 switch self {
                 case .protect(let protect): return protect
+                case .faceId(let enabled): return enabled
                 default: return nil
                 }
             }
@@ -55,7 +59,7 @@ public enum AppInfoPresenterObjects {
         case donate
         case design
         case info
-        case settings(protect: Bool)
+        case settings(protect: Bool, faceId: Bool)
 
         public var rows: [Row] {
             switch self {
@@ -64,7 +68,7 @@ public enum AppInfoPresenterObjects {
             case .donate: return [.donate]
             case .design: return [.designSuggest]
             case .info: return [.infoSourceCode]
-            case .settings(let protect): return [.protect(protect: protect)]
+            case let .settings(protect, faceId): return [.protect(protect: protect), .faceId(enabled: faceId)]
             }
         }
 
@@ -93,8 +97,9 @@ public enum AppInfoPresenterObjects {
 }
 
 public protocol AppInfoPresenterOutput: AnyObject {
-    func show(sections: [AppInfoPresenterObjects.Section], update: IndexPath?)
+    func show(sections: [AppInfoPresenterObjects.Section], update: [IndexPath])
     func showEmailAlert(message: String, okButton: String, infoButton: String)
+    func showFaceIdAlert(message: String, okButton: String, infoButton: String)
 }
 
 public protocol AppInfoRouter: AnyObject {
@@ -106,6 +111,7 @@ public protocol AppInfoRouter: AnyObject {
 public protocol AppInfoPresenter {
     func eventViewReady()
     func eventEmailInfo()
+    func eventFaceIdInfo()
     func event(selectIndexPath: IndexPath)
     func event(switcher: Bool, indexPath: IndexPath)
 }
@@ -114,8 +120,8 @@ public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private func sections(protect: Bool = false) -> [AppInfoPresenterObjects.Section] {
-        [.settings(protect: protect), .promo, .contact, .donate, .design, .info]
+    private func sections(protect: Bool = false, faceId: Bool = false) -> [AppInfoPresenterObjects.Section] {
+        [.settings(protect: protect, faceId: faceId), .promo, .contact, .donate, .design, .info]
     }
 
     private func route(emailTheme: String, email: String) {
@@ -142,13 +148,14 @@ public class AppInfoPresenterImpl {
 extension AppInfoPresenterImpl: AppInfoPresenter {
     public func event(switcher: Bool, indexPath: IndexPath) {
         switch sections()[indexPath.section].rows[indexPath.row] {
-        case .protect: useCase.event(protect: switcher)
+        case .protect: useCase.event(protect: switcher, info: "Отключить защиту паролем")
+        case .faceId: useCase.event(faceId: switcher, info: switcher ? "Включить защиту паролем" : "Отключить защиту паролем")
         default: fatalError()
         }
     }
 
     public func eventViewReady() {
-        output.show(sections: sections(protect: false), update: nil)
+        output.show(sections: sections(), update: [])
         useCase.eventViewReady()
     }
 
@@ -162,21 +169,31 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .infoSourceCode: useCase.event(.sourceCode)
         case .donate: useCase.event(.donate)
         case .protect: fatalError()
+        case .faceId: fatalError()
         }
     }
 
     public func eventEmailInfo() {
         useCase.event(.emailInfo)
     }
+
+    public func eventFaceIdInfo() {
+        useCase.event(.faceIdInfo)
+    }
 }
 
 extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
-    public func present(protect: Bool) {
-        let sections = sections(protect: protect)
-        let section = sections.firstIndex(of: .settings(protect: protect))!
-        let row = AppInfoPresenterObjects.Section.settings(protect: protect).rows.firstIndex(of: .protect(protect: protect))!
+    public func present(protect: Bool, faceId: Bool) {
+        let sections = sections(protect: protect, faceId: faceId)
+        let section = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
 
-        output.show(sections: sections, update: IndexPath(row: row, section: section))
+        let protectRow = AppInfoPresenterObjects.Section.settings(protect: protect, faceId: faceId).rows.firstIndex(of: .protect(protect: protect))!
+        let faceIdRow = AppInfoPresenterObjects.Section.settings(protect: protect, faceId: faceId).rows.firstIndex(of: .faceId(enabled: faceId))!
+
+        output.show(sections: sections, update: [
+            IndexPath(row: protectRow, section: section),
+            IndexPath(row: faceIdRow, section: section)
+        ])
     }
 
     public func present(emailTheme: String, email: String) {
@@ -189,5 +206,13 @@ extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
 
     public func present(share: UIActivityItemSource) {
         router.route(shareItem: share)
+    }
+
+    public func presentFaceIdError() {
+        output.showFaceIdAlert(
+            message: "Для функции защиты паролем нужно включить код-пароль в настройках устройства",
+            okButton: "OK",
+            infoButton: "Как это сделать"
+        )
     }
 }
