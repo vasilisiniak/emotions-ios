@@ -9,6 +9,7 @@ private extension EmotionsUseCaseObjects.News {
     var info: String {
         switch self {
         case .v_1_7_addedLove: return "Вы могли заметить, что из приложения пропала секция Стыд — это потому что в ней было мало эмоций и по некоторым классификациям они относятся к Страху — туда они и перемещены. Зато вместо них новая секция — Любовь!"
+        case .v_1_8_addedFaceId: return "Дневник теперь можно защитить паролем, который можно включить на вкладке настроек"
         }
     }
 }
@@ -41,8 +42,8 @@ extension EmotionsPresenterImpl: EmotionsPresenter {
 extension EmotionsPresenterImpl: EmotionsUseCaseOutput {
     public func present(news: [EmotionsUseCaseObjects.News]) {
         let info = news
-            .map { $0.info }
-            .joined(separator: ",\n")
+            .map { "▷ \($0.info)" }
+            .joined(separator: "\n\n")
         output.show(message: info, title: "Что нового", button: "OK")
     }
 
