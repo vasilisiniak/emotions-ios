@@ -139,14 +139,14 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             share()
         case .sourceCode:
             analytics.track(.sourceCode)
-            output.present(url: github)
+            UIApplication.shared.open(URL(string: github)!)
         case .emailInfo:
             output.present(url: emailInfo)
         case .faceIdInfo:
             output.present(url: faceIdInfo)
         case .donate:
             analytics.track(.donate)
-            output.present(url: devLink)
+            UIApplication.shared.open(URL(string: devLink)!)
         }
     }
 }
