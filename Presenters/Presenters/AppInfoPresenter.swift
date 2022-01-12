@@ -22,6 +22,7 @@ public enum AppInfoPresenterObjects {
             case donate
             case protect(protect: Bool)
             case faceId(enabled: Bool)
+            case legacy(enabled: Bool)
 
             public var title: String {
                 switch self {
@@ -34,6 +35,7 @@ public enum AppInfoPresenterObjects {
                 case .donate: return "Страница разработчика"
                 case .protect: return "Прятать личные данные"
                 case .faceId: return "Защитить паролем"
+                case .legacy: return "Старый вид эмоций"
                 }
             }
 
@@ -41,6 +43,7 @@ public enum AppInfoPresenterObjects {
                 switch self {
                 case .protect: return .switcher
                 case .faceId: return .switcher
+                case .legacy: return .switcher
                 default: return .disclosure
                 }
             }
@@ -49,6 +52,7 @@ public enum AppInfoPresenterObjects {
                 switch self {
                 case .protect(let protect): return protect
                 case .faceId(let enabled): return enabled
+                case.legacy(let enabled): return enabled
                 default: return nil
                 }
             }
@@ -60,6 +64,7 @@ public enum AppInfoPresenterObjects {
         case design
         case info
         case settings(protect: Bool, faceId: Bool)
+        case legacy(enabled: Bool)
 
         public var rows: [Row] {
             switch self {
@@ -69,6 +74,7 @@ public enum AppInfoPresenterObjects {
             case .design: return [.designSuggest]
             case .info: return [.infoSourceCode]
             case let .settings(protect, faceId): return [.protect(protect: protect), .faceId(enabled: faceId)]
+            case .legacy(let enabled): return [.legacy(enabled: enabled)]
             }
         }
 
@@ -80,6 +86,7 @@ public enum AppInfoPresenterObjects {
             case .design: return "Дизайнерам"
             case .info: return "Другим разработчикам"
             case .settings: return "Настройки"
+            case .legacy: return ""
             }
         }
 
@@ -91,6 +98,7 @@ public enum AppInfoPresenterObjects {
             case .design: return "Я умею программировать, но совсем плох в дизайне. Это приложение — лучшее, что я могу"
             case .info: return nil
             case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"
+            case .legacy: return "Использовать табличный список вместо баблов для эмоций"
             }
         }
     }
@@ -120,8 +128,8 @@ public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private func sections(protect: Bool = false, faceId: Bool = false) -> [AppInfoPresenterObjects.Section] {
-        [.settings(protect: protect, faceId: faceId), .promo, .contact, .donate, .design, .info]
+    private func sections(protect: Bool = false, faceId: Bool = false, legacy: Bool = false) -> [AppInfoPresenterObjects.Section] {
+        [.settings(protect: protect, faceId: faceId), .legacy(enabled: legacy), .promo, .contact, .donate, .design, .info]
     }
 
     private func route(emailTheme: String, email: String) {
@@ -150,6 +158,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         switch sections()[indexPath.section].rows[indexPath.row] {
         case .protect: useCase.event(protect: switcher, info: "Отключить защиту паролем")
         case .faceId: useCase.event(faceId: switcher, info: switcher ? "Включить защиту паролем" : "Отключить защиту паролем")
+        case .legacy: useCase.event(legacy: switcher)
         default: fatalError()
         }
     }
@@ -170,6 +179,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .donate: useCase.event(.donate)
         case .protect: fatalError()
         case .faceId: fatalError()
+        case .legacy: fatalError()
         }
     }
 
@@ -183,16 +193,20 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
 }
 
 extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
-    public func present(protect: Bool, faceId: Bool) {
-        let sections = sections(protect: protect, faceId: faceId)
-        let section = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
+    public func present(protect: Bool, faceId: Bool, legacy: Bool) {
+        let sections = sections(protect: protect, faceId: faceId, legacy: legacy)
 
+        let protectSection = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
         let protectRow = AppInfoPresenterObjects.Section.settings(protect: protect, faceId: faceId).rows.firstIndex(of: .protect(protect: protect))!
         let faceIdRow = AppInfoPresenterObjects.Section.settings(protect: protect, faceId: faceId).rows.firstIndex(of: .faceId(enabled: faceId))!
 
+        let legacySection = sections.firstIndex(of: .legacy(enabled: legacy))!
+        let legacyRow = AppInfoPresenterObjects.Section.legacy(enabled: legacy).rows.firstIndex(of: .legacy(enabled: legacy))!
+
         output.show(sections: sections, update: [
-            IndexPath(row: protectRow, section: section),
-            IndexPath(row: faceIdRow, section: section)
+            IndexPath(row: protectRow, section: protectSection),
+            IndexPath(row: faceIdRow, section: protectSection),
+            IndexPath(row: legacyRow, section: legacySection)
         ])
     }
 

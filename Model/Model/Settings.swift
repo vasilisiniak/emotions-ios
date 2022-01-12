@@ -8,6 +8,7 @@ public protocol Settings: AnyObject {
     var range: (min: Date?, max: Date?) { get set }
     var protectSensitiveData: Bool { get set }
     var useFaceId: Bool { get set }
+    var useLegacyLayout: Bool { get set }
 }
 
 public final class SettingsImpl {
@@ -17,6 +18,7 @@ public final class SettingsImpl {
         fileprivate static let RangeMaxKey = "Model.SettingsImpl.RangeMaxKey"
         fileprivate static let ProtectSensitiveDataKey = "Model.SettingsImpl.ProtectSensitiveDataKey"
         fileprivate static let UseFaceIdKey = "Model.SettingsImpl.UseFaceIdKey"
+        fileprivate static let UseLegacyLayoutKey = "Model.SettingsImpl.UseLegacyLayoutKey"
     }
 
     // MARK: - Private
@@ -70,6 +72,18 @@ extension SettingsImpl: Settings {
         }
         set {
             defaults.set(newValue, forKey: Constants.UseFaceIdKey)
+            defaults.synchronize()
+
+            notify()
+        }
+    }
+
+    public var useLegacyLayout: Bool {
+        get {
+            defaults.bool(forKey: Constants.UseLegacyLayoutKey)
+        }
+        set {
+            defaults.set(newValue, forKey: Constants.UseLegacyLayoutKey)
             defaults.synchronize()
 
             notify()

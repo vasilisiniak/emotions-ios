@@ -22,7 +22,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
-    func present(protect: Bool, faceId: Bool)
+    func present(protect: Bool, faceId: Bool, legacy: Bool)
     func presentFaceIdError()
 }
 
@@ -30,6 +30,7 @@ public protocol AppInfoUseCase {
     func event(_ event: AppInfoUseCaseObjects.ShareEvent)
     func event(protect: Bool, info: String)
     func event(faceId: Bool, info: String)
+    func event(legacy: Bool)
     func eventViewReady()
 }
 
@@ -62,7 +63,7 @@ public final class AppInfoUseCaseImpl {
                 if passed {
                     operation()
                 }
-                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
+                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
             }
         }
     }
@@ -105,7 +106,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             }
         } else {
             settings.protectSensitiveData = protect
-            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
+            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
         }
     }
 
@@ -116,8 +117,12 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         }
     }
 
+    public func event(legacy: Bool) {
+        settings.useLegacyLayout = legacy
+    }
+
     public func eventViewReady() {
-        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId)
+        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
     }
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
