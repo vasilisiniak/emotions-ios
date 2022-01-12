@@ -4,6 +4,12 @@ import Presenters
 
 public final class EventNameViewController: UIViewController {
 
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
     // MARK: - UIViewController
 
     public override func viewDidLoad() {
@@ -22,9 +28,13 @@ public final class EventNameViewController: UIViewController {
 
     // MARK: - Private
 
+    private var observer: AnyObject?
+
     private lazy var eventNameView: View = EventNameViewController.create {
         let name = UITextView.textDidChangeNotification
-        NotificationCenter.default.addObserver(forName: name, object: $0.textView, queue: .main, using: onTextChange)
+        observer = NotificationCenter.default.addObserver(forName: name, object: $0.textView, queue: .main) { [weak self] in
+            self?.onTextChange($0)
+        }
     }
 
     private func onBack() {

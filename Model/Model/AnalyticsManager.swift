@@ -40,6 +40,10 @@ public protocol AnalyticsManager {
 
 public final class AnalyticsManagerImpl {
 
+    deinit {
+        notificationsObservers?.forEach { NotificationCenter.default.removeObserver($0) }
+    }
+
     // MARK: - Private
 
     #if DEBUG
@@ -49,7 +53,8 @@ public final class AnalyticsManagerImpl {
     #endif
 
 
-    private var observers: [AnyObject] = []
+    private var notificationsObservers: [AnyObject]?
+    private var settingsObserver: AnyObject?
 
     private var hasValidFirebaseConfig: Bool {
         guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else { return false }
@@ -70,6 +75,7 @@ public final class AnalyticsManagerImpl {
     private func trackSettingsProperties(_ settings: Settings) {
         Analytics.setUserProperty("\(settings.protectSensitiveData)", forName: "blur_enabled")
         Analytics.setUserProperty("\(settings.useFaceId)", forName: "faceid_enabled")
+        Analytics.setUserProperty("\(settings.useLegacyLayout)", forName: "emotion_table_enabled")
     }
 
     private func trackDefaultsProperties() {
@@ -103,15 +109,15 @@ public final class AnalyticsManagerImpl {
         trackDefaultsProperties()
         trackSettingsProperties(settings)
 
-        observers = [
+        settingsObserver = settings.add { [weak self] in self?.trackSettingsProperties($0) }
+        notificationsObservers = [
             NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { [weak self] _ in
                 self?.trackWidgetProperties()
                 Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
             },
             NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
                 self?.trackDefaultsProperties()
-            },
-            settings.add { [weak self] in self?.trackSettingsProperties($0) }
+            }
         ]
     }
 }

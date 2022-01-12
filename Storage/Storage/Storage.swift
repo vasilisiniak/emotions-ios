@@ -25,10 +25,15 @@ fileprivate extension NSManagedObject {
 
 public final class CoreDataStorage {
 
+    deinit {
+        tokens.forEach { NotificationCenter.default.removeObserver($0) }
+    }
+
     // MARK: - Private
 
     private let container: NSPersistentContainer
     private let backgroudContext: NSManagedObjectContext
+    private var tokens: [AnyObject] = []
 
     // MARK: - Public
 
@@ -58,9 +63,9 @@ extension CoreDataStorage: Storage {
 
     public func add(listener: @escaping StorageListener) {
         let name = NSManagedObjectContext.didSaveObjectsNotification
-        NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
+        tokens.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
             listener()
-        }
+        })
     }
 
     public func create<T>() -> T {
