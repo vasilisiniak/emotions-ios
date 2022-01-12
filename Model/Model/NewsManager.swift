@@ -8,6 +8,7 @@ public protocol NewsManager {
 public enum News {
     case v_1_7_addedLove
     case v_1_8_addedFaceId
+    case v_1_9_emotionsRedesign
 }
 
 public final class NewsManagerImpl {
@@ -27,7 +28,8 @@ public final class NewsManagerImpl {
 
     private let newsList: [String: (version: String, news: [News])] = [
         "1.0": (version: "1.7", news: [.v_1_7_addedLove]),
-        "1.7": (version: "1.8", news: [.v_1_8_addedFaceId])
+        "1.7": (version: "1.8", news: [.v_1_8_addedFaceId]),
+        "1.8": (version: "1.9", news: [.v_1_9_emotionsRedesign])
     ]
 
     var isFreshInstall: Bool {

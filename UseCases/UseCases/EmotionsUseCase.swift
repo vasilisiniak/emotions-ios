@@ -4,6 +4,7 @@ public enum EmotionsUseCaseObjects {
     public enum News {
         case v_1_7_addedLove
         case v_1_8_addedFaceId
+        case v_1_9_emotionsRedesign
     }
 }
 
@@ -12,6 +13,7 @@ private extension News {
         switch self {
         case .v_1_7_addedLove: return .v_1_7_addedLove
         case .v_1_8_addedFaceId: return .v_1_8_addedFaceId
+        case .v_1_9_emotionsRedesign: return .v_1_9_emotionsRedesign
         }
     }
 }
