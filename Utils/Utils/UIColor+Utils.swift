@@ -22,5 +22,19 @@ extension UIColor {
         let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
 
         self.init(red: red, green: green, blue: blue, alpha: CGFloat(1.0))
-   }
+    }
+
+    public var text: UIColor {
+        var r = CGFloat(0)
+        var g = CGFloat(0)
+        var b = CGFloat(0)
+
+        guard getRed(&r, green: &g, blue: &b, alpha: nil) else {
+            return .label
+        }
+
+        let luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+        return (luminance > 0.5) ? .black : .white
+    }
 }

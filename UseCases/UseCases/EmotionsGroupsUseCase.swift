@@ -37,6 +37,7 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func presentShareInfo()
     func presentShareLater()
     func presentNotFound()
+    func present(legacy: Bool)
 }
 
 public protocol EmotionsGroupsUseCase {
@@ -86,9 +87,11 @@ public final class EmotionsGroupsUseCaseImpl {
     private let emotionsProvider: EmotionsGroupsProvider
     private let analytics: AnalyticsManager
     private let promoManager: PromoManager
+    private let settings: Settings
     private let appLink: String
     private var selectedGroupIndex = 0
     private var selectedColor: String!
+    private var token: AnyObject!
 
     private var selectedEmotions: [String] = [] {
         didSet {
@@ -129,11 +132,23 @@ public final class EmotionsGroupsUseCaseImpl {
     // MARK: - Public
 
     public weak var output: EmotionsGroupsUseCaseOutput!
-    public init(emotionsProvider: EmotionsGroupsProvider, analytics: AnalyticsManager, promoManager: PromoManager, appLink: String) {
+
+    public init(
+        emotionsProvider: EmotionsGroupsProvider,
+        analytics: AnalyticsManager,
+        promoManager: PromoManager,
+        settings: Settings,
+        appLink: String
+    ) {
         self.emotionsProvider = emotionsProvider
         self.analytics = analytics
         self.promoManager = promoManager
+        self.settings = settings
         self.appLink = appLink
+
+        token = settings.add { [weak self] in
+            self?.output.present(legacy: $0.useLegacyLayout)
+        }
     }
 }
 
@@ -167,6 +182,7 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     }
 
     public func eventOutputReady() {
+        output.present(legacy: settings.useLegacyLayout)
         output.present(groups: emotionsProvider.emotionsGroups.map(\.name))
         presentEmotionsGroup()
         presentClearNextAvailable()

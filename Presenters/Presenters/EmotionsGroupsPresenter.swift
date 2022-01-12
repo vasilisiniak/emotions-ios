@@ -36,6 +36,7 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
     func show(message: String, button: String)
     func show(shareAlertMessage: String, okButton: String, cancelButton: String)
     func show(share: UIActivityItemSource)
+    func show(legacy: Bool)
 }
 
 public protocol EmotionsGroupsRouter: AnyObject {
@@ -183,5 +184,9 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
 
     public func presentNotFound() {
         router.routeNotFound()
+    }
+
+    public func present(legacy: Bool) {
+        output.show(legacy: legacy)
     }
 }

@@ -44,6 +44,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
             router: router,
             analytics: analytics,
             promoManager: promoManager,
+            settings: AppGroup.settings,
             appLink: AppGroup.appLink
         ).configure()
         return emotionsViewController

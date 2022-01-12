@@ -20,13 +20,20 @@ final class EmotionsGroupsConnector {
         router: EmotionsGroupsRouter,
         analytics: AnalyticsManager,
         promoManager: PromoManager,
+        settings: Settings,
         appLink: String
     ) {
         let provider = EmotionsGroupsProviderImpl(url: Bundle.main.url(forResource: "Emotions", withExtension: "plist")!)
         self.viewController = viewController
         self.router = router
         presenter = EmotionsGroupsPresenterImpl()
-        useCase = EmotionsGroupsUseCaseImpl(emotionsProvider: provider, analytics: analytics, promoManager: promoManager, appLink: appLink)
+        useCase = EmotionsGroupsUseCaseImpl(
+            emotionsProvider: provider,
+            analytics: analytics,
+            promoManager: promoManager,
+            settings: settings,
+            appLink: appLink
+        )
     }
 
     func configure() {

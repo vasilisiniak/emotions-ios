@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1608107A278F18C2003B07F0 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16081079278F18C2003B07F0 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		167E169F2600C0E300A8B0EC /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E169E2600C0E200A8B0EC /* ExpandableTextView.swift */; };
 		16AC775C2670C5210029B7CC /* DateRangePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775B2670C5210029B7CC /* DateRangePicker.swift */; };
 		16DF071F2676798D00B40C1B /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DF071E2676798D00B40C1B /* Utils.framework */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16081079278F18C2003B07F0 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		167E169E2600C0E200A8B0EC /* ExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
 		16AC775B2670C5210029B7CC /* DateRangePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePicker.swift; sourceTree = "<group>"; };
 		16DF071E2676798D00B40C1B /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				839C92C9258F4995008C9C5A /* GradientView.swift */,
 				167E169E2600C0E200A8B0EC /* ExpandableTextView.swift */,
 				16AC775B2670C5210029B7CC /* DateRangePicker.swift */,
+				16081079278F18C2003B07F0 /* LeftAlignedCollectionViewFlowLayout.swift */,
 				830BECE9258517DC00166851 /* Info.plist */,
 			);
 			path = iOSControls;
@@ -153,6 +156,7 @@
 				839C92CA258F4995008C9C5A /* GradientView.swift in Sources */,
 				16AC775C2670C5210029B7CC /* DateRangePicker.swift in Sources */,
 				167E169F2600C0E300A8B0EC /* ExpandableTextView.swift in Sources */,
+				1608107A278F18C2003B07F0 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				830BECF2258517EB00166851 /* PaddedLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

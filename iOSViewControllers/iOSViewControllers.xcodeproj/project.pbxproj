@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1608107C278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1608107B278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift */; };
 		1645531B26F7E18C00C3E376 /* EmotionNotFoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645531A26F7E18C00C3E376 /* EmotionNotFoundViewController.swift */; };
 		1645531D26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */; };
 		167E16A92602423F00A8B0EC /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A82602423F00A8B0EC /* AppInfoViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1608107B278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionsGroupsViewController+Cell.swift"; sourceTree = "<group>"; };
 		1645531A26F7E18C00C3E376 /* EmotionNotFoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionNotFoundViewController.swift; sourceTree = "<group>"; };
 		1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionNotFoundViewController+View.swift"; sourceTree = "<group>"; };
 		167E16A82602423F00A8B0EC /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				8377F47B2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift */,
+				1608107B278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift */,
 				831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */,
 				8377F47A2582CD1E006C9D2F /* EmotionsGroupsViewController.swift */,
 				83557354258623F7007F15C8 /* EventNameViewController+View.swift */,
@@ -211,6 +214,7 @@
 				839C92CE258F4ACE008C9C5A /* TrendsViewController.swift in Sources */,
 				83B9EE5F25857500007158F3 /* LogEventViewController.swift in Sources */,
 				83557355258623F7007F15C8 /* EventNameViewController+View.swift in Sources */,
+				1608107C278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift in Sources */,
 				8332CA01258A1F2500AA285A /* EmotionEventsViewController.swift in Sources */,
 				16AC775E2670CB8C0029B7CC /* TrendsViewController+View.swift in Sources */,
 				1645531B26F7E18C00C3E376 /* EmotionNotFoundViewController.swift in Sources */,

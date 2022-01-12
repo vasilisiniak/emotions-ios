@@ -12,6 +12,12 @@ public final class EmotionsGroupsViewController: UIViewController {
         case notFound
     }
 
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
     // MARK: - UIViewController
 
     public override func viewDidLoad() {
@@ -25,21 +31,29 @@ public final class EmotionsGroupsViewController: UIViewController {
 
     // MARK: - Private
 
+    private var color: UIColor?
+    private var observer: AnyObject?
+
     private var emotions: [EmotionsGroupsPresenterObjects.Emotion] = [] {
         didSet {
             emotionsGroupsView.tableView.reloadData()
             emotionsGroupsView.tableView.flashScrollIndicators()
 
+            emotionsGroupsView.collectionView.reloadData()
+            emotionsGroupsView.collectionView.flashScrollIndicators()
+
             guard emotionsGroupsView.tableView.numberOfSections > 0 else { return }
             guard emotionsGroupsView.tableView.numberOfRows(inSection: 0) > 0 else { return }
 
             emotionsGroupsView.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            emotionsGroupsView.collectionView.setContentOffset(.zero, animated: true)
         }
     }
 
     private var notFoundText: String? {
         didSet {
             emotionsGroupsView.tableView.reloadData()
+            emotionsGroupsView.collectionView.reloadData()
         }
     }
 
@@ -48,12 +62,25 @@ public final class EmotionsGroupsViewController: UIViewController {
     private lazy var emotionsGroupsView: View = EmotionsGroupsViewController.create {
         $0.leftSwipeGestureRecognizer.addTarget(self, action: #selector(onLeftSwipe))
         $0.rightSwipeGestureRecognizer.addTarget(self, action: #selector(onRightSwipe))
+
         $0.tableView.dataSource = self
         $0.tableView.delegate = self
         $0.tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+
+        $0.collectionView.dataSource = self
+        $0.collectionView.delegate = self
+        $0.collectionView.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
+
+        $0.layout.minimumInteritemSpacing = 5
+
         $0.segmentedControl.addAction(UIAction { [weak self] in
             self?.onIndexChange($0)
         }, for: .valueChanged)
+
+        let name = UIContentSizeCategory.didChangeNotification
+        observer = NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+            self?.emotionsGroupsView.collectionView.reloadData()
+        }
     }
 
     @objc private func onLeftSwipe() {
@@ -79,6 +106,61 @@ public final class EmotionsGroupsViewController: UIViewController {
     // MARK: - Public
 
     public var presenter: EmotionsGroupsPresenter!
+}
+
+extension EmotionsGroupsViewController: UICollectionViewDataSource {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        Section.allCases.count
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch Section(rawValue: section)! {
+        case .emotions: return emotions.count
+        case .notFound: return 1
+        }
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
+
+        switch Section(rawValue: indexPath.section)! {
+        case .emotions:
+            let emotion = emotions[indexPath.row].name
+            let selected = selectedNames.contains(emotion)
+
+            cell.backgroundColor = selected ? color : .clear
+            cell.layer.borderColor = color?.cgColor
+            cell.text.textColor = selected ? color?.text : .label
+            cell.text.text = emotion
+        case .notFound:
+            cell.backgroundColor = .clear
+            cell.layer.borderColor = color?.withAlphaComponent(0.5).cgColor
+            cell.text.textColor = .label.withAlphaComponent(0.5)
+            cell.text.text = notFoundText
+        }
+
+        return cell
+    }
+}
+
+extension EmotionsGroupsViewController: UICollectionViewDelegate {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch Section(rawValue: indexPath.section)! {
+        case .emotions: presenter.event(select: emotions[indexPath.row].name)
+        case .notFound: presenter.eventNotFound()
+        }
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard Section(rawValue: indexPath.section) == .emotions else { return nil }
+        presenter.eventWillShowInfo(emotion: emotions[indexPath.row].name)
+        let meaning = emotions[indexPath.row].meaning
+        return UIContextMenuConfiguration(identifier: nil) {
+            Menu(text: meaning, width: collectionView.bounds.size.width - 50) { [weak self] in
+                self?.presenter.eventDidHideInfo()
+            }
+        }
+    }
 }
 
 extension EmotionsGroupsViewController: UITableViewDataSource {
@@ -184,6 +266,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     public func show(emotionIndex: Int, selectedNames: [String]) {
         self.selectedNames = selectedNames
         emotionsGroupsView.tableView.reloadRows(at: [IndexPath(row: emotionIndex, section: 0)], with: .automatic)
+        emotionsGroupsView.collectionView.reloadData()
     }
 
     public func show(selectedEmotionsNames: String, color: UIColor) {
@@ -206,10 +289,12 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
         self.selectedNames = selectedNames
         self.emotions = emotions
+        self.color = color
 
         UIView.animate(withDuration: 0.3) { [emotionsGroupsView] in
-            emotionsGroupsView.segmenedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
             emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
         }
     }
 
@@ -217,5 +302,10 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default))
         present(alert, animated: true)
+    }
+
+    public func show(legacy: Bool) {
+        emotionsGroupsView.tableView.isHidden = !legacy
+        emotionsGroupsView.collectionView.isHidden = legacy
     }
 }
