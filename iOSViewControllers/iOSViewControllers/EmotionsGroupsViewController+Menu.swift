@@ -1,24 +1,62 @@
 import UIKit
-import iOSControls
-
-fileprivate extension PaddedLabel {
-    func sizeToPaddedFit() {
-        let height = ceil(text!.boundingRect(
-            with: CGSize(
-                width: bounds.size.width - textInsets.left - textInsets.right,
-                height: .greatestFiniteMagnitude
-            ),
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            attributes: [.font: font!],
-            context: nil
-        ).height) + textInsets.top + textInsets.bottom
-        frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: height)
-    }
-}
 
 extension EmotionsGroupsViewController {
 
     final class Menu: UIViewController {
+
+        private final class View: UIView {
+
+            private static let padding: CGFloat = 13
+
+            private let title: UILabel = create {
+                $0.adjustsFontForContentSizeCategory = true
+                $0.font = .preferredFont(forTextStyle: .headline)
+            }
+
+            private let text: UILabel = create {
+                $0.adjustsFontForContentSizeCategory = true
+                $0.font = .preferredFont(forTextStyle: .body)
+                $0.numberOfLines = 0
+            }
+
+            private func layout() {
+                addSubview(title)
+                addSubview(text)
+
+                title.translatesAutoresizingMaskIntoConstraints = false
+                text.translatesAutoresizingMaskIntoConstraints = false
+
+                NSLayoutConstraint.activate([
+                    title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Self.padding),
+                    title.topAnchor.constraint(equalTo: topAnchor, constant: Self.padding),
+                    title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Self.padding),
+
+                    text.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+                    text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Self.padding * 0.7),
+                    text.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+                    text.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Self.padding)
+                ])
+            }
+
+            init(title: String, text: String, color: UIColor, width: CGFloat) {
+                super.init(frame: .zero)
+                layout()
+
+                self.title.text = title
+                self.title.textColor = color
+                self.text.text = text
+                self.text.textColor = color
+                self.text.preferredMaxLayoutWidth = width - 2 * Self.padding
+            }
+
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
+        }
+
+        deinit {
+            handler()
+        }
 
         // MARK: - NSCoding
 
@@ -26,49 +64,21 @@ extension EmotionsGroupsViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
-        // MARK: - UIViewController
-
-        override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-
-            label.frame = CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude)
-            label.sizeToPaddedFit()
-        }
-
         // MARK: - Private
-
-        private func createLabel(text: String) -> PaddedLabel {
-            let label = PaddedLabel()
-            label.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            label.text = text
-            label.adjustsFontForContentSizeCategory = true
-            label.font = .preferredFont(forTextStyle: .body)
-            label.numberOfLines = 0
-            label.frame = CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude)
-            label.sizeToPaddedFit()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            return label
-        }
 
         private let handler: Handler
         private let width: CGFloat
-        private var label: PaddedLabel!
 
         // MARK: - Internal
 
         typealias Handler = () -> Void
 
-        init(text: String, width: CGFloat, handler: @escaping Handler) {
+        init(title: String, text: String, color: UIColor, width: CGFloat, handler: @escaping Handler) {
             self.width = width
             self.handler = handler
             super.init(nibName: nil, bundle: nil)
-            label = createLabel(text: text)
-            view = label
-            preferredContentSize = label.frame.size
-        }
-
-        deinit {
-            handler()
+            view = View(title: title, text: text, color: color, width: width)
+            preferredContentSize = view.systemLayoutSizeFitting(CGSize(width: width, height: .greatestFiniteMagnitude))
         }
     }
 }

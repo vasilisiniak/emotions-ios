@@ -155,8 +155,9 @@ extension EmotionsGroupsViewController: UICollectionViewDelegate {
         guard Section(rawValue: indexPath.section) == .emotions else { return nil }
         presenter.eventWillShowInfo(emotion: emotions[indexPath.row].name)
         let meaning = emotions[indexPath.row].meaning
+        let cell = collectionView.cellForItem(at: indexPath)! as! Cell
         return UIContextMenuConfiguration(identifier: nil) {
-            Menu(text: meaning, width: collectionView.bounds.size.width - 50) { [weak self] in
+            Menu(title: cell.text.text!, text: meaning, color: cell.text.textColor, width: collectionView.bounds.size.width - 50) { [weak self] in
                 self?.presenter.eventDidHideInfo()
             }
         }
@@ -213,8 +214,9 @@ extension EmotionsGroupsViewController: UITableViewDelegate {
         guard Section(rawValue: indexPath.section) == .emotions else { return nil }
         presenter.eventWillShowInfo(emotion: emotions[indexPath.row].name)
         let meaning = emotions[indexPath.row].meaning
+        let cell = tableView.cellForRow(at: indexPath)!
         return UIContextMenuConfiguration(identifier: nil) {
-            Menu(text: meaning, width: tableView.bounds.size.width - 50) { [weak self] in
+            Menu(title: cell.textLabel!.text!, text: meaning, color: cell.textLabel!.textColor, width: tableView.bounds.size.width - 50) { [weak self] in
                 self?.presenter.eventDidHideInfo()
             }
         }
