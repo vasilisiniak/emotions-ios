@@ -23,7 +23,6 @@ final class AppInfoConnector {
         appLink: String,
         email: String,
         github: String,
-        devLink: String,
         emailInfo: String,
         faceIdInfo: String,
         emailTheme: String
@@ -38,7 +37,6 @@ final class AppInfoConnector {
             appLink: appLink,
             email: email,
             github: github,
-            devLink: devLink,
             emailInfo: emailInfo,
             faceIdInfo: faceIdInfo,
             emailTheme: emailTheme

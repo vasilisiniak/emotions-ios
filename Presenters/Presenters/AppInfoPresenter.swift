@@ -32,7 +32,7 @@ public enum AppInfoPresenterObjects {
                 case .contactReport: return "Сообщить о проблеме"
                 case .designSuggest: return "Предложить дизайн"
                 case .infoSourceCode: return "Посмотреть исходный код"
-                case .donate: return "Страница разработчика"
+                case .donate: return "Поддержать разработчика"
                 case .protect: return "Прятать личные данные"
                 case .faceId: return "Защитить паролем"
                 case .legacy: return "Старый вид эмоций"
@@ -94,7 +94,7 @@ public enum AppInfoPresenterObjects {
             switch self {
             case .promo: return nil
             case .contact: return nil
-            case .donate: return "Вопросы сотрудничества и всё такое прочее"
+            case .donate: return "Это вовсе не обязательно! Но я буду очень благодарен :)"
             case .design: return "Я умею программировать, но совсем плох в дизайне. Это приложение — лучшее, что я могу"
             case .info: return nil
             case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"

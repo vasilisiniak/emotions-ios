@@ -44,7 +44,6 @@ public final class AppInfoUseCaseImpl {
     private let appLink: String
     private let email: String
     private let github: String
-    private let devLink: String
     private let emailInfo: String
     private let faceIdInfo: String
     private let emailTheme: String
@@ -79,7 +78,6 @@ public final class AppInfoUseCaseImpl {
         appLink: String,
         email: String,
         github: String,
-        devLink: String,
         emailInfo: String,
         faceIdInfo: String,
         emailTheme: String
@@ -90,7 +88,6 @@ public final class AppInfoUseCaseImpl {
         self.appLink = appLink
         self.email = email
         self.github = github
-        self.devLink = devLink
         self.emailInfo = emailInfo
         self.faceIdInfo = faceIdInfo
         self.emailTheme = emailTheme
@@ -151,7 +148,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             output.present(url: faceIdInfo)
         case .donate:
             analytics.track(.donate)
-            UIApplication.shared.open(URL(string: devLink)!)
+            UIApplication.shared.open(URL(string: "\(github)/blob/release/readme.md")!)
         }
     }
 }
