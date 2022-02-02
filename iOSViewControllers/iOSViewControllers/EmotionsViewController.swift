@@ -101,7 +101,7 @@ extension EmotionsViewController: EmotionsPresenterOutput {
     public func showEmotions() {
         viewControllers = [
             composer.logEventViewController,
-            composer.emotionEventsViewController(router: self),
+            UINavigationController(rootViewController: composer.emotionEventsViewController(router: self)),
             composer.trendsViewController(router: self),
             composer.appInfoViewController(router: self)
         ]

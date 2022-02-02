@@ -44,6 +44,7 @@ public protocol EmotionEventsUseCase {
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
     func eventAdd()
+    func eventInfoTap()
     func eventStartUnsafe()
     func eventEndUnsafe(info: String)
     func eventFaceIdInfo()
@@ -175,5 +176,9 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
 
     public func eventFaceIdInfo() {
         output.present(url: faceIdInfo)
+    }
+
+    public func eventInfoTap() {
+        output.presentSwipeInfo()
     }
 }

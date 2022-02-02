@@ -14,9 +14,7 @@ public final class TrendsViewController: UIViewController {
         super.viewDidLoad()
 
         trendsView.noDataView.isHidden = true
-        trendsView.noDataView.button.addAction(UIAction { [weak self] in
-            self?.onAddTap(action: $0)
-        }, for: .touchUpInside)
+        trendsView.noDataView.button.addAction(UIAction { [presenter] _ in presenter?.eventAddTap() }, for: .touchUpInside)
 
         trendsView.dateRangePicker.addAction(UIAction { [weak self, trendsView] _ in
             self?.presenter.event(selectedRange: trendsView.dateRangePicker.selectedRange)
@@ -35,17 +33,13 @@ public final class TrendsViewController: UIViewController {
 
     private let trendsView = View()
 
-    private func onAddTap(action: UIAction) {
-        presenter.eventAddTap()
-    }
-
     // MARK: - Public
 
     public var presenter: TrendsPresenter!
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        let tabBarIcon = UIImage(named: "TrendsTabBarIcon", in: Bundle(for: LogEventViewController.self), with: nil)
+        let tabBarIcon = UIImage(named: "TrendsTabBarIcon", in: Bundle(for: TrendsViewController.self), with: nil)
         tabBarItem = UITabBarItem(title: "", image: tabBarIcon, selectedImage: nil)
     }
 }

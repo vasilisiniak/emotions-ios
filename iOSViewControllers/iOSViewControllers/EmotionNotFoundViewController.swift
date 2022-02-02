@@ -23,9 +23,7 @@ public final class EmotionNotFoundViewController: UIViewController {
     // MARK: - Private
 
     private lazy var emotionNotFoundView: View = Self.create {
-        $0.button.addAction(UIAction { [weak self] _ in
-            self?.presenter.eventSuggest()
-        }, for: .touchUpInside)
+        $0.button.addAction(UIAction { [presenter] _ in presenter?.eventSuggest() }, for: .touchUpInside)
     }
 
     // MARK: - Public
@@ -34,9 +32,7 @@ public final class EmotionNotFoundViewController: UIViewController {
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { [weak self] _ in
-            self?.presenter.eventClose()
-        })
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { [presenter] _ in presenter?.eventClose() })
     }
 }
 

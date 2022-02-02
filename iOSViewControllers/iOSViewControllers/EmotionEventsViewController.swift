@@ -10,12 +10,16 @@ public final class EmotionEventsViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
+        navigationItem.title = presenter.title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "InfoIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
+            primaryAction: UIAction { [presenter] _ in presenter?.eventInfoTap() }
+        )
+
         layoutSubviews()
 
         noDataView.isHidden = true
-        noDataView.button.addAction(UIAction { [weak self] in
-            self?.onAddTap(action: $0)
-        }, for: .touchUpInside)
+        noDataView.button.addAction(UIAction { [presenter] _ in presenter?.eventAddTap() }, for: .touchUpInside)
 
         blurView.isHidden = true
 
@@ -103,10 +107,6 @@ public final class EmotionEventsViewController: UIViewController {
         ])
     }
 
-    private func onAddTap(action: UIAction) {
-        presenter.eventAddTap()
-    }
-
     private func delete(indexPath: IndexPath) {
         isUpdating = true
         presenter.event(deleteIndexPath: indexPath)
@@ -129,7 +129,7 @@ public final class EmotionEventsViewController: UIViewController {
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        let tabBarIcon = UIImage(named: "EmotionEventsTabBarIcon", in: Bundle(for: LogEventViewController.self), with: nil)
+        let tabBarIcon = UIImage(named: "EmotionEventsTabBarIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil)
         tabBarItem = UITabBarItem(title: "", image: tabBarIcon, selectedImage: nil)
     }
 }

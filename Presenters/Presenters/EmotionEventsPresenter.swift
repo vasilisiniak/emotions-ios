@@ -77,6 +77,7 @@ public protocol EmotionEventsRouter: AnyObject {
 public protocol EmotionEventsPresenter {
     var deleteTitle: String { get }
     var editTitle: String { get }
+    var title: String { get }
 
     func eventViewReady()
     func eventViewWillAppear()
@@ -85,6 +86,7 @@ public protocol EmotionEventsPresenter {
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
     func eventAddTap()
+    func eventInfoTap()
     func eventStartUnsafe()
     func eventEndUnsafe()
     func eventFaceIdInfo()
@@ -121,6 +123,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public func eventEndUnsafe() {
         useCase.eventEndUnsafe(info: "Получить доступ к дневнику")
+    }
+
+    public var title: String {
+        "Дневник"
     }
 
     public var deleteTitle: String {
@@ -161,6 +167,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public func present(url: String) {
         router.route(url: url)
+    }
+
+    public func eventInfoTap() {
+        useCase.eventInfoTap()
     }
 }
 
