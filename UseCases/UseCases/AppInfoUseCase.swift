@@ -8,7 +8,7 @@ public enum AppInfoUseCaseObjects {
     public enum ShareEvent {
         case suggest
         case report
-        case designSuggest
+        case designer
         case review
         case share
         case sourceCode
@@ -44,6 +44,7 @@ public final class AppInfoUseCaseImpl {
     private let appLink: String
     private let email: String
     private let github: String
+    private let designer: String
     private let emailInfo: String
     private let faceIdInfo: String
     private let emailTheme: String
@@ -78,6 +79,7 @@ public final class AppInfoUseCaseImpl {
         appLink: String,
         email: String,
         github: String,
+        designer: String,
         emailInfo: String,
         faceIdInfo: String,
         emailTheme: String
@@ -88,6 +90,7 @@ public final class AppInfoUseCaseImpl {
         self.appLink = appLink
         self.email = email
         self.github = github
+        self.designer = designer
         self.emailInfo = emailInfo
         self.faceIdInfo = faceIdInfo
         self.emailTheme = emailTheme
@@ -130,9 +133,9 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         case .report:
             analytics.track(.report)
             output.present(emailTheme: "\(emailTheme)[Report]", email: email)
-        case .designSuggest:
-            analytics.track(.suggestDesign)
-            output.present(emailTheme: "\(emailTheme)[Design]", email: email)
+        case .designer:
+            analytics.track(.designer)
+            UIApplication.shared.open(URL(string: designer)!)
         case .review:
             analytics.track(.rate)
             output.present(url: "\(appLink)?action=write-review")

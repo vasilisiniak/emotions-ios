@@ -17,7 +17,7 @@ public enum AppInfoPresenterObjects {
             case promoShare
             case contactSuggest
             case contactReport
-            case designSuggest
+            case designer
             case infoSourceCode
             case donate
             case protect(protect: Bool)
@@ -30,7 +30,7 @@ public enum AppInfoPresenterObjects {
                 case .promoShare: return "Поделиться приложением"
                 case .contactSuggest: return "Предложить улучшение"
                 case .contactReport: return "Сообщить о проблеме"
-                case .designSuggest: return "Предложить дизайн"
+                case .designer: return "Сергей Грабинский"
                 case .infoSourceCode: return "Посмотреть исходный код"
                 case .donate: return "Поддержать разработчика"
                 case .protect: return "Прятать личные данные"
@@ -71,7 +71,7 @@ public enum AppInfoPresenterObjects {
             case .promo: return [.promoRate, .promoShare]
             case .contact: return [.contactSuggest, .contactReport]
             case .donate: return [.donate]
-            case .design: return [.designSuggest]
+            case .design: return [.designer]
             case .info: return [.infoSourceCode]
             case let .settings(protect, faceId): return [.protect(protect: protect), .faceId(enabled: faceId)]
             case .legacy(let enabled): return [.legacy(enabled: enabled)]
@@ -81,10 +81,10 @@ public enum AppInfoPresenterObjects {
         public var title: String {
             switch self {
             case .promo: return "App Store"
-            case .contact: return "Связь с разработчиком"
+            case .contact: return "Обратная связь"
             case .donate: return ""
-            case .design: return "Дизайнерам"
-            case .info: return "Другим разработчикам"
+            case .design: return "Дизайн"
+            case .info: return "Разработчикам"
             case .settings: return "Настройки"
             case .legacy: return ""
             }
@@ -94,8 +94,8 @@ public enum AppInfoPresenterObjects {
             switch self {
             case .promo: return nil
             case .contact: return nil
-            case .donate: return "Это вовсе не обязательно! Но я буду очень благодарен :)"
-            case .design: return "Я умею программировать, но совсем плох в дизайне. Это приложение — лучшее, что я могу"
+            case .donate: return "Для развития этого приложения и создания новых"
+            case .design: return "Советы и идеи по UI/UX и всякому разному"
             case .info: return nil
             case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"
             case .legacy: return "Использовать табличный список вместо баблов для эмоций"
@@ -129,7 +129,7 @@ public class AppInfoPresenterImpl {
     // MARK: - Private
 
     private func sections(protect: Bool = false, faceId: Bool = false, legacy: Bool = false) -> [AppInfoPresenterObjects.Section] {
-        [.settings(protect: protect, faceId: faceId), .legacy(enabled: legacy), .promo, .contact, .donate, .design, .info]
+        [.settings(protect: protect, faceId: faceId), .legacy(enabled: legacy), .promo, .contact, .design, .info, .donate]
     }
 
     private func route(emailTheme: String, email: String) {
@@ -174,7 +174,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .promoShare: useCase.event(.share)
         case .contactSuggest: useCase.event(.suggest)
         case .contactReport: useCase.event(.report)
-        case .designSuggest: useCase.event(.designSuggest)
+        case .designer: useCase.event(.designer)
         case .infoSourceCode: useCase.event(.sourceCode)
         case .donate: useCase.event(.donate)
         case .protect: fatalError()

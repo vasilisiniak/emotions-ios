@@ -16,7 +16,7 @@ public enum AnalyticsEvent {
     case suggestImprove
     case report
     case donate
-    case suggestDesign
+    case designer
     case sourceCode
 
     var name: String {
