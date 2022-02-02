@@ -38,7 +38,7 @@ public final class EventNameViewController: UIViewController {
     }
 
     private func onBack() {
-        presenter.eventBackTap()
+        presenter.eventCancelTap()
     }
 
     private func onAdd() {

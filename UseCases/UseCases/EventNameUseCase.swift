@@ -5,7 +5,7 @@ public protocol EventNameUseCaseOutput: AnyObject {
     func present(selectedEmotions: [String], color: String)
     func present(emotion: String)
     func present(addAvailable: Bool)
-    func presentBack()
+    func presentCancel()
     func presentEmotions()
     func presentBackAddButtons()
     func presentCancelSaveButtons()
@@ -13,7 +13,7 @@ public protocol EventNameUseCaseOutput: AnyObject {
 
 public protocol EventNameUseCase {
     func eventOutputReady()
-    func eventBack()
+    func eventCancel()
     func event(descriptionChanged: String?)
     func eventAdd()
 }
@@ -47,8 +47,8 @@ extension EventNameUseCaseImpl: EventNameUseCase {
         output.present(addAvailable: false)
     }
 
-    public func eventBack() {
-        output.presentBack()
+    public func eventCancel() {
+        output.presentCancel()
     }
 
     public func event(descriptionChanged: String?) {

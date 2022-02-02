@@ -33,8 +33,8 @@ extension EditEventNameUseCaseImpl: EventNameUseCase {
         output.present(addAvailable: false)
     }
 
-    public func eventBack() {
-        output.presentBack()
+    public func eventCancel() {
+        output.presentCancel()
     }
 
     public func event(descriptionChanged: String?) {

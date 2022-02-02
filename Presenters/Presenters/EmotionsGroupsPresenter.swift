@@ -98,7 +98,7 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
     public func eventViewReady() {
         output.show(title: "Выберите эмоции")
         output.show(clearButton: "Очистить")
-        output.show(nextButton: "Далее❯")
+        output.show(nextButton: "Записать")
         output.show(notFound: "Моей эмоции нет в списке")
         useCase.eventOutputReady()
     }

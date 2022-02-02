@@ -13,14 +13,14 @@ public protocol EventNamePresenterOutput: AnyObject {
 }
 
 public protocol EventNameRouter: AnyObject {
-    func routeBack()
+    func routeCancel()
     func routeEmotions()
 }
 
 public protocol EventNamePresenter {
     func eventViewReady()
     func eventViewDidAppear()
-    func eventBackTap()
+    func eventCancelTap()
     func eventAddTap()
     func event(descriptionChanged: String?)
 }
@@ -54,14 +54,14 @@ extension EventNamePresenterImpl: EventNamePresenter {
         useCase.eventOutputReady()
     }
 
-    public func eventBackTap() {
-        useCase.eventBack()
+    public func eventCancelTap() {
+        useCase.eventCancel()
     }
 }
 
 extension EventNamePresenterImpl: EventNameUseCaseOutput {
     public func presentBackAddButtons() {
-        output.show(backButton: "❮Назад")
+        output.show(backButton: "Отмена")
         output.show(addButton: "Добавить")
     }
 
@@ -87,7 +87,7 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         output.show(color: UIColor(hex: color))
     }
 
-    public func presentBack() {
-        router.routeBack()
+    public func presentCancel() {
+        router.routeCancel()
     }
 }

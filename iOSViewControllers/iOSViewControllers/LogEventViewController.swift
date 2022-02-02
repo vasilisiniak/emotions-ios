@@ -51,19 +51,21 @@ extension LogEventViewController: EmotionsGroupsRouter {
 
     public func routeEventName(selectedEmotions: [String], color: String) {
         let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions, color: color)
-        pushViewController(eventNameViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: eventNameViewController)
+        present(navigationController, animated: true)
     }
 }
 
 extension LogEventViewController: EventNameRouter {
     public func routeEmotions() {
-        let emotionsViewController = composer.emotionsViewController(router: self)
-        setViewControllers([emotionsViewController], animated: true)
-        presenter.eventEventCreated()
+        dismiss(animated: true) { [weak self] in
+            self?.presenter.eventEventCreated()
+            (self?.viewControllers.first as? EmotionsGroupsViewController)?.presenter.eventClear()
+        }
     }
 
-    public func routeBack() {
-        popViewController(animated: true)
+    public func routeCancel() {
+        dismiss(animated: true)
     }
 }
 

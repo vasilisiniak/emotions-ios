@@ -72,7 +72,7 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
 }
 
 extension EmotionsViewController: EventNameRouter {
-    public func routeBack() {
+    public func routeCancel() {
         dismiss(animated: true)
     }
 }
