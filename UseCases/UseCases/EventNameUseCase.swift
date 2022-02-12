@@ -73,7 +73,7 @@ extension EventNameUseCaseImpl: EventNameUseCase {
     public func eventAdd() {
         let event = EmotionEvent(date: Date(), name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)
-        analytics.track(.eventCreated)
+        analytics.track(.eventCreated(hasDetails: (details?.isEmpty == false)))
         output.presentEmotions()
     }
 }

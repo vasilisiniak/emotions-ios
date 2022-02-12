@@ -6,7 +6,7 @@ import UIKit
 public enum AnalyticsEvent {
     case emotionNotFound
     case emotionDetails(emotion: String)
-    case eventCreated
+    case eventCreated(hasDetails: Bool)
     case shareEvent
     case deleteEvent
     case editEvent
@@ -22,6 +22,7 @@ public enum AnalyticsEvent {
     var name: String {
         switch self {
         case .emotionDetails: return "emotionDetails"
+        case .eventCreated: return "eventCreated"
         default: return "\(self)"
         }
     }
@@ -29,6 +30,7 @@ public enum AnalyticsEvent {
     var params: [String: Any]? {
         switch self {
         case .emotionDetails(let emotion): return ["emotion": emotion]
+        case .eventCreated(let hasDetails): return ["hasDetails": hasDetails]
         default: return nil
         }
     }
