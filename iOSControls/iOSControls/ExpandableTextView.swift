@@ -2,6 +2,12 @@ import UIKit
 
 public class ExpandableTextView: UITextView {
 
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+
     // MARK: - NSCoding
 
     required init?(coder: NSCoder) {
@@ -16,13 +22,17 @@ public class ExpandableTextView: UITextView {
         }
         var height = contentSize.height
         height = max(height, heightConstraints.min)
-        height = min(height, heightConstraints.max)
+        height = min(height, heightConstraints.max ?? height)
         return CGSize(width: super.intrinsicContentSize.width, height: height)
     }
 
+    // MARK: - Private
+
+    private var observer: NSObjectProtocol?
+
     // MARK: - Public
 
-    public var heightConstraints: (min: CGFloat, max: CGFloat)? {
+    public var heightConstraints: (min: CGFloat, max: CGFloat?)? {
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -30,7 +40,9 @@ public class ExpandableTextView: UITextView {
 
     public init() {
         super.init(frame: .zero, textContainer: nil)
-        delegate = self
+        observer = NotificationCenter.default.addObserver(forName: UITextView.textDidChangeNotification, object: self, queue: .main) { [weak self] _ in
+            self?.invalidateIntrinsicContentSize()
+        }
         text = ""
     }
 }

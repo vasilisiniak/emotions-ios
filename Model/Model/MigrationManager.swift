@@ -33,7 +33,7 @@ public final class MigrationManagerImpl {
     private func migrate_1_0_to_1_7() -> String {
         eventsProvider.events
             .filter { $0.color == "6bb6bc" }
-            .map { EmotionEvent(date: $0.date, name: $0.name, emotions: $0.emotions, color: "6b3074") }
+            .map { EmotionEvent(date: $0.date, name: $0.name, details: $0.details, emotions: $0.emotions, color: "6b3074") }
             .forEach { eventsProvider.update(event: $0) }
         WidgetCenter.shared.reloadAllTimelines()
         return "1.7"

@@ -35,6 +35,7 @@ public enum EmotionEventsPresenterObjects {
                 timeString = Event.timeFormatter.string(from: event.date)
                 dateString = Event.dateFormatter.string(from: event.date)
                 name = event.name
+                details = event.details
                 emotions = event.emotions
                 color = UIColor(hex: event.color)
             }
@@ -43,6 +44,7 @@ public enum EmotionEventsPresenterObjects {
 
             public let timeString: String
             public let name: String
+            public let details: String?
             public let emotions: String
             public let color: UIColor
         }

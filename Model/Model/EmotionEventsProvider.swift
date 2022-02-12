@@ -15,6 +15,7 @@ fileprivate extension EmotionEvent {
     init(entity: StorageEntity) {
         date = entity.value(forKey: "date") as! Date
         name = entity.value(forKey: "name") as! String
+        details = entity.value(forKey: "details") as? String
         emotions = entity.value(forKey: "emotions") as! String
         color = entity.value(forKey: "color") as! String
     }
@@ -53,6 +54,7 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         let entity: EmotionEventEntity = storage.create()
         entity.setValue(event.date, forKey: "date")
         entity.setValue(event.name, forKey: "name")
+        entity.setValue(event.details, forKey: "details")
         entity.setValue(event.emotions, forKey: "emotions")
         entity.setValue(event.color, forKey: "color")
         storage.add(entity: entity)
@@ -61,8 +63,8 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
     public func update(event: EmotionEvent) {
         let entities: [EmotionEventEntity] = storage.get()
         let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!
-        entity.setValue(event.date, forKey: "date")
         entity.setValue(event.name, forKey: "name")
+        entity.setValue(event.details, forKey: "details")
         entity.setValue(event.emotions, forKey: "emotions")
         entity.setValue(event.color, forKey: "color")
         storage.save(entity: entity)

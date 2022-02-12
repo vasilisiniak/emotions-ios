@@ -2,12 +2,12 @@ import UIKit
 import UseCases
 
 public protocol EventNamePresenterOutput: AnyObject {
-    func show(title: String)
+    func show(title: String, name: String, details: String)
     func show(backButton: String)
     func show(addButton: String)
     func show(addButtonEnabled: Bool)
     func show(selectedEmotions: String)
-    func show(emotion: String)
+    func show(name: String, details: String?)
     func show(color: UIColor)
     func showKeyboard()
 }
@@ -22,7 +22,8 @@ public protocol EventNamePresenter {
     func eventViewDidAppear()
     func eventCancelTap()
     func eventAddTap()
-    func event(descriptionChanged: String?)
+    func event(nameChanged: String?)
+    func event(detailsChanged: String?)
 }
 
 public final class EventNamePresenterImpl {
@@ -41,8 +42,12 @@ extension EventNamePresenterImpl: EventNamePresenter {
         output.showKeyboard()
     }
 
-    public func event(descriptionChanged: String?) {
-        useCase.event(descriptionChanged: descriptionChanged)
+    public func event(nameChanged: String?) {
+        useCase.event(nameChanged: nameChanged)
+    }
+
+    public func event(detailsChanged: String?) {
+        useCase.event(detailsChanged: detailsChanged)
     }
 
     public func eventAddTap() {
@@ -50,7 +55,13 @@ extension EventNamePresenterImpl: EventNamePresenter {
     }
 
     public func eventViewReady() {
-        output.show(title: "Введите событие")
+        let title: String
+        switch useCase.mode {
+        case .create: title = "Новая запись"
+        case .edit: title = "Изменить запись"
+        }
+
+        output.show(title: title, name: "Что произошло?", details: "Подробности, мысли, переживания...")
         useCase.eventOutputReady()
     }
 
@@ -74,8 +85,8 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         router.routeEmotions()
     }
 
-    public func present(emotion: String) {
-        output.show(emotion: emotion)
+    public func present(name: String, details: String?) {
+        output.show(name: name, details: details)
     }
 
     public func present(addAvailable: Bool) {

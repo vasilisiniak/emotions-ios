@@ -19,7 +19,8 @@ final class EditEventNameConnector {
         viewController: EventNameViewController,
         router: EventNameRouter,
         provider: EmotionEventsProvider,
-        emotion: String,
+        name: String,
+        details: String?,
         date: Date,
         selectedEmotions: [String],
         color: String
@@ -29,7 +30,8 @@ final class EditEventNameConnector {
         presenter = EventNamePresenterImpl()
         useCase = EditEventNameUseCaseImpl(
             provider: provider,
-            emotion: emotion,
+            name: name,
+            details: details,
             date: date,
             selectedEmotions: selectedEmotions,
             color: color

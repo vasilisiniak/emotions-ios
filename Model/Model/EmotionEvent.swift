@@ -6,12 +6,14 @@ public struct EmotionEvent {
 
     public let date: Date
     public let name: String
+    public let details: String?
     public let emotions: String
     public let color: String
 
-    public init(date: Date, name: String, emotions: String, color: String) {
+    public init(date: Date, name: String, details: String?, emotions: String, color: String) {
         self.date = date
         self.name = name
+        self.details = details
         self.emotions = emotions
         self.color = color
     }

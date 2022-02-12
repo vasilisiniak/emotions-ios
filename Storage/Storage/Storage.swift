@@ -43,6 +43,8 @@ public final class CoreDataStorage {
         let storeURL = container.persistentStoreDescriptions.first!.url!
         let description = NSPersistentStoreDescription(url: url ?? storeURL)
         description.type = type
+        description.shouldInferMappingModelAutomatically = true
+        description.shouldMigrateStoreAutomatically = true
         container.persistentStoreDescriptions = [description]
 
         container.loadPersistentStores { _, error in

@@ -5,9 +5,7 @@ import Presenters
 public final class EventNameViewController: UIViewController {
 
     deinit {
-        if let observer = observer {
-            NotificationCenter.default.removeObserver(observer)
-        }
+        observers?.forEach { NotificationCenter.default.removeObserver($0) }
     }
 
     // MARK: - UIViewController
@@ -28,13 +26,47 @@ public final class EventNameViewController: UIViewController {
 
     // MARK: - Private
 
-    private var observer: AnyObject?
+    private var observers: [AnyObject]?
+
+    private var namePlaceholder: String? {
+        didSet { name = name }
+    }
+
+    private var detailsPlaceholder: String? {
+        didSet { details = details }
+    }
+
+    private var name: String? {
+        get {
+            guard eventNameView.name.textColor != .placeholderText else { return nil }
+            return eventNameView.name.text
+        }
+        set {
+            eventNameView.name.text = (newValue?.isEmpty == false) ? newValue: namePlaceholder
+            eventNameView.name.textColor = (newValue?.isEmpty == false) ? .label : .placeholderText
+        }
+    }
+
+    private var details: String? {
+        get {
+            guard eventNameView.details.textColor != .placeholderText else { return nil }
+            return eventNameView.details.text
+        }
+        set {
+            eventNameView.details.text = (newValue?.isEmpty == false) ? newValue : detailsPlaceholder
+            eventNameView.details.textColor = (newValue?.isEmpty == false) ? .label : .placeholderText
+        }
+    }
 
     private lazy var eventNameView: View = EventNameViewController.create {
+        $0.name.delegate = self
+        $0.details.delegate = self
+
         let name = UITextView.textDidChangeNotification
-        observer = NotificationCenter.default.addObserver(forName: name, object: $0.textView, queue: .main) { [weak self] in
-            self?.onTextChange($0)
-        }
+        observers = [
+            NotificationCenter.default.addObserver(forName: name, object: $0.name, queue: .main) { [weak self] _ in self?.onNameChange() },
+            NotificationCenter.default.addObserver(forName: name, object: $0.details, queue: .main) { [weak self] _ in self?.onDetailsChange() }
+        ]
     }
 
     private func onBack() {
@@ -45,13 +77,52 @@ public final class EventNameViewController: UIViewController {
         presenter.eventAddTap()
     }
 
-    private func onTextChange(_: Notification) {
-        presenter.event(descriptionChanged: eventNameView.textView.text)
+    private func onNameChange() {
+        presenter.event(nameChanged: name)
+    }
+
+    private func onDetailsChange() {
+        presenter.event(detailsChanged: details)
     }
 
     // MARK: - Public
 
     public var presenter: EventNamePresenter!
+}
+
+extension EventNameViewController: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        guard textView.textColor == .placeholderText else { return }
+
+        textView.text = nil
+        textView.textColor = .label
+    }
+
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        guard textView.text.isEmpty else { return }
+
+        switch textView {
+        case eventNameView.name: name = textView.text
+        case eventNameView.details: details = textView.text
+        default: fatalError()
+        }
+    }
+
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard textView.textContainer.maximumNumberOfLines == 1 else { return true }
+        guard let oldText = textView.text, let newRange = Range(range, in: oldText) else { return true }
+
+        let newText = oldText.replacingCharacters(in: newRange, with: text)
+        defer {
+            if newText.hasSuffix("\n") {
+                eventNameView.details.becomeFirstResponder()
+                eventNameView.details.resignFirstResponder()
+                eventNameView.details.becomeFirstResponder()
+            }
+        }
+
+        return !newText.contains("\n")
+    }
 }
 
 extension EventNameViewController: EventNamePresenterOutput {
@@ -64,8 +135,10 @@ extension EventNameViewController: EventNamePresenterOutput {
         navigationItem.rightBarButtonItem?.isEnabled = addButtonEnabled
     }
 
-    public func show(title: String) {
+    public func show(title: String, name: String, details: String) {
         self.title = title
+        namePlaceholder = name
+        detailsPlaceholder = details
     }
 
     public func show(backButton: String) {
@@ -80,11 +153,12 @@ extension EventNameViewController: EventNamePresenterOutput {
         eventNameView.label.text = selectedEmotions
     }
 
-    public func show(emotion: String) {
-        eventNameView.textView.text = emotion
+    public func show(name: String, details: String?) {
+        self.name = name
+        self.details = details
     }
 
     public func showKeyboard() {
-        eventNameView.textView.becomeFirstResponder()
+        eventNameView.name.becomeFirstResponder()
     }
 }

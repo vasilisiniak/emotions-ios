@@ -6,7 +6,7 @@ import SafariServices
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
     func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController
-    func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
+    func editEventNameViewController(router: EventNameRouter, name: String, details: String?, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
 }
@@ -62,7 +62,8 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     public func route(editEvent: EmotionEventsPresenterObjects.EventsGroup.Event, date: Date) {
         let controller = composer.editEventNameViewController(
             router: self,
-            emotion: editEvent.name,
+            name: editEvent.name,
+            details: editEvent.details,
             date: date,
             selectedEmotions: editEvent.emotions.components(separatedBy: ", "),
             color: editEvent.color.hex

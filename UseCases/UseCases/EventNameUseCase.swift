@@ -1,9 +1,14 @@
 import Foundation
 import Model
 
+public enum EventNameUseCaseMode {
+    case create
+    case edit
+}
+
 public protocol EventNameUseCaseOutput: AnyObject {
     func present(selectedEmotions: [String], color: String)
-    func present(emotion: String)
+    func present(name: String, details: String?)
     func present(addAvailable: Bool)
     func presentCancel()
     func presentEmotions()
@@ -14,8 +19,10 @@ public protocol EventNameUseCaseOutput: AnyObject {
 public protocol EventNameUseCase {
     func eventOutputReady()
     func eventCancel()
-    func event(descriptionChanged: String?)
+    func event(nameChanged: String?)
+    func event(detailsChanged: String?)
     func eventAdd()
+    var mode: EventNameUseCaseMode { get }
 }
 
 public final class EventNameUseCaseImpl {
@@ -26,7 +33,8 @@ public final class EventNameUseCaseImpl {
     private let analytics: AnalyticsManager
     private let selectedEmotions: [String]
     private let color: String
-    private var description: String?
+    private var name: String?
+    private var details: String?
 
     // MARK: - Public
 
@@ -41,6 +49,8 @@ public final class EventNameUseCaseImpl {
 }
 
 extension EventNameUseCaseImpl: EventNameUseCase {
+    public var mode: EventNameUseCaseMode { .create }
+
     public func eventOutputReady() {
         output.present(selectedEmotions: selectedEmotions, color: color)
         output.presentBackAddButtons()
@@ -51,13 +61,17 @@ extension EventNameUseCaseImpl: EventNameUseCase {
         output.presentCancel()
     }
 
-    public func event(descriptionChanged: String?) {
-        description = descriptionChanged
-        output.present(addAvailable: (description ?? "").count > 0)
+    public func event(nameChanged: String?) {
+        name = nameChanged
+        output.present(addAvailable: (name ?? "").count > 0)
+    }
+
+    public func event(detailsChanged: String?) {
+        details = detailsChanged
     }
 
     public func eventAdd() {
-        let event = EmotionEvent(date: Date(), name: description!, emotions: selectedEmotions.joined(separator: ", "), color: color)
+        let event = EmotionEvent(date: Date(), name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)
         analytics.track(.eventCreated)
         output.presentEmotions()

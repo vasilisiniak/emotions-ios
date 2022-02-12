@@ -147,6 +147,7 @@ extension EmotionEventsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
         let event = eventsGroups[indexPath.section].events[indexPath.row]
         cell.nameLabel.text = event.name
+        cell.detailsLabel.text = event.details
         cell.timeLabel.text = event.timeString
         cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground

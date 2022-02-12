@@ -97,13 +97,14 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         return viewController
     }
 
-    func editEventNameViewController(router: EventNameRouter, emotion: String, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController {
+    func editEventNameViewController(router: EventNameRouter, name: String, details: String?, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController {
         let eventNameViewController = EventNameViewController()
         EditEventNameConnector(
             viewController: eventNameViewController,
             router: router,
             provider: AppGroup.emotionEventsProvider,
-            emotion: emotion,
+            name: name,
+            details: details,
             date: date,
             selectedEmotions: selectedEmotions,
             color: color
