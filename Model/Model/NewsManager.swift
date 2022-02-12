@@ -9,6 +9,7 @@ public enum News {
     case v_1_7_addedLove
     case v_1_8_addedFaceId
     case v_1_9_emotionsRedesign
+    case v_1_10_eventDetails
 }
 
 public final class NewsManagerImpl {
@@ -29,7 +30,8 @@ public final class NewsManagerImpl {
     private let newsList: [String: (version: String, news: [News])] = [
         "1.0": (version: "1.7", news: [.v_1_7_addedLove]),
         "1.7": (version: "1.8", news: [.v_1_8_addedFaceId]),
-        "1.8": (version: "1.9", news: [.v_1_9_emotionsRedesign])
+        "1.8": (version: "1.9", news: [.v_1_9_emotionsRedesign]),
+        "1.9": (version: "1.10", news: [.v_1_10_eventDetails]),
     ]
 
     var isFreshInstall: Bool {
