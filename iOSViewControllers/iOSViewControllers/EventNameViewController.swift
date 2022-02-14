@@ -67,6 +67,8 @@ public final class EventNameViewController: UIViewController {
             NotificationCenter.default.addObserver(forName: name, object: $0.name, queue: .main) { [weak self] _ in self?.onNameChange() },
             NotificationCenter.default.addObserver(forName: name, object: $0.details, queue: .main) { [weak self] _ in self?.onDetailsChange() }
         ]
+
+        $0.date.addAction(UIAction { [weak self] _ in self?.onDateChanged() }, for: .valueChanged)
     }
 
     private func onBack() {
@@ -75,6 +77,10 @@ public final class EventNameViewController: UIViewController {
 
     private func onAdd() {
         presenter.eventAddTap()
+    }
+
+    private func onDateChanged() {
+        presenter.event(dateChanged: eventNameView.date.date)
     }
 
     private func onNameChange() {
@@ -153,7 +159,8 @@ extension EventNameViewController: EventNamePresenterOutput {
         eventNameView.label.text = selectedEmotions
     }
 
-    public func show(name: String, details: String?) {
+    public func show(date: Date, name: String, details: String?) {
+        eventNameView.date.date = date
         self.name = name
         self.details = details
     }

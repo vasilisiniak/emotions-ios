@@ -8,7 +8,7 @@ public enum EventNameUseCaseMode {
 
 public protocol EventNameUseCaseOutput: AnyObject {
     func present(selectedEmotions: [String], color: String)
-    func present(name: String, details: String?)
+    func present(date: Date, name: String, details: String?)
     func present(addAvailable: Bool)
     func presentCancel()
     func presentEmotions()
@@ -21,6 +21,7 @@ public protocol EventNameUseCase {
     func eventCancel()
     func event(nameChanged: String?)
     func event(detailsChanged: String?)
+    func event(dateChanged: Date)
     func eventAdd()
     var mode: EventNameUseCaseMode { get }
 }
@@ -35,6 +36,7 @@ public final class EventNameUseCaseImpl {
     private let color: String
     private var name: String?
     private var details: String?
+    private var date = Date()
 
     // MARK: - Public
 
@@ -70,8 +72,12 @@ extension EventNameUseCaseImpl: EventNameUseCase {
         details = detailsChanged
     }
 
+    public func event(dateChanged: Date) {
+        date = dateChanged
+    }
+
     public func eventAdd() {
-        let event = EmotionEvent(date: Date(), name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
+        let event = EmotionEvent(date: date, name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         provider.log(event: event)
         analytics.track(.eventCreated(hasDetails: (details?.isEmpty == false)))
         output.presentEmotions()

@@ -21,6 +21,7 @@ extension EventNameViewController {
 
         private func addSubviews() {
             addSubview(backgroundView)
+            addSubview(date)
             addSubview(name)
             addSubview(details)
             addSubview(label)
@@ -28,6 +29,7 @@ extension EventNameViewController {
 
         private func makeConstraints() {
             backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            date.translatesAutoresizingMaskIntoConstraints = false
             name.translatesAutoresizingMaskIntoConstraints = false
             details.translatesAutoresizingMaskIntoConstraints = false
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,9 +43,13 @@ extension EventNameViewController {
                 backgroundView.topAnchor.constraint(equalTo: topAnchor),
                 backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
+                date.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+                date.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+                date.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 2),
+
                 name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 name.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
-                name.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 9),
+                name.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 9),
 
                 details.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 details.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
@@ -59,6 +65,12 @@ extension EventNameViewController {
         // MARK: - Internal
 
         let backgroundView = UIView()
+
+        let date: UIDatePicker = create {
+            $0.contentHorizontalAlignment = .leading
+            $0.datePickerMode = .dateAndTime
+            $0.preferredDatePickerStyle = .compact
+        }
 
         let name: ExpandableTextView = create {
             $0.adjustsFontForContentSizeCategory = true

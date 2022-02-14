@@ -10,7 +10,7 @@ public enum EmotionEventsPresenterObjects {
 
             // MARK: - Private
 
-            static let timeFormatter: DateFormatter = {
+            private static let timeFormatter: DateFormatter = {
                 let formatter = DateFormatter()
                 formatter.locale = Locale(identifier: "ru_RU")
                 formatter.dateStyle = .none
@@ -18,12 +18,23 @@ public enum EmotionEventsPresenterObjects {
                 return formatter
             }()
 
-            static let dateFormatter: DateFormatter = {
+            private static let dateFormatter: DateFormatter = {
                 let formatter = DateFormatter()
                 formatter.locale = Locale(identifier: "ru_RU")
                 formatter.dateFormat = "d MMMM, EEEE"
                 return formatter
             }()
+
+            private static let dateYearFormatter: DateFormatter = {
+                let formatter = DateFormatter()
+                formatter.locale = Locale(identifier: "ru_RU")
+                formatter.dateFormat = "d MMMM, EEEE, y"
+                return formatter
+            }()
+
+            private static func formatter(for date: Date) -> DateFormatter {
+                (date.year == Date().year) ? dateFormatter : dateYearFormatter
+            }
 
             // MARK: - Fileprivate
 
@@ -33,7 +44,7 @@ public enum EmotionEventsPresenterObjects {
             init(event: EmotionEventsUseCaseObjects.Event) {
                 date = event.date
                 timeString = Event.timeFormatter.string(from: event.date)
-                dateString = Event.dateFormatter.string(from: event.date)
+                dateString = Event.formatter(for: event.date).string(from: event.date)
                 name = event.name
                 details = event.details
                 emotions = event.emotions
@@ -170,17 +181,17 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         useCase.event(editEvent: events.first { $0.date == event.date }!)
     }
 
-    public func event(tap: IndexPath) {
+    public func event(tap indexPath: IndexPath) {
         guard !expandAll else { return }
 
-        if expandedEvents.contains(tap) {
-            expandedEvents.remove(tap)
+        if expandedEvents.contains(indexPath) {
+            expandedEvents.remove(indexPath)
         }
         else {
-            expandedEvents.insert(tap)
+            expandedEvents.insert(indexPath)
         }
 
-        output.show(indexPath: tap)
+        output.show(indexPath: indexPath)
     }
 
     public func eventFaceIdInfo() {
