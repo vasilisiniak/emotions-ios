@@ -1,5 +1,4 @@
 import Foundation
-import WidgetKit
 import Model
 
 public enum EmotionEventsUseCaseObjects {
@@ -171,7 +170,6 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
         analytics.track(.deleteEvent)
         eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
-        WidgetCenter.shared.reloadAllTimelines()
         presentEvents()
     }
 

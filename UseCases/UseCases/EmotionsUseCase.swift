@@ -1,4 +1,5 @@
 import Model
+import WidgetKit
 
 public enum EmotionsUseCaseObjects {
     public enum News {
@@ -43,14 +44,16 @@ public final class EmotionsUseCaseImpl {
     // MARK: - Public
 
     public weak var output: EmotionsUseCaseOutput!
-    public init(newsManager: NewsManager) {
+    public init(newsManager: NewsManager, provider: EmotionEventsProvider) {
         self.newsManager = newsManager
+        provider.add { WidgetCenter.shared.reloadAllTimelines() }
     }
 }
 
 extension EmotionsUseCaseImpl: EmotionsUseCase {
     public func eventOutputReady() {
         output.presentEmotions()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     public func eventViewIsShown() {

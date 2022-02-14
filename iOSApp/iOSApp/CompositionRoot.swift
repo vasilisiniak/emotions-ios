@@ -18,7 +18,7 @@ final class CompositionRoot {
 
     lazy var emotionsViewController: EmotionsViewController = {
         let viewController = EmotionsViewController()
-        EmotionsConnector(viewController: viewController, newsManager: newsManager, composer: self).configure()
+        EmotionsConnector(viewController: viewController, newsManager: newsManager, provider: AppGroup.emotionEventsProvider, composer: self).configure()
         return viewController
     }()
 }

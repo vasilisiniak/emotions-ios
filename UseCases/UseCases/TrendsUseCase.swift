@@ -1,5 +1,4 @@
 import Foundation
-import WidgetKit
 import Model
 
 public protocol TrendsUseCaseOutput: AnyObject {
@@ -78,7 +77,6 @@ extension TrendsUseCaseImpl: TrendsUseCase {
 
     public func event(selectedRange: (min: Date?, max: Date?)) {
         settings.range = selectedRange
-        WidgetCenter.shared.reloadAllTimelines()
         presentColors()
     }
 }

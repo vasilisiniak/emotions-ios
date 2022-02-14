@@ -1,5 +1,4 @@
 import Foundation
-import WidgetKit
 
 public protocol MigrationManager {
     func migrate()
@@ -35,7 +34,6 @@ public final class MigrationManagerImpl {
             .filter { $0.color == "6bb6bc" }
             .map { EmotionEvent(date: $0.date, name: $0.name, details: $0.details, emotions: $0.emotions, color: "6b3074") }
             .forEach { eventsProvider.update(event: $0) }
-        WidgetCenter.shared.reloadAllTimelines()
         return "1.7"
     }
 

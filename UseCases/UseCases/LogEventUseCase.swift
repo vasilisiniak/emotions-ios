@@ -1,5 +1,4 @@
 import Foundation
-import WidgetKit
 import UIKit
 import Model
 import Utils
@@ -100,8 +99,6 @@ extension LogEventUseCaseImpl: LogEventUseCase {
     }
 
     public func eventEventCreated() {
-        WidgetCenter.shared.reloadAllTimelines()
-
         if !firstCreation {
             firstCreation = true
             output.presentDiaryInfo()

@@ -14,11 +14,11 @@ final class EmotionsConnector {
 
     // MARK: - Internal
 
-    init(viewController: EmotionsViewController, newsManager: NewsManager, composer: EmotionsViewControllerComposer) {
+    init(viewController: EmotionsViewController, newsManager: NewsManager, provider: EmotionEventsProvider, composer: EmotionsViewControllerComposer) {
         self.viewController = viewController
         self.composer = composer
         presenter = EmotionsPresenterImpl()
-        useCase = EmotionsUseCaseImpl(newsManager: newsManager)
+        useCase = EmotionsUseCaseImpl(newsManager: newsManager, provider: provider)
     }
 
     func configure() {
