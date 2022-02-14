@@ -6,6 +6,7 @@ public enum EmotionsUseCaseObjects {
         case v_1_8_addedFaceId
         case v_1_9_emotionsRedesign
         case v_1_10_eventDetails
+        case v_1_11_compactDiary
     }
 }
 
@@ -16,6 +17,7 @@ private extension News {
         case .v_1_8_addedFaceId: return .v_1_8_addedFaceId
         case .v_1_9_emotionsRedesign: return .v_1_9_emotionsRedesign
         case .v_1_10_eventDetails: return .v_1_10_eventDetails
+        case .v_1_11_compactDiary: return .v_1_11_compactDiary
         }
     }
 }

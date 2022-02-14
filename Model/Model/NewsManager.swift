@@ -10,6 +10,7 @@ public enum News {
     case v_1_8_addedFaceId
     case v_1_9_emotionsRedesign
     case v_1_10_eventDetails
+    case v_1_11_compactDiary
 }
 
 public final class NewsManagerImpl {
@@ -32,6 +33,7 @@ public final class NewsManagerImpl {
         "1.7": (version: "1.8", news: [.v_1_8_addedFaceId]),
         "1.8": (version: "1.9", news: [.v_1_9_emotionsRedesign]),
         "1.9": (version: "1.10", news: [.v_1_10_eventDetails]),
+        "1.10": (version: "1.11", news: [.v_1_11_compactDiary])
     ]
 
     var isFreshInstall: Bool {
