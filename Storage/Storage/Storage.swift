@@ -31,26 +31,27 @@ public final class CoreDataStorage {
 
     // MARK: - Private
 
-    private let container: NSPersistentContainer
+    private let container: NSPersistentCloudKitContainer
     private let backgroudContext: NSManagedObjectContext
     private var tokens: [AnyObject] = []
 
     // MARK: - Public
 
-    public init(model: String, type: String = NSSQLiteStoreType, url: URL? = nil) {
-        container = NSPersistentContainer(name: model)
+    public init(model: String, url: URL, cloudKitGroup: String) {
+        container = NSPersistentCloudKitContainer(name: model)
 
-        let storeURL = container.persistentStoreDescriptions.first!.url!
-        let description = NSPersistentStoreDescription(url: url ?? storeURL)
-        description.type = type
+        let description = NSPersistentStoreDescription(url: url)
+        description.type = NSSQLiteStoreType
         description.shouldInferMappingModelAutomatically = true
         description.shouldMigrateStoreAutomatically = true
+        description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: cloudKitGroup)
         container.persistentStoreDescriptions = [description]
 
-        container.loadPersistentStores { _, error in
+        container.loadPersistentStores { [container] _, error in
             if error != nil {
                 fatalError(error.debugDescription)
             }
+            container.viewContext.automaticallyMergesChangesFromParent = true
         }
         backgroudContext = container.newBackgroundContext()
     }
@@ -64,7 +65,7 @@ extension CoreDataStorage: Storage {
     }
 
     public func add(listener: @escaping StorageListener) {
-        let name = NSManagedObjectContext.didSaveObjectsNotification
+        let name = NSManagedObjectContext.didChangeObjectsNotification
         tokens.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
             listener()
         })

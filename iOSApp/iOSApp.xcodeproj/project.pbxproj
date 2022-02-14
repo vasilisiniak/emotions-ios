@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		160794042708925300572275 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 160794032708925300572275 /* GoogleService-Info.plist */; };
+		1626818F27BAA78500C80F40 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1626818E27BAA78500C80F40 /* CloudKit.framework */; };
 		1645532326F7F28F00C3E376 /* EmotionNotFoundConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */; };
 		167E16A7260223F300A8B0EC /* EditEventNameConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */; };
 		167E16AD26024FD100A8B0EC /* AppInfoConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		160794032708925300572275 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1626818E27BAA78500C80F40 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionNotFoundConnector.swift; sourceTree = "<group>"; };
 		167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameConnector.swift; sourceTree = "<group>"; };
 		167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConnector.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				83A51B7D2582C8E3005131D7 /* UseCases.framework in Frameworks */,
 				83A51B7A2582C8E1005131D7 /* Presenters.framework in Frameworks */,
 				833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */,
+				1626818F27BAA78500C80F40 /* CloudKit.framework in Frameworks */,
 				833182B72589E35000B2C9A2 /* Utils.framework in Frameworks */,
 				8377F4892582CD7E006C9D2F /* iOSViewControllers.framework in Frameworks */,
 			);
@@ -230,6 +233,7 @@
 		83A51B682582C74E005131D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1626818E27BAA78500C80F40 /* CloudKit.framework */,
 				839218F8258E7D5400A7B69F /* Storage.framework */,
 				833182B32589E35000B2C9A2 /* iOSControls.framework */,
 				833182B42589E35000B2C9A2 /* Utils.framework */,
