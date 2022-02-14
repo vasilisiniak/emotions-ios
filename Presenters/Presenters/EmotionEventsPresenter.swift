@@ -67,6 +67,7 @@ public protocol EmotionEventsPresenterOutput: AnyObject {
     func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup])
     func show(message: String, button: String)
     func showFaceIdAlert(message: String, okButton: String, infoButton: String)
+    func show(indexPath: IndexPath)
 }
 
 public protocol EmotionEventsRouter: AnyObject {
@@ -89,6 +90,7 @@ public protocol EmotionEventsPresenter {
     func event(shareIndexPath: IndexPath)
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
+    func event(tap: IndexPath)
     func eventAddTap()
     func eventInfoTap()
     func eventStartUnsafe()
@@ -102,7 +104,9 @@ public final class EmotionEventsPresenterImpl {
 
     private var events: [EmotionEventsUseCaseObjects.Event] = []
     private var groups: [EmotionEventsPresenterObjects.EventsGroup] = []
+
     private var extendAll = false
+    private var extendedEvents: Set<IndexPath> = []
 
     // MARK: - Public
 
@@ -166,6 +170,19 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         useCase.event(editEvent: events.first { $0.date == event.date }!)
     }
 
+    public func event(tap: IndexPath) {
+        guard !extendAll else { return }
+
+        if extendedEvents.contains(tap) {
+            extendedEvents.remove(tap)
+        }
+        else {
+            extendedEvents.insert(tap)
+        }
+
+        output.show(indexPath: tap)
+    }
+
     public func eventFaceIdInfo() {
         useCase.eventFaceIdInfo()
     }
@@ -179,7 +196,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     }
 
     public func extended(_ indexPath: IndexPath) -> Bool {
-        extendAll
+        extendAll || extendedEvents.contains(indexPath)
     }
 }
 
@@ -207,6 +224,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     public func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool) {
         self.events = events
         self.extendAll = extended
+        extendedEvents.removeAll()
 
         let events = events.map(EmotionEventsPresenterObjects.EventsGroup.Event.init(event:))
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }

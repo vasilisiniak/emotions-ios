@@ -194,6 +194,10 @@ extension EmotionEventsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.event(tap: indexPath)
+    }
 }
 
 extension EmotionEventsViewController: EmotionEventsPresenterOutput {
@@ -243,5 +247,9 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
             self?.presenter.eventFaceIdInfo()
         }))
         present(alert, animated: true)
+    }
+
+    public func show(indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
