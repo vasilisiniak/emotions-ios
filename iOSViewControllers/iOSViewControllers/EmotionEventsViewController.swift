@@ -2,6 +2,10 @@ import UIKit
 import Presenters
 import iOSControls
 
+fileprivate extension UIAction.Identifier {
+    static let share = Self(rawValue: "EmotionEventsViewController.share")
+}
+
 public final class EmotionEventsViewController: UIViewController {
 
     // MARK: - UIViewController
@@ -155,7 +159,7 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
 
-        cell.shareButton.addAction(UIAction { [weak self, weak cell] _ in
+        cell.shareButton.addAction(UIAction(identifier: .share) { [weak self, weak cell] _ in
             guard let cell = cell else { return }
             guard let indexPath = self?.tableView.indexPath(for: cell) else { return }
             self?.presenter.event(shareIndexPath: indexPath)
