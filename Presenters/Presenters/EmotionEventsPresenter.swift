@@ -218,7 +218,12 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
     }
 
     public func present(shareEvent: EmotionEventsUseCaseObjects.Event) {
-        router.route(shareText: "Я чувствую \(shareEvent.emotions): \"\(shareEvent.name)\"")
+        var text = "Что произошло: \(shareEvent.name)"
+        text += "\nМои эмоции: \(shareEvent.emotions)"
+        if let details = shareEvent.details {
+            text += "\nКомментарии: \(details.replacingOccurrences(of: "\n", with: "\n\t"))"
+        }
+        router.route(shareText: text)
     }
 
     public func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool) {
