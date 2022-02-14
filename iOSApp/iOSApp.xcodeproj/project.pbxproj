@@ -382,7 +382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "grep -vE 'key|string|true|false' \"${SCRIPT_INPUT_FILE_0}\" | tee \"${SCRIPT_INPUT_FILE_0}\" 1>/dev/null\n";
+			shellScript = "cat \"${SCRIPT_INPUT_FILE_0}\" > /dev/null\ngrep -vE 'key|string|true|false' \"${SCRIPT_INPUT_FILE_0}\" | tee \"${SCRIPT_INPUT_FILE_0}\" 1>/dev/null\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
