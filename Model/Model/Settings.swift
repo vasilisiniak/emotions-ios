@@ -9,7 +9,7 @@ public protocol Settings: AnyObject {
     var protectSensitiveData: Bool { get set }
     var useFaceId: Bool { get set }
     var useLegacyLayout: Bool { get set }
-    var useExtendedDiary: Bool { get set }
+    var useExpandedDiary: Bool { get set }
 }
 
 public final class SettingsImpl {
@@ -92,7 +92,7 @@ extension SettingsImpl: Settings {
         }
     }
 
-    public var useExtendedDiary: Bool {
+    public var useExpandedDiary: Bool {
         get {
             defaults.bool(forKey: Constants.UseExtendedDiaryKey)
         }

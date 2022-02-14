@@ -27,7 +27,7 @@ public enum EmotionEventsUseCaseObjects {
 }
 
 public protocol EmotionEventsUseCaseOutput: AnyObject {
-    func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool)
+    func present(events: [EmotionEventsUseCaseObjects.Event], expanded: Bool)
     func present(noData: Bool)
     func present(blur: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)
@@ -45,6 +45,7 @@ public protocol EmotionEventsUseCase {
     func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
+    func eventToggleExpand()
     func eventAdd()
     func eventInfoTap()
     func eventStartUnsafe()
@@ -81,7 +82,7 @@ public final class EmotionEventsUseCaseImpl {
         let events = eventsProvider.events
             .map(EmotionEventsUseCaseObjects.Event.init(event:))
             .sorted { $0.date > $1.date }
-        output.present(events: events, extended: settings.useExtendedDiary)
+        output.present(events: events, expanded: settings.useExpandedDiary)
         output.present(noData: events.count == 0)
     }
 
@@ -185,5 +186,9 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
 
     public func eventInfoTap() {
         output.presentSwipeInfo()
+    }
+
+    public func eventToggleExpand() {
+        analytics.track(.toggleExpand)
     }
 }

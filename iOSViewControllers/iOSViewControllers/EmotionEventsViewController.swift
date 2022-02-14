@@ -153,7 +153,7 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
-        cell.extended = presenter.extended(indexPath)
+        cell.expanded = presenter.expanded(indexPath)
 
         cell.shareButton.addAction(UIAction { [weak self, weak cell] _ in
             guard let cell = cell else { return }

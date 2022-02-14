@@ -98,10 +98,10 @@ extension EmotionEventsViewController {
             $0.numberOfLines = 0
         }
 
-        var extended = false {
+        var expanded = false {
             didSet {
                 [nameLabel, detailsLabel, emotionsLabel].forEach {
-                    $0.numberOfLines = (extended ? 0 : 1)
+                    $0.numberOfLines = (expanded ? 0 : 1)
                 }
             }
         }

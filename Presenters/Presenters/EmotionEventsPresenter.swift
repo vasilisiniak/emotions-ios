@@ -82,7 +82,7 @@ public protocol EmotionEventsPresenter {
     var editTitle: String { get }
     var title: String { get }
 
-    func extended(_ indexPath: IndexPath) -> Bool
+    func expanded(_ indexPath: IndexPath) -> Bool
 
     func eventViewReady()
     func eventViewWillAppear()
@@ -105,8 +105,8 @@ public final class EmotionEventsPresenterImpl {
     private var events: [EmotionEventsUseCaseObjects.Event] = []
     private var groups: [EmotionEventsPresenterObjects.EventsGroup] = []
 
-    private var extendAll = false
-    private var extendedEvents: Set<IndexPath> = []
+    private var expandAll = false
+    private var expandedEvents: Set<IndexPath> = []
 
     // MARK: - Public
 
@@ -171,13 +171,13 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     }
 
     public func event(tap: IndexPath) {
-        guard !extendAll else { return }
+        guard !expandAll else { return }
 
-        if extendedEvents.contains(tap) {
-            extendedEvents.remove(tap)
+        if expandedEvents.contains(tap) {
+            expandedEvents.remove(tap)
         }
         else {
-            extendedEvents.insert(tap)
+            expandedEvents.insert(tap)
         }
 
         output.show(indexPath: tap)
@@ -195,8 +195,9 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         useCase.eventInfoTap()
     }
 
-    public func extended(_ indexPath: IndexPath) -> Bool {
-        extendAll || extendedEvents.contains(indexPath)
+    public func expanded(_ indexPath: IndexPath) -> Bool {
+        useCase.eventToggleExpand()
+        return expandAll || expandedEvents.contains(indexPath)
     }
 }
 
@@ -226,10 +227,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
         router.route(shareText: text)
     }
 
-    public func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool) {
+    public func present(events: [EmotionEventsUseCaseObjects.Event], expanded: Bool) {
         self.events = events
-        self.extendAll = extended
-        extendedEvents.removeAll()
+        self.expandAll = expanded
+        expandedEvents.removeAll()
 
         let events = events.map(EmotionEventsPresenterObjects.EventsGroup.Event.init(event:))
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }

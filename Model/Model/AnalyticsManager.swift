@@ -18,6 +18,7 @@ public enum AnalyticsEvent {
     case donate
     case designer
     case sourceCode
+    case toggleExpand
 
     var name: String {
         switch self {
@@ -78,6 +79,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.protectSensitiveData)", forName: "blur_enabled")
         Analytics.setUserProperty("\(settings.useFaceId)", forName: "faceid_enabled")
         Analytics.setUserProperty("\(settings.useLegacyLayout)", forName: "emotion_table_enabled")
+        Analytics.setUserProperty("\(settings.useExpandedDiary)", forName: "emotion_table_expanded")
     }
 
     private func trackDefaultsProperties() {

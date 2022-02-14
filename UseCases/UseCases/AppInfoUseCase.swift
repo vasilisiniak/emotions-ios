@@ -64,7 +64,7 @@ public final class AppInfoUseCaseImpl {
                 if passed {
                     operation()
                 }
-                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
+                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
             }
         }
     }
@@ -107,7 +107,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             }
         } else {
             settings.protectSensitiveData = protect
-            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
+            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
         }
     }
 
@@ -123,11 +123,11 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
     }
 
     public func event(compact: Bool) {
-        settings.useExtendedDiary = !compact
+        settings.useExpandedDiary = !compact
     }
 
     public func eventViewReady() {
-        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
+        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
     }
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
