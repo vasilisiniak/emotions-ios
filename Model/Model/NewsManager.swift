@@ -12,6 +12,7 @@ public enum News {
     case v_1_10_eventDetails
     case v_1_11_compactDiary
     case v_1_12_editDate
+    case v_1_13_icloud
 }
 
 public final class NewsManagerImpl {
@@ -35,7 +36,8 @@ public final class NewsManagerImpl {
         "1.8": (version: "1.9", news: [.v_1_9_emotionsRedesign]),
         "1.9": (version: "1.10", news: [.v_1_10_eventDetails]),
         "1.10": (version: "1.11", news: [.v_1_11_compactDiary]),
-        "1.11": (version: "1.12", news: [.v_1_12_editDate])
+        "1.11": (version: "1.12", news: [.v_1_12_editDate]),
+        "1.12": (version: "1.13", news: [.v_1_13_icloud])
     ]
 
     var isFreshInstall: Bool {
