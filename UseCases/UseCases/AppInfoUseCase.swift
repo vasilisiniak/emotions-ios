@@ -22,7 +22,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
-    func present(protect: Bool, faceId: Bool, legacy: Bool)
+    func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool)
     func presentFaceIdError()
 }
 
@@ -31,6 +31,7 @@ public protocol AppInfoUseCase {
     func event(protect: Bool, info: String)
     func event(faceId: Bool, info: String)
     func event(legacy: Bool)
+    func event(compact: Bool)
     func eventViewReady()
 }
 
@@ -63,7 +64,7 @@ public final class AppInfoUseCaseImpl {
                 if passed {
                     operation()
                 }
-                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
+                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
             }
         }
     }
@@ -106,7 +107,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             }
         } else {
             settings.protectSensitiveData = protect
-            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
+            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
         }
     }
 
@@ -121,8 +122,12 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         settings.useLegacyLayout = legacy
     }
 
+    public func event(compact: Bool) {
+        settings.useExtendedDiary = !compact
+    }
+
     public func eventViewReady() {
-        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout)
+        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExtendedDiary)
     }
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {

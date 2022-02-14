@@ -9,6 +9,7 @@ public protocol Settings: AnyObject {
     var protectSensitiveData: Bool { get set }
     var useFaceId: Bool { get set }
     var useLegacyLayout: Bool { get set }
+    var useExtendedDiary: Bool { get set }
 }
 
 public final class SettingsImpl {
@@ -19,6 +20,7 @@ public final class SettingsImpl {
         fileprivate static let ProtectSensitiveDataKey = "Model.SettingsImpl.ProtectSensitiveDataKey"
         fileprivate static let UseFaceIdKey = "Model.SettingsImpl.UseFaceIdKey"
         fileprivate static let UseLegacyLayoutKey = "Model.SettingsImpl.UseLegacyLayoutKey"
+        fileprivate static let UseExtendedDiaryKey = "Model.SettingsImpl.UseExtendedDiaryKey"
     }
 
     // MARK: - Private
@@ -84,6 +86,18 @@ extension SettingsImpl: Settings {
         }
         set {
             defaults.set(newValue, forKey: Constants.UseLegacyLayoutKey)
+            defaults.synchronize()
+
+            notify()
+        }
+    }
+
+    public var useExtendedDiary: Bool {
+        get {
+            defaults.bool(forKey: Constants.UseExtendedDiaryKey)
+        }
+        set {
+            defaults.set(newValue, forKey: Constants.UseExtendedDiaryKey)
             defaults.synchronize()
 
             notify()

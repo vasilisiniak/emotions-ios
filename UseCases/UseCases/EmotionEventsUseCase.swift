@@ -27,7 +27,7 @@ public enum EmotionEventsUseCaseObjects {
 }
 
 public protocol EmotionEventsUseCaseOutput: AnyObject {
-    func present(events: [EmotionEventsUseCaseObjects.Event])
+    func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool)
     func present(noData: Bool)
     func present(blur: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)
@@ -75,12 +75,13 @@ public final class EmotionEventsUseCaseImpl {
     private let analytics: AnalyticsManager
     private let eventsProvider: EmotionEventsProvider
     private let faceIdInfo: String
+    private var token: AnyObject?
 
     private func presentEvents() {
         let events = eventsProvider.events
             .map(EmotionEventsUseCaseObjects.Event.init(event:))
             .sorted { $0.date > $1.date }
-        output.present(events: events)
+        output.present(events: events, extended: settings.useExtendedDiary)
         output.present(noData: events.count == 0)
     }
 
@@ -117,7 +118,9 @@ public final class EmotionEventsUseCaseImpl {
         self.analytics = analytics
         self.eventsProvider = eventsProvider
         self.faceIdInfo = faceIdInfo
+
         self.eventsProvider.add { [weak self] in self?.presentEvents() }
+        token = self.settings.add { [weak self] _ in self?.presentEvents() }
     }
 }
 

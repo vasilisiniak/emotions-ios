@@ -81,6 +81,8 @@ public protocol EmotionEventsPresenter {
     var editTitle: String { get }
     var title: String { get }
 
+    func extended(_ indexPath: IndexPath) -> Bool
+
     func eventViewReady()
     func eventViewWillAppear()
     func eventViewDidAppear()
@@ -100,6 +102,7 @@ public final class EmotionEventsPresenterImpl {
 
     private var events: [EmotionEventsUseCaseObjects.Event] = []
     private var groups: [EmotionEventsPresenterObjects.EventsGroup] = []
+    private var extendAll = false
 
     // MARK: - Public
 
@@ -174,6 +177,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public func eventInfoTap() {
         useCase.eventInfoTap()
     }
+
+    public func extended(_ indexPath: IndexPath) -> Bool {
+        extendAll
+    }
 }
 
 extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
@@ -197,10 +204,13 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
         router.route(shareText: "Я чувствую \(shareEvent.emotions): \"\(shareEvent.name)\"")
     }
 
-    public func present(events: [EmotionEventsUseCaseObjects.Event]) {
+    public func present(events: [EmotionEventsUseCaseObjects.Event], extended: Bool) {
         self.events = events
+        self.extendAll = extended
+
         let events = events.map(EmotionEventsPresenterObjects.EventsGroup.Event.init(event:))
         let groupedEvents = Dictionary(grouping: events) { $0.dateString }
+
         groups = groupedEvents
             .map { EmotionEventsPresenterObjects.EventsGroup(date: $0.value.first!.date, dateString: $0.key, events: $0.value) }
             .sorted { $0.date > $1.date }

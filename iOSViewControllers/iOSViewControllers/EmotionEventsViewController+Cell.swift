@@ -97,5 +97,13 @@ extension EmotionEventsViewController {
             $0.font = .preferredFont(forTextStyle: .footnote)
             $0.numberOfLines = 0
         }
+
+        var extended = false {
+            didSet {
+                [nameLabel, detailsLabel, emotionsLabel].forEach {
+                    $0.numberOfLines = (extended ? 0 : 1)
+                }
+            }
+        }
     }
 }

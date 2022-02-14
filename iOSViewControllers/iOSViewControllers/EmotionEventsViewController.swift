@@ -146,17 +146,21 @@ extension EmotionEventsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as! Cell
         let event = eventsGroups[indexPath.section].events[indexPath.row]
+
         cell.nameLabel.text = event.name
         cell.detailsLabel.text = event.details
         cell.timeLabel.text = event.timeString
         cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
+        cell.extended = presenter.extended(indexPath)
+
         cell.shareButton.addAction(UIAction { [weak self, weak cell] _ in
             guard let cell = cell else { return }
             guard let indexPath = self?.tableView.indexPath(for: cell) else { return }
             self?.presenter.event(shareIndexPath: indexPath)
         }, for: .touchUpInside)
+
         return cell
     }
 
