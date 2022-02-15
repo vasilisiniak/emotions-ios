@@ -2,6 +2,12 @@ import Foundation
 import UIKit
 import Presenters
 
+fileprivate extension UIColor {
+    static var placeholder: UIColor {
+        .label.withAlphaComponent(0.55)
+    }
+}
+
 public final class EventNameViewController: UIViewController {
 
     deinit {
@@ -38,23 +44,23 @@ public final class EventNameViewController: UIViewController {
 
     private var name: String? {
         get {
-            guard eventNameView.name.textColor != .placeholderText else { return nil }
+            guard eventNameView.name.textColor != .placeholder else { return nil }
             return eventNameView.name.text
         }
         set {
             eventNameView.name.text = (newValue?.isEmpty == false) ? newValue: namePlaceholder
-            eventNameView.name.textColor = (newValue?.isEmpty == false) ? .label : .placeholderText
+            eventNameView.name.textColor = (newValue?.isEmpty == false) ? .label : .placeholder
         }
     }
 
     private var details: String? {
         get {
-            guard eventNameView.details.textColor != .placeholderText else { return nil }
+            guard eventNameView.details.textColor != .placeholder else { return nil }
             return eventNameView.details.text
         }
         set {
             eventNameView.details.text = (newValue?.isEmpty == false) ? newValue : detailsPlaceholder
-            eventNameView.details.textColor = (newValue?.isEmpty == false) ? .label : .placeholderText
+            eventNameView.details.textColor = (newValue?.isEmpty == false) ? .label : .placeholder
         }
     }
 
@@ -98,7 +104,7 @@ public final class EventNameViewController: UIViewController {
 
 extension EventNameViewController: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.textColor == .placeholderText else { return }
+        guard textView.textColor == .placeholder else { return }
 
         textView.text = nil
         textView.textColor = .label

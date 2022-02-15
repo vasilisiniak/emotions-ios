@@ -75,7 +75,7 @@ extension EventNameViewController {
         let name: ExpandableTextView = create {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = .preferredFont(forTextStyle: .body)
-            $0.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            $0.backgroundColor = .systemBackground.withAlphaComponent(0.5)
             $0.textContainer.maximumNumberOfLines = 1
             $0.textContainer.lineBreakMode = .byTruncatingTail
             $0.returnKeyType = .next
@@ -85,7 +85,7 @@ extension EventNameViewController {
         let details: ExpandableTextView = create {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = .preferredFont(forTextStyle: .body)
-            $0.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            $0.backgroundColor = .systemBackground.withAlphaComponent(0.5)
             $0.heightConstraints = (min: $0.font!.lineHeight * 3, max: nil)
         }
 
