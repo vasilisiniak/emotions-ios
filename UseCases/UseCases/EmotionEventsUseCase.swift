@@ -126,8 +126,12 @@ public final class EmotionEventsUseCaseImpl {
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func eventOutputToBeShown() {
-        guard settings.useFaceId else { return }
-        output.present(blur: true)
+        if settings.useFaceId {
+            output.present(blur: true)
+        }
+        else {
+            output.present(blur: false)
+        }
     }
 
     public func eventOutputIsShown(info: String) {
