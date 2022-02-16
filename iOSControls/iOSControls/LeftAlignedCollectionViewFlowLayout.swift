@@ -24,4 +24,8 @@ public class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             return attribute
         }
     }
+
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        layoutAttributesForElements(in: UIScreen.main.bounds)?.first { $0.indexPath == indexPath }
+    }
 }

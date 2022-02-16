@@ -33,9 +33,12 @@ public final class EmotionsGroupsViewController: UIViewController {
 
     private var color: UIColor?
     private var observer: AnyObject?
+    private var isUpdating = false
 
     private var emotions: [EmotionsGroupsPresenterObjects.Emotion] = [] {
         didSet {
+            guard !isUpdating else { return }
+
             emotionsGroupsView.tableView.reloadData()
             emotionsGroupsView.tableView.flashScrollIndicators()
 
@@ -265,18 +268,6 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nextButton) { [weak self] in self?.onNext() }
     }
 
-    public func show(emotionIndex: Int, selectedNames: [String]) {
-        self.selectedNames = selectedNames
-        emotionsGroupsView.tableView.reloadRows(at: [IndexPath(row: emotionIndex, section: 0)], with: .automatic)
-        emotionsGroupsView.collectionView.reloadData()
-    }
-
-    public func show(selectedEmotionsNames: String, color: UIColor) {
-        emotionsGroupsView.label.text = selectedEmotionsNames
-        emotionsGroupsView.label.backgroundColor = color.withAlphaComponent(0.4)
-        UIView.animate(withDuration: 0.15, animations: emotionsGroupsView.layoutIfNeeded)
-    }
-
     public func show(groupNames: [String]) {
         groupNames.reversed().forEach {
             emotionsGroupsView.segmentedControl.insertSegment(withTitle: $0, at: 0, animated: false)
@@ -289,14 +280,105 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     }
 
     public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
-        self.selectedNames = selectedNames
-        self.emotions = emotions
-        self.color = color
+        let changes = { [emotionsGroupsView] in
+            self.selectedNames = selectedNames
+            self.emotions = emotions
+            self.color = color
 
-        UIView.animate(withDuration: 0.3) { [emotionsGroupsView] in
-            emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
-            emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
-            emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
+            UIView.animate(withDuration: 0.3) {
+                emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
+                emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
+                emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
+            }
+        }
+
+        guard !self.emotions.isEmpty else {
+            changes()
+            return
+        }
+
+        let old: [Int]
+        let new: [Int]
+
+        switch (self.selectedNames.count - selectedNames.count) {
+        case 1:
+            let removed = self.selectedNames.first { !selectedNames.contains($0) }!
+            old = [self.emotions.firstIndex { $0.name == removed }!]
+            new = [emotions.firstIndex { $0.name == removed }!]
+        case -1:
+            let added = selectedNames.first { !self.selectedNames.contains($0) }!
+            old = [self.emotions.firstIndex { $0.name == added }!]
+            new = [emotions.firstIndex { $0.name == added }!]
+        case self.selectedNames.count:
+            old = Array(0..<self.selectedNames.count)
+            new = self.selectedNames.compactMap { name in emotions.firstIndex { $0.name == name } }
+        default:
+            old = []
+            new = []
+        }
+
+        guard !old.isEmpty else {
+            changes()
+            return
+        }
+
+        guard emotionsGroupsView.tableView.isHidden else {
+            func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
+                isUpdating = true
+                emotionsGroupsView.tableView.beginUpdates()
+                changes()
+                emotionsGroupsView.tableView.deleteRows(at: delete, with: .automatic)
+                emotionsGroupsView.tableView.insertRows(at: insert, with: .automatic)
+                emotionsGroupsView.tableView.endUpdates()
+                isUpdating = false
+            }
+
+            func swap(_ old: IndexPath, _ new: IndexPath) {
+                isUpdating = true
+                emotionsGroupsView.tableView.beginUpdates()
+                changes()
+                emotionsGroupsView.tableView.moveRow(at: old, to: new)
+                emotionsGroupsView.tableView.endUpdates()
+                emotionsGroupsView.tableView.reloadRows(at: [new], with: .automatic)
+                isUpdating = false
+            }
+
+            if old.count == 1 && new.count == 1 {
+                swap(IndexPath(row: old.first!, section: 0), IndexPath(row: new.first!, section: 0))
+            }
+            else {
+                update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
+            }
+            return
+        }
+
+        func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
+            isUpdating = true
+            emotionsGroupsView.collectionView.performBatchUpdates {
+                changes()
+                emotionsGroupsView.collectionView.deleteItems(at: delete)
+                emotionsGroupsView.collectionView.insertItems(at: insert)
+            }
+            isUpdating = false
+        }
+
+        func swap(_ old: IndexPath, _ new: IndexPath) {
+            isUpdating = true
+            emotionsGroupsView.collectionView.performBatchUpdates {
+                changes()
+                emotionsGroupsView.collectionView.moveItem(at: old, to: new)
+            }
+            completion: { [emotionsGroupsView] _ in
+                emotionsGroupsView.collectionView.reloadItems(at: [new])
+            }
+            isUpdating = false
+        }
+
+        if old.count == 1 && new.count == 1 {
+            swap(IndexPath(row: old.first!, section: 0), IndexPath(row: new.first!, section: 0))
+        }
+        else {
+            update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
         }
     }
 

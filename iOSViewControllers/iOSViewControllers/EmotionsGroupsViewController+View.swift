@@ -16,7 +16,6 @@ extension EmotionsGroupsViewController {
         private func addSubviews() {
             addSubview(segmentedControlBackground)
             addSubview(segmentedControl)
-            addSubview(label)
             addSubview(tableView)
             addSubview(collectionView)
         }
@@ -24,7 +23,6 @@ extension EmotionsGroupsViewController {
         private func makeConstraints() {
             segmentedControlBackground.translatesAutoresizingMaskIntoConstraints = false
             segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-            label.translatesAutoresizingMaskIntoConstraints = false
             tableView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -32,17 +30,13 @@ extension EmotionsGroupsViewController {
                 segmentedControlBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
                 segmentedControlBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
                 segmentedControlBackground.topAnchor.constraint(equalTo: topAnchor),
-                segmentedControlBackground.bottomAnchor.constraint(equalTo: label.topAnchor),
+                segmentedControlBackground.bottomAnchor.constraint(equalTo: tableView.topAnchor),
 
                 segmentedControl.heightAnchor.constraint(equalToConstant: 36),
                 segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
                 segmentedControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
                 segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: -10),
-
-                label.leadingAnchor.constraint(equalTo: leadingAnchor),
-                label.trailingAnchor.constraint(equalTo: trailingAnchor),
-                label.bottomAnchor.constraint(equalTo: tableView.topAnchor),
 
                 tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -66,13 +60,6 @@ extension EmotionsGroupsViewController {
             $0.setTitleTextAttributes([.font : font], for: .normal)
             $0.setTitleTextAttributes([.font : boldFont], for: .selected)
             $0.backgroundColor = .clear
-        }
-
-        let label: PaddedLabel = create {
-            $0.font = .preferredFont(forTextStyle: .headline)
-            $0.adjustsFontForContentSizeCategory = true
-            $0.numberOfLines = 0
-            $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
 
         let tableView: UITableView = create {
