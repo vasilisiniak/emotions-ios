@@ -7,17 +7,11 @@ public enum EmotionsGroupsUseCaseObjects {
 
     public struct Emotion {
 
-        // MARK: - Fileprivate
-
-        fileprivate init(event: EmotionsGroup.Emotion) {
-            name = event.name
-            meaning = event.meaning
-        }
-
         // MARK: - Public
 
         public let name: String
         public let meaning: String
+        public let color: String
     }
 }
 
@@ -104,12 +98,18 @@ public final class EmotionsGroupsUseCaseImpl {
     }
 
     private func presentEmotionsGroup() {
-        let selected = emotionsProvider.emotionsGroups.flatMap(\.emotions).filter { selectedEmotions.contains($0.name) }
-        let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions.filter { !selectedEmotions.contains($0.name) }
-        let emotions = selected + filtered
         let color = emotionsProvider.emotionsGroups[selectedGroupIndex].color
+
+        let selected = emotionsProvider.emotionsGroups
+            .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
+            .filter { selectedEmotions.contains($0.name) }
+
+        let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
+            .filter { !selectedEmotions.contains($0.name) }
+            .map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: color) }
+
         output.present(selectedGroupIndex: selectedGroupIndex)
-        output.present(emotions: emotions.map(EmotionsGroupsUseCaseObjects.Emotion.init), selected: selectedEmotions, color: color)
+        output.present(emotions: (selected + filtered), selected: selectedEmotions, color: color)
     }
 
     private func presentClearNextAvailable() {

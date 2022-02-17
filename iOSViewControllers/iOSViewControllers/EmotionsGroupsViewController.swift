@@ -129,11 +129,12 @@ extension EmotionsGroupsViewController: UICollectionViewDataSource {
         switch Section(rawValue: indexPath.section)! {
         case .emotions:
             let emotion = emotions[indexPath.row].name
+            let color = UIColor(hex: emotions[indexPath.row].color)
             let selected = selectedNames.contains(emotion)
 
             cell.backgroundColor = selected ? color : .clear
-            cell.layer.borderColor = color?.cgColor
-            cell.text.textColor = selected ? color?.text : .label
+            cell.layer.borderColor = color.cgColor
+            cell.text.textColor = selected ? color.text : .label
             cell.text.text = emotion
         case .notFound:
             cell.backgroundColor = .clear
@@ -181,21 +182,26 @@ extension EmotionsGroupsViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .clear
 
         switch Section(rawValue: indexPath.section)! {
         case .emotions:
+            let emotion = emotions[indexPath.row].name
+            let color = UIColor(hex: emotions[indexPath.row].color)
+            let selected = selectedNames.contains(emotion)
+
             cell.textLabel?.textColor = cell.textLabel?.textColor?.withAlphaComponent(1)
-            cell.textLabel?.text = emotions[indexPath.row].name
-            cell.accessoryType = selectedNames.contains(emotions[indexPath.row].name) ? .checkmark : .none
+            cell.textLabel?.text = emotion
+            cell.accessoryType = selected ? .checkmark : .none
             cell.accessoryView?.alpha = 1
             cell.selectionStyle = .none
+            cell.backgroundColor = selected ? color.withAlphaComponent(0.5) : .clear
         case .notFound:
             cell.textLabel?.textColor = cell.textLabel?.textColor?.withAlphaComponent(0.2)
             cell.textLabel?.text = notFoundText
             cell.accessoryType = .disclosureIndicator
             cell.accessoryView?.alpha = 0.2
             cell.selectionStyle = .gray
+            cell.backgroundColor = .clear
         }
 
         return cell
@@ -304,7 +310,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         case 1:
             let removed = self.selectedNames.first { !selectedNames.contains($0) }!
             old = [self.emotions.firstIndex { $0.name == removed }!]
-            new = [emotions.firstIndex { $0.name == removed }!]
+            new = emotions.firstIndex { $0.name == removed }.map { [$0] } ?? []
         case -1:
             let added = selectedNames.first { !self.selectedNames.contains($0) }!
             old = [self.emotions.firstIndex { $0.name == added }!]
@@ -327,8 +333,8 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
                 isUpdating = true
                 emotionsGroupsView.tableView.beginUpdates()
                 changes()
-                emotionsGroupsView.tableView.deleteRows(at: delete, with: .automatic)
-                emotionsGroupsView.tableView.insertRows(at: insert, with: .automatic)
+                emotionsGroupsView.tableView.deleteRows(at: delete, with: .left)
+                emotionsGroupsView.tableView.insertRows(at: insert, with: .right)
                 emotionsGroupsView.tableView.endUpdates()
                 isUpdating = false
             }

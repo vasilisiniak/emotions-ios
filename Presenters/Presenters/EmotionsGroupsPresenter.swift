@@ -12,12 +12,14 @@ public enum EmotionsGroupsPresenterObjects {
         fileprivate init(event: EmotionsGroupsUseCaseObjects.Emotion) {
             name = event.name
             meaning = event.meaning
+            color = event.color
         }
 
         // MARK: - Public
 
         public let name: String
         public let meaning: String
+        public let color: String
     }
 }
 
