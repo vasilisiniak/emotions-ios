@@ -355,6 +355,9 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
             else {
                 update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
             }
+
+            emotionsGroupsView.collectionView.reloadData()
+
             return
         }
 
@@ -386,6 +389,8 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         else {
             update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
         }
+
+        emotionsGroupsView.tableView.reloadData()
     }
 
     public func show(message: String, button: String) {
