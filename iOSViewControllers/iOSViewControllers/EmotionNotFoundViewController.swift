@@ -32,7 +32,7 @@ public final class EmotionNotFoundViewController: UIViewController {
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { [presenter] _ in presenter?.eventClose() })
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { [weak self] _ in self?.presenter.eventClose() })
     }
 }
 
