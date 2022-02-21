@@ -66,7 +66,7 @@ extension EventNamePresenterImpl: EventNamePresenter {
         case .edit: title = "Изменить запись"
         }
 
-        output.show(title: title, name: "Что произошло?", details: "Подробности, мысли, переживания...")
+        output.show(title: title, name: "Событие", details: "Подробности, мысли, переживания...")
         useCase.eventOutputReady()
     }
 
