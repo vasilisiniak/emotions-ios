@@ -368,6 +368,9 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
                 emotionsGroupsView.collectionView.deleteItems(at: delete)
                 emotionsGroupsView.collectionView.insertItems(at: insert)
             }
+            completion: { [emotionsGroupsView] _ in
+                emotionsGroupsView.collectionView.reloadData()
+            }
             isUpdating = false
         }
 
@@ -378,7 +381,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
                 emotionsGroupsView.collectionView.moveItem(at: old, to: new)
             }
             completion: { [emotionsGroupsView] _ in
-                emotionsGroupsView.collectionView.reloadItems(at: [new])
+                emotionsGroupsView.collectionView.reloadData()
             }
             isUpdating = false
         }
