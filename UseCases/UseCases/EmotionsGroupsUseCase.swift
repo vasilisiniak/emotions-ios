@@ -5,7 +5,7 @@ import Utils
 
 public enum EmotionsGroupsUseCaseObjects {
 
-    public struct Emotion {
+    public struct Emotion: Equatable {
 
         // MARK: - Public
 
@@ -40,6 +40,7 @@ public protocol EmotionsGroupsUseCase {
     func eventNextIndex()
     func eventPrevIndex()
     func event(select: String)
+    func event(search: String?)
     func eventWillShowInfo(emotion: String)
     func eventDidHideInfo()
     func eventShare()
@@ -84,6 +85,7 @@ public final class EmotionsGroupsUseCaseImpl {
     private var selectedGroupIndex = 0
     private var selectedColor: String!
     private var token: AnyObject!
+    private var search: String?
 
     private var selectedEmotions: [String] = [] {
         didSet {
@@ -98,18 +100,36 @@ public final class EmotionsGroupsUseCaseImpl {
     }
 
     private func presentEmotionsGroup() {
-        let color = emotionsProvider.emotionsGroups[selectedGroupIndex].color
+        if let search = search {
+            let color = "ffffff"
 
-        let selected = emotionsProvider.emotionsGroups
-            .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
-            .filter { selectedEmotions.contains($0.name) }
+            let names = emotionsProvider.emotionsGroups
+                .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
+                .filter { search.isEmpty || ($0.name.lowercased().range(of: search.lowercased()) != nil) }
+                .sorted { $0.name < $1.name }
 
-        let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
-            .filter { !selectedEmotions.contains($0.name) }
-            .map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: color) }
+            let meanings = emotionsProvider.emotionsGroups
+                .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
+                .filter { search.isEmpty || ($0.meaning.lowercased().range(of: search.lowercased()) != nil) }
+                .filter { !names.contains($0) }
+                .sorted { $0.name < $1.name }
 
-        output.present(selectedGroupIndex: selectedGroupIndex)
-        output.present(emotions: (selected + filtered), selected: selectedEmotions, color: color)
+            output.present(emotions: (names + meanings), selected: selectedEmotions, color: color)
+        }
+        else {
+            let color = emotionsProvider.emotionsGroups[selectedGroupIndex].color
+
+            let selected = emotionsProvider.emotionsGroups
+                .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
+                .filter { selectedEmotions.contains($0.name) }
+
+            let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
+                .filter { !selectedEmotions.contains($0.name) }
+                .map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: color) }
+
+            output.present(selectedGroupIndex: selectedGroupIndex)
+            output.present(emotions: (selected + filtered), selected: selectedEmotions, color: color)
+        }
     }
 
     private func presentClearNextAvailable() {
@@ -228,6 +248,11 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     public func eventNotFound() {
         analytics.track(.emotionNotFound)
         output.presentNotFound()
+    }
+
+    public func event(search: String?) {
+        self.search = search
+        presentEmotionsGroup()
     }
 }
 

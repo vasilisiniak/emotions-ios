@@ -13,6 +13,9 @@ extension EmotionsGroupsViewController {
 
         // MARK: - Private
 
+        private var expanded: [NSLayoutConstraint] = []
+        private var collapsed: [NSLayoutConstraint] = []
+
         private func addSubviews() {
             addSubview(segmentedControlBackground)
             addSubview(segmentedControl)
@@ -32,11 +35,9 @@ extension EmotionsGroupsViewController {
                 segmentedControlBackground.topAnchor.constraint(equalTo: topAnchor),
                 segmentedControlBackground.bottomAnchor.constraint(equalTo: tableView.topAnchor),
 
-                segmentedControl.heightAnchor.constraint(equalToConstant: 36),
                 segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
                 segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
-                segmentedControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-                segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: -10),
+                segmentedControl.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
 
                 tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -47,6 +48,16 @@ extension EmotionsGroupsViewController {
                 collectionView.topAnchor.constraint(equalTo: tableView.topAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
+
+            expanded = [
+                segmentedControl.heightAnchor.constraint(equalToConstant: 36),
+                segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: -10)
+            ]
+
+            collapsed = [
+                segmentedControl.heightAnchor.constraint(equalToConstant: 0),
+                segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: 0)
+            ]
         }
 
         // MARK: - Internal
@@ -88,6 +99,19 @@ extension EmotionsGroupsViewController {
             return recognizer
         }()
 
+        func set(expanded flag: Bool) {
+            if flag {
+                NSLayoutConstraint.deactivate(collapsed)
+                NSLayoutConstraint.activate(expanded)
+                segmentedControl.alpha = 1
+            }
+            else {
+                NSLayoutConstraint.deactivate(expanded)
+                NSLayoutConstraint.activate(collapsed)
+                segmentedControl.alpha = 0
+            }
+        }
+
         init() {
             super.init(frame: .zero)
             backgroundColor = .systemBackground
@@ -95,6 +119,7 @@ extension EmotionsGroupsViewController {
             addGestureRecognizer(rightSwipeGestureRecognizer)
             addSubviews()
             makeConstraints()
+            set(expanded: true)
         }
     }
 }

@@ -5,7 +5,7 @@ import Utils
 
 public enum EmotionsGroupsPresenterObjects {
 
-    public struct Emotion {
+    public struct Emotion: Equatable {
 
         // MARK: - Fileprivate
 
@@ -52,6 +52,7 @@ public protocol EmotionsGroupsPresenter {
     func eventNext()
     func event(indexChange: Int)
     func event(select: String)
+    func event(search: String?)
     func eventWillShowInfo(emotion: String)
     func eventDidHideInfo()
     func eventShare()
@@ -121,6 +122,10 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 
     public func eventNotFound() {
         useCase.eventNotFound()
+    }
+
+    public func event(search: String?) {
+        useCase.event(search: search)
     }
 }
 

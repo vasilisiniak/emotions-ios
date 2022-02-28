@@ -23,6 +23,35 @@ public final class EmotionsGroupsViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         presenter.eventViewReady()
+
+        navigationItem.searchController = {
+            let search = UISearchController()
+            search.searchResultsUpdater = self
+            search.obscuresBackgroundDuringPresentation = false
+            return search
+        }()
+    }
+
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        guard let search = navigationItem.searchController else { return }
+
+        if prevSearchActive != search.isActive {
+            prevSearchActive = search.isActive
+
+            additionalSafeAreaInsets.top = prevSafeArea - view.safeAreaInsets.top
+            view.layoutIfNeeded()
+
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.additionalSafeAreaInsets.top = 0
+                    self.emotionsGroupsView.set(expanded: !search.isActive)
+                    self.view.layoutIfNeeded()
+                }
+            }
+        }
+
+        prevSafeArea = view.safeAreaInsets.top
     }
 
     public override func loadView() {
@@ -34,6 +63,9 @@ public final class EmotionsGroupsViewController: UIViewController {
     private var color: UIColor?
     private var observer: AnyObject?
     private var isUpdating = false
+
+    private var prevSafeArea: CGFloat = 0
+    private var prevSearchActive = false
 
     private var emotions: [EmotionsGroupsPresenterObjects.Emotion] = [] {
         didSet {
@@ -119,7 +151,7 @@ extension EmotionsGroupsViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return 1
+        case .notFound: return (navigationItem.searchController?.isActive == true) ? 0 : 1
         }
     }
 
@@ -176,7 +208,7 @@ extension EmotionsGroupsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return 1
+        case .notFound: return (navigationItem.searchController?.isActive == true) ? 0 : 1
         }
     }
 
@@ -298,6 +330,26 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
             }
         }
 
+        guard (navigationItem.searchController?.isActive != true) || (emotions != self.emotions && abs(selectedNames.count - self.selectedNames.count) != 1) else {
+            guard
+                let emotion = selectedNames.first(where: { !self.selectedNames.contains($0) }) ?? self.selectedNames.first(where: { !selectedNames.contains($0) }),
+                let index = self.emotions.firstIndex(where: { $0.name == emotion })
+            else {
+                changes()
+                return
+            }
+            self.selectedNames = selectedNames
+            let path = [IndexPath(row: index, section: 0)]
+            emotionsGroupsView.tableView.reloadRows(at: path, with: .automatic)
+            if #available(iOS 15, *) {
+                emotionsGroupsView.collectionView.reconfigureItems(at: path)
+            }
+            else {
+                emotionsGroupsView.collectionView.reloadItems(at: path)
+            }
+            return
+        }
+
         guard !self.emotions.isEmpty else {
             changes()
             return
@@ -405,5 +457,12 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     public func show(legacy: Bool) {
         emotionsGroupsView.tableView.isHidden = !legacy
         emotionsGroupsView.collectionView.isHidden = legacy
+    }
+}
+
+extension EmotionsGroupsViewController: UISearchResultsUpdating {
+    public func updateSearchResults(for searchController: UISearchController) {
+        let search = searchController.isActive ? searchController.searchBar.text ?? "" : nil
+        presenter.event(search: search)
     }
 }
