@@ -67,6 +67,8 @@ public final class EmotionsGroupsViewController: UIViewController {
     private var prevSafeArea: CGFloat = 0
     private var prevSearchActive = false
 
+    private var isSearching: Bool { navigationItem.searchController?.isActive == true }
+
     private var emotions: [EmotionsGroupsPresenterObjects.Emotion] = [] {
         didSet {
             guard !isUpdating else { return }
@@ -138,6 +140,127 @@ public final class EmotionsGroupsViewController: UIViewController {
         presenter.eventNext()
     }
 
+    private func reloadData(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
+        self.selectedNames = selectedNames
+        self.emotions = emotions
+        self.color = color
+
+        UIView.animate(withDuration: 0.3) { [emotionsGroupsView] in
+            emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
+        }
+    }
+
+    private func buildDiff(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String]) -> (old: [Int], new: [Int]) {
+        let old: [Int]
+        let new: [Int]
+
+        switch (self.selectedNames.count - selectedNames.count) {
+        case 1:
+            let removed = self.selectedNames.first { !selectedNames.contains($0) }!
+            old = [self.emotions.firstIndex { $0.name == removed }!]
+            new = emotions.firstIndex { $0.name == removed }.map { [$0] } ?? []
+        case -1:
+            let added = selectedNames.first { !self.selectedNames.contains($0) }!
+            old = [self.emotions.firstIndex { $0.name == added }!]
+            new = [emotions.firstIndex { $0.name == added }!]
+        case self.selectedNames.count:
+            old = Array(0..<self.selectedNames.count)
+            new = self.selectedNames.compactMap { name in emotions.firstIndex { $0.name == name } }
+        default:
+            old = []
+            new = []
+        }
+
+        return (old, new)
+    }
+
+    private func reloadTable(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor, diff: (old: [Int], new: [Int])) {
+        func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
+            isUpdating = true
+            emotionsGroupsView.tableView.beginUpdates()
+            reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
+            emotionsGroupsView.tableView.deleteRows(at: delete, with: .left)
+            emotionsGroupsView.tableView.insertRows(at: insert, with: .right)
+            emotionsGroupsView.tableView.endUpdates()
+            isUpdating = false
+        }
+
+        func swap(_ old: IndexPath, _ new: IndexPath) {
+            isUpdating = true
+            emotionsGroupsView.tableView.beginUpdates()
+            reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
+            emotionsGroupsView.tableView.moveRow(at: old, to: new)
+            emotionsGroupsView.tableView.endUpdates()
+            emotionsGroupsView.tableView.reloadRows(at: [new], with: .automatic)
+            isUpdating = false
+        }
+
+        if diff.old.count == 1 && diff.new.count == 1 {
+            swap(IndexPath(row: diff.old.first!, section: 0), IndexPath(row: diff.new.first!, section: 0))
+        }
+        else {
+            update(diff.old.map { IndexPath(row: $0, section: 0) }, diff.new.map { IndexPath(row: $0, section: 0) })
+        }
+    }
+
+    private func reloadCollection(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor, diff: (old: [Int], new: [Int])) {
+        func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
+            isUpdating = true
+            emotionsGroupsView.collectionView.performBatchUpdates {
+                reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
+                emotionsGroupsView.collectionView.deleteItems(at: delete)
+                emotionsGroupsView.collectionView.insertItems(at: insert)
+            }
+            completion: { [emotionsGroupsView] _ in
+                emotionsGroupsView.collectionView.reloadData()
+            }
+            isUpdating = false
+        }
+
+        func swap(_ old: IndexPath, _ new: IndexPath) {
+            isUpdating = true
+            emotionsGroupsView.collectionView.performBatchUpdates {
+                reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
+                emotionsGroupsView.collectionView.moveItem(at: old, to: new)
+            }
+            completion: { [emotionsGroupsView] _ in
+                emotionsGroupsView.collectionView.reloadData()
+            }
+            isUpdating = false
+        }
+
+        if diff.old.count == 1 && diff.new.count == 1 {
+            swap(IndexPath(row: diff.old.first!, section: 0), IndexPath(row: diff.new.first!, section: 0))
+        }
+        else {
+            update(diff.old.map { IndexPath(row: $0, section: 0) }, diff.new.map { IndexPath(row: $0, section: 0) })
+        }
+    }
+
+    private func reloadSearch(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
+        guard
+            let emotion = selectedNames.first(where: { !self.selectedNames.contains($0) }) ?? self.selectedNames.first(where: { !selectedNames.contains($0) }),
+            let index = self.emotions.firstIndex(where: { $0.name == emotion })
+        else {
+            reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
+            return
+        }
+
+        self.selectedNames = selectedNames
+        let path = [IndexPath(row: index, section: 0)]
+
+        if #available(iOS 15, *) {
+            emotionsGroupsView.collectionView.reconfigureItems(at: path)
+        }
+        else {
+            emotionsGroupsView.collectionView.reloadItems(at: path)
+        }
+
+        emotionsGroupsView.tableView.reloadRows(at: path, with: .automatic)
+    }
+
     // MARK: - Public
 
     public var presenter: EmotionsGroupsPresenter!
@@ -151,7 +274,7 @@ extension EmotionsGroupsViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return (navigationItem.searchController?.isActive == true) ? 0 : 1
+        case .notFound: return isSearching ? 0 : 1
         }
     }
 
@@ -208,7 +331,7 @@ extension EmotionsGroupsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return (navigationItem.searchController?.isActive == true) ? 0 : 1
+        case .notFound: return isSearching ? 0 : 1
         }
     }
 
@@ -318,134 +441,30 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
     }
 
     public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
-        let changes = { [emotionsGroupsView] in
-            self.selectedNames = selectedNames
-            self.emotions = emotions
-            self.color = color
-
-            UIView.animate(withDuration: 0.3) {
-                emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
-                emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
-                emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
-            }
-        }
-
-        guard (navigationItem.searchController?.isActive != true) || (emotions != self.emotions && abs(selectedNames.count - self.selectedNames.count) != 1) else {
-            guard
-                let emotion = selectedNames.first(where: { !self.selectedNames.contains($0) }) ?? self.selectedNames.first(where: { !selectedNames.contains($0) }),
-                let index = self.emotions.firstIndex(where: { $0.name == emotion })
-            else {
-                changes()
-                return
-            }
-            self.selectedNames = selectedNames
-            let path = [IndexPath(row: index, section: 0)]
-            emotionsGroupsView.tableView.reloadRows(at: path, with: .automatic)
-            if #available(iOS 15, *) {
-                emotionsGroupsView.collectionView.reconfigureItems(at: path)
-            }
-            else {
-                emotionsGroupsView.collectionView.reloadItems(at: path)
-            }
+        guard !isSearching || (emotions != self.emotions && abs(selectedNames.count - self.selectedNames.count) != 1) else {
+            reloadSearch(emotions: emotions, selectedNames: selectedNames, color: color)
             return
         }
 
         guard !self.emotions.isEmpty else {
-            changes()
+            reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
             return
         }
 
-        let old: [Int]
-        let new: [Int]
-
-        switch (self.selectedNames.count - selectedNames.count) {
-        case 1:
-            let removed = self.selectedNames.first { !selectedNames.contains($0) }!
-            old = [self.emotions.firstIndex { $0.name == removed }!]
-            new = emotions.firstIndex { $0.name == removed }.map { [$0] } ?? []
-        case -1:
-            let added = selectedNames.first { !self.selectedNames.contains($0) }!
-            old = [self.emotions.firstIndex { $0.name == added }!]
-            new = [emotions.firstIndex { $0.name == added }!]
-        case self.selectedNames.count:
-            old = Array(0..<self.selectedNames.count)
-            new = self.selectedNames.compactMap { name in emotions.firstIndex { $0.name == name } }
-        default:
-            old = []
-            new = []
-        }
-
-        guard !old.isEmpty else {
-            changes()
+        let diff = buildDiff(emotions: emotions, selectedNames: selectedNames)
+        guard !diff.old.isEmpty else {
+            reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
             return
         }
 
-        guard emotionsGroupsView.tableView.isHidden else {
-            func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
-                isUpdating = true
-                emotionsGroupsView.tableView.beginUpdates()
-                changes()
-                emotionsGroupsView.tableView.deleteRows(at: delete, with: .left)
-                emotionsGroupsView.tableView.insertRows(at: insert, with: .right)
-                emotionsGroupsView.tableView.endUpdates()
-                isUpdating = false
-            }
-
-            func swap(_ old: IndexPath, _ new: IndexPath) {
-                isUpdating = true
-                emotionsGroupsView.tableView.beginUpdates()
-                changes()
-                emotionsGroupsView.tableView.moveRow(at: old, to: new)
-                emotionsGroupsView.tableView.endUpdates()
-                emotionsGroupsView.tableView.reloadRows(at: [new], with: .automatic)
-                isUpdating = false
-            }
-
-            if old.count == 1 && new.count == 1 {
-                swap(IndexPath(row: old.first!, section: 0), IndexPath(row: new.first!, section: 0))
-            }
-            else {
-                update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
-            }
-
-            emotionsGroupsView.collectionView.reloadData()
-
-            return
-        }
-
-        func update(_ delete: [IndexPath], _ insert: [IndexPath]) {
-            isUpdating = true
-            emotionsGroupsView.collectionView.performBatchUpdates {
-                changes()
-                emotionsGroupsView.collectionView.deleteItems(at: delete)
-                emotionsGroupsView.collectionView.insertItems(at: insert)
-            }
-            completion: { [emotionsGroupsView] _ in
-                emotionsGroupsView.collectionView.reloadData()
-            }
-            isUpdating = false
-        }
-
-        func swap(_ old: IndexPath, _ new: IndexPath) {
-            isUpdating = true
-            emotionsGroupsView.collectionView.performBatchUpdates {
-                changes()
-                emotionsGroupsView.collectionView.moveItem(at: old, to: new)
-            }
-            completion: { [emotionsGroupsView] _ in
-                emotionsGroupsView.collectionView.reloadData()
-            }
-            isUpdating = false
-        }
-
-        if old.count == 1 && new.count == 1 {
-            swap(IndexPath(row: old.first!, section: 0), IndexPath(row: new.first!, section: 0))
+        if emotionsGroupsView.tableView.isHidden {
+            reloadCollection(emotions: emotions, selectedNames: selectedNames, color: color, diff: diff)
+            emotionsGroupsView.tableView.reloadData()
         }
         else {
-            update(old.map { IndexPath(row: $0, section: 0) }, new.map { IndexPath(row: $0, section: 0) })
+            reloadTable(emotions: emotions, selectedNames: selectedNames, color: color, diff: diff)
+            emotionsGroupsView.collectionView.reloadData()
         }
-
-        emotionsGroupsView.tableView.reloadData()
     }
 
     public func show(message: String, button: String) {
@@ -462,7 +481,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
 
 extension EmotionsGroupsViewController: UISearchResultsUpdating {
     public func updateSearchResults(for searchController: UISearchController) {
-        let search = searchController.isActive ? searchController.searchBar.text ?? "" : nil
+        let search = isSearching ? (searchController.searchBar.text ?? "") : nil
         presenter.event(search: search)
     }
 }
