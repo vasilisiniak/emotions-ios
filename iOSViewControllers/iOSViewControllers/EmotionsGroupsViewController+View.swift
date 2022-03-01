@@ -21,6 +21,7 @@ extension EmotionsGroupsViewController {
 
         private var expanded: [NSLayoutConstraint] = []
         private var collapsed: [NSLayoutConstraint] = []
+        private var labelHeight: [NSLayoutConstraint] = []
 
         private func addSubviews() {
             addSubview(segmentedControlBackground)
@@ -61,6 +62,10 @@ extension EmotionsGroupsViewController {
                 collectionView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
             ])
 
+            labelHeight = [
+                label.heightAnchor.constraint(equalToConstant: 0)
+            ]
+
             expanded = [
                 segmentedControl.heightAnchor.constraint(equalToConstant: 36),
                 segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: -10)
@@ -68,7 +73,8 @@ extension EmotionsGroupsViewController {
 
             collapsed = [
                 segmentedControl.heightAnchor.constraint(equalToConstant: 0),
-                segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: 0)
+                segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlBackground.bottomAnchor, constant: 0),
+                label.heightAnchor.constraint(equalToConstant: 0)
             ]
         }
 
@@ -128,6 +134,15 @@ extension EmotionsGroupsViewController {
                 NSLayoutConstraint.deactivate(expanded)
                 NSLayoutConstraint.activate(collapsed)
                 segmentedControl.alpha = 0
+            }
+        }
+
+        func set(labelCollapsed: Bool) {
+            if labelCollapsed {
+                NSLayoutConstraint.activate(labelHeight)
+            }
+            else {
+                NSLayoutConstraint.deactivate(labelHeight)
             }
         }
 

@@ -32,7 +32,7 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
     func show(groupNames: [String])
     func show(selectedGroupIndex: Int)
     func show(notFound: String)
-    func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor)
+    func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor, label: Bool)
     func show(selectedEmotionsNames: String, color: UIColor)
     func show(message: String, button: String)
     func show(shareAlertMessage: String, okButton: String, cancelButton: String)
@@ -171,9 +171,9 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
         output.show(groupNames: groups)
     }
 
-    public func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String) {
+    public func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String, label: Bool) {
         let emotions = emotions.map(EmotionsGroupsPresenterObjects.Emotion.init)
-        output.show(emotions: emotions, selectedNames: selected, color: UIColor(hex: color))
+        output.show(emotions: emotions, selectedNames: selected, color: UIColor(hex: color), label: label)
     }
 
     public func present(selectedEmotions: [String], color: String) {

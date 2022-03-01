@@ -158,13 +158,30 @@ public final class EmotionsGroupsViewController: UIViewController {
 
         switch (self.selectedNames.count - selectedNames.count) {
         case 1:
-            let removed = self.selectedNames.first { !selectedNames.contains($0) }!
-            old = [self.emotions.firstIndex { $0.name == removed }!]
-            new = emotions.firstIndex { $0.name == removed }.map { [$0] } ?? []
+            if
+                let removed = self.selectedNames.first(where: { !selectedNames.contains($0) }),
+                let oldIndex = self.emotions.firstIndex(where: { $0.name == removed })
+            {
+                old = [oldIndex]
+                new = emotions.firstIndex { $0.name == removed }.map { [$0] } ?? []
+            }
+            else {
+                old = []
+                new = []
+            }
         case -1:
-            let added = selectedNames.first { !self.selectedNames.contains($0) }!
-            old = [self.emotions.firstIndex { $0.name == added }!]
-            new = [emotions.firstIndex { $0.name == added }!]
+            if
+                let added = selectedNames.first(where: { !self.selectedNames.contains($0) }),
+                let oldIndex = self.emotions.firstIndex(where: { $0.name == added }),
+                let newIndex = emotions.firstIndex(where: { $0.name == added })
+            {
+                old = [oldIndex]
+                new = [newIndex]
+            }
+            else {
+                old = []
+                new = []
+            }
         case self.selectedNames.count:
             old = Array(0..<self.selectedNames.count)
             new = self.selectedNames.compactMap { name in emotions.firstIndex { $0.name == name } }
@@ -440,7 +457,9 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         emotionsGroupsView.segmentedControl.selectedSegmentIndex = selectedGroupIndex
     }
 
-    public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor) {
+    public func show(emotions: [EmotionsGroupsPresenterObjects.Emotion], selectedNames: [String], color: UIColor, label: Bool) {
+        emotionsGroupsView.set(labelCollapsed: !label)
+
         guard !isSearching || (emotions != self.emotions && abs(selectedNames.count - self.selectedNames.count) != 1) else {
             reloadSearch(emotions: emotions, selectedNames: selectedNames, color: color)
             return

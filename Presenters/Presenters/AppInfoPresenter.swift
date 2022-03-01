@@ -230,7 +230,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
 
 extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
     public func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool, reduceAnimation: Bool) {
-        let sections = sections(protect: protect, faceId: faceId, legacy: legacy, compact: compact)
+        let sections = sections(protect: protect, faceId: faceId, legacy: legacy, compact: compact, reduceAnimation: reduceAnimation)
 
         let protectSection = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
         let protectRow = AppInfoPresenterObjects.Section.settings(protect: protect, faceId: faceId).rows.firstIndex(of: .protect(protect: protect))!

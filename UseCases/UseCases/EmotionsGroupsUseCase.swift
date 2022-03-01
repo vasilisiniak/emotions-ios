@@ -19,7 +19,7 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func present(clearAvailable: Bool)
     func present(nextAvailable: Bool)
     func present(groups: [String])
-    func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String)
+    func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String, label: Bool)
     func present(selectedEmotions: [String], color: String)
     func present(selectedGroupIndex: Int)
     func presentNext(selectedEmotions: [String], color: String)
@@ -116,21 +116,33 @@ public final class EmotionsGroupsUseCaseImpl {
                 .filter { !names.contains($0) }
                 .sorted { $0.name < $1.name }
 
-            output.present(emotions: (names + meanings), selected: selectedEmotions, color: color)
+            output.present(emotions: (names + meanings), selected: selectedEmotions, color: color, label: settings.reduceAnimation)
         }
         else {
-            let color = emotionsProvider.emotionsGroups[selectedGroupIndex].color
+            let group = emotionsProvider.emotionsGroups[selectedGroupIndex]
 
-            let selected = emotionsProvider.emotionsGroups
-                .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
-                .filter { selectedEmotions.contains($0.name) }
+            let emotions: [EmotionsGroupsUseCaseObjects.Emotion]
+            let selectedNames: [String]
 
-            let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
-                .filter { !selectedEmotions.contains($0.name) }
-                .map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: color) }
+            if settings.reduceAnimation {
+                emotions = group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) }
+                selectedNames = selectedEmotions.filter { group.emotions.map(\.name).contains($0) }
+            }
+            else {
+                let selected = emotionsProvider.emotionsGroups
+                    .flatMap { group in group.emotions.map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) } }
+                    .filter { selectedEmotions.contains($0.name) }
+
+                let filtered = emotionsProvider.emotionsGroups[selectedGroupIndex].emotions
+                    .filter { !selectedEmotions.contains($0.name) }
+                    .map { EmotionsGroupsUseCaseObjects.Emotion(name: $0.name, meaning: $0.meaning, color: group.color) }
+
+                emotions = selected + filtered
+                selectedNames = selectedEmotions
+            }
 
             output.present(selectedGroupIndex: selectedGroupIndex)
-            output.present(emotions: (selected + filtered), selected: selectedEmotions, color: color)
+            output.present(emotions: emotions, selected: selectedNames, color: group.color, label: settings.reduceAnimation)
         }
     }
 
@@ -169,6 +181,7 @@ public final class EmotionsGroupsUseCaseImpl {
 
         token = settings.add { [weak self] in
             self?.output.present(legacy: $0.useLegacyLayout)
+            self?.presentEmotionsGroup()
         }
     }
 }
