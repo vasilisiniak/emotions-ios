@@ -20,6 +20,7 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func present(nextAvailable: Bool)
     func present(groups: [String])
     func present(emotions: [EmotionsGroupsUseCaseObjects.Emotion], selected: [String], color: String)
+    func present(selectedEmotions: [String], color: String)
     func present(selectedGroupIndex: Int)
     func presentNext(selectedEmotions: [String], color: String)
     func presentFirstLaunch()
@@ -90,6 +91,7 @@ public final class EmotionsGroupsUseCaseImpl {
     private var selectedEmotions: [String] = [] {
         didSet {
             updateSelectedColor()
+            output.present(selectedEmotions: selectedEmotions, color: selectedColor)
         }
     }
 

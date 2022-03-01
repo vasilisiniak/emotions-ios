@@ -467,6 +467,12 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         }
     }
 
+    public func show(selectedEmotionsNames: String, color: UIColor) {
+        emotionsGroupsView.label.text = selectedEmotionsNames
+        emotionsGroupsView.label.backgroundColor = color.withAlphaComponent(0.4)
+        UIView.animate(withDuration: 0.15, animations: emotionsGroupsView.layoutIfNeeded)
+    }
+
     public func show(message: String, button: String) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: button, style: .default))
