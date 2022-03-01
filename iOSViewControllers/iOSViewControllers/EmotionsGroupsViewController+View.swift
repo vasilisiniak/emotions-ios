@@ -5,6 +5,10 @@ extension EmotionsGroupsViewController {
 
     final class View: UIView {
 
+        deinit {
+            observers?.forEach { NotificationCenter.default.removeObserver($0) }
+        }
+
         // MARK: - NSCoding
 
         required init?(coder: NSCoder) {
@@ -12,6 +16,8 @@ extension EmotionsGroupsViewController {
         }
 
         // MARK: - Private
+
+        private var observers: [NSObjectProtocol]?
 
         private var expanded: [NSLayoutConstraint] = []
         private var collapsed: [NSLayoutConstraint] = []
@@ -41,7 +47,7 @@ extension EmotionsGroupsViewController {
 
                 tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
 
                 collectionView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
                 collectionView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
@@ -120,6 +126,28 @@ extension EmotionsGroupsViewController {
             addSubviews()
             makeConstraints()
             set(expanded: true)
+
+            observers = [
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { [weak self] in
+                    let duration = ($0.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+                    let height = ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+                    let safe = self?.safeAreaInsets.bottom ?? 0
+
+                    self?.layoutIfNeeded()
+                    UIView.animate(withDuration: duration) {
+                        self?.layoutMargins.bottom = height - safe
+                        self?.layoutIfNeeded()
+                    }
+                },
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { [weak self] in
+                    let duration = ($0.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+                    self?.layoutIfNeeded()
+                    UIView.animate(withDuration: duration) {
+                        self?.layoutMargins.bottom = 0
+                        self?.layoutIfNeeded()
+                    }
+                }
+            ]
         }
     }
 }
