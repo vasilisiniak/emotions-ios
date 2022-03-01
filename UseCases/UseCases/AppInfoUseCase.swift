@@ -22,7 +22,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
-    func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool)
+    func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool, reduceAnimation: Bool)
     func presentFaceIdError()
 }
 
@@ -32,6 +32,7 @@ public protocol AppInfoUseCase {
     func event(faceId: Bool, info: String)
     func event(legacy: Bool)
     func event(compact: Bool)
+    func event(reduceAnimation: Bool)
     func eventViewReady()
 }
 
@@ -56,17 +57,27 @@ public final class AppInfoUseCaseImpl {
     }
 
     private func evaluate(info: String, operation: @escaping () -> ()) {
-        lock.evaluate(info: info) { [settings, output] available, passed in
+        lock.evaluate(info: info) { [weak self] available, passed in
             DispatchQueue.main.async {
                 if !available {
-                    output?.presentFaceIdError()
+                    self?.output.presentFaceIdError()
                 }
                 if passed {
                     operation()
                 }
-                output?.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
+                self?.presentSettings()
             }
         }
+    }
+
+    private func presentSettings() {
+        output.present(
+            protect: settings.protectSensitiveData,
+            faceId: settings.useFaceId,
+            legacy: settings.useLegacyLayout,
+            compact: !settings.useExpandedDiary,
+            reduceAnimation: settings.reduceAnimation
+        )
     }
 
     // MARK: - Public
@@ -107,7 +118,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             }
         } else {
             settings.protectSensitiveData = protect
-            output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
+            presentSettings()
         }
     }
 
@@ -126,8 +137,12 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         settings.useExpandedDiary = !compact
     }
 
+    public func event(reduceAnimation: Bool) {
+        settings.reduceAnimation = reduceAnimation
+    }
+
     public func eventViewReady() {
-        output.present(protect: settings.protectSensitiveData, faceId: settings.useFaceId, legacy: settings.useLegacyLayout, compact: !settings.useExpandedDiary)
+        presentSettings()
     }
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {

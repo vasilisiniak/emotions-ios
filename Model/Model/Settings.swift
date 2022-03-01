@@ -10,6 +10,7 @@ public protocol Settings: AnyObject {
     var useFaceId: Bool { get set }
     var useLegacyLayout: Bool { get set }
     var useExpandedDiary: Bool { get set }
+    var reduceAnimation: Bool { get set }
 }
 
 public final class SettingsImpl {
@@ -21,6 +22,7 @@ public final class SettingsImpl {
         fileprivate static let UseFaceIdKey = "Model.SettingsImpl.UseFaceIdKey"
         fileprivate static let UseLegacyLayoutKey = "Model.SettingsImpl.UseLegacyLayoutKey"
         fileprivate static let UseExtendedDiaryKey = "Model.SettingsImpl.UseExtendedDiaryKey"
+        fileprivate static let ReduceAnimationKey = "Model.SettingsImpl.ReduceAnimationKey"
     }
 
     // MARK: - Private
@@ -98,6 +100,18 @@ extension SettingsImpl: Settings {
         }
         set {
             defaults.set(newValue, forKey: Constants.UseExtendedDiaryKey)
+            defaults.synchronize()
+
+            notify()
+        }
+    }
+
+    public var reduceAnimation: Bool {
+        get {
+            defaults.bool(forKey: Constants.ReduceAnimationKey)
+        }
+        set {
+            defaults.set(newValue, forKey: Constants.ReduceAnimationKey)
             defaults.synchronize()
 
             notify()

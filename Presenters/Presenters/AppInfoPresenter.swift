@@ -24,6 +24,7 @@ public enum AppInfoPresenterObjects {
             case faceId(enabled: Bool)
             case legacy(enabled: Bool)
             case compact(enabled: Bool)
+            case reduceAnimation(enabled: Bool)
 
             public var title: String {
                 switch self {
@@ -38,6 +39,7 @@ public enum AppInfoPresenterObjects {
                 case .faceId: return "Защитить паролем"
                 case .legacy: return "Старый вид эмоций"
                 case .compact: return "Компактный вид дневника"
+                case .reduceAnimation: return "Минимизировать анимацию"
                 }
             }
 
@@ -47,6 +49,7 @@ public enum AppInfoPresenterObjects {
                 case .faceId: return .switcher
                 case .legacy: return .switcher
                 case .compact: return .switcher
+                case .reduceAnimation: return .switcher
                 default: return .disclosure
                 }
             }
@@ -57,6 +60,7 @@ public enum AppInfoPresenterObjects {
                 case .faceId(let enabled): return enabled
                 case .legacy(let enabled): return enabled
                 case .compact(let enabled): return enabled
+                case .reduceAnimation(let enabled): return enabled
                 default: return nil
                 }
             }
@@ -70,6 +74,7 @@ public enum AppInfoPresenterObjects {
         case settings(protect: Bool, faceId: Bool)
         case legacy(enabled: Bool)
         case compact(enabled: Bool)
+        case reduceAnimation(enabled: Bool)
 
         public var rows: [Row] {
             switch self {
@@ -78,9 +83,10 @@ public enum AppInfoPresenterObjects {
             case .donate: return [.donate]
             case .design: return [.designer]
             case .info: return [.infoSourceCode]
-            case let .settings(protect, faceId): return [.protect(protect: protect), .faceId(enabled: faceId)]
+            case .settings(let protect, let faceId): return [.protect(protect: protect), .faceId(enabled: faceId)]
             case .legacy(let enabled): return [.legacy(enabled: enabled)]
             case .compact(let enabled): return [.compact(enabled: enabled)]
+            case .reduceAnimation(let enabled): return [.reduceAnimation(enabled: enabled)]
             }
         }
 
@@ -94,6 +100,7 @@ public enum AppInfoPresenterObjects {
             case .settings: return "Настройки"
             case .legacy: return ""
             case .compact: return ""
+            case .reduceAnimation: return ""
             }
         }
 
@@ -107,6 +114,7 @@ public enum AppInfoPresenterObjects {
             case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"
             case .legacy: return "Использовать табличный список вместо баблов для эмоций"
             case .compact: return "Показывать дневник в однострочном режиме. Тап по ячейке показывает запись целиком"
+            case .reduceAnimation: return "Убрать анимацию перемещения ячеек при выборе эмоций"
             }
         }
     }
@@ -136,8 +144,24 @@ public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private func sections(protect: Bool = false, faceId: Bool = false, legacy: Bool = false, compact: Bool = true) -> [AppInfoPresenterObjects.Section] {
-        [.settings(protect: protect, faceId: faceId), .legacy(enabled: legacy), .compact(enabled: compact), .promo, .contact, .design, .info, .donate]
+    private func sections(
+        protect: Bool = false,
+        faceId: Bool = false,
+        legacy: Bool = false,
+        compact: Bool = true,
+        reduceAnimation: Bool = false
+    ) -> [AppInfoPresenterObjects.Section] {
+        [
+            .settings(protect: protect, faceId: faceId),
+            .legacy(enabled: legacy),
+            .compact(enabled: compact),
+            .reduceAnimation(enabled: reduceAnimation),
+            .promo,
+            .contact,
+            .design,
+            .info,
+            .donate
+        ]
     }
 
     private func route(emailTheme: String, email: String) {
@@ -168,6 +192,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .faceId: useCase.event(faceId: switcher, info: switcher ? "Включить защиту паролем" : "Отключить защиту паролем")
         case .legacy: useCase.event(legacy: switcher)
         case .compact: useCase.event(compact: switcher)
+        case .reduceAnimation: useCase.event(reduceAnimation: switcher)
         default: fatalError()
         }
     }
@@ -190,6 +215,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .faceId: fatalError()
         case .legacy: fatalError()
         case .compact: fatalError()
+        case .reduceAnimation: fatalError()
         }
     }
 
@@ -203,7 +229,7 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
 }
 
 extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
-    public func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool) {
+    public func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool, reduceAnimation: Bool) {
         let sections = sections(protect: protect, faceId: faceId, legacy: legacy, compact: compact)
 
         let protectSection = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
@@ -216,11 +242,15 @@ extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
         let compactSection = sections.firstIndex(of: .compact(enabled: compact))!
         let compactRow = AppInfoPresenterObjects.Section.compact(enabled: compact).rows.firstIndex(of: .compact(enabled: compact))!
 
+        let reduceSection = sections.firstIndex(of: .reduceAnimation(enabled: reduceAnimation))!
+        let reduceRow = AppInfoPresenterObjects.Section.reduceAnimation(enabled: reduceAnimation).rows.firstIndex(of: .reduceAnimation(enabled: reduceAnimation))!
+
         output.show(sections: sections, update: [
             IndexPath(row: protectRow, section: protectSection),
             IndexPath(row: faceIdRow, section: protectSection),
             IndexPath(row: legacyRow, section: legacySection),
-            IndexPath(row: compactRow, section: compactSection)
+            IndexPath(row: compactRow, section: compactSection),
+            IndexPath(row: reduceRow, section: reduceSection)
         ])
     }
 
