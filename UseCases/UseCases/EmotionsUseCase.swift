@@ -11,6 +11,7 @@ public enum EmotionsUseCaseObjects {
         case v_1_12_editDate
         case v_1_13_icloud
         case v_1_15_search
+        case v_1_16_animation
     }
 }
 
@@ -25,6 +26,7 @@ private extension News {
         case .v_1_12_editDate: return .v_1_12_editDate
         case .v_1_13_icloud: return .v_1_13_icloud
         case .v_1_15_search: return .v_1_15_search
+        case .v_1_16_animation: return .v_1_16_animation
         }
     }
 }
