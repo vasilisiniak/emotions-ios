@@ -80,6 +80,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.useFaceId)", forName: "faceid_enabled")
         Analytics.setUserProperty("\(settings.useLegacyLayout)", forName: "emotion_table_enabled")
         Analytics.setUserProperty("\(settings.useExpandedDiary)", forName: "emotion_table_expanded")
+        Analytics.setUserProperty("\(settings.reduceAnimation)", forName: "reduce_animation")
     }
 
     private func trackDefaultsProperties() {
