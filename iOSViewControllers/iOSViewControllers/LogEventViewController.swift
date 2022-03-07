@@ -52,6 +52,7 @@ extension LogEventViewController: EmotionsGroupsRouter {
     public func routeEventName(selectedEmotions: [String], color: String) {
         let eventNameViewController = composer.eventNameViewController(router: self, selectedEmotions: selectedEmotions, color: color)
         let navigationController = UINavigationController(rootViewController: eventNameViewController)
+        navigationController.isModalInPresentation = true
         present(navigationController, animated: true)
     }
 }

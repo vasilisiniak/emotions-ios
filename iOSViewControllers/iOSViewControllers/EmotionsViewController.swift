@@ -68,7 +68,9 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
             selectedEmotions: editEvent.emotions.components(separatedBy: ", "),
             color: editEvent.color.hex
         )
-        present(UINavigationController(rootViewController: controller), animated: true)
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.isModalInPresentation = true
+        present(navigationController, animated: true)
     }
 }
 
