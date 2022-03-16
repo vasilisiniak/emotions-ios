@@ -44,9 +44,12 @@ public final class CoreDataStorage {
         description.type = NSSQLiteStoreType
         description.shouldInferMappingModelAutomatically = true
         description.shouldMigrateStoreAutomatically = true
-        description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: cloudKitGroup)
-        container.persistentStoreDescriptions = [description]
 
+        #if !targetEnvironment(simulator)
+            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: cloudKitGroup)
+        #endif
+
+        container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { [container] _, error in
             if error != nil {
                 fatalError(error.debugDescription)

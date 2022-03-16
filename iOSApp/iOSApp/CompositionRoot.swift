@@ -12,6 +12,7 @@ final class CompositionRoot {
 
     // MARK: - Internal
 
+    let metricsManager: MetricsManager = MetricsManagerImpl()
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
     let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
     let newsManager: NewsManager = NewsManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
