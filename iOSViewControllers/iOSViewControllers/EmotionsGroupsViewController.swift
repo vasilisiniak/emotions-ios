@@ -32,6 +32,11 @@ public final class EmotionsGroupsViewController: UIViewController {
         }()
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = presenter.cancelSearchButton
+    }
+
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard let search = navigationItem.searchController else { return }

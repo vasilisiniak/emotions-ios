@@ -59,6 +59,7 @@ public protocol EmotionsGroupsPresenter {
     func eventShare()
     func eventCancelShare()
     func eventNotFound()
+    var cancelSearchButton: String { get }
 }
 
 public final class EmotionsGroupsPresenterImpl {
@@ -73,6 +74,10 @@ public final class EmotionsGroupsPresenterImpl {
 }
 
 extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
+    public var cancelSearchButton: String {
+        "Готово"
+    }
+
     public func eventShare() {
         useCase.eventShare()
     }
