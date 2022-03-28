@@ -4,8 +4,11 @@ public final class PaddedLabel: UILabel {
 
     // MARK: - UIView
 
+    public override var bounds: CGRect {
+        didSet { preferredMaxLayoutWidth = bounds.width - textInsets.left - textInsets.right }
+    }
+
     public override var intrinsicContentSize: CGSize {
-        preferredMaxLayoutWidth = bounds.width - textInsets.left - textInsets.right
         let size = super.intrinsicContentSize
         if size == .zero {
             return .zero
