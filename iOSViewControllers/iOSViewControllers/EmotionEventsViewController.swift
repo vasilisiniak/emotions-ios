@@ -154,10 +154,14 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.nameLabel.text = event.name
         cell.detailsLabel.text = event.details
         cell.timeLabel.text = event.timeString
-        cell.emotionsLabel.text = event.emotions
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
+        cell.emotions.removeAll()
+
+        event.emotions.components(separatedBy: ", ")
+            .map { Bubble.create($0, .red) }
+            .forEach { cell.emotions.add(view: $0) }
 
         cell.shareButton.addAction(UIAction(identifier: .share) { [weak self, weak cell] _ in
             guard let cell = cell else { return }
