@@ -29,6 +29,7 @@ extension EmotionEventsViewController {
             contentView.addSubview(timeLabel)
             contentView.addSubview(shareButton)
             contentView.addSubview(emotions)
+            contentView.addSubview(emotionsLabel)
         }
 
         private func makeConstraints() {
@@ -37,6 +38,7 @@ extension EmotionEventsViewController {
             timeLabel.translatesAutoresizingMaskIntoConstraints = false
             shareButton.translatesAutoresizingMaskIntoConstraints = false
             emotions.translatesAutoresizingMaskIntoConstraints = false
+            emotionsLabel.translatesAutoresizingMaskIntoConstraints = false
 
             timeLabel.setContentHuggingPriority(.required, for: .horizontal)
             timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -57,9 +59,16 @@ extension EmotionEventsViewController {
                 shareButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
 
                 emotions.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -3),
-                emotions.topAnchor.constraint(equalTo: detailsLabel.bottomAnchor, constant: 3),
+                emotions.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 10),
+                emotions.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor, constant: 3),
                 emotions.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-                emotions.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
+                emotions.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -15),
+
+                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 10),
+                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor),
+                emotionsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+                emotionsLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor),
+                emotionsLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -15)
             ])
         }
 
@@ -91,12 +100,19 @@ extension EmotionEventsViewController {
             $0.tintColor = UIColor(named: "ShareIconColor", in: Bundle(for: Cell.self), compatibleWith: nil)
         }
 
+        let emotionsLabel: UILabel = create {
+            $0.adjustsFontForContentSizeCategory = true
+            $0.font = .preferredFont(forTextStyle: .footnote)
+            $0.numberOfLines = 0
+        }
+
         let emotions = LinearContainerView()
 
         var expanded = false {
             didSet {
-                nameLabel.numberOfLines = (expanded ? 0 : 1)
-                detailsLabel.numberOfLines = (expanded ? 0 : 1)
+                [nameLabel, detailsLabel, emotionsLabel].forEach {
+                    $0.numberOfLines = (expanded ? 0 : 1)
+                }
             }
         }
     }
