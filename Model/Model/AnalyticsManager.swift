@@ -81,6 +81,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.useLegacyLayout)", forName: "emotion_table_enabled")
         Analytics.setUserProperty("\(settings.useExpandedDiary)", forName: "emotion_table_expanded")
         Analytics.setUserProperty("\(settings.reduceAnimation)", forName: "reduce_animation")
+        Analytics.setUserProperty("\(settings.useLegacyDiary)", forName: "legacy_diary")
     }
 
     private func trackDefaultsProperties() {
