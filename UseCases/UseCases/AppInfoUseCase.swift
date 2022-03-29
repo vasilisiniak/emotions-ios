@@ -22,7 +22,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
-    func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool, reduceAnimation: Bool)
+    func present(protect: Bool, faceId: Bool, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool)
     func presentFaceIdError()
 }
 
@@ -33,6 +33,7 @@ public protocol AppInfoUseCase {
     func event(legacy: Bool)
     func event(compact: Bool)
     func event(reduceAnimation: Bool)
+    func event(legacyDiary: Bool)
     func eventViewReady()
 }
 
@@ -76,7 +77,8 @@ public final class AppInfoUseCaseImpl {
             faceId: settings.useFaceId,
             legacy: settings.useLegacyLayout,
             compact: !settings.useExpandedDiary,
-            reduceAnimation: settings.reduceAnimation
+            reduceAnimation: settings.reduceAnimation,
+            legacyDiary: settings.useLegacyDiary
         )
     }
 
@@ -139,6 +141,10 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
 
     public func event(reduceAnimation: Bool) {
         settings.reduceAnimation = reduceAnimation
+    }
+
+    public func event(legacyDiary: Bool) {
+        settings.useLegacyDiary = legacyDiary
     }
 
     public func eventViewReady() {

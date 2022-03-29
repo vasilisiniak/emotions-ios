@@ -65,6 +65,8 @@ public protocol EmotionEventsUseCase {
     func eventStartUnsafe()
     func eventEndUnsafe(info: String)
     func eventFaceIdInfo()
+
+    var legacy: Bool { get }
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -154,6 +156,8 @@ public final class EmotionEventsUseCaseImpl {
 }
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
+    public var legacy: Bool { settings.useLegacyDiary }
+
     public func eventOutputToBeShown() {
         if settings.useFaceId {
             output.present(blur: true)

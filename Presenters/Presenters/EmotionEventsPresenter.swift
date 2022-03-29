@@ -107,6 +107,7 @@ public protocol EmotionEventsPresenter {
     var deleteTitle: String { get }
     var editTitle: String { get }
     var title: String { get }
+    var legacy: Bool { get }
 
     func expanded(_ indexPath: IndexPath) -> Bool
 
@@ -170,6 +171,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public var editTitle: String {
         "Изменить"
+    }
+
+    public var legacy: Bool {
+        useCase.legacy
     }
 
     public func eventAddTap() {

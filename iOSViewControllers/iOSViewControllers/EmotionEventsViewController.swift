@@ -157,11 +157,19 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
+        cell.emotionsLabel.text = nil
         cell.emotions.removeAll()
 
-        event.emotions
-            .map { Bubble.create($0.name, $0.color) }
-            .forEach { cell.emotions.add(view: $0) }
+        if presenter.legacy {
+            cell.emotionsLabel.text = event.emotions
+                .map(\.name)
+                .joined(separator: ", ")
+        }
+        else {
+            event.emotions
+                .map { Bubble.create($0.name, $0.color) }
+                .forEach { cell.emotions.add(view: $0) }
+        }
 
         cell.shareButton.addAction(UIAction(identifier: .share) { [weak self, weak cell] _ in
             guard let cell = cell else { return }
