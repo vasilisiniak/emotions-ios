@@ -8,6 +8,21 @@ public enum EmotionEventsPresenterObjects {
 
         public struct Event {
 
+            public struct Emotion {
+
+                // MARK: - Fileprivate
+
+                fileprivate init(emotion: EmotionEventsUseCaseObjects.Event.Emotion) {
+                    name = emotion.name
+                    color = UIColor(hex: emotion.color)
+                }
+
+                // MARK: - Public
+
+                public let name: String
+                public let color: UIColor
+            }
+
             // MARK: - Private
 
             private static let timeFormatter: DateFormatter = {
@@ -38,16 +53,16 @@ public enum EmotionEventsPresenterObjects {
 
             // MARK: - Fileprivate
 
-            let date: Date
-            let dateString: String
+            fileprivate let date: Date
+            fileprivate let dateString: String
 
-            init(event: EmotionEventsUseCaseObjects.Event) {
+            fileprivate init(event: EmotionEventsUseCaseObjects.Event) {
                 date = event.date
                 timeString = Event.timeFormatter.string(from: event.date)
                 dateString = Event.formatter(for: event.date).string(from: event.date)
                 name = event.name
                 details = event.details
-                emotions = event.emotions
+                emotions = event.emotions.map(Emotion.init(emotion:))
                 color = UIColor(hex: event.color)
             }
 
@@ -56,7 +71,7 @@ public enum EmotionEventsPresenterObjects {
             public let timeString: String
             public let name: String
             public let details: String?
-            public let emotions: String
+            public let emotions: [Emotion]
             public let color: UIColor
         }
 

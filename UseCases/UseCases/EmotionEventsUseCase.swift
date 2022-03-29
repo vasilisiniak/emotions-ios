@@ -5,14 +5,29 @@ public enum EmotionEventsUseCaseObjects {
 
     public struct Event {
 
+        public struct Emotion {
+
+            // MARK: - Fileprivate
+
+            fileprivate init(_ name: String, _ color: String) {
+                self.name = name
+                self.color = color
+            }
+
+            // MARK: - Public
+
+            public let name: String
+            public let color: String
+        }
+
         // MARK: - Fileprivate
 
-        fileprivate init(event: EmotionEvent) {
+        fileprivate init(event: EmotionEvent, emotions: [Emotion]) {
             date = event.date
             name = event.name
             details = event.details
-            emotions = event.emotions
             color = event.color
+            self.emotions = emotions
         }
 
         // MARK: - Public
@@ -20,7 +35,7 @@ public enum EmotionEventsUseCaseObjects {
         public let date: Date
         public let name: String
         public let details: String?
-        public let emotions: String
+        public let emotions: [Emotion]
         public let color: String
     }
 }
@@ -74,12 +89,24 @@ public final class EmotionEventsUseCaseImpl {
     private let lock: LockManager
     private let analytics: AnalyticsManager
     private let eventsProvider: EmotionEventsProvider
+    private let groupsProvider: EmotionsGroupsProvider
     private let faceIdInfo: String
     private var token: AnyObject?
 
+    private func color(_ emotion: String) -> String {
+        let groups = groupsProvider.emotionsGroups
+        let group = groups.first { $0.emotions.contains { $0.name == emotion } } ?? groups[0]
+        return group.color
+    }
+
     private func presentEvents() {
         let events = eventsProvider.events
-            .map(EmotionEventsUseCaseObjects.Event.init(event:))
+            .map { event -> EmotionEventsUseCaseObjects.Event in
+                let emotions = event.emotions
+                    .components(separatedBy: ", ")
+                    .map { EmotionEventsUseCaseObjects.Event.Emotion($0, color($0)) }
+                return EmotionEventsUseCaseObjects.Event(event: event, emotions: emotions)
+            }
             .sorted { $0.date > $1.date }
         output.present(events: events, expanded: settings.useExpandedDiary)
         output.present(noData: events.count == 0)
@@ -111,12 +138,14 @@ public final class EmotionEventsUseCaseImpl {
         lock: LockManager,
         analytics: AnalyticsManager,
         eventsProvider: EmotionEventsProvider,
+        groupsProvider: EmotionsGroupsProvider,
         faceIdInfo: String
     ) {
         self.settings = settings
         self.lock = lock
         self.analytics = analytics
         self.eventsProvider = eventsProvider
+        self.groupsProvider = groupsProvider
         self.faceIdInfo = faceIdInfo
 
         self.eventsProvider.add { [weak self] in self?.presentEvents() }

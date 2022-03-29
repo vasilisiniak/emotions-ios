@@ -159,8 +159,8 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.expanded = presenter.expanded(indexPath)
         cell.emotions.removeAll()
 
-        event.emotions.components(separatedBy: ", ")
-            .map { Bubble.create($0, .red) }
+        event.emotions
+            .map { Bubble.create($0.name, $0.color) }
             .forEach { cell.emotions.add(view: $0) }
 
         cell.shareButton.addAction(UIAction(identifier: .share) { [weak self, weak cell] _ in

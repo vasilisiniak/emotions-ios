@@ -45,6 +45,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
             router: router,
             analytics: analytics,
             promoManager: promoManager,
+            groupsProvider: AppGroup.groupsProvider,
             settings: AppGroup.settings,
             appLink: AppGroup.appLink
         ).configure()
@@ -127,7 +128,8 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             settings: AppGroup.settings,
             lock: lock,
             analytics: analytics,
-            provider: AppGroup.emotionEventsProvider,
+            eventsProvider: AppGroup.emotionEventsProvider,
+            groupsProvider: AppGroup.groupsProvider,
             faceIdInfo: AppGroup.faceIdInfo
         ).configure()
         return viewController

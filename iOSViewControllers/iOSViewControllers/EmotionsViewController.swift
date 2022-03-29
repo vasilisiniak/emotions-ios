@@ -65,7 +65,7 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
             name: editEvent.name,
             details: editEvent.details,
             date: date,
-            selectedEmotions: editEvent.emotions.components(separatedBy: ", "),
+            selectedEmotions: editEvent.emotions.map(\.name),
             color: editEvent.color.hex
         )
         let navigationController = UINavigationController(rootViewController: controller)

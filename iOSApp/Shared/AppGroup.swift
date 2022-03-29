@@ -10,10 +10,8 @@ enum AppGroup {
         return EmotionEventsProviderImpl<EmotionEventEntity>(storage: storage)
     }()
 
-    static let settings: Settings = {
-        let defaults = UserDefaults(suiteName: "group.by.vasili.siniak.emotions")!
-        return SettingsImpl(defaults: defaults)
-    }()
+    static let groupsProvider: EmotionsGroupsProvider = EmotionsGroupsProviderImpl(url: Bundle.main.url(forResource: "Emotions", withExtension: "plist")!)
+    static let settings: Settings = SettingsImpl(defaults: UserDefaults(suiteName: "group.by.vasili.siniak.emotions")!)
 
     static let appLink = "https://apps.apple.com/app/id1558896129"
     static let email = "vasili.siniak+emotions@gmail.com"

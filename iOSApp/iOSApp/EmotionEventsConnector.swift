@@ -21,7 +21,8 @@ final class EmotionEventsConnector {
         settings: Settings,
         lock: LockManager,
         analytics: AnalyticsManager,
-        provider: EmotionEventsProvider,
+        eventsProvider: EmotionEventsProvider,
+        groupsProvider: EmotionsGroupsProvider,
         faceIdInfo: String
     ) {
         self.viewController = viewController
@@ -31,7 +32,8 @@ final class EmotionEventsConnector {
             settings: settings,
             lock: lock,
             analytics: analytics,
-            eventsProvider: provider,
+            eventsProvider: eventsProvider,
+            groupsProvider: groupsProvider,
             faceIdInfo: faceIdInfo
         )
     }
