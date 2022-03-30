@@ -85,9 +85,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         AppInfoConnector(
             viewController: viewController,
             router: router,
-            settings: AppGroup.settings,
             analytics: analytics,
-            lock: lock,
             appLink: AppGroup.appLink,
             email: AppGroup.email,
             github: AppGroup.github,

@@ -17,9 +17,7 @@ final class AppInfoConnector {
     init(
         viewController: AppInfoViewController,
         router: AppInfoRouter,
-        settings: Settings,
         analytics: AnalyticsManager,
-        lock: LockManager,
         appLink: String,
         email: String,
         github: String,
@@ -32,9 +30,7 @@ final class AppInfoConnector {
         self.router = router
         presenter = AppInfoPresenterImpl()
         useCase = AppInfoUseCaseImpl(
-            settings: settings,
             analytics: analytics,
-            lock: lock,
             appLink: appLink,
             email: email,
             github: github,

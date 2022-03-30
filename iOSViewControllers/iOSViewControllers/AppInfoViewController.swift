@@ -55,7 +55,9 @@ public class AppInfoViewController: UIViewController {
         return tableView
     }()
 
-    private var sections: [AppInfoPresenterObjects.Section]?
+    private var sections: [AppInfoPresenterObjects.Section]? {
+        didSet { tableView.reloadData() }
+    }
 
     // MARK: - Public
 
@@ -79,25 +81,9 @@ extension AppInfoViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        let row = sections?[indexPath.section].rows[indexPath.row]
-        cell.textLabel?.text = row?.title
-
-        switch row!.style {
-        case .disclosure:
-            cell.accessoryView = nil
-            cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .gray
-        case .switcher:
-            let switcher = UISwitch(frame: .zero, primaryAction: UIAction { [weak self] in
-                let value = ($0.sender as? UISwitch)?.isOn == true
-                self?.presenter.event(switcher: value, indexPath: indexPath)
-            })
-            switcher.isOn = (row?.value as? Bool) == true
-            cell.accessoryView = switcher
-            cell.accessoryType = .none
-            cell.selectionStyle = .none
-        }
-
+        cell.textLabel?.text = sections?[indexPath.section].rows[indexPath.row].title
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .gray
         return cell
     }
 
@@ -112,22 +98,14 @@ extension AppInfoViewController: UITableViewDataSource {
 
 extension AppInfoViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard sections?[indexPath.section].rows[indexPath.row].style == .disclosure else { return }
         presenter.event(selectIndexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension AppInfoViewController: AppInfoPresenterOutput {
-    public func show(sections: [AppInfoPresenterObjects.Section], update: [IndexPath]) {
+    public func show(sections: [AppInfoPresenterObjects.Section]) {
         self.sections = sections
-
-        guard !update.isEmpty, view.window != nil else {
-            tableView.reloadData()
-            return
-        }
-
-        tableView.reloadRows(at: update, with: .automatic)
     }
 
     public func showEmailAlert(message: String, okButton: String, infoButton: String) {
@@ -135,15 +113,6 @@ extension AppInfoViewController: AppInfoPresenterOutput {
         alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
             self?.presenter.eventEmailInfo()
-        }))
-        present(alert, animated: true)
-    }
-
-    public func showFaceIdAlert(message: String, okButton: String, infoButton: String) {
-        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: okButton, style: .default))
-        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
-            self?.presenter.eventFaceIdInfo()
         }))
         present(alert, animated: true)
     }
