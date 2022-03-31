@@ -68,6 +68,9 @@ public final class EventNameViewController: UIViewController {
         $0.name.delegate = self
         $0.details.delegate = self
 
+        $0.name.pasteDelegate = self
+        $0.details.pasteDelegate = self
+
         let name = UITextView.textDidChangeNotification
         observers = [
             NotificationCenter.default.addObserver(forName: name, object: $0.name, queue: .main) { [weak self] _ in self?.onNameChange() },
@@ -134,6 +137,18 @@ extension EventNameViewController: UITextViewDelegate {
         }
 
         return !newText.contains("\n")
+    }
+}
+
+extension EventNameViewController: UITextPasteDelegate {
+    public func textPasteConfigurationSupporting(
+        _ textPasteConfigurationSupporting: UITextPasteConfigurationSupporting,
+        performPasteOf attributedString: NSAttributedString,
+        to textRange: UITextRange
+    ) -> UITextRange {
+        let textView = (textPasteConfigurationSupporting as? UITextView)
+        textView?.replace(textRange, withText: attributedString.string)
+        return textRange
     }
 }
 
