@@ -81,7 +81,7 @@ extension PrivacySettingsPresenterImpl: SettingsPresenter {
     public var title: String { "Приватность" }
 
     public func eventViewReady() {
-        output.show(sections: sections(protect: false, faceId: false), update: [])
+        useCase.eventViewReady()
     }
 
     public func event(switcher: Bool, indexPath: IndexPath) {

@@ -14,6 +14,7 @@
 		167E16AD26024FD100A8B0EC /* AppInfoConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */; };
 		167F7CA426F7BC3C0074DCAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */; };
 		168759EB27F5B4CE00DBA53A /* PrivacySettingsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759EA27F5B4CE00DBA53A /* PrivacySettingsConnector.swift */; };
+		168759F127F5DDE800DBA53A /* AppearanceSettingsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */; };
 		8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013E258F8CAC00D744DF /* EmotionsConnector.swift */; };
 		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
@@ -103,6 +104,7 @@
 		167F7CA326F7BC3C0074DCAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1680E7B027B7BFB60039B2B0 /* Model-2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model-2.0.xcdatamodel"; sourceTree = "<group>"; };
 		168759EA27F5B4CE00DBA53A /* PrivacySettingsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsConnector.swift; sourceTree = "<group>"; };
+		168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsConnector.swift; sourceTree = "<group>"; };
 		8302013E258F8CAC00D744DF /* EmotionsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsConnector.swift; sourceTree = "<group>"; };
 		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +224,7 @@
 				1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */,
 				167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */,
 				168759EA27F5B4CE00DBA53A /* PrivacySettingsConnector.swift */,
+				168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */,
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				83921902258E842A00A7B69F /* Model.xcdatamodeld */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,
@@ -412,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				168759F127F5DDE800DBA53A /* AppearanceSettingsConnector.swift in Sources */,
 				836831A6258579970044B38C /* LogEventConnector.swift in Sources */,
 				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,

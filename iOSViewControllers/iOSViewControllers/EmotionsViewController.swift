@@ -5,11 +5,21 @@ import SafariServices
 
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
+    var appearanceSettingsViewController: SettingsViewController { get }
+
     func appInfoViewController(router: AppInfoRouter) -> SettingsViewController
     func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
-    func editEventNameViewController(router: EventNameRouter, name: String, details: String?, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
+
+    func editEventNameViewController(
+        router: EventNameRouter,
+        name: String,
+        details: String?,
+        date: Date,
+        selectedEmotions: [String],
+        color: String
+    ) -> EventNameViewController
 }
 
 public final class EmotionsViewController: UITabBarController {
@@ -102,6 +112,12 @@ extension EmotionsViewController: AppInfoRouter, PrivacySettingsRouter, LogEvent
 
     public func routePrivacySettings() {
         let settings = composer.privacySettingsViewController(router: self)
+        let navigation = (selectedViewController as? UINavigationController)
+        navigation?.pushViewController(settings, animated: true)
+    }
+
+    public func routeAppearanceSettings() {
+        let settings = composer.appearanceSettingsViewController
         let navigation = (selectedViewController as? UINavigationController)
         navigation?.pushViewController(settings, animated: true)
     }

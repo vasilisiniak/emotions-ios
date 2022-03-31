@@ -21,7 +21,7 @@ fileprivate extension AppInfoPresenterImpl {
             var title: String {
                 switch self {
                 case .securitySettings: return "Настройки приватности"
-                case .appearanceSettings: return "Внешний вид и поведение"
+                case .appearanceSettings: return "Отображение и поведение"
                 case .rateApp: return "Оценить приложение"
                 case .shareApp: return "Поделиться приложением"
                 case .suggestImprove: return "Предложить улучшение"
@@ -85,6 +85,7 @@ public protocol AppInfoRouter: AnyObject {
     func route(url: String)
     func route(shareItem: UIActivityItemSource)
     func routePrivacySettings()
+    func routeAppearanceSettings()
 }
 
 public class AppInfoPresenterImpl {
@@ -162,5 +163,9 @@ extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
 
     public func presentPrivacySettings() {
         router.routePrivacySettings()
+    }
+
+    public func presentAppearanceSettings() {
+        router.routeAppearanceSettings()
     }
 }

@@ -80,6 +80,12 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         return viewController
     }
 
+    var appearanceSettingsViewController: SettingsViewController {
+        let viewController = SettingsViewController()
+        AppearanceSettingsConnector(viewController: viewController, settings: AppGroup.settings).configure()
+        return viewController
+    }
+
     func appInfoViewController(router: AppInfoRouter) -> SettingsViewController {
         let viewController = SettingsViewController()
         AppInfoConnector(

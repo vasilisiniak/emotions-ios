@@ -24,6 +24,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(url: String)
     func present(share: UIActivityItemSource)
     func presentPrivacySettings()
+    func presentAppearanceSettings()
 }
 
 public protocol AppInfoUseCase {
@@ -79,7 +80,8 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         switch event {
         case .securitySettings:
             output.presentPrivacySettings()
-        case .appearanceSettings: break
+        case .appearanceSettings:
+            output.presentAppearanceSettings()
         case .review:
             analytics.track(.rate)
             output.present(url: "\(appLink)?action=write-review")
