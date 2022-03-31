@@ -5,32 +5,22 @@ fileprivate extension UITableViewCell {
     static let reuseIdentifier = String(describing: UITableViewCell.self)
 }
 
-public class AppInfoViewController: UIViewController {
+public class SettingsViewController: UIViewController {
 
     // MARK: - UIViewController
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-
+        navigationItem.title = presenter.title
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(tableView)
-        view.addSubview(blurView)
 
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            blurView.topAnchor.constraint(equalTo: view.topAnchor),
-            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -55,22 +45,20 @@ public class AppInfoViewController: UIViewController {
         return tableView
     }()
 
-    private var sections: [AppInfoPresenterObjects.Section]? {
-        didSet { tableView.reloadData() }
-    }
+    private var sections: [SettingsPresenterSection]?
 
     // MARK: - Public
 
-    public var presenter: AppInfoPresenter!
+    public var presenter: SettingsPresenter!
 
     public init() {
         super.init(nibName: nil, bundle: nil)
-        let tabBarIcon = UIImage(named: "AppInfoTabBarIcon", in: Bundle(for: AppInfoViewController.self), with: nil)
+        let tabBarIcon = UIImage(named: "AppInfoTabBarIcon", in: Bundle(for: SettingsViewController.self), with: nil)
         tabBarItem = UITabBarItem(title: "", image: tabBarIcon, selectedImage: nil)
     }
 }
 
-extension AppInfoViewController: UITableViewDataSource {
+extension SettingsViewController: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
         return sections?.count ?? 0
     }
@@ -81,9 +69,29 @@ extension AppInfoViewController: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
+        let row = sections?[indexPath.section].rows[indexPath.row]
+        cell.textLabel?.text = row?.title
+
+        switch row!.style {
+        case .disclosure:
+            cell.accessoryView = nil
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .gray
+        case .switcher:
+            let switcher = UISwitch(frame: .zero, primaryAction: UIAction { [weak self] in
+                let value = ($0.sender as? UISwitch)?.isOn == true
+                self?.presenter.event(switcher: value, indexPath: indexPath)
+            })
+            switcher.isOn = (row?.value as? Bool) == true
+            cell.accessoryView = switcher
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+        }
+
         cell.textLabel?.text = sections?[indexPath.section].rows[indexPath.row].title
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .gray
+
         return cell
     }
 
@@ -96,24 +104,30 @@ extension AppInfoViewController: UITableViewDataSource {
     }
 }
 
-extension AppInfoViewController: UITableViewDelegate {
+extension SettingsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard sections?[indexPath.section].rows[indexPath.row].style == .disclosure else { return }
         presenter.event(selectIndexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
-extension AppInfoViewController: AppInfoPresenterOutput {
-    public func show(sections: [AppInfoPresenterObjects.Section]) {
+extension SettingsViewController: SettingsPresenterOutput {
+    public func show(sections: [SettingsPresenterSection], update: [IndexPath]) {
         self.sections = sections
+
+        guard !update.isEmpty, view.window != nil else {
+            tableView.reloadData()
+            return
+        }
+
+        tableView.reloadRows(at: update, with: .automatic)
     }
 
-    public func showEmailAlert(message: String, okButton: String, infoButton: String) {
+    public func show(message: String, okButton: String, infoButton: String, okHandler: @escaping () -> ()) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default))
-        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { [weak self] _ in
-            self?.presenter.eventEmailInfo()
-        }))
+        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { _ in okHandler() }))
         present(alert, animated: true)
     }
 }

@@ -23,6 +23,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(emailTheme: String, email: String)
     func present(url: String)
     func present(share: UIActivityItemSource)
+    func presentPrivacySettings()
 }
 
 public protocol AppInfoUseCase {
@@ -76,7 +77,8 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
 
     public func event(_ event: AppInfoUseCaseObjects.ShareEvent) {
         switch event {
-        case .securitySettings: break
+        case .securitySettings:
+            output.presentPrivacySettings()
         case .appearanceSettings: break
         case .review:
             analytics.track(.rate)

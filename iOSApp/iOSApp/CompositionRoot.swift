@@ -80,8 +80,8 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         return viewController
     }
 
-    func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController {
-        let viewController = AppInfoViewController()
+    func appInfoViewController(router: AppInfoRouter) -> SettingsViewController {
+        let viewController = SettingsViewController()
         AppInfoConnector(
             viewController: viewController,
             router: router,
@@ -93,6 +93,19 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             emailInfo: AppGroup.emailInfo,
             faceIdInfo: AppGroup.faceIdInfo,
             emailTheme: AppGroup.emailTheme
+        ).configure()
+        return viewController
+    }
+
+    func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController {
+        let viewController = SettingsViewController()
+        PrivacySettingsConnector(
+            viewController: viewController,
+            router: router,
+            settings: AppGroup.settings,
+            analytics: analytics,
+            lock: lock,
+            faceIdInfo: AppGroup.faceIdInfo
         ).configure()
         return viewController
     }

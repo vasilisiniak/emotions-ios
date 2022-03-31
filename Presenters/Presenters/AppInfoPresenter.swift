@@ -2,11 +2,11 @@ import Foundation
 import MessageUI
 import UseCases
 
-public enum AppInfoPresenterObjects {
+fileprivate extension AppInfoPresenterImpl {
 
-    public enum Section: Equatable {
+    enum Section: SettingsPresenterSection, Equatable {
 
-        public enum Row: Equatable {
+        enum Row: SettingsPresenterRow, Equatable {
 
             case securitySettings
             case appearanceSettings
@@ -18,7 +18,7 @@ public enum AppInfoPresenterObjects {
             case designer
             case donate
 
-            public var title: String {
+            var title: String {
                 switch self {
                 case .securitySettings: return "Настройки приватности"
                 case .appearanceSettings: return "Внешний вид и поведение"
@@ -31,6 +31,9 @@ public enum AppInfoPresenterObjects {
                 case .donate: return "Поддержать разработчика"
                 }
             }
+
+            var style: SettingsPresenterRowStyle { .disclosure }
+            var value: Any? { nil }
         }
 
         case settings
@@ -40,7 +43,9 @@ public enum AppInfoPresenterObjects {
         case design
         case donate
 
-        public var rows: [Row] {
+        var rows: [SettingsPresenterRow] { sectionRows }
+
+        var sectionRows: [Row] {
             switch self {
             case .settings: return [.securitySettings, .appearanceSettings]
             case .appStore: return [.rateApp, .shareApp]
@@ -51,7 +56,7 @@ public enum AppInfoPresenterObjects {
             }
         }
 
-        public var title: String {
+        var title: String {
             switch self {
             case .settings: return "Настройки"
             case .appStore: return "App Store"
@@ -62,7 +67,7 @@ public enum AppInfoPresenterObjects {
             }
         }
 
-        public var subtitle: String? {
+        var subtitle: String? {
             switch self {
             case .settings: return nil
             case .appStore: return nil
@@ -75,28 +80,18 @@ public enum AppInfoPresenterObjects {
     }
 }
 
-public protocol AppInfoPresenterOutput: AnyObject {
-    func show(sections: [AppInfoPresenterObjects.Section])
-    func showEmailAlert(message: String, okButton: String, infoButton: String)
-}
-
 public protocol AppInfoRouter: AnyObject {
     func route(emailTheme: String, email: String)
     func route(url: String)
     func route(shareItem: UIActivityItemSource)
-}
-
-public protocol AppInfoPresenter {
-    func eventViewReady()
-    func eventEmailInfo()
-    func event(selectIndexPath: IndexPath)
+    func routePrivacySettings()
 }
 
 public class AppInfoPresenterImpl {
 
     // MARK: - Private
 
-    private let sections: [AppInfoPresenterObjects.Section] = [
+    private let sections: [Section] = [
         .settings,
         .appStore,
         .feedback,
@@ -107,11 +102,11 @@ public class AppInfoPresenterImpl {
 
     private func route(emailTheme: String, email: String) {
         guard MFMailComposeViewController.canSendMail() else {
-            output.showEmailAlert(
+            output.show(
                 message: "Для связи с разработчиком нужно добавить почтовый аккаунт в приложение «Почта»",
                 okButton: "OK",
                 infoButton: "Как это сделать"
-            )
+            ) { [weak self] in self?.useCase.event(.emailInfo) }
             return
         }
         router.route(emailTheme: emailTheme, email: email)
@@ -119,20 +114,26 @@ public class AppInfoPresenterImpl {
 
     // MARK: - Public
 
-    public weak var output: AppInfoPresenterOutput!
+    public weak var output: SettingsPresenterOutput!
     public var useCase: AppInfoUseCase!
     public weak var router: AppInfoRouter!
 
     public init() {}
 }
 
-extension AppInfoPresenterImpl: AppInfoPresenter {
+extension AppInfoPresenterImpl: SettingsPresenter {
+    public var title: String { "О приложении" }
+
+    public func event(switcher: Bool, indexPath: IndexPath) {
+        fatalError()
+    }
+
     public func eventViewReady() {
-        output.show(sections: sections)
+        output.show(sections: sections, update: [])
     }
 
     public func event(selectIndexPath: IndexPath) {
-        switch sections[selectIndexPath.section].rows[selectIndexPath.row] {
+        switch sections[selectIndexPath.section].sectionRows[selectIndexPath.row] {
         case .securitySettings: useCase.event(.securitySettings)
         case .appearanceSettings: useCase.event(.appearanceSettings)
         case .rateApp: useCase.event(.review)
@@ -143,10 +144,6 @@ extension AppInfoPresenterImpl: AppInfoPresenter {
         case .designer: useCase.event(.designer)
         case .donate: useCase.event(.donate)
         }
-    }
-
-    public func eventEmailInfo() {
-        useCase.event(.emailInfo)
     }
 }
 
@@ -161,5 +158,9 @@ extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
 
     public func present(share: UIActivityItemSource) {
         router.route(shareItem: share)
+    }
+
+    public func presentPrivacySettings() {
+        router.routePrivacySettings()
     }
 }

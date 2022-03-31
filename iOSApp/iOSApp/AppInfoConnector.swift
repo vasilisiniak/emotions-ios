@@ -7,7 +7,7 @@ final class AppInfoConnector {
 
     // MARK: - Private
 
-    private let viewController: AppInfoViewController
+    private let viewController: SettingsViewController
     private let router: AppInfoRouter
     private let presenter: AppInfoPresenterImpl
     private let useCase: AppInfoUseCaseImpl
@@ -15,7 +15,7 @@ final class AppInfoConnector {
     // MARK: - Internal
 
     init(
-        viewController: AppInfoViewController,
+        viewController: SettingsViewController,
         router: AppInfoRouter,
         analytics: AnalyticsManager,
         appLink: String,

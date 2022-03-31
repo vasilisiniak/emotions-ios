@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1607940C2708D29F00572275 /* EmotionNotFoundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1607940B2708D29F00572275 /* EmotionNotFoundUseCase.swift */; };
 		167E16A5260223C300A8B0EC /* EditEventNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */; };
+		168759E727F4AA6000DBA53A /* PrivacySettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */; };
 		16AC77712676322A0029B7CC /* AppInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC77702676322A0029B7CC /* AppInfoUseCase.swift */; };
 		8302013D258F8C0600D744DF /* EmotionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013C258F8C0600D744DF /* EmotionsUseCase.swift */; };
 		833182CB2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		1607940B2708D29F00572275 /* EmotionNotFoundUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionNotFoundUseCase.swift; sourceTree = "<group>"; };
 		167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameUseCase.swift; sourceTree = "<group>"; };
+		168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsUseCase.swift; sourceTree = "<group>"; };
 		16AC77702676322A0029B7CC /* AppInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoUseCase.swift; sourceTree = "<group>"; };
 		8302013C258F8C0600D744DF /* EmotionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsUseCase.swift; sourceTree = "<group>"; };
 		833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsUseCase.swift; sourceTree = "<group>"; };
@@ -72,9 +74,10 @@
 				83B9EE63258575B1007158F3 /* LogEventUseCase.swift */,
 				833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */,
 				839C92CF258F4E47008C9C5A /* TrendsUseCase.swift */,
-				16AC77702676322A0029B7CC /* AppInfoUseCase.swift */,
 				8302013C258F8C0600D744DF /* EmotionsUseCase.swift */,
 				1607940B2708D29F00572275 /* EmotionNotFoundUseCase.swift */,
+				16AC77702676322A0029B7CC /* AppInfoUseCase.swift */,
+				168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */,
 				83A51B342582C5A4005131D7 /* Info.plist */,
 			);
 			path = UseCases;
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8355735725862E5C007F15C8 /* EventNameUseCase.swift in Sources */,
+				168759E727F4AA6000DBA53A /* PrivacySettingsUseCase.swift in Sources */,
 				8302013D258F8C0600D744DF /* EmotionsUseCase.swift in Sources */,
 				83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */,
 				839C92D0258F4E47008C9C5A /* TrendsUseCase.swift in Sources */,

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1645531F26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645531E26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift */; };
 		167E16AB26024BDA00A8B0EC /* AppInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */; };
+		168759E527F497D600DBA53A /* PrivacySettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */; };
+		168759E927F4ADF200DBA53A /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759E827F4ADF200DBA53A /* SettingsPresenter.swift */; };
 		8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013A258F8BD200D744DF /* EmotionsPresenter.swift */; };
 		833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */; };
 		835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835573582586320B007F15C8 /* EventNamePresenter.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		1645531E26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionNotFoundPresenter.swift; sourceTree = "<group>"; };
 		167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoPresenter.swift; sourceTree = "<group>"; };
+		168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsPresenter.swift; sourceTree = "<group>"; };
+		168759E827F4ADF200DBA53A /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		8302013A258F8BD200D744DF /* EmotionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsPresenter.swift; sourceTree = "<group>"; };
 		833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsPresenter.swift; sourceTree = "<group>"; };
 		835573582586320B007F15C8 /* EventNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamePresenter.swift; sourceTree = "<group>"; };
@@ -72,9 +76,11 @@
 				83B9EE6525857675007158F3 /* LogEventPresenter.swift */,
 				833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */,
 				839C92D1258F4F4A008C9C5A /* TrendsPresenter.swift */,
-				167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */,
 				8302013A258F8BD200D744DF /* EmotionsPresenter.swift */,
 				1645531E26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift */,
+				168759E827F4ADF200DBA53A /* SettingsPresenter.swift */,
+				167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */,
+				168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */,
 				83A51B512582C5F5005131D7 /* Info.plist */,
 			);
 			path = Presenters;
@@ -167,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B9EE6625857675007158F3 /* LogEventPresenter.swift in Sources */,
+				168759E527F497D600DBA53A /* PrivacySettingsPresenter.swift in Sources */,
 				1645531F26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift in Sources */,
 				83A51B5C2582C60B005131D7 /* EmotionsGroupsPresenter.swift in Sources */,
 				835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */,
@@ -174,6 +181,7 @@
 				8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */,
 				167E16AB26024BDA00A8B0EC /* AppInfoPresenter.swift in Sources */,
 				833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */,
+				168759E927F4ADF200DBA53A /* SettingsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,7 +5,8 @@ import SafariServices
 
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
-    func appInfoViewController(router: AppInfoRouter) -> AppInfoViewController
+    func appInfoViewController(router: AppInfoRouter) -> SettingsViewController
+    func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
     func editEventNameViewController(router: EventNameRouter, name: String, details: String?, date: Date, selectedEmotions: [String], color: String) -> EventNameViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
@@ -80,7 +81,7 @@ extension EmotionsViewController: EventNameRouter {
     }
 }
 
-extension EmotionsViewController: AppInfoRouter, LogEventRouter {
+extension EmotionsViewController: AppInfoRouter, PrivacySettingsRouter, LogEventRouter {
     public func route(emailTheme: String, email: String) {
         let controller = MFMailComposeViewController()
         controller.setSubject(emailTheme)
@@ -98,6 +99,12 @@ extension EmotionsViewController: AppInfoRouter, LogEventRouter {
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
         present(activityViewController, animated: true)
     }
+
+    public func routePrivacySettings() {
+        let settings = composer.privacySettingsViewController(router: self)
+        let navigation = (selectedViewController as? UINavigationController)
+        navigation?.pushViewController(settings, animated: true)
+    }
 }
 
 extension EmotionsViewController: EmotionsPresenterOutput {
@@ -106,7 +113,7 @@ extension EmotionsViewController: EmotionsPresenterOutput {
             composer.logEventViewController,
             UINavigationController(rootViewController: composer.emotionEventsViewController(router: self)),
             composer.trendsViewController(router: self),
-            composer.appInfoViewController(router: self)
+            UINavigationController(rootViewController: composer.appInfoViewController(router: self))
         ]
     }
 
