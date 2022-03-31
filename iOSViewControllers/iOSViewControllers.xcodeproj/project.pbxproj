@@ -72,6 +72,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		168759FD27F5E2BA00DBA53A /* Emotions */ = {
+			isa = PBXGroup;
+			children = (
+				1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */,
+				1645531A26F7E18C00C3E376 /* EmotionNotFoundViewController.swift */,
+				8377F47B2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift */,
+				1608107B278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift */,
+				831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */,
+				8377F47A2582CD1E006C9D2F /* EmotionsGroupsViewController.swift */,
+			);
+			path = Emotions;
+			sourceTree = "<group>";
+		};
+		168759FE27F5E30000DBA53A /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				83557354258623F7007F15C8 /* EventNameViewController+View.swift */,
+				83557352258623D9007F15C8 /* EventNameViewController.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		168759FF27F5E30800DBA53A /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */,
+				83D82BC8258F80D000FB3B5E /* EmotionEventsViewController+View.swift */,
+				16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */,
+				8332CA00258A1F2500AA285A /* EmotionEventsViewController.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		16875A0027F5E31100DBA53A /* Trends */ = {
+			isa = PBXGroup;
+			children = (
+				83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */,
+				16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */,
+			);
+			path = Trends;
+			sourceTree = "<group>";
+		};
 		8377F4632582CD09006C9D2F = {
 			isa = PBXGroup;
 			children = (
@@ -92,23 +134,13 @@
 		8377F46F2582CD09006C9D2F /* iOSViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8377F47B2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift */,
-				1608107B278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift */,
-				831631B8259695C70052661E /* EmotionsGroupsViewController+Menu.swift */,
-				8377F47A2582CD1E006C9D2F /* EmotionsGroupsViewController.swift */,
-				83557354258623F7007F15C8 /* EventNameViewController+View.swift */,
-				83557352258623D9007F15C8 /* EventNameViewController.swift */,
+				168759FE27F5E30000DBA53A /* Event */,
+				168759FF27F5E30800DBA53A /* Events */,
+				16875A0027F5E31100DBA53A /* Trends */,
+				168759FD27F5E2BA00DBA53A /* Emotions */,
 				83B9EE5E25857500007158F3 /* LogEventViewController.swift */,
-				830C7593258A2F3700F964BC /* EmotionEventsViewController+Cell.swift */,
-				83D82BC8258F80D000FB3B5E /* EmotionEventsViewController+View.swift */,
-				16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */,
-				8332CA00258A1F2500AA285A /* EmotionEventsViewController.swift */,
-				83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */,
-				16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */,
 				839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */,
 				83020138258F899000D744DF /* EmotionsViewController.swift */,
-				1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */,
-				1645531A26F7E18C00C3E376 /* EmotionNotFoundViewController.swift */,
 				167E16A82602423F00A8B0EC /* SettingsViewController.swift */,
 				830C7591258A2B5100F964BC /* Media.xcassets */,
 				8377F4712582CD09006C9D2F /* Info.plist */,

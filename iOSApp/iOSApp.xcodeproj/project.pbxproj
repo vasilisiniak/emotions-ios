@@ -168,6 +168,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		168759F227F5E05F00DBA53A /* Connectors */ = {
+			isa = PBXGroup;
+			children = (
+				168759F927F5E1E100DBA53A /* Emotions */,
+				168759FA27F5E24B00DBA53A /* Event */,
+				168759F327F5E07C00DBA53A /* Settings */,
+				836831A5258579970044B38C /* LogEventConnector.swift */,
+				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
+				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
+				8302013E258F8CAC00D744DF /* EmotionsConnector.swift */,
+			);
+			path = Connectors;
+			sourceTree = "<group>";
+		};
+		168759F327F5E07C00DBA53A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */,
+				168759EA27F5B4CE00DBA53A /* PrivacySettingsConnector.swift */,
+				168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		168759F927F5E1E100DBA53A /* Emotions */ = {
+			isa = PBXGroup;
+			children = (
+				83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */,
+				1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */,
+			);
+			path = Emotions;
+			sourceTree = "<group>";
+		};
+		168759FA27F5E24B00DBA53A /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				8355735A25863464007F15C8 /* EventNameConnector.swift */,
+				167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		834448DE25966FB500F68B84 /* iOSWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,19 +254,9 @@
 		8392C7BB25825A940015D722 /* iOSApp */ = {
 			isa = PBXGroup;
 			children = (
+				168759F227F5E05F00DBA53A /* Connectors */,
 				8392C7BC25825A940015D722 /* AppDelegate.swift */,
 				830C75A1258E633F00F964BC /* CompositionRoot.swift */,
-				83A51B022582B765005131D7 /* EmotionsGroupsConnector.swift */,
-				8355735A25863464007F15C8 /* EventNameConnector.swift */,
-				167E16A6260223F200A8B0EC /* EditEventNameConnector.swift */,
-				836831A5258579970044B38C /* LogEventConnector.swift */,
-				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
-				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
-				8302013E258F8CAC00D744DF /* EmotionsConnector.swift */,
-				1645532226F7F28F00C3E376 /* EmotionNotFoundConnector.swift */,
-				167E16AC26024FD100A8B0EC /* AppInfoConnector.swift */,
-				168759EA27F5B4CE00DBA53A /* PrivacySettingsConnector.swift */,
-				168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */,
 				83DE23C92583990B0098337E /* Emotions.plist */,
 				83921902258E842A00A7B69F /* Model.xcdatamodeld */,
 				8392C7C525825A970015D722 /* Assets.xcassets */,

@@ -50,6 +50,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		168759F827F5E13400DBA53A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				16AC77702676322A0029B7CC /* AppInfoUseCase.swift */,
+				168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */,
+				168759EC27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		16875A0227F5E33F00DBA53A /* Emotions */ = {
+			isa = PBXGroup;
+			children = (
+				83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */,
+				1607940B2708D29F00572275 /* EmotionNotFoundUseCase.swift */,
+			);
+			path = Emotions;
+			sourceTree = "<group>";
+		};
 		83A51B262582C5A4005131D7 = {
 			isa = PBXGroup;
 			children = (
@@ -70,17 +89,14 @@
 		83A51B322582C5A4005131D7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				83A51B3D2582C5B1005131D7 /* EmotionsGroupsUseCase.swift */,
+				16875A0227F5E33F00DBA53A /* Emotions */,
+				168759F827F5E13400DBA53A /* Settings */,
 				8355735625862E5C007F15C8 /* EventNameUseCase.swift */,
 				167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */,
 				83B9EE63258575B1007158F3 /* LogEventUseCase.swift */,
 				833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */,
 				839C92CF258F4E47008C9C5A /* TrendsUseCase.swift */,
 				8302013C258F8C0600D744DF /* EmotionsUseCase.swift */,
-				1607940B2708D29F00572275 /* EmotionNotFoundUseCase.swift */,
-				16AC77702676322A0029B7CC /* AppInfoUseCase.swift */,
-				168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */,
-				168759EC27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift */,
 				83A51B342582C5A4005131D7 /* Info.plist */,
 			);
 			path = UseCases;

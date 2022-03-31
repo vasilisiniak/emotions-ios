@@ -53,6 +53,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		168759F527F5E0D800DBA53A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				168759E827F4ADF200DBA53A /* SettingsPresenter.swift */,
+				167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */,
+				168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */,
+				168759EE27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		16875A0127F5E32E00DBA53A /* Emotions */ = {
+			isa = PBXGroup;
+			children = (
+				83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */,
+				1645531E26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift */,
+			);
+			path = Emotions;
+			sourceTree = "<group>";
+		};
 		83A51B432582C5F5005131D7 = {
 			isa = PBXGroup;
 			children = (
@@ -73,17 +93,13 @@
 		83A51B4F2582C5F5005131D7 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				83A51B5A2582C60B005131D7 /* EmotionsGroupsPresenter.swift */,
+				16875A0127F5E32E00DBA53A /* Emotions */,
+				168759F527F5E0D800DBA53A /* Settings */,
 				835573582586320B007F15C8 /* EventNamePresenter.swift */,
 				83B9EE6525857675007158F3 /* LogEventPresenter.swift */,
 				833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */,
 				839C92D1258F4F4A008C9C5A /* TrendsPresenter.swift */,
 				8302013A258F8BD200D744DF /* EmotionsPresenter.swift */,
-				1645531E26F7EAA500C3E376 /* EmotionNotFoundPresenter.swift */,
-				168759E827F4ADF200DBA53A /* SettingsPresenter.swift */,
-				167E16AA26024BDA00A8B0EC /* AppInfoPresenter.swift */,
-				168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */,
-				168759EE27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift */,
 				83A51B512582C5F5005131D7 /* Info.plist */,
 			);
 			path = Presenters;

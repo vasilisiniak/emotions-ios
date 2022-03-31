@@ -12,7 +12,8 @@
 		160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB57527395B3F0060BA7E /* MigrationManager.swift */; };
 		160BB578273A78E10060BA7E /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB577273A78E10060BA7E /* NewsManager.swift */; };
 		167F7CA526F7C9F80074DCAA /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23E92583F4410098337E /* Utils.framework */; };
-		16AC776026710E210029B7CC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* Settings.swift */; };
+		16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16875A0627F5E3AE00DBA53A /* Settings.swift */; };
+		16AC776026710E210029B7CC /* UserDefaultsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */; };
 		16AC776B26761E470029B7CC /* PromoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776A26761E470029B7CC /* PromoManager.swift */; };
 		16CF247827E2388400289E5D /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CF247727E2388400289E5D /* MetricsManager.swift */; };
 		16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC2BB62782FBE400A96C5F /* LockManager.swift */; };
@@ -27,7 +28,8 @@
 		160794012708908000572275 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		160BB57527395B3F0060BA7E /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		160BB577273A78E10060BA7E /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
-		16AC775F26710E210029B7CC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		16875A0627F5E3AE00DBA53A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettings.swift; sourceTree = "<group>"; };
 		16AC776A26761E470029B7CC /* PromoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoManager.swift; sourceTree = "<group>"; };
 		16CF247727E2388400289E5D /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
 		16EC2BB62782FBE400A96C5F /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
@@ -55,6 +57,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16875A0327F5E35400DBA53A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				16AC776A26761E470029B7CC /* PromoManager.swift */,
+				160794012708908000572275 /* AnalyticsManager.swift */,
+				16CF247727E2388400289E5D /* MetricsManager.swift */,
+				160BB57527395B3F0060BA7E /* MigrationManager.swift */,
+				160BB577273A78E10060BA7E /* NewsManager.swift */,
+				16EC2BB62782FBE400A96C5F /* LockManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		16875A0427F5E36300DBA53A /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				83A51B212582C539005131D7 /* EmotionsGroupsProvider.swift */,
+				833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		16875A0527F5E36C00DBA53A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				83A51B202582C539005131D7 /* EmotionsGroup.swift */,
+				833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		16875A0827F5E3E800DBA53A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				16875A0627F5E3AE00DBA53A /* Settings.swift */,
+				16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		83A51B092582C51B005131D7 = {
 			isa = PBXGroup;
 			children = (
@@ -75,17 +117,10 @@
 		83A51B152582C51C005131D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				83A51B202582C539005131D7 /* EmotionsGroup.swift */,
-				83A51B212582C539005131D7 /* EmotionsGroupsProvider.swift */,
-				833182BF2589E63D00B2C9A2 /* EmotionEvent.swift */,
-				833182C42589E6CA00B2C9A2 /* EmotionEventsProvider.swift */,
-				16AC775F26710E210029B7CC /* Settings.swift */,
-				16AC776A26761E470029B7CC /* PromoManager.swift */,
-				160794012708908000572275 /* AnalyticsManager.swift */,
-				16CF247727E2388400289E5D /* MetricsManager.swift */,
-				160BB57527395B3F0060BA7E /* MigrationManager.swift */,
-				160BB577273A78E10060BA7E /* NewsManager.swift */,
-				16EC2BB62782FBE400A96C5F /* LockManager.swift */,
+				16875A0527F5E36C00DBA53A /* Entities */,
+				16875A0427F5E36300DBA53A /* Providers */,
+				16875A0327F5E35400DBA53A /* Managers */,
+				16875A0827F5E3E800DBA53A /* Settings */,
 				83A51B172582C51C005131D7 /* Info.plist */,
 			);
 			path = Model;
@@ -189,9 +224,10 @@
 				833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */,
 				83A51B232582C539005131D7 /* EmotionsGroupsProvider.swift in Sources */,
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
+				16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */,
 				16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */,
 				16CF247827E2388400289E5D /* MetricsManager.swift in Sources */,
-				16AC776026710E210029B7CC /* Settings.swift in Sources */,
+				16AC776026710E210029B7CC /* UserDefaultsSettings.swift in Sources */,
 				160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */,
 				16AC776B26761E470029B7CC /* PromoManager.swift in Sources */,
 			);

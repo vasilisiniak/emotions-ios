@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		168759F727F5E10200DBA53A /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759F627F5E10200DBA53A /* CoreDataStorage.swift */; };
 		839218FC258E7D7400A7B69F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839218FB258E7D7400A7B69F /* Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		168759F627F5E10200DBA53A /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		839218E3258E78EF00A7B69F /* Storage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Storage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		839218E7258E78EF00A7B69F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		839218FB258E7D7400A7B69F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				839218FB258E7D7400A7B69F /* Storage.swift */,
+				168759F627F5E10200DBA53A /* CoreDataStorage.swift */,
 				839218E7258E78EF00A7B69F /* Info.plist */,
 			);
 			path = Storage;
@@ -130,6 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				168759F727F5E10200DBA53A /* CoreDataStorage.swift in Sources */,
 				839218FC258E7D7400A7B69F /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
