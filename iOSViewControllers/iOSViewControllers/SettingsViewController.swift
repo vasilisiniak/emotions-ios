@@ -88,10 +88,6 @@ extension SettingsViewController: UITableViewDataSource {
             cell.selectionStyle = .none
         }
 
-        cell.textLabel?.text = sections?[indexPath.section].rows[indexPath.row].title
-        cell.accessoryType = .disclosureIndicator
-        cell.selectionStyle = .gray
-
         return cell
     }
 
