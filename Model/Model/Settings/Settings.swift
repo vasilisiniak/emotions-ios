@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 public protocol Settings: AnyObject {
     typealias Observer = (Settings) -> Void
@@ -11,4 +12,5 @@ public protocol Settings: AnyObject {
     var useExpandedDiary: Bool { get set }
     var reduceAnimation: Bool { get set }
     var useLegacyDiary: Bool { get set }
+    var appearance: UIUserInterfaceStyle { get set }
 }

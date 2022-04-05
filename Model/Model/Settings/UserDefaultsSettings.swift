@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import Utils
 
 public final class UserDefaultsSettings {
@@ -12,6 +13,7 @@ public final class UserDefaultsSettings {
         static let UseExtendedDiaryKey = "Model.SettingsImpl.UseExtendedDiaryKey"
         static let ReduceAnimationKey = "Model.SettingsImpl.ReduceAnimationKey"
         static let UseLegacyDiaryKey = "Model.SettingsImpl.UseLegacyDiaryKey"
+        static let AppearanceKey = "Model.SettingsImpl.AppearanceKey"
     }
 
     // MARK: - Private
@@ -113,6 +115,18 @@ extension UserDefaultsSettings: Settings {
         }
         set {
             defaults.set(newValue, forKey: Constants.UseLegacyDiaryKey)
+            defaults.synchronize()
+
+            notify()
+        }
+    }
+
+    public var appearance: UIUserInterfaceStyle {
+        get {
+            UIUserInterfaceStyle(rawValue: defaults.integer(forKey: Constants.AppearanceKey)) ?? .unspecified
+        }
+        set {
+            defaults.set(newValue.rawValue, forKey: Constants.AppearanceKey)
             defaults.synchronize()
 
             notify()
