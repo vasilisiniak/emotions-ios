@@ -1,8 +1,9 @@
 import Foundation
+import UIKit
 import Model
 
 public protocol AppearanceSettingsUseCaseOutput: AnyObject {
-    func present(legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool)
+    func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool)
 }
 
 public protocol AppearanceSettingsUseCase {
@@ -11,6 +12,7 @@ public protocol AppearanceSettingsUseCase {
     func event(compact: Bool)
     func event(reduceAnimation: Bool)
     func event(legacyDiary: Bool)
+    func event(theme: UIUserInterfaceStyle)
 }
 
 public final class AppearanceSettingsUseCaseImpl {
@@ -21,6 +23,7 @@ public final class AppearanceSettingsUseCaseImpl {
 
     private func presentSettings() {
         output.present(
+            theme: settings.appearance,
             legacy: settings.useLegacyLayout,
             compact: !settings.useExpandedDiary,
             reduceAnimation: settings.reduceAnimation,
@@ -56,5 +59,10 @@ extension AppearanceSettingsUseCaseImpl: AppearanceSettingsUseCase {
 
     public func event(legacyDiary: Bool) {
         settings.useLegacyDiary = legacyDiary
+    }
+
+    public func event(theme: UIUserInterfaceStyle) {
+        settings.appearance = theme
+        presentSettings()
     }
 }

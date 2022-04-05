@@ -4,6 +4,7 @@ import UIKit
 public enum SettingsPresenterRowStyle {
     case disclosure
     case switcher
+    case option
 }
 
 public protocol SettingsPresenterRow {
@@ -21,6 +22,7 @@ public protocol SettingsPresenterSection {
 public protocol SettingsPresenterOutput: AnyObject {
     func show(sections: [SettingsPresenterSection], update: [IndexPath])
     func show(message: String, okButton: String, infoButton: String, okHandler: @escaping () -> ())
+    func show(options: [(String, () -> ())], cancel: String)
 }
 
 public protocol SettingsPresenter {

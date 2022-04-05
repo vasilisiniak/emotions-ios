@@ -2,7 +2,26 @@ import UIKit
 import Presenters
 
 fileprivate extension UITableViewCell {
-    static let reuseIdentifier = String(describing: UITableViewCell.self)
+    static let defaultReuseIdentifier = String(describing: UITableViewCell.self) + "default"
+    static let optionReuseIdentifier = String(describing: UITableViewCell.self) + "value1"
+}
+
+fileprivate extension SettingsPresenterRowStyle {
+    var identifier: String {
+        switch self {
+        case .disclosure: return UITableViewCell.defaultReuseIdentifier
+        case .switcher: return UITableViewCell.defaultReuseIdentifier
+        case .option: return UITableViewCell.optionReuseIdentifier
+        }
+    }
+
+    var style: UITableViewCell.CellStyle {
+        switch self {
+        case .disclosure: return .default
+        case .switcher: return .default
+        case .option: return .value1
+        }
+    }
 }
 
 public class SettingsViewController: UIViewController {
@@ -39,7 +58,6 @@ public class SettingsViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -68,11 +86,15 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier, for: indexPath)
-        let row = sections?[indexPath.section].rows[indexPath.row]
-        cell.textLabel?.text = row?.title
+        let row = sections![indexPath.section].rows[indexPath.row]
 
-        switch row!.style {
+        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: row.style.identifier)
+        if cell == nil {
+            cell = UITableViewCell(style: row.style.style, reuseIdentifier: row.style.identifier)
+        }
+        cell.textLabel?.text = row.title
+
+        switch row.style {
         case .disclosure:
             cell.accessoryView = nil
             cell.accessoryType = .disclosureIndicator
@@ -82,10 +104,15 @@ extension SettingsViewController: UITableViewDataSource {
                 let value = ($0.sender as? UISwitch)?.isOn == true
                 self?.presenter.event(switcher: value, indexPath: indexPath)
             })
-            switcher.isOn = (row?.value as? Bool) == true
+            switcher.isOn = (row.value as? Bool) == true
             cell.accessoryView = switcher
             cell.accessoryType = .none
             cell.selectionStyle = .none
+        case .option:
+            cell.accessoryView = nil
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .gray
+            cell.detailTextLabel?.text = (row.value as? String)
         }
 
         return cell
@@ -102,9 +129,13 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard sections?[indexPath.section].rows[indexPath.row].style == .disclosure else { return }
-        presenter.event(selectIndexPath: indexPath)
-        tableView.deselectRow(at: indexPath, animated: true)
+        switch sections?[indexPath.section].rows[indexPath.row].style {
+        case .option, .disclosure:
+            presenter.event(selectIndexPath: indexPath)
+            tableView.deselectRow(at: indexPath, animated: true)
+        default:
+            break
+        }
     }
 }
 
@@ -124,6 +155,15 @@ extension SettingsViewController: SettingsPresenterOutput {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default))
         alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { _ in okHandler() }))
+        present(alert, animated: true)
+    }
+
+    public func show(options: [(String, () -> ())], cancel: String) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        options.forEach { name, handler in
+            alert.addAction(UIAlertAction(title: name, style: .default, handler: { _ in handler() }))
+        }
+        alert.addAction(UIAlertAction(title: cancel, style: .cancel))
         present(alert, animated: true)
     }
 }
