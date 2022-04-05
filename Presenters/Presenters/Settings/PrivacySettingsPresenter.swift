@@ -102,15 +102,10 @@ extension PrivacySettingsPresenterImpl: SettingsPresenter {
 extension PrivacySettingsPresenterImpl: PrivacySettingsUseCaseOutput {
     public func present(protect: Bool, faceId: Bool) {
         let sections = sections(protect: protect, faceId: faceId)
-
-        let protectSection = sections.firstIndex(of: .settings(protect: protect, faceId: faceId))!
-        let protectRow = Section.settings(protect: protect, faceId: faceId).sectionRows.firstIndex(of: .protect(protect: protect))!
-        let faceIdRow = Section.settings(protect: protect, faceId: faceId).sectionRows.firstIndex(of: .faceId(enabled: faceId))!
-
-        output.show(sections: sections, update: [
-            IndexPath(row: protectRow, section: protectSection),
-            IndexPath(row: faceIdRow, section: protectSection)
-        ])
+        let update = sections.enumerated().flatMap { index, section in
+            section.sectionRows.enumerated().map { row, _ in IndexPath(row: row, section: index) }
+        }
+        output.show(sections: sections, update: update)
     }
 
     public func present(url: String) {

@@ -129,25 +129,10 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
 
 extension AppearanceSettingsPresenterImpl: AppearanceSettingsUseCaseOutput {
     public func present(legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool) {
-        let sections = sections(legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation)
-
-        let legacySection = sections.firstIndex(of: .legacy(enabled: legacy))!
-        let legacyRow = Section.legacy(enabled: legacy).sectionRows.firstIndex(of: .legacy(enabled: legacy))!
-
-        let compactSection = sections.firstIndex(of: .compact(enabled: compact))!
-        let compactRow = Section.compact(enabled: compact).sectionRows.firstIndex(of: .compact(enabled: compact))!
-
-        let reduceSection = sections.firstIndex(of: .reduceAnimation(enabled: reduceAnimation))!
-        let reduceRow = Section.reduceAnimation(enabled: reduceAnimation).sectionRows.firstIndex(of: .reduceAnimation(enabled: reduceAnimation))!
-
-        let legacyDiarySection = sections.firstIndex(of: .legacyDiary(enabled: legacyDiary))!
-        let legacyDiaryRow = Section.legacyDiary(enabled: legacyDiary).sectionRows.firstIndex(of: .legacyDiary(enabled: legacyDiary))!
-
-        output.show(sections: sections, update: [
-            IndexPath(row: legacyRow, section: legacySection),
-            IndexPath(row: compactRow, section: compactSection),
-            IndexPath(row: reduceRow, section: reduceSection),
-            IndexPath(row: legacyDiaryRow, section: legacyDiarySection)
-        ])
+        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation)
+        let update = sections.enumerated().flatMap { index, section in
+            section.sectionRows.enumerated().map { row, _ in IndexPath(row: row, section: index) }
+        }
+        output.show(sections: sections, update: update)
     }
 }
