@@ -3,6 +3,17 @@ import FirebaseAnalytics
 import WidgetKit
 import UIKit
 
+fileprivate extension UIUserInterfaceStyle {
+    var name: String {
+        switch self {
+        case .unspecified: return "unspecified"
+        case .light: return "light"
+        case .dark: return "dark"
+        @unknown default: fatalError()
+        }
+    }
+}
+
 public enum AnalyticsEvent {
     case emotionNotFound
     case emotionDetails(emotion: String)
@@ -82,6 +93,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.useExpandedDiary)", forName: "emotion_table_expanded")
         Analytics.setUserProperty("\(settings.reduceAnimation)", forName: "reduce_animation")
         Analytics.setUserProperty("\(settings.useLegacyDiary)", forName: "legacy_diary")
+        Analytics.setUserProperty("\(settings.appearance.name)", forName: "appearance")
     }
 
     private func trackDefaultsProperties() {
