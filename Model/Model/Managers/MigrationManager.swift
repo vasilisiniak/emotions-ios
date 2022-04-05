@@ -7,7 +7,7 @@ public protocol MigrationManager {
 public final class MigrationManagerImpl {
 
     private enum Constants {
-        fileprivate static let VersionKey = "Model.MigrationManagerImpl.VersionKey"
+        static let VersionKey = "Model.MigrationManagerImpl.VersionKey"
     }
 
     // MARK: - Private

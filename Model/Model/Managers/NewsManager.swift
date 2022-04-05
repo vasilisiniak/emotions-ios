@@ -21,7 +21,7 @@ public enum News {
 public final class NewsManagerImpl {
 
     private enum Constants {
-        fileprivate static let VersionKey = "Model.NewsManagerImpl.VersionKey"
+        static let VersionKey = "Model.NewsManagerImpl.VersionKey"
     }
 
     // MARK: - Private

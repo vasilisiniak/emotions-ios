@@ -72,7 +72,7 @@ public protocol EmotionEventsUseCase {
 public final class EmotionEventsUseCaseImpl {
 
     private enum Constants {
-        fileprivate static let FirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"
+        static let FirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"
     }
 
     // MARK: - Private

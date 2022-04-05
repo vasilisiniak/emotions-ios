@@ -52,8 +52,8 @@ public protocol EmotionsGroupsUseCase {
 public final class EmotionsGroupsUseCaseImpl {
 
     private enum Constants {
-        fileprivate static let FirstLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.FirstLaunchKey"
-        fileprivate static let SecondLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.SecondLaunchKey"
+        static let FirstLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.FirstLaunchKey"
+        static let SecondLaunchKey = "UseCases.EmotionsGroupsUseCaseImpl.SecondLaunchKey"
     }
 
     // MARK: - Private

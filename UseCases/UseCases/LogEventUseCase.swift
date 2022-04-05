@@ -26,9 +26,9 @@ public protocol LogEventUseCase {
 public final class LogEventUseCaseImpl {
 
     private enum Constants {
-        fileprivate static let FirstCreationKey = "UseCases.LogEventUseCaseImpl.FirstCreationKey"
-        fileprivate static let SecondCreationKey = "UseCases.LogEventUseCaseImpl.SecondCreationKey"
-        fileprivate static let ThirdCreationKey = "UseCases.LogEventUseCaseImpl.ThirdCreationKey"
+        static let FirstCreationKey = "UseCases.LogEventUseCaseImpl.FirstCreationKey"
+        static let SecondCreationKey = "UseCases.LogEventUseCaseImpl.SecondCreationKey"
+        static let ThirdCreationKey = "UseCases.LogEventUseCaseImpl.ThirdCreationKey"
     }
 
     // MARK: - Private

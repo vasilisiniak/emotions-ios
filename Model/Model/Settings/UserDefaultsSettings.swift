@@ -4,14 +4,14 @@ import Utils
 public final class UserDefaultsSettings {
 
     private enum Constants {
-        fileprivate static let RangeMinKey = "Model.SettingsImpl.RangeMinKey"
-        fileprivate static let RangeMaxKey = "Model.SettingsImpl.RangeMaxKey"
-        fileprivate static let ProtectSensitiveDataKey = "Model.SettingsImpl.ProtectSensitiveDataKey"
-        fileprivate static let UseFaceIdKey = "Model.SettingsImpl.UseFaceIdKey"
-        fileprivate static let UseLegacyLayoutKey = "Model.SettingsImpl.UseLegacyLayoutKey"
-        fileprivate static let UseExtendedDiaryKey = "Model.SettingsImpl.UseExtendedDiaryKey"
-        fileprivate static let ReduceAnimationKey = "Model.SettingsImpl.ReduceAnimationKey"
-        fileprivate static let UseLegacyDiaryKey = "Model.SettingsImpl.UseLegacyDiaryKey"
+        static let RangeMinKey = "Model.SettingsImpl.RangeMinKey"
+        static let RangeMaxKey = "Model.SettingsImpl.RangeMaxKey"
+        static let ProtectSensitiveDataKey = "Model.SettingsImpl.ProtectSensitiveDataKey"
+        static let UseFaceIdKey = "Model.SettingsImpl.UseFaceIdKey"
+        static let UseLegacyLayoutKey = "Model.SettingsImpl.UseLegacyLayoutKey"
+        static let UseExtendedDiaryKey = "Model.SettingsImpl.UseExtendedDiaryKey"
+        static let ReduceAnimationKey = "Model.SettingsImpl.ReduceAnimationKey"
+        static let UseLegacyDiaryKey = "Model.SettingsImpl.UseLegacyDiaryKey"
     }
 
     // MARK: - Private

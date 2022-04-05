@@ -15,11 +15,11 @@ public protocol PromoManagerSender {
 public final class PromoManagerImpl {
 
     private enum Constants {
-        fileprivate static let LaunchesKey = "Model.PromoManagerImpl.LaunchesKey"
-        fileprivate static let VersionKey = "Model.PromoManagerImpl.VersionKey"
-        fileprivate static let LaunchDateKey = "Model.PromoManagerImpl.LaunchDateKey"
-        fileprivate static let FirstRateKey = "Model.PromoManagerImpl.FirstRateKey"
-        fileprivate static let FirstShareKey = "Model.PromoManagerImpl.FirstShareKey"
+        static let LaunchesKey = "Model.PromoManagerImpl.LaunchesKey"
+        static let VersionKey = "Model.PromoManagerImpl.VersionKey"
+        static let LaunchDateKey = "Model.PromoManagerImpl.LaunchDateKey"
+        static let FirstRateKey = "Model.PromoManagerImpl.FirstRateKey"
+        static let FirstShareKey = "Model.PromoManagerImpl.FirstShareKey"
     }
 
     // MARK: - Private
