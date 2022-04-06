@@ -1,13 +1,31 @@
 import Foundation
 import Model
 
-public enum EventNameUseCaseMode {
-    case create
-    case edit
+public enum EventNameUseCaseObjects {
+
+    public enum Mode {
+        case create
+        case edit
+    }
+
+    public struct Emotion {
+
+        // MARK: - Internal
+
+        init(_ name: String, _ color: String) {
+            self.name = name
+            self.color = color
+        }
+
+        // MARK: - Public
+
+        public let name: String
+        public let color: String
+    }
 }
 
 public protocol EventNameUseCaseOutput: AnyObject {
-    func present(selectedEmotions: [String], color: String)
+    func present(selectedEmotions: [EventNameUseCaseObjects.Emotion], color: String)
     func present(date: Date, name: String, details: String?)
     func present(addAvailable: Bool)
     func presentCancel()
@@ -23,14 +41,15 @@ public protocol EventNameUseCase {
     func event(detailsChanged: String?)
     func event(dateChanged: Date)
     func eventAdd()
-    var mode: EventNameUseCaseMode { get }
+    var mode: EventNameUseCaseObjects.Mode { get }
 }
 
 public final class EventNameUseCaseImpl {
 
     // MARK: - Private
 
-    private let provider: EmotionEventsProvider
+    private let eventsProvider: EmotionEventsProvider
+    private let groupsProvider: EmotionsGroupsProvider
     private let analytics: AnalyticsManager
     private let selectedEmotions: [String]
     private let color: String
@@ -38,12 +57,30 @@ public final class EventNameUseCaseImpl {
     private var details: String?
     private var date = Date()
 
+    private func color(_ emotion: String) -> String {
+        let groups = groupsProvider.emotionsGroups
+        let group = groups.first { $0.emotions.contains { $0.name == emotion } } ?? groups[0]
+        return group.color
+    }
+
+    private func presentEmotions() {
+        let emotions = selectedEmotions.map { EventNameUseCaseObjects.Emotion($0, color($0)) }
+        output.present(selectedEmotions: emotions, color: color)
+    }
+
     // MARK: - Public
 
     public weak var output: EventNameUseCaseOutput!
 
-    public init(provider: EmotionEventsProvider, analytics: AnalyticsManager, selectedEmotions: [String], color: String) {
-        self.provider = provider
+    public init(
+        eventsProvider: EmotionEventsProvider,
+        groupsProvider: EmotionsGroupsProvider,
+        analytics: AnalyticsManager,
+        selectedEmotions: [String],
+        color: String
+    ) {
+        self.eventsProvider = eventsProvider
+        self.groupsProvider = groupsProvider
         self.analytics = analytics
         self.selectedEmotions = selectedEmotions
         self.color = color
@@ -51,10 +88,10 @@ public final class EventNameUseCaseImpl {
 }
 
 extension EventNameUseCaseImpl: EventNameUseCase {
-    public var mode: EventNameUseCaseMode { .create }
+    public var mode: EventNameUseCaseObjects.Mode { .create }
 
     public func eventOutputReady() {
-        output.present(selectedEmotions: selectedEmotions, color: color)
+        presentEmotions()
         output.presentBackAddButtons()
         output.present(addAvailable: false)
     }
@@ -78,7 +115,7 @@ extension EventNameUseCaseImpl: EventNameUseCase {
 
     public func eventAdd() {
         let event = EmotionEvent(date: date, name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
-        provider.log(event: event)
+        eventsProvider.log(event: event)
         analytics.track(.eventCreated(hasDetails: (details?.isEmpty == false)))
         output.presentEmotions()
     }

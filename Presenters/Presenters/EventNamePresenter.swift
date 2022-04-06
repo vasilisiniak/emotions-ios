@@ -1,12 +1,30 @@
 import UIKit
 import UseCases
 
+public enum EventNamePresenterObjects {
+
+    public struct Emotion {
+
+        // MARK: - Fileprivate
+
+        fileprivate init(emotion: EventNameUseCaseObjects.Emotion) {
+            name = emotion.name
+            color = UIColor(hex: emotion.color)
+        }
+
+        // MARK: - Public
+
+        public let name: String
+        public let color: UIColor
+    }
+}
+
 public protocol EventNamePresenterOutput: AnyObject {
     func show(title: String, name: String, details: String)
     func show(backButton: String)
     func show(addButton: String)
     func show(addButtonEnabled: Bool)
-    func show(selectedEmotions: String)
+    func show(selectedEmotions: [EventNamePresenterObjects.Emotion])
     func show(date: Date, name: String, details: String?)
     func show(color: UIColor)
     func showKeyboard()
@@ -98,9 +116,11 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         output.show(addButtonEnabled: addAvailable)
     }
 
-    public func present(selectedEmotions: [String], color: String) {
-        output.show(selectedEmotions: selectedEmotions.joined(separator: ", "))
+    public func present(selectedEmotions: [EventNameUseCaseObjects.Emotion], color: String) {
+        let emotions = selectedEmotions.map(EventNamePresenterObjects.Emotion.init(emotion:))
+        output.show(selectedEmotions: emotions)
         output.show(color: UIColor(hex: color))
+
     }
 
     public func presentCancel() {

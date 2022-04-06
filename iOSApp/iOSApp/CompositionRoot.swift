@@ -57,7 +57,8 @@ extension CompositionRoot: LogEventViewControllerComposer {
         EventNameConnector(
             viewController: eventNameViewController,
             router: router,
-            provider: AppGroup.emotionEventsProvider,
+            eventsProvider: AppGroup.emotionEventsProvider,
+            groupsProvider: AppGroup.groupsProvider,
             analytics: analytics,
             selectedEmotions: selectedEmotions,
             color: color
@@ -121,7 +122,8 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         EditEventNameConnector(
             viewController: eventNameViewController,
             router: router,
-            provider: AppGroup.emotionEventsProvider,
+            eventsProvider: AppGroup.emotionEventsProvider,
+            groupsProvider: AppGroup.groupsProvider,
             name: name,
             details: details,
             date: date,

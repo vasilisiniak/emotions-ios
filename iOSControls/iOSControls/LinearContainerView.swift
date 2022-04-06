@@ -88,8 +88,10 @@ public final class LinearContainerView: UIView {
 
         width = nil
 
-        setNeedsLayout()
-        layoutIfNeeded()
+        if superview?.bounds != .zero {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
     }
 
     public func removeAll() {
@@ -98,7 +100,9 @@ public final class LinearContainerView: UIView {
 
         width = nil
 
-        setNeedsLayout()
-        layoutIfNeeded()
+        if superview?.bounds != .zero {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
     }
 }

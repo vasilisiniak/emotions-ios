@@ -13,23 +13,44 @@ public final class EditEventNameUseCaseImpl {
 
     // MARK: - Private
 
-    private let provider: EmotionEventsProvider
+    private let eventsProvider: EmotionEventsProvider
+    private let groupsProvider: EmotionsGroupsProvider
     private let original: Event
     private var current: Event
     private let selectedEmotions: [String]
     private let color: String
 
-    func onChange() {
+    private func onChange() {
         let hasChanges = (original != current)
         output.present(addAvailable: hasChanges && current.valid)
+    }
+
+    private func color(_ emotion: String) -> String {
+        let groups = groupsProvider.emotionsGroups
+        let group = groups.first { $0.emotions.contains { $0.name == emotion } } ?? groups[0]
+        return group.color
+    }
+
+    private func presentEmotions() {
+        let emotions = selectedEmotions.map { EventNameUseCaseObjects.Emotion($0, color($0)) }
+        output.present(selectedEmotions: emotions, color: color)
     }
 
     // MARK: - Public
 
     public weak var output: EventNameUseCaseOutput!
 
-    public init(provider: EmotionEventsProvider, name: String, details: String?, date: Date, selectedEmotions: [String], color: String) {
-        self.provider = provider
+    public init(
+        eventsProvider: EmotionEventsProvider,
+        groupsProvider: EmotionsGroupsProvider,
+        name: String,
+        details: String?,
+        date: Date,
+        selectedEmotions: [String],
+        color: String
+    ) {
+        self.eventsProvider = eventsProvider
+        self.groupsProvider = groupsProvider
         self.selectedEmotions = selectedEmotions
         self.color = color
 
@@ -39,10 +60,10 @@ public final class EditEventNameUseCaseImpl {
 }
 
 extension EditEventNameUseCaseImpl: EventNameUseCase {
-    public var mode: EventNameUseCaseMode { .edit }
+    public var mode: EventNameUseCaseObjects.Mode { .edit }
 
     public func eventOutputReady() {
-        output.present(selectedEmotions: selectedEmotions, color: color)
+        presentEmotions()
         output.present(date: original.date, name: original.name, details: original.details)
         output.presentCancelSaveButtons()
         output.present(addAvailable: false)
@@ -69,7 +90,7 @@ extension EditEventNameUseCaseImpl: EventNameUseCase {
 
     public func eventAdd() {
         let event = EmotionEvent(date: current.date, name: current.name, details: current.details, emotions: selectedEmotions.joined(separator: ", "), color: color)
-        provider.update(event: event, for: original.date)
+        eventsProvider.update(event: event, for: original.date)
         output.presentEmotions()
     }
 }

@@ -18,7 +18,8 @@ final class EventNameConnector {
     init(
         viewController: EventNameViewController,
         router: EventNameRouter,
-        provider: EmotionEventsProvider,
+        eventsProvider: EmotionEventsProvider,
+        groupsProvider: EmotionsGroupsProvider,
         analytics: AnalyticsManager,
         selectedEmotions: [String],
         color: String
@@ -26,7 +27,13 @@ final class EventNameConnector {
         self.viewController = viewController
         self.router = router
         presenter = EventNamePresenterImpl()
-        useCase = EventNameUseCaseImpl(provider: provider, analytics: analytics, selectedEmotions: selectedEmotions, color: color)
+        useCase = EventNameUseCaseImpl(
+            eventsProvider: eventsProvider,
+            groupsProvider: groupsProvider,
+            analytics: analytics,
+            selectedEmotions: selectedEmotions,
+            color: color
+        )
     }
 
     func configure() {

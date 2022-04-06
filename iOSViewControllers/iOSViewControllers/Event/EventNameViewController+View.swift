@@ -24,7 +24,7 @@ extension EventNameViewController {
             addSubview(date)
             addSubview(name)
             addSubview(details)
-            addSubview(label)
+            addSubview(emotions)
         }
 
         private func makeConstraints() {
@@ -32,10 +32,9 @@ extension EventNameViewController {
             date.translatesAutoresizingMaskIntoConstraints = false
             name.translatesAutoresizingMaskIntoConstraints = false
             details.translatesAutoresizingMaskIntoConstraints = false
-            label.translatesAutoresizingMaskIntoConstraints = false
+            emotions.translatesAutoresizingMaskIntoConstraints = false
 
-            name.setContentCompressionResistancePriority(.required, for: .vertical)
-            label.setContentCompressionResistancePriority(.required, for: .vertical)
+            details.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
             NSLayoutConstraint.activate([
                 backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -55,10 +54,10 @@ extension EventNameViewController {
                 details.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
                 details.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 9),
 
-                label.topAnchor.constraint(equalTo: details.bottomAnchor, constant: 9),
-                label.leadingAnchor.constraint(equalTo: leadingAnchor),
-                label.trailingAnchor.constraint(equalTo: trailingAnchor),
-                label.bottomAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.bottomAnchor)
+                emotions.topAnchor.constraint(equalTo: details.bottomAnchor, constant: 9),
+                emotions.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+                emotions.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+                emotions.bottomAnchor.constraint(lessThanOrEqualTo: layoutMarginsGuide.bottomAnchor, constant: -9)
             ])
         }
 
@@ -89,12 +88,7 @@ extension EventNameViewController {
             $0.heightConstraints = (min: $0.font!.lineHeight * 3, max: nil)
         }
 
-        let label: PaddedLabel = create {
-            $0.font = .preferredFont(forTextStyle: .headline)
-            $0.adjustsFontForContentSizeCategory = true
-            $0.numberOfLines = 0
-            $0.textInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        }
+        let emotions = LinearContainerView()
 
         init() {
             super.init(frame: .zero)

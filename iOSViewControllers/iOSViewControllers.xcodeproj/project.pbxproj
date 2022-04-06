@@ -13,6 +13,7 @@
 		167E16A92602423F00A8B0EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A82602423F00A8B0EC /* SettingsViewController.swift */; };
 		16812B2627F1E7980045002F /* EmotionEventsViewController+Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */; };
 		16AC775E2670CB8C0029B7CC /* TrendsViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */; };
+		16F7F36427FDAF52006F988F /* EventNameViewController+Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */; };
 		83010ACF2584FE770037D024 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; };
 		83020139258F899000D744DF /* EmotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020138258F899000D744DF /* EmotionsViewController.swift */; };
 		83020144258F91A400D744DF /* TrendsViewController+NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */; };
@@ -38,6 +39,7 @@
 		167E16A82602423F00A8B0EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionEventsViewController+Bubble.swift"; sourceTree = "<group>"; };
 		16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+View.swift"; sourceTree = "<group>"; };
+		16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventNameViewController+Bubble.swift"; sourceTree = "<group>"; };
 		83010ACE2584FE770037D024 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83020138258F899000D744DF /* EmotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsViewController.swift; sourceTree = "<group>"; };
 		83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+NoDataView.swift"; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		168759FE27F5E30000DBA53A /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */,
 				83557354258623F7007F15C8 /* EventNameViewController+View.swift */,
 				83557352258623D9007F15C8 /* EventNameViewController.swift */,
 			);
@@ -241,6 +244,7 @@
 				8377F47D2582CD1E006C9D2F /* EmotionsGroupsViewController.swift in Sources */,
 				83020139258F899000D744DF /* EmotionsViewController.swift in Sources */,
 				167E16A92602423F00A8B0EC /* SettingsViewController.swift in Sources */,
+				16F7F36427FDAF52006F988F /* EventNameViewController+Bubble.swift in Sources */,
 				16812B2627F1E7980045002F /* EmotionEventsViewController+Bubble.swift in Sources */,
 				830C7594258A2F3700F964BC /* EmotionEventsViewController+Cell.swift in Sources */,
 				83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */,

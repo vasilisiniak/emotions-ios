@@ -154,7 +154,6 @@ extension EventNameViewController: UITextPasteDelegate {
 
 extension EventNameViewController: EventNamePresenterOutput {
     public func show(color: UIColor) {
-        eventNameView.label.backgroundColor = color.withAlphaComponent(0.2)
         eventNameView.backgroundView.backgroundColor = color.withAlphaComponent(0.2)
     }
 
@@ -176,8 +175,10 @@ extension EventNameViewController: EventNamePresenterOutput {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: addButton) { [weak self] in self?.onAdd()}
     }
 
-    public func show(selectedEmotions: String) {
-        eventNameView.label.text = selectedEmotions
+    public func show(selectedEmotions: [EventNamePresenterObjects.Emotion]) {
+        selectedEmotions
+            .map { Bubble.create($0.name, $0.color) }
+            .forEach { eventNameView.emotions.add(view: $0) }
     }
 
     public func show(date: Date, name: String, details: String?) {
