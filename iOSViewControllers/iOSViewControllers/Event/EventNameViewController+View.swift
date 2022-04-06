@@ -76,10 +76,10 @@ extension EventNameViewController {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = .preferredFont(forTextStyle: .body)
             $0.backgroundColor = .systemBackground.withAlphaComponent(0.5)
-            $0.textContainer.maximumNumberOfLines = 1
+            $0.textContainer.maximumNumberOfLines = 2
             $0.textContainer.lineBreakMode = .byTruncatingTail
             $0.returnKeyType = .next
-            $0.heightConstraints = (min: $0.font!.lineHeight + 18, max: $0.font!.lineHeight + 18)
+            $0.heightConstraints = (min: $0.font!.lineHeight + 18, max: $0.font!.lineHeight * 3)
         }
 
         let details: ExpandableTextView = create {

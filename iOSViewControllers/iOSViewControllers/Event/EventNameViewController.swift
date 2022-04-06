@@ -124,7 +124,7 @@ extension EventNameViewController: UITextViewDelegate {
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard textView.textContainer.maximumNumberOfLines == 1 else { return true }
+        guard textView.textContainer.maximumNumberOfLines == 2 else { return true }
         guard let oldText = textView.text, let newRange = Range(range, in: oldText) else { return true }
 
         let newText = oldText.replacingCharacters(in: newRange, with: text)
