@@ -2,6 +2,17 @@ import Foundation
 
 public struct EmotionEvent {
 
+    // MARK: - Internal
+
+    init(date: Date, name: String, details: String?, emotions: String, color: String, deleted: Date?) {
+        self.date = date
+        self.name = name
+        self.details = details
+        self.emotions = emotions
+        self.color = color
+        self.deleted = deleted
+    }
+
     // MARK: - Public
 
     public let date: Date
@@ -9,13 +20,10 @@ public struct EmotionEvent {
     public let details: String?
     public let emotions: String
     public let color: String
+    public let deleted: Date?
 
     public init(date: Date, name: String, details: String?, emotions: String, color: String) {
-        self.date = date
-        self.name = name
-        self.details = details
-        self.emotions = emotions
-        self.color = color
+        self.init(date: date, name: name, details: details, emotions: emotions, color: color, deleted: nil)
     }
 }
 
