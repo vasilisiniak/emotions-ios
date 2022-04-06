@@ -10,6 +10,8 @@ public final class LinearContainerView: UIView {
 
     public override func layoutSubviews() {
         layout(for: bounds.width)
+        gradient.frame = bounds
+        layer.mask = needsGradient ? gradient : nil
         invalidateIntrinsicContentSize()
     }
 
@@ -24,6 +26,23 @@ public final class LinearContainerView: UIView {
 
     private var views: [UIView] = []
     private var width: CGFloat?
+
+    private lazy var gradient: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.startPoint = CGPoint(x: 0.8, y: 0.5)
+        layer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        layer.colors = [
+            UIColor.white.cgColor,
+            UIColor.clear.cgColor
+        ]
+        return layer
+    }()
+
+    var needsGradient: Bool {
+        guard singleLine else { return false }
+        let maxX = views.map(\.frame.maxX).max() ?? 0
+        return maxX > bounds.maxX
+    }
 
     private var engineBounds: CGRect? {
         let objcSelector = NSSelectorFromString("_nsis_compatibleBoundsInEngine:")
@@ -55,7 +74,7 @@ public final class LinearContainerView: UIView {
         views.forEach {
             $0.frame.size = $0.intrinsicContentSize
 
-            if (x > 0) && (width > 0) && (x + $0.frame.width > width) {
+            if !singleLine && (x > 0) && (width > 0) && (x + $0.frame.width > width) {
                 x = 0
                 y += $0.frame.height + paddingY
             }
@@ -67,6 +86,13 @@ public final class LinearContainerView: UIView {
     }
 
     // MARK: - Public
+
+    public var singleLine = false {
+        didSet {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
 
     public var paddingX: CGFloat = 5 {
         didSet {

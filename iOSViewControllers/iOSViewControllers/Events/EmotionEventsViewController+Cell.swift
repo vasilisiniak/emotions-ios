@@ -113,6 +113,7 @@ extension EmotionEventsViewController {
                 [nameLabel, detailsLabel, emotionsLabel].forEach {
                     $0.numberOfLines = (expanded ? 0 : 1)
                 }
+                emotions.singleLine = !expanded
             }
         }
     }
