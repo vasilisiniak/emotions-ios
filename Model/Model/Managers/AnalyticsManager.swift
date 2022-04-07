@@ -23,6 +23,7 @@ public enum AnalyticsEvent {
     case eraseEvent
     case restoreEvent
     case editEvent
+    case eraseAll
     case rate
     case share
     case suggestEmotion

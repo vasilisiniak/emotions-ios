@@ -135,6 +135,14 @@ public final class EmotionEventsViewController: UIViewController {
         presenter.event(editIndexPath: indexPath)
     }
 
+    private func eraseAll() {
+        guard tableView.numberOfSections > 0 else { return }
+        isUpdating = true
+        presenter.eventDeleteAll()
+        tableView.deleteSections(IndexSet(Array(0..<tableView.numberOfSections)), with: .automatic)
+        isUpdating = false
+    }
+
     // MARK: - Public
 
     public var presenter: EmotionEventsPresenter!
@@ -258,7 +266,7 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
                 )
             case .eraseAll:
                 left.append(
-                    UIBarButtonItem(title: presenter.eraseAllTitle, handler: {/*TODO*/})
+                    UIBarButtonItem(title: presenter.eraseAllTitle) { [weak self] in self?.eraseAll() }
                 )
             case .info:
                 right.append(

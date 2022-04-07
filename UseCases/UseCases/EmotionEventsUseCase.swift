@@ -71,6 +71,7 @@ public protocol EmotionEventsUseCase {
     func eventStartUnsafe()
     func eventEndUnsafe(info: String)
     func eventFaceIdInfo()
+    func eventDeleteAll()
 
     var mode: EmotionEventsUseCaseObjects.Mode { get }
     var legacy: Bool { get }
@@ -254,5 +255,18 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
 
     public func eventToggleExpand() {
         analytics.track(.toggleExpand)
+    }
+
+    public func eventDeleteAll() {
+        switch mode {
+        case .normal:
+            fatalError()
+        case .deleted:
+            analytics.track(.eraseAll)
+            while !events.isEmpty {
+                eventsProvider.erase(event: events.first!)
+            }
+            presentEvents()
+        }
     }
 }

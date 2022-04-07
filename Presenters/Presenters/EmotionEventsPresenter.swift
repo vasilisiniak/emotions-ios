@@ -148,6 +148,7 @@ public protocol EmotionEventsPresenter {
     func eventStartUnsafe()
     func eventEndUnsafe()
     func eventFaceIdInfo()
+    func eventDeleteAll()
 }
 
 public final class EmotionEventsPresenterImpl {
@@ -281,6 +282,10 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public func eventDeletedTap() {
         router.routeDeleted()
+    }
+
+    public func eventDeleteAll() {
+        useCase.eventDeleteAll()
     }
 
     public func expanded(_ indexPath: IndexPath) -> Bool {
