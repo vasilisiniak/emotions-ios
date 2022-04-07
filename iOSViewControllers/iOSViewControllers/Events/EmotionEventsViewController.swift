@@ -15,10 +15,6 @@ public final class EmotionEventsViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         navigationItem.title = presenter.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "InfoIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
-            primaryAction: UIAction { [presenter] _ in presenter?.eventInfoTap() }
-        )
 
         layoutSubviews()
 
@@ -123,6 +119,18 @@ public final class EmotionEventsViewController: UIViewController {
         isUpdating = false
     }
 
+    private func restore(indexPath: IndexPath) {
+        isUpdating = true
+        presenter.event(restoreIndexPath: indexPath)
+        if tableView.numberOfRows(inSection: indexPath.section) == 1 {
+            tableView.deleteSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+        }
+        else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        isUpdating = false
+    }
+
     private func edit(indexPath: IndexPath) {
         presenter.event(editIndexPath: indexPath)
     }
@@ -154,6 +162,7 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.nameLabel.text = event.name
         cell.detailsLabel.text = event.details
         cell.timeLabel.text = event.timeString
+        cell.shareButton.isHidden = !presenter.sharable
         cell.backgroundColor = .systemBackground
         cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
@@ -181,18 +190,35 @@ extension EmotionEventsViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: presenter.deleteTitle) { [weak self] (_, _, completion) in
-            self?.delete(indexPath: indexPath)
-            completion(true)
+        let actions = presenter.editActions.map { action -> UIContextualAction in
+            switch action {
+            case .edit:
+                let action = UIContextualAction(style: .normal, title: presenter.editTitle) { [weak self] (_, _, completion) in
+                    self?.edit(indexPath: indexPath)
+                    completion(true)
+                }
+                action.backgroundColor = .systemYellow
+                return action
+            case .delete:
+                return UIContextualAction(style: .destructive, title: presenter.deleteTitle) { [weak self] (_, _, completion) in
+                    self?.delete(indexPath: indexPath)
+                    completion(true)
+                }
+            case .erase:
+                return UIContextualAction(style: .destructive, title: presenter.eraseTitle) { [weak self] (_, _, completion) in
+                    self?.delete(indexPath: indexPath)
+                    completion(true)
+                }
+            case .restore:
+                let action = UIContextualAction(style: .normal, title: presenter.restoreTitle) { [weak self] (_, _, completion) in
+                    self?.restore(indexPath: indexPath)
+                    completion(true)
+                }
+                action.backgroundColor = .systemGreen
+                return action
+            }
         }
-
-        let editAction = UIContextualAction(style: .normal, title: presenter.editTitle) { [weak self] (_, _, completion) in
-            self?.edit(indexPath: indexPath)
-            completion(true)
-        }
-        editAction.backgroundColor = .systemYellow
-
-        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return UISwipeActionsConfiguration(actions: actions)
     }
 }
 
@@ -217,6 +243,44 @@ extension EmotionEventsViewController: UITableViewDelegate {
 }
 
 extension EmotionEventsViewController: EmotionEventsPresenterOutput {
+    public func show(topBarItems: [EmotionEventsPresenterObjects.TopBarItem]) {
+        var left = [UIBarButtonItem]()
+        var right = [UIBarButtonItem]()
+
+        topBarItems.forEach {
+            switch $0 {
+            case .deleted:
+                left.append(
+                    UIBarButtonItem(
+                        image: UIImage(named: "TrashIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
+                        primaryAction: UIAction { [presenter] _ in presenter?.eventDeletedTap() }
+                    )
+                )
+            case .eraseAll:
+                left.append(
+                    UIBarButtonItem(title: presenter.eraseAllTitle, handler: {/*TODO*/})
+                )
+            case .info:
+                right.append(
+                    UIBarButtonItem(
+                        image: UIImage(named: "InfoIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
+                        primaryAction: UIAction { [presenter] _ in presenter?.eventInfoTap() }
+                    )
+                )
+            case .close:
+                right.append(
+                    UIBarButtonItem(
+                        image: UIImage(named: "CloseIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
+                        primaryAction: UIAction { [presenter] _ in presenter?.eventCloseTap() }
+                    )
+                )
+            }
+        }
+
+        navigationItem.leftBarButtonItems = left
+        navigationItem.rightBarButtonItems = right
+    }
+
     public func show(noDataHidden: Bool) {
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.noDataView.alpha = noDataHidden ? 0 : 1
@@ -241,9 +305,10 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
         }
     }
 
-    public func show(noDataText: String, button: String) {
+    public func show(noDataText: String, button: String?) {
         noDataView.label.text = noDataText
         noDataView.button.setTitle(button, for: .normal)
+        noDataView.button.isHidden = (button == nil)
     }
 
     public func show(eventsGroups: [EmotionEventsPresenterObjects.EventsGroup]) {

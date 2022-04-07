@@ -20,6 +20,8 @@ public enum AnalyticsEvent {
     case eventCreated(hasDetails: Bool)
     case shareEvent
     case deleteEvent
+    case eraseEvent
+    case restoreEvent
     case editEvent
     case rate
     case share

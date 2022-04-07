@@ -149,7 +149,24 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             analytics: analytics,
             eventsProvider: AppGroup.emotionEventsProvider,
             groupsProvider: AppGroup.groupsProvider,
-            faceIdInfo: AppGroup.faceIdInfo
+            faceIdInfo: AppGroup.faceIdInfo,
+            mode: .normal
+        ).configure()
+        return viewController
+    }
+
+    func deletedEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController {
+        let viewController = EmotionEventsViewController()
+        EmotionEventsConnector(
+            viewController: viewController,
+            router: router,
+            settings: AppGroup.settings,
+            lock: lock,
+            analytics: analytics,
+            eventsProvider: AppGroup.emotionEventsProvider,
+            groupsProvider: AppGroup.groupsProvider,
+            faceIdInfo: AppGroup.faceIdInfo,
+            mode: .deleted
         ).configure()
         return viewController
     }

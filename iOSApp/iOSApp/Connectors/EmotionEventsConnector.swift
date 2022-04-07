@@ -23,12 +23,14 @@ final class EmotionEventsConnector {
         analytics: AnalyticsManager,
         eventsProvider: EmotionEventsProvider,
         groupsProvider: EmotionsGroupsProvider,
-        faceIdInfo: String
+        faceIdInfo: String,
+        mode: EmotionEventsUseCaseObjects.Mode
     ) {
         self.viewController = viewController
         self.router = router
         presenter = EmotionEventsPresenterImpl()
         useCase = EmotionEventsUseCaseImpl(
+            mode: mode,
             settings: settings,
             lock: lock,
             analytics: analytics,

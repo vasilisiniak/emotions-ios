@@ -38,6 +38,11 @@ public enum EmotionEventsUseCaseObjects {
         public let emotions: [Emotion]
         public let color: String
     }
+
+    public enum Mode {
+        case normal
+        case deleted
+    }
 }
 
 public protocol EmotionEventsUseCaseOutput: AnyObject {
@@ -59,6 +64,7 @@ public protocol EmotionEventsUseCase {
     func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
+    func event(restoreEvent: EmotionEventsUseCaseObjects.Event)
     func eventToggleExpand()
     func eventAdd()
     func eventInfoTap()
@@ -66,6 +72,7 @@ public protocol EmotionEventsUseCase {
     func eventEndUnsafe(info: String)
     func eventFaceIdInfo()
 
+    var mode: EmotionEventsUseCaseObjects.Mode { get }
     var legacy: Bool { get }
 }
 
@@ -86,7 +93,6 @@ public final class EmotionEventsUseCaseImpl {
             UserDefaults.standard.synchronize()
         }
     }
-
     private let settings: Settings
     private let lock: LockManager
     private let analytics: AnalyticsManager
@@ -95,6 +101,13 @@ public final class EmotionEventsUseCaseImpl {
     private let faceIdInfo: String
     private var token: AnyObject?
 
+    private var events: [EmotionEvent] {
+        switch mode {
+        case .normal: return eventsProvider.events
+        case .deleted: return eventsProvider.deletedEvents
+        }
+    }
+
     private func color(_ emotion: String) -> String {
         let groups = groupsProvider.emotionsGroups
         let group = groups.first { $0.emotions.contains { $0.name == emotion } } ?? groups[0]
@@ -102,7 +115,7 @@ public final class EmotionEventsUseCaseImpl {
     }
 
     private func presentEvents() {
-        let events = eventsProvider.events
+        let events = self.events
             .map { event -> EmotionEventsUseCaseObjects.Event in
                 let emotions = event.emotions
                     .components(separatedBy: ", ")
@@ -133,9 +146,12 @@ public final class EmotionEventsUseCaseImpl {
 
     // MARK: - Public
 
+    public let mode: EmotionEventsUseCaseObjects.Mode
+
     public weak var output: EmotionEventsUseCaseOutput!
 
     public init(
+        mode: EmotionEventsUseCaseObjects.Mode,
         settings: Settings,
         lock: LockManager,
         analytics: AnalyticsManager,
@@ -143,6 +159,7 @@ public final class EmotionEventsUseCaseImpl {
         groupsProvider: EmotionsGroupsProvider,
         faceIdInfo: String
     ) {
+        self.mode = mode
         self.settings = settings
         self.lock = lock
         self.analytics = analytics
@@ -205,8 +222,20 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     }
 
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
-        analytics.track(.deleteEvent)
-        eventsProvider.delete(event: eventsProvider.events.first { $0.date == deleteEvent.date }!)
+        switch mode {
+        case .normal:
+            analytics.track(.deleteEvent)
+            eventsProvider.delete(event: events.first { $0.date == deleteEvent.date }!)
+        case .deleted:
+            analytics.track(.eraseEvent)
+            eventsProvider.erase(event: events.first { $0.date == deleteEvent.date }!)
+        }
+        presentEvents()
+    }
+
+    public func event(restoreEvent: EmotionEventsUseCaseObjects.Event) {
+        analytics.track(.restoreEvent)
+        eventsProvider.restore(event: events.first { $0.date == restoreEvent.date }!)
         presentEvents()
     }
 

@@ -11,6 +11,7 @@ public protocol EmotionsViewControllerComposer: AnyObject {
     func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
+    func deletedEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
 
     func editEventNameViewController(
         router: EventNameRouter,
@@ -63,6 +64,16 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
         else {
             selectedIndex = 0
         }
+    }
+
+    public func routeDeleted() {
+        let controller = composer.deletedEventsViewController(router: self)
+        let navigationController = UINavigationController(rootViewController: controller)
+        present(navigationController, animated: true)
+    }
+
+    public func routeClose() {
+        dismiss(animated: true)
     }
 
     public func route(shareText: String) {
