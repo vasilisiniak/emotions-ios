@@ -13,10 +13,10 @@ final class AppearanceSettingsConnector {
 
     // MARK: - Internal
 
-    init(viewController: SettingsViewController, settings: Settings) {
+    init(viewController: SettingsViewController, settings: Settings, eventsProvider: EmotionEventsProvider) {
         self.viewController = viewController
         presenter = AppearanceSettingsPresenterImpl()
-        useCase = AppearanceSettingsUseCaseImpl(settings: settings)
+        useCase = AppearanceSettingsUseCaseImpl(settings: settings, eventsProvider: eventsProvider)
     }
 
     func configure() {

@@ -83,7 +83,11 @@ extension CompositionRoot: EmotionsViewControllerComposer {
 
     var appearanceSettingsViewController: SettingsViewController {
         let viewController = SettingsViewController()
-        AppearanceSettingsConnector(viewController: viewController, settings: AppGroup.settings).configure()
+        AppearanceSettingsConnector(
+            viewController: viewController,
+            settings: AppGroup.settings,
+            eventsProvider: AppGroup.emotionEventsProvider
+        ).configure()
         return viewController
     }
 

@@ -151,10 +151,12 @@ extension SettingsViewController: SettingsPresenterOutput {
         tableView.reloadRows(at: update, with: .automatic)
     }
 
-    public func show(message: String, okButton: String, infoButton: String, okHandler: @escaping () -> ()) {
+    public func show(message: String, okButton: String, infoButton: String?, okHandler: (() -> ())?) {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: okButton, style: .default))
-        alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { _ in okHandler() }))
+        if let infoButton = infoButton, let okHandler = okHandler {
+            alert.addAction(UIAlertAction(title: infoButton, style: .default, handler: { _ in okHandler() }))
+        }
         present(alert, animated: true)
     }
 

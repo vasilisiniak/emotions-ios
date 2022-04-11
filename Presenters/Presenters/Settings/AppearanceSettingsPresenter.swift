@@ -180,4 +180,8 @@ extension AppearanceSettingsPresenterImpl: AppearanceSettingsUseCaseOutput {
         }
         output.show(sections: sections, update: update)
     }
+
+    public func presentTrashNotEmpty() {
+        output.show(message: "Корзина не пуста: удалите или восстановите записи из корзины перед её отключением", okButton: "OK", infoButton: nil, okHandler: nil)
+    }
 }
