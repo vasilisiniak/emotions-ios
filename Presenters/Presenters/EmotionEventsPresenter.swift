@@ -225,12 +225,8 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public func eventViewReady() {
         switch useCase.mode {
-        case .normal:
-            output.show(noDataText: "Здесь отображаются события и эмоции, которые они вызвали. Но пока записей нет", button: "Добавить запись")
-            output.show(topBarItems: [.deleted, .info])
-        case .deleted:
-            output.show(noDataText: "Здесь отображаются недавно удалённые события. Но сейчас таких записей нет", button: nil)
-            output.show(topBarItems: [.eraseAll, .close, .info])
+        case .normal: output.show(noDataText: "Здесь отображаются события и эмоции, которые они вызвали. Но пока записей нет", button: "Добавить запись")
+        case .deleted: output.show(noDataText: "Здесь отображаются недавно удалённые события. Но сейчас таких записей нет", button: nil)
         }
         useCase.eventOutputReady()
     }
@@ -312,6 +308,13 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func present(blur: Bool) {
         output.show(blur: blur)
+    }
+
+    public func present(trash: Bool) {
+        switch useCase.mode {
+        case .normal: output.show(topBarItems: (trash ? [.deleted, .info] : [.info]))
+        case .deleted: output.show(topBarItems: [.eraseAll, .close, .info])
+        }
     }
 
     public func present(shareEvent: EmotionEventsUseCaseObjects.Event) {

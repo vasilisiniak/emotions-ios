@@ -49,6 +49,7 @@ public protocol EmotionEventsUseCaseOutput: AnyObject {
     func present(events: [EmotionEventsUseCaseObjects.Event], expanded: Bool)
     func present(noData: Bool)
     func present(blur: Bool)
+    func present(trash: Bool)
     func present(shareEvent: EmotionEventsUseCaseObjects.Event)
     func present(editEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
@@ -102,6 +103,20 @@ public final class EmotionEventsUseCaseImpl {
     private let faceIdInfo: String
     private var token: AnyObject?
 
+    private var erase: Bool {
+        switch mode {
+        case .normal: return settings.eraseImmediately
+        case .deleted: return true
+        }
+    }
+
+    private var showTrash: Bool {
+        switch mode {
+        case .normal: return !settings.eraseImmediately && !eventsProvider.deletedEvents.isEmpty
+        case .deleted: return false
+        }
+    }
+
     private var events: [EmotionEvent] {
         switch mode {
         case .normal: return eventsProvider.events
@@ -126,6 +141,7 @@ public final class EmotionEventsUseCaseImpl {
             .sorted { $0.date > $1.date }
         output.present(events: events, expanded: settings.useExpandedDiary)
         output.present(noData: events.count == 0)
+        output.present(trash: showTrash)
     }
 
     private func unlockEvents(info: String) {
@@ -223,13 +239,13 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     }
 
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
-        switch mode {
-        case .normal:
-            analytics.track(.deleteEvent)
-            eventsProvider.delete(event: events.first { $0.date == deleteEvent.date }!)
-        case .deleted:
+        if erase {
             analytics.track(.eraseEvent)
             eventsProvider.erase(event: events.first { $0.date == deleteEvent.date }!)
+        }
+        else {
+            analytics.track(.deleteEvent)
+            eventsProvider.delete(event: events.first { $0.date == deleteEvent.date }!)
         }
         presentEvents()
     }
