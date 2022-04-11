@@ -14,6 +14,7 @@ public final class UserDefaultsSettings {
         static let ReduceAnimationKey = "Model.SettingsImpl.ReduceAnimationKey"
         static let UseLegacyDiaryKey = "Model.SettingsImpl.UseLegacyDiaryKey"
         static let AppearanceKey = "Model.SettingsImpl.AppearanceKey"
+        static let EraseImmediatelyKey = "Model.SettingsImpl.EraseImmediatelyKey"
     }
 
     // MARK: - Private
@@ -23,6 +24,16 @@ public final class UserDefaultsSettings {
 
     private func notify() {
         observers.values.forEach { $0(self) }
+    }
+
+    private func set<T>(_ value: T?, key: String) {
+        defaults.set(value, forKey: key)
+        defaults.synchronize()
+        notify()
+    }
+
+    private func get(_ key: String) -> Bool {
+        defaults.bool(forKey: key)
     }
 
     // MARK: - Public
@@ -50,87 +61,43 @@ extension UserDefaultsSettings: Settings {
     }
 
     public var protectSensitiveData: Bool {
-        get {
-            defaults.bool(forKey: Constants.ProtectSensitiveDataKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.ProtectSensitiveDataKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.ProtectSensitiveDataKey) }
+        set { set(newValue, key: Constants.ProtectSensitiveDataKey) }
     }
 
     public var useFaceId: Bool {
-        get {
-            defaults.bool(forKey: Constants.UseFaceIdKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.UseFaceIdKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.UseFaceIdKey) }
+        set { set(newValue, key: Constants.UseFaceIdKey) }
     }
 
     public var useLegacyLayout: Bool {
-        get {
-            defaults.bool(forKey: Constants.UseLegacyLayoutKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.UseLegacyLayoutKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.UseLegacyLayoutKey) }
+        set { set(newValue, key: Constants.UseLegacyLayoutKey) }
     }
 
     public var useExpandedDiary: Bool {
-        get {
-            defaults.bool(forKey: Constants.UseExtendedDiaryKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.UseExtendedDiaryKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.UseExtendedDiaryKey) }
+        set { set(newValue, key: Constants.UseExtendedDiaryKey) }
     }
 
     public var reduceAnimation: Bool {
-        get {
-            defaults.bool(forKey: Constants.ReduceAnimationKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.ReduceAnimationKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.ReduceAnimationKey) }
+        set { set(newValue, key: Constants.ReduceAnimationKey) }
     }
 
     public var useLegacyDiary: Bool {
-        get {
-            defaults.bool(forKey: Constants.UseLegacyDiaryKey)
-        }
-        set {
-            defaults.set(newValue, forKey: Constants.UseLegacyDiaryKey)
-            defaults.synchronize()
-
-            notify()
-        }
+        get { get(Constants.UseLegacyDiaryKey) }
+        set { set(newValue, key: Constants.UseLegacyDiaryKey) }
     }
 
     public var appearance: UIUserInterfaceStyle {
-        get {
-            UIUserInterfaceStyle(rawValue: defaults.integer(forKey: Constants.AppearanceKey)) ?? .unspecified
-        }
-        set {
-            defaults.set(newValue.rawValue, forKey: Constants.AppearanceKey)
-            defaults.synchronize()
+        get { UIUserInterfaceStyle(rawValue: defaults.integer(forKey: Constants.AppearanceKey)) ?? .unspecified }
+        set { set(newValue.rawValue, key: Constants.AppearanceKey) }
+    }
 
-            notify()
-        }
+    public var eraseImmediately: Bool {
+        get { get(Constants.EraseImmediatelyKey) }
+        set { set(newValue, key: Constants.EraseImmediatelyKey) }
     }
 
     public func add(observer: @escaping Observer) -> AnyObject {

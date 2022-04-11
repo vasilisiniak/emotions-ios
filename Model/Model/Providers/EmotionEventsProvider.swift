@@ -18,6 +18,12 @@ public extension EmotionEventsProvider {
     func update(event: EmotionEvent) {
         update(event: event, for: event.date)
     }
+
+    func eraseAll() {
+        while let event = events.first {
+            erase(event: event)
+        }
+    }
 }
 
 fileprivate extension EmotionEvent {

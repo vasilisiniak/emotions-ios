@@ -13,4 +13,5 @@ public protocol Settings: AnyObject {
     var reduceAnimation: Bool { get set }
     var useLegacyDiary: Bool { get set }
     var appearance: UIUserInterfaceStyle { get set }
+    var eraseImmediately: Bool { get set }
 }

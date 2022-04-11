@@ -263,9 +263,7 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
             fatalError()
         case .deleted:
             analytics.track(.eraseAll)
-            while !events.isEmpty {
-                eventsProvider.erase(event: events.first!)
-            }
+            eventsProvider.eraseAll()
             presentEvents()
         }
     }

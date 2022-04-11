@@ -24,6 +24,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case compact(enabled: Bool)
             case legacyDiary(enabled: Bool)
             case reduceAnimation(enabled: Bool)
+            case trash(enabled: Bool)
 
             var title: String {
                 switch self {
@@ -32,6 +33,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .compact: return "Компактный вид дневника"
                 case .legacyDiary: return "Старый вид дневника"
                 case .reduceAnimation: return "Минимизировать анимацию"
+                case .trash: return "Удалять в корзину"
                 }
             }
 
@@ -42,6 +44,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .compact: return .switcher
                 case .legacyDiary: return .switcher
                 case .reduceAnimation: return .switcher
+                case .trash: return .switcher
                 }
             }
 
@@ -52,6 +55,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .compact(let enabled): return enabled
                 case .legacyDiary(let enabled): return enabled
                 case .reduceAnimation(let enabled): return enabled
+                case .trash(let enabled): return enabled
                 }
             }
         }
@@ -61,6 +65,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
         case compact(enabled: Bool)
         case legacyDiary(enabled: Bool)
         case reduceAnimation(enabled: Bool)
+        case trash(enabled: Bool)
 
         var rows: [SettingsPresenterRow] { sectionRows }
 
@@ -71,6 +76,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .compact(let enabled): return [.compact(enabled: enabled)]
             case .legacyDiary(let enabled): return [.legacyDiary(enabled: enabled)]
             case .reduceAnimation(let enabled): return [.reduceAnimation(enabled: enabled)]
+            case .trash(let enabled): return [.trash(enabled: enabled)]
             }
         }
 
@@ -81,6 +87,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .compact: return ""
             case .legacyDiary: return ""
             case .reduceAnimation: return ""
+            case .trash: return ""
             }
         }
 
@@ -91,6 +98,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .compact: return "Показывать дневник в однострочном режиме. Тап по ячейке показывает запись целиком"
             case .legacyDiary: return "Показывать эмоции в дневнике строкой вместо баблов"
             case .reduceAnimation: return "Убрать анимацию перемещения ячеек при выборе эмоций"
+            case .trash: return "Удалять записи дневника сначала в корзину: из неё их можно удалить навсегда либо восстановить"
             }
         }
     }
@@ -101,12 +109,13 @@ public class AppearanceSettingsPresenterImpl {
     // MARK: - Private
 
     private var defaultSections: [Section] {
-        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false)
+        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false, trash: true)
     }
 
-    private func sections(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, legacyDiary: Bool, reduceAnimation: Bool) -> [Section] {
+    private func sections(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, legacyDiary: Bool, reduceAnimation: Bool, trash: Bool) -> [Section] {
         [
             .theme(style: theme),
+            .trash(enabled: trash),
             .legacy(enabled: legacy),
             .compact(enabled: compact),
             .legacyDiary(enabled: legacyDiary),
@@ -143,6 +152,7 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
     public func event(switcher: Bool, indexPath: IndexPath) {
         switch defaultSections[indexPath.section].sectionRows[indexPath.row] {
         case .theme: fatalError()
+        case .trash: useCase.event(trash: switcher)
         case .legacy: useCase.event(legacy: switcher)
         case .compact: useCase.event(compact: switcher)
         case .legacyDiary: useCase.event(legacyDiary: switcher)
@@ -153,6 +163,7 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
     public func event(selectIndexPath: IndexPath) {
         switch defaultSections[selectIndexPath.section].sectionRows[selectIndexPath.row] {
         case .theme: showAppearance()
+        case .trash: fatalError()
         case .legacy: fatalError()
         case .compact: fatalError()
         case .legacyDiary: fatalError()
@@ -162,8 +173,8 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
 }
 
 extension AppearanceSettingsPresenterImpl: AppearanceSettingsUseCaseOutput {
-    public func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool) {
-        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation)
+    public func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool) {
+        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation, trash: trash)
         let update = sections.enumerated().flatMap { index, section in
             section.sectionRows.enumerated().map { row, _ in IndexPath(row: row, section: index) }
         }
