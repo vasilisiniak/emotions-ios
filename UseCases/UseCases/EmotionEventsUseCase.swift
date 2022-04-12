@@ -55,6 +55,7 @@ public protocol EmotionEventsUseCaseOutput: AnyObject {
     func presentEmotions()
     func presentSwipeInfo()
     func presentTrashInfo()
+    func presentDeleteInfo()
     func presentFaceIdError()
     func present(url: String)
 }
@@ -84,6 +85,7 @@ public final class EmotionEventsUseCaseImpl {
     private enum Constants {
         static let FirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"
         static let TrashFirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.TrashFirstEventDisplay"
+        static let FirstEventDelete = "UseCases.EmotionEventsUseCaseImpl.FirstEventDelete"
     }
 
     // MARK: - Private
@@ -100,6 +102,14 @@ public final class EmotionEventsUseCaseImpl {
         get { UserDefaults.standard.bool(forKey: Constants.TrashFirstEventDisplay) }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.TrashFirstEventDisplay)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
+    private var firstEventDelete: Bool {
+        get { UserDefaults.standard.bool(forKey: Constants.FirstEventDelete) }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.FirstEventDelete)
             UserDefaults.standard.synchronize()
         }
     }
@@ -256,6 +266,12 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     }
 
     public func event(deleteEvent: EmotionEventsUseCaseObjects.Event) {
+        if !firstEventDelete {
+            firstEventDelete = true
+            settings.eraseImmediately = false
+            output.presentDeleteInfo()
+        }
+
         if erase {
             analytics.track(.eraseEvent)
             eventsProvider.erase(event: events.first { $0.date == deleteEvent.date }!)
