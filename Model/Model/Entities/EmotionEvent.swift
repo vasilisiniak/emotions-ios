@@ -1,6 +1,6 @@
 import Foundation
 
-public struct EmotionEvent {
+public struct EmotionEvent: Equatable {
 
     // MARK: - Internal
 

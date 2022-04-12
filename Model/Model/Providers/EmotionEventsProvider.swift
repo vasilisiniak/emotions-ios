@@ -21,7 +21,7 @@ public extension EmotionEventsProvider {
     }
 
     func eraseAll() {
-        while let event = events.first {
+        while let event = deletedEvents.first {
             erase(event: event)
         }
     }
@@ -53,27 +53,36 @@ public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageEntity> 
 
     private let expirationInterval: TimeInterval = 3 * 24 * 60 * 60
     private let storage: Storage
+    private var listeners: [EmotionEventsProviderListener] = []
+    private var cache: [EmotionEvent]!
+
+    private var uncachedEvents: [EmotionEvent] {
+        let entities: [EmotionEventEntity] = storage.get()
+        return entities.map(EmotionEvent.init)
+    }
+
+    private func updateCache() {
+        guard uncachedEvents != cache else { return }
+        cache = uncachedEvents
+        listeners.forEach { $0() }
+    }
 
     // MARK: - Public
 
     public init(storage: Storage) {
         self.storage = storage
+        self.cache = uncachedEvents
+        self.storage.add { [weak self] in self?.updateCache() }
     }
 }
 
 extension EmotionEventsProviderImpl: EmotionEventsProvider {
     public var events: [EmotionEvent] {
-        let entities: [EmotionEventEntity] = storage.get()
-        return entities
-            .map(EmotionEvent.init)
-            .filter { $0.deleted == nil }
+        cache.filter { $0.deleted == nil }
     }
 
     public var deletedEvents: [EmotionEvent] {
-        let entities: [EmotionEventEntity] = storage.get()
-        return entities
-            .map(EmotionEvent.init)
-            .filter { $0.deleted != nil }
+        cache.filter { $0.deleted != nil }
     }
 
     public func delete(event: EmotionEvent) {
@@ -81,12 +90,14 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!
         entity.setValue(Date(), forKey: "deletedDate")
         storage.save(entity: entity)
+        updateCache()
     }
 
     public func erase(event: EmotionEvent) {
         let entities: [EmotionEventEntity] = storage.get()
         let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!
         storage.delete(entity: entity)
+        updateCache()
     }
 
     public func restore(event: EmotionEvent) {
@@ -94,16 +105,18 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         let entity = entities.first { $0.value(forKey: "date") as! Date == event.date }!
         entity.setValue(nil, forKey: "deletedDate")
         storage.save(entity: entity)
+        updateCache()
     }
 
     public func add(listener: @escaping EmotionEventsProviderListener) {
-        storage.add(listener: listener)
+        listeners.append(listener)
     }
 
     public func log(event: EmotionEvent) {
         let entity: EmotionEventEntity = storage.create()
         event.write(to: entity)
         storage.add(entity: entity)
+        updateCache()
     }
 
     public func update(event: EmotionEvent, for date: Date) {
@@ -111,6 +124,7 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         let entity = entities.first { $0.value(forKey: "date") as! Date == date }!
         event.write(to: entity)
         storage.save(entity: entity)
+        updateCache()
     }
 
     public func eraseExpired() {
