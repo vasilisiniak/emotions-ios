@@ -30,6 +30,7 @@ public protocol EventNameUseCaseOutput: AnyObject {
     func present(addAvailable: Bool)
     func presentCancel()
     func presentEmotions()
+    func presentEvents()
     func presentBackAddButtons()
     func presentCancelSaveButtons()
 }

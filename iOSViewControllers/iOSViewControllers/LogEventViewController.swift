@@ -68,6 +68,10 @@ extension LogEventViewController: EventNameRouter {
     public func routeCancel() {
         dismiss(animated: true)
     }
+
+    public func routeEvents() {
+        fatalError()
+    }
 }
 
 extension LogEventViewController: EmotionNotFoundRouter {

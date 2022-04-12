@@ -91,6 +91,6 @@ extension EditEventNameUseCaseImpl: EventNameUseCase {
     public func eventAdd() {
         let event = EmotionEvent(date: current.date, name: current.name, details: current.details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         eventsProvider.update(event: event, for: original.date)
-        output.presentEmotions()
+        output.presentEvents()
     }
 }

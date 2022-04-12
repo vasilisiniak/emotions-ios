@@ -61,9 +61,7 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
         if presentedViewController != nil {
             dismiss(animated: true)
         }
-        else {
-            selectedIndex = 0
-        }
+        selectedIndex = 0
     }
 
     public func routeDeleted() {
@@ -98,6 +96,10 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
 
 extension EmotionsViewController: EventNameRouter {
     public func routeCancel() {
+        dismiss(animated: true)
+    }
+
+    public func routeEvents() {
         dismiss(animated: true)
     }
 }

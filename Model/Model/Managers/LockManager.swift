@@ -8,6 +8,9 @@ public final class LockManagerImpl {
 
     // MARK: - Private
 
+    private var queue = [(Bool, Bool) -> ()]()
+    private let lock = NSLock()
+
     private var available: Bool {
         supports(.deviceOwnerAuthentication)
     }
@@ -37,11 +40,22 @@ extension LockManagerImpl: LockManager {
             return
         }
 
-        LAContext().evaluatePolicy(policy, localizedReason: info) { [policy] success, error in
+        lock.lock()
+        defer { lock.unlock() }
+
+        queue.append(completion)
+        guard queue.count == 1 else {
+            return
+        }
+
+        LAContext().evaluatePolicy(policy, localizedReason: info) { [weak self, policy] success, error in
             if let error = error {
                 print("Error while evaluating policy \(policy): \(error)")
             }
-            completion(true, success)
+            self?.lock.lock()
+            self?.queue.forEach { $0(true, success) }
+            self?.queue.removeAll()
+            self?.lock.unlock()
         }
     }
 }

@@ -33,6 +33,7 @@ public protocol EventNamePresenterOutput: AnyObject {
 public protocol EventNameRouter: AnyObject {
     func routeCancel()
     func routeEmotions()
+    func routeEvents()
 }
 
 public protocol EventNamePresenter {
@@ -106,6 +107,10 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
 
     public func presentEmotions() {
         router.routeEmotions()
+    }
+
+    public func presentEvents() {
+        router.routeEvents()
     }
 
     public func present(date: Date, name: String, details: String?) {
