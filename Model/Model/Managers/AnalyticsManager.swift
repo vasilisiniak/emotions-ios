@@ -111,6 +111,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionsGroupsUseCaseImpl.SecondLaunchKey"))", forName: "swipe_info_shown")
 
         Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"))", forName: "edit_info_shown")
+        Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionEventsUseCaseImpl.TrashFirstEventDisplay"))", forName: "trash_info_shown")
     }
 
     // MARK: - Public

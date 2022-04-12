@@ -297,9 +297,13 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func presentSwipeInfo() {
         switch useCase.mode {
-        case .normal: output.show(message: "Свайпните запись влево чтобы редактировать или удалить", button: "ОК")
-        case .deleted: output.show(message: "Свайпните запись влево чтобы восстановить или стереть навсегда", button: "ОК")
+        case .normal: output.show(message: "Свайпните запись влево, чтобы редактировать или удалить", button: "ОК")
+        case .deleted: output.show(message: "Свайпните запись влево, чтобы восстановить или стереть навсегда", button: "ОК")
         }
+    }
+
+    public func presentTrashInfo() {
+        output.show(message: "Свайпните запись влево, чтобы восстановить или стереть навсегда. Записи хранятся в корзине 3 дня, а затем удаляются автоматически", button: "ОК")
     }
 
     public func present(noData: Bool) {

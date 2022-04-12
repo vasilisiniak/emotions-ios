@@ -54,6 +54,7 @@ public protocol EmotionEventsUseCaseOutput: AnyObject {
     func present(editEvent: EmotionEventsUseCaseObjects.Event)
     func presentEmotions()
     func presentSwipeInfo()
+    func presentTrashInfo()
     func presentFaceIdError()
     func present(url: String)
 }
@@ -82,19 +83,27 @@ public final class EmotionEventsUseCaseImpl {
 
     private enum Constants {
         static let FirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"
+        static let TrashFirstEventDisplay = "UseCases.EmotionEventsUseCaseImpl.TrashFirstEventDisplay"
     }
 
     // MARK: - Private
 
     private var firstEventDisplay: Bool {
-        get {
-            UserDefaults.standard.bool(forKey: Constants.FirstEventDisplay)
-        }
+        get { UserDefaults.standard.bool(forKey: Constants.FirstEventDisplay) }
         set {
             UserDefaults.standard.setValue(newValue, forKey: Constants.FirstEventDisplay)
             UserDefaults.standard.synchronize()
         }
     }
+
+    private var trashFirstEventDisplay: Bool {
+        get { UserDefaults.standard.bool(forKey: Constants.TrashFirstEventDisplay) }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.TrashFirstEventDisplay)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
     private let settings: Settings
     private let lock: LockManager
     private let analytics: AnalyticsManager
@@ -227,9 +236,17 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func eventOutputReady() {
         presentEvents()
 
-        if !firstEventDisplay && eventsProvider.events.count > 0 {
-            firstEventDisplay = true
-            output.presentSwipeInfo()
+        switch mode {
+        case .normal:
+            if !firstEventDisplay && eventsProvider.events.count > 0 {
+                firstEventDisplay = true
+                output.presentSwipeInfo()
+            }
+        case .deleted:
+            if !trashFirstEventDisplay {
+                trashFirstEventDisplay = true
+                output.presentTrashInfo()
+            }
         }
     }
 
