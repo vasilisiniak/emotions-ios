@@ -36,5 +36,6 @@ extension AppDelegate: UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         compositionRoot.promoManager.trackAppLaunch()
+        AppGroup.emotionEventsProvider.eraseExpired()
     }
 }

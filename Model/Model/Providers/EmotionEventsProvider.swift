@@ -9,6 +9,7 @@ public protocol EmotionEventsProvider {
     func log(event: EmotionEvent)
     func delete(event: EmotionEvent)
     func erase(event: EmotionEvent)
+    func eraseExpired()
     func restore(event: EmotionEvent)
     func update(event: EmotionEvent, for: Date)
     func add(listener: @escaping EmotionEventsProviderListener)
@@ -50,6 +51,7 @@ public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageEntity> 
 
     // MARK: - Private
 
+    private let expirationInterval: TimeInterval = 3 * 24 * 60 * 60
     private let storage: Storage
 
     // MARK: - Public
@@ -109,5 +111,11 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
         let entity = entities.first { $0.value(forKey: "date") as! Date == date }!
         event.write(to: entity)
         storage.save(entity: entity)
+    }
+
+    public func eraseExpired() {
+        let expiredDate = Date().advanced(by: -expirationInterval)
+        let expired = deletedEvents.filter { $0.deleted! <= expiredDate }
+        expired.forEach { erase(event: $0) }
     }
 }

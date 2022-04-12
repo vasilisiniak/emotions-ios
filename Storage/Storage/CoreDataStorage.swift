@@ -45,10 +45,11 @@ extension CoreDataStorage: Storage {
     }
 
     public func add(listener: @escaping StorageListener) {
-        let name = NSManagedObjectContext.didChangeObjectsNotification
-        tokens.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
-            listener()
-        })
+        let changeName = NSManagedObjectContext.didChangeObjectsNotification
+        tokens.append(NotificationCenter.default.addObserver(forName: changeName, object: nil, queue: .main) { _ in listener() })
+
+        let saveName = NSManagedObjectContext.didSaveObjectsNotification
+        tokens.append(NotificationCenter.default.addObserver(forName: saveName, object: nil, queue: .main) { _ in listener() })
     }
 
     public func create<T>() -> T {
