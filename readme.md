@@ -23,9 +23,34 @@
  */
 ```
 
+---
+
 [<img src=https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png>](https://apps.apple.com/app/id1558896129)
 
+---
 
-You can gift me a beer if you'd like, I'd appreciate it a lot:
+If you like the app or the source codes, I'd be happy with any kind of appreciation:
 
-[<img src=https://usa.visa.com/dam/VCOM/regional/lac/ENG/Default/Partner%20With%20Us/Payment%20Technology/visapos/full-color-800x450.jpg height=20><img src=https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_circles_92px_2x.png height=20><img src=https://yoomoney.ru/i/shop/iomoney_logo_white_example.png height=20>](https://yoomoney.ru/to/4100117205534801)
+- a star to the repo ⭐️
+- a rating or review on the App Store 📲
+- money to buy some beer 🍺👇
+
+It's so much more enjoyable to do something knowing that someone needs it and cherishes it!
+
+You can track new features releases [on the project tab](https://github.com/users/vasilisiniak/projects/2).
+
+---
+
+Если вам нравится приложение или код, я буду очень рад любому знаку благодарности, будь то:
+
+- звёздочка репозиторию ⭐️
+- оценка или отзыв в App Store 📲
+- денюжка на пиво 🍺👇
+
+Стократ приятнее что-то делать, зная, что это кому-то нужно и полезно!
+
+За планами релиза новых фич можно следить [на вкладке проекта](https://github.com/users/vasilisiniak/projects/2).
+
+---
+
+[<img src=https://usa.visa.com/dam/VCOM/regional/lac/ENG/Default/Partner%20With%20Us/Payment%20Technology/visapos/full-color-800x450.jpg height=35><img src=https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_circles_92px_2x.png height=35><img src=https://yoomoney.ru/i/shop/iomoney_logo_white_example.png height=35>](https://yoomoney.ru/to/4100117205534801)
