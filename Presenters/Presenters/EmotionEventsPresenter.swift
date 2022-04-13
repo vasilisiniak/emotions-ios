@@ -331,7 +331,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func present(shareEvent: EmotionEventsUseCaseObjects.Event) {
         var text = "Событие: \(shareEvent.name)"
-        text += "\nМои эмоции: \(shareEvent.emotions)"
+        text += "\nМои эмоции: \(shareEvent.emotions.map(\.name).joined(separator: ", "))"
         if let details = shareEvent.details {
             text += "\nКомментарии: \(details.replacingOccurrences(of: "\n", with: "\n\t"))"
         }
