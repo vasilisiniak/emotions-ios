@@ -30,9 +30,6 @@
       location = "group:Utils/Utils.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:design.sketch">
-   </FileRef>
-   <FileRef
       location = "group:readme.md">
    </FileRef>
 </Workspace>
