@@ -261,6 +261,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
             expandedEvents.insert(indexPath)
         }
 
+        useCase.eventToggleExpand()
         output.show(indexPath: indexPath)
     }
 
@@ -285,7 +286,6 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     }
 
     public func expanded(_ indexPath: IndexPath) -> Bool {
-        useCase.eventToggleExpand()
         return expandAll || expandedEvents.contains(indexPath)
     }
 }
