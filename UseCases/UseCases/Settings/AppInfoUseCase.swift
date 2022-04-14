@@ -111,7 +111,7 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             output.present(url: emailInfo)
         case .roadmap:
             analytics.track(.roadmap)
-            UIApplication.shared.open(URL(string: roadmap)!)
+            output.present(url: roadmap)
         }
     }
 }
