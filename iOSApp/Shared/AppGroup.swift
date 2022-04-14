@@ -16,6 +16,7 @@ enum AppGroup {
     static let appLink = "https://apps.apple.com/app/id1558896129"
     static let email = "vasili.siniak+emotions@gmail.com"
     static let github = "https://github.com/vasilisiniak/emotions-ios"
+    static let roadmap = "https://github.com/users/vasilisiniak/projects/2/views/1"
     static let designer = "https://www.facebook.com/sergey.grabinsky"
     static let emailInfo = "https://support.apple.com/ru-ru/HT201320"
     static let faceIdInfo = "https://support.apple.com/ru-ru/HT204060"

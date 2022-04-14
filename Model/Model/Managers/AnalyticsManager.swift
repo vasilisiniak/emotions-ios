@@ -33,6 +33,7 @@ public enum AnalyticsEvent {
     case designer
     case sourceCode
     case toggleExpand
+    case roadmap
 
     var name: String {
         switch self {

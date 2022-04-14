@@ -17,6 +17,7 @@ fileprivate extension AppInfoPresenterImpl {
             case sourceCode
             case designer
             case donate
+            case roadmap
 
             var title: String {
                 switch self {
@@ -29,6 +30,7 @@ fileprivate extension AppInfoPresenterImpl {
                 case .sourceCode: return "Исходный код приложения"
                 case .designer: return "Сергей Грабинский"
                 case .donate: return "Поддержать разработчика"
+                case .roadmap: return "Предстоящие фичи"
                 }
             }
 
@@ -49,7 +51,7 @@ fileprivate extension AppInfoPresenterImpl {
             switch self {
             case .settings: return [.securitySettings, .appearanceSettings]
             case .appStore: return [.rateApp, .shareApp]
-            case .feedback: return [.suggestImprove, .reportProblem]
+            case .feedback: return [.roadmap, .suggestImprove, .reportProblem]
             case .sourceCode: return [.sourceCode]
             case .design: return [.designer]
             case .donate: return [.donate]
@@ -144,6 +146,7 @@ extension AppInfoPresenterImpl: SettingsPresenter {
         case .sourceCode: useCase.event(.sourceCode)
         case .designer: useCase.event(.designer)
         case .donate: useCase.event(.donate)
+        case .roadmap: useCase.event(.roadmap)
         }
     }
 }

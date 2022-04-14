@@ -100,6 +100,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             appLink: AppGroup.appLink,
             email: AppGroup.email,
             github: AppGroup.github,
+            roadmap: AppGroup.roadmap,
             designer: AppGroup.designer,
             emailInfo: AppGroup.emailInfo,
             faceIdInfo: AppGroup.faceIdInfo,

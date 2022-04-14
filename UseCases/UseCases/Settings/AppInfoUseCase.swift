@@ -16,6 +16,7 @@ public enum AppInfoUseCaseObjects {
         case designer
         case donate
         case emailInfo
+        case roadmap
     }
 }
 
@@ -39,6 +40,7 @@ public final class AppInfoUseCaseImpl {
     private let appLink: String
     private let email: String
     private let github: String
+    private let roadmap: String
     private let designer: String
     private let emailInfo: String
     private let faceIdInfo: String
@@ -58,6 +60,7 @@ public final class AppInfoUseCaseImpl {
         appLink: String,
         email: String,
         github: String,
+        roadmap: String,
         designer: String,
         emailInfo: String,
         faceIdInfo: String,
@@ -67,6 +70,7 @@ public final class AppInfoUseCaseImpl {
         self.appLink = appLink
         self.email = email
         self.github = github
+        self.roadmap = roadmap
         self.designer = designer
         self.emailInfo = emailInfo
         self.faceIdInfo = faceIdInfo
@@ -105,6 +109,9 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
             UIApplication.shared.open(URL(string: "\(github)/blob/release/readme.md")!)
         case .emailInfo:
             output.present(url: emailInfo)
+        case .roadmap:
+            analytics.track(.roadmap)
+            UIApplication.shared.open(URL(string: roadmap)!)
         }
     }
 }
