@@ -188,11 +188,13 @@ public final class EmotionsGroupsUseCaseImpl {
 
 extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     public func eventShare() {
+        analytics.track(.acceptRequestShare)
         let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
         output.presentShare(item: item)
     }
 
     public func eventCancelShare() {
+        analytics.track(.declineRequestShare)
         output.presentShareLater()
     }
 
@@ -273,10 +275,12 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
 
 extension EmotionsGroupsUseCaseImpl: PromoManagerSender {
     public func presentRate() {
+        analytics.track(.requestRate)
         output.presentRate()
     }
 
     public func presentShare() {
+        analytics.track(.requestShare)
         output.presentShareInfo()
     }
 }

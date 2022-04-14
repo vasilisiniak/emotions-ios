@@ -129,6 +129,7 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             router: router,
             eventsProvider: AppGroup.emotionEventsProvider,
             groupsProvider: AppGroup.groupsProvider,
+            analytics: analytics,
             name: name,
             details: details,
             date: date,

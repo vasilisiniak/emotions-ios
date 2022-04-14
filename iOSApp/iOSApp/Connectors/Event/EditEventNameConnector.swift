@@ -20,6 +20,7 @@ final class EditEventNameConnector {
         router: EventNameRouter,
         eventsProvider: EmotionEventsProvider,
         groupsProvider: EmotionsGroupsProvider,
+        analytics: AnalyticsManager,
         name: String,
         details: String?,
         date: Date,
@@ -32,6 +33,7 @@ final class EditEventNameConnector {
         useCase = EditEventNameUseCaseImpl(
             eventsProvider: eventsProvider,
             groupsProvider: groupsProvider,
+            analytics: analytics,
             name: name,
             details: details,
             date: date,

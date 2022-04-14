@@ -15,6 +15,7 @@ public final class EditEventNameUseCaseImpl {
 
     private let eventsProvider: EmotionEventsProvider
     private let groupsProvider: EmotionsGroupsProvider
+    private let analytics: AnalyticsManager
     private let original: Event
     private var current: Event
     private let selectedEmotions: [String]
@@ -43,6 +44,7 @@ public final class EditEventNameUseCaseImpl {
     public init(
         eventsProvider: EmotionEventsProvider,
         groupsProvider: EmotionsGroupsProvider,
+        analytics: AnalyticsManager,
         name: String,
         details: String?,
         date: Date,
@@ -51,6 +53,7 @@ public final class EditEventNameUseCaseImpl {
     ) {
         self.eventsProvider = eventsProvider
         self.groupsProvider = groupsProvider
+        self.analytics = analytics
         self.selectedEmotions = selectedEmotions
         self.color = color
 
@@ -91,6 +94,7 @@ extension EditEventNameUseCaseImpl: EventNameUseCase {
     public func eventAdd() {
         let event = EmotionEvent(date: current.date, name: current.name, details: current.details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         eventsProvider.update(event: event, for: original.date)
+        analytics.track(.eventEdited(hasDetails: (current.details?.isEmpty == false)))
         output.presentEvents()
     }
 }

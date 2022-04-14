@@ -68,13 +68,13 @@ public final class LogEventUseCaseImpl {
     private let appLink: String
 
     private func share() {
-        analytics.track(.share)
+        analytics.track(.acceptRequestShare)
         let item = LinkActivityItem(title: Bundle.main.appName, url: URL(string: appLink), icon: Bundle.main.appIcon)
         output.presentShare(item: item)
     }
 
     private func rate() {
-        analytics.track(.rate)
+        analytics.track(.requestRate)
         output.presentRate()
     }
 
@@ -95,6 +95,7 @@ extension LogEventUseCaseImpl: LogEventUseCase {
     }
 
     public func eventCancelShare() {
+        analytics.track(.declineRequestShare)
         output.presentShareLater()
     }
 

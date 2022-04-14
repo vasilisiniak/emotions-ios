@@ -18,6 +18,7 @@ public enum AnalyticsEvent {
     case emotionNotFound
     case emotionDetails(emotion: String)
     case eventCreated(hasDetails: Bool)
+    case eventEdited(hasDetails: Bool)
     case shareEvent
     case deleteEvent
     case eraseEvent
@@ -34,6 +35,10 @@ public enum AnalyticsEvent {
     case sourceCode
     case toggleExpand
     case roadmap
+    case requestRate
+    case requestShare
+    case acceptRequestShare
+    case declineRequestShare
 
     var name: String {
         switch self {
@@ -47,6 +52,7 @@ public enum AnalyticsEvent {
         switch self {
         case .emotionDetails(let emotion): return ["emotion": emotion]
         case .eventCreated(let hasDetails): return ["hasDetails": hasDetails]
+        case .eventEdited(let hasDetails): return ["hasEditedDetails": hasDetails]
         default: return nil
         }
     }
