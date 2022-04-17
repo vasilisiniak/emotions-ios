@@ -53,4 +53,8 @@ You can track new features releases [on the project tab](https://github.com/user
 
 ---
 
+Tap below 👇 to buy me some beer
+<br><br>
 [<img src=https://usa.visa.com/dam/VCOM/regional/lac/ENG/Default/Partner%20With%20Us/Payment%20Technology/visapos/full-color-800x450.jpg height=35><img src=https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_circles_92px_2x.png height=35><img src=https://yoomoney.ru/i/shop/iomoney_logo_white_example.png height=35>](https://yoomoney.ru/to/4100117205534801)
+
+Кликните выше 👆 чтобы угостить меня пивом
