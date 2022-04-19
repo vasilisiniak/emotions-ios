@@ -13,6 +13,9 @@
 		160BB578273A78E10060BA7E /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB577273A78E10060BA7E /* NewsManager.swift */; };
 		167F7CA526F7C9F80074DCAA /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23E92583F4410098337E /* Utils.framework */; };
 		16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16875A0627F5E3AE00DBA53A /* Settings.swift */; };
+		16AB3B88280854D100169C8F /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B87280854D100169C8F /* RemindersManager.swift */; };
+		16AB3B92280D9FC900169C8F /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B91280D9FC900169C8F /* NotificationsManager.swift */; };
+		16AB3B94280D9FD300169C8F /* LocalNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B93280D9FD300169C8F /* LocalNotificationsManager.swift */; };
 		16AC776026710E210029B7CC /* UserDefaultsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */; };
 		16AC776B26761E470029B7CC /* PromoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC776A26761E470029B7CC /* PromoManager.swift */; };
 		16CF247827E2388400289E5D /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CF247727E2388400289E5D /* MetricsManager.swift */; };
@@ -29,6 +32,9 @@
 		160BB57527395B3F0060BA7E /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		160BB577273A78E10060BA7E /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
 		16875A0627F5E3AE00DBA53A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		16AB3B87280854D100169C8F /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
+		16AB3B91280D9FC900169C8F /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		16AB3B93280D9FD300169C8F /* LocalNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsManager.swift; sourceTree = "<group>"; };
 		16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettings.swift; sourceTree = "<group>"; };
 		16AC776A26761E470029B7CC /* PromoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoManager.swift; sourceTree = "<group>"; };
 		16CF247727E2388400289E5D /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
@@ -60,12 +66,14 @@
 		16875A0327F5E35400DBA53A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				16AB3B90280D9FB900169C8F /* Notifications */,
 				16AC776A26761E470029B7CC /* PromoManager.swift */,
 				160794012708908000572275 /* AnalyticsManager.swift */,
 				16CF247727E2388400289E5D /* MetricsManager.swift */,
 				160BB57527395B3F0060BA7E /* MigrationManager.swift */,
 				160BB577273A78E10060BA7E /* NewsManager.swift */,
 				16EC2BB62782FBE400A96C5F /* LockManager.swift */,
+				16AB3B87280854D100169C8F /* RemindersManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -95,6 +103,15 @@
 				16AC775F26710E210029B7CC /* UserDefaultsSettings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		16AB3B90280D9FB900169C8F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				16AB3B91280D9FC900169C8F /* NotificationsManager.swift */,
+				16AB3B93280D9FD300169C8F /* LocalNotificationsManager.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		83A51B092582C51B005131D7 = {
@@ -219,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				833182C02589E63D00B2C9A2 /* EmotionEvent.swift in Sources */,
+				16AB3B94280D9FD300169C8F /* LocalNotificationsManager.swift in Sources */,
 				160BB578273A78E10060BA7E /* NewsManager.swift in Sources */,
 				160794022708908000572275 /* AnalyticsManager.swift in Sources */,
 				833182C52589E6CA00B2C9A2 /* EmotionEventsProvider.swift in Sources */,
@@ -226,7 +244,9 @@
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
 				16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */,
 				16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */,
+				16AB3B92280D9FC900169C8F /* NotificationsManager.swift in Sources */,
 				16CF247827E2388400289E5D /* MetricsManager.swift in Sources */,
+				16AB3B88280854D100169C8F /* RemindersManager.swift in Sources */,
 				16AC776026710E210029B7CC /* UserDefaultsSettings.swift in Sources */,
 				160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */,
 				16AC776B26761E470029B7CC /* PromoManager.swift in Sources */,
