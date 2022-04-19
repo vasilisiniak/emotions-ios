@@ -71,7 +71,7 @@ extension EmotionsGroupsViewController {
 
         // MARK: - Internal
 
-        typealias Handler = () -> Void
+        typealias Handler = () -> ()
 
         init(title: String, text: String, color: UIColor, width: CGFloat, handler: @escaping Handler) {
             self.width = width

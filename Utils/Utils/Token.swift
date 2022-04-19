@@ -8,13 +8,13 @@ public final class Token {
 
     // MARK: - Private
 
-    private let onDeinit: (UUID) -> Void
+    private let onDeinit: (UUID) -> ()
 
     // MARK: - Public
 
     public let id = UUID()
 
-    public init(onDeinit: @escaping (UUID) -> Void) {
+    public init(onDeinit: @escaping (UUID) -> ()) {
         self.onDeinit = onDeinit
     }
 }

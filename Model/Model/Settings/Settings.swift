@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 public protocol Settings: AnyObject {
-    typealias Observer = (Settings) -> Void
+    typealias Observer = (Settings) -> ()
     func add(observer: @escaping Observer) -> AnyObject
 
     var range: (min: Date?, max: Date?) { get set }
