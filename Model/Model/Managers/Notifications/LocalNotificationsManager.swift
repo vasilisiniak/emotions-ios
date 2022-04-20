@@ -36,13 +36,18 @@ public final class LocalNotificationsManager {
 
     // MARK: - Public
 
-    public init() { }
+    public init() {
+        check()
+    }
 }
 
 extension LocalNotificationsManager: NotificationsManager {
     public var enabled: Bool {
         get { authorized }
-        set { authorize() }
+        set {
+            guard newValue else { return }
+            authorize()
+        }
     }
 
     public func add(observer: @escaping NotificationsManagerHandler) -> AnyObject {

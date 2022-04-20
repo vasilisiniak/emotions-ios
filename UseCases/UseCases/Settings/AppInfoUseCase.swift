@@ -17,6 +17,7 @@ public enum AppInfoUseCaseObjects {
         case donate
         case emailInfo
         case roadmap
+        case notificationsSettings
     }
 }
 
@@ -26,6 +27,7 @@ public protocol AppInfoUseCaseOutput: AnyObject {
     func present(share: UIActivityItemSource)
     func presentPrivacySettings()
     func presentAppearanceSettings()
+    func presentNotificationsSettings()
 }
 
 public protocol AppInfoUseCase {
@@ -112,6 +114,8 @@ extension AppInfoUseCaseImpl: AppInfoUseCase {
         case .roadmap:
             analytics.track(.roadmap)
             output.present(url: roadmap)
+        case .notificationsSettings:
+            output.presentNotificationsSettings()
         }
     }
 }

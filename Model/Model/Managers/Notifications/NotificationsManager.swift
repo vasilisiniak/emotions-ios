@@ -12,7 +12,7 @@ public enum NotificationsManagerEvent {
 
 public typealias NotificationsManagerHandler = (NotificationsManager, NotificationsManagerEvent) -> ()
 
-public protocol NotificationsManager {
+public protocol NotificationsManager: AnyObject {
     var enabled: Bool { get set }
     func add(observer: @escaping NotificationsManagerHandler) -> AnyObject
     func cancelDelivered()

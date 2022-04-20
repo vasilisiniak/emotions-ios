@@ -179,7 +179,7 @@ public final class EmotionsGroupsUseCaseImpl {
         self.settings = settings
         self.appLink = appLink
 
-        token = settings.add { [weak self] in
+        token = self.settings.add { [weak self] in
             self?.output.present(legacy: $0.useLegacyLayout)
             self?.presentEmotionsGroup()
         }

@@ -11,6 +11,7 @@
 		167E16A5260223C300A8B0EC /* EditEventNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */; };
 		168759E727F4AA6000DBA53A /* PrivacySettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */; };
 		168759ED27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759EC27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift */; };
+		16AB3B9B280F169700169C8F /* NotificationsSettingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B9A280F169600169C8F /* NotificationsSettingsUseCase.swift */; };
 		16AC77712676322A0029B7CC /* AppInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC77702676322A0029B7CC /* AppInfoUseCase.swift */; };
 		8302013D258F8C0600D744DF /* EmotionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013C258F8C0600D744DF /* EmotionsUseCase.swift */; };
 		833182CB2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */; };
@@ -26,6 +27,7 @@
 		167E16A4260223C300A8B0EC /* EditEventNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventNameUseCase.swift; sourceTree = "<group>"; };
 		168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettingsUseCase.swift; sourceTree = "<group>"; };
 		168759EC27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsUseCase.swift; sourceTree = "<group>"; };
+		16AB3B9A280F169600169C8F /* NotificationsSettingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsUseCase.swift; sourceTree = "<group>"; };
 		16AC77702676322A0029B7CC /* AppInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoUseCase.swift; sourceTree = "<group>"; };
 		8302013C258F8C0600D744DF /* EmotionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsUseCase.swift; sourceTree = "<group>"; };
 		833182CA2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsUseCase.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				16AC77702676322A0029B7CC /* AppInfoUseCase.swift */,
 				168759E627F4AA6000DBA53A /* PrivacySettingsUseCase.swift */,
 				168759EC27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift */,
+				16AB3B9A280F169600169C8F /* NotificationsSettingsUseCase.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				8302013D258F8C0600D744DF /* EmotionsUseCase.swift in Sources */,
 				83A51B3F2582C5B1005131D7 /* EmotionsGroupsUseCase.swift in Sources */,
 				839C92D0258F4E47008C9C5A /* TrendsUseCase.swift in Sources */,
+				16AB3B9B280F169700169C8F /* NotificationsSettingsUseCase.swift in Sources */,
 				833182CB2589EFFB00B2C9A2 /* EmotionEventsUseCase.swift in Sources */,
 				168759ED27F5DAAE00DBA53A /* AppearanceSettingsUseCase.swift in Sources */,
 				16AC77712676322A0029B7CC /* AppInfoUseCase.swift in Sources */,

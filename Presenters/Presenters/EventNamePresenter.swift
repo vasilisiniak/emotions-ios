@@ -125,7 +125,6 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         let emotions = selectedEmotions.map(EventNamePresenterObjects.Emotion.init(emotion:))
         output.show(selectedEmotions: emotions)
         output.show(color: UIColor(hex: color))
-
     }
 
     public func presentCancel() {

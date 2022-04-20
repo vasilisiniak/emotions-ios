@@ -18,6 +18,7 @@ fileprivate extension AppInfoPresenterImpl {
             case designer
             case donate
             case roadmap
+            case notificationsSettings
 
             var title: String {
                 switch self {
@@ -31,6 +32,7 @@ fileprivate extension AppInfoPresenterImpl {
                 case .designer: return "Сергей Грабинский"
                 case .donate: return "Поддержать разработчика"
                 case .roadmap: return "Предстоящие фичи"
+                case .notificationsSettings: return "Уведомления и напоминания"
                 }
             }
 
@@ -49,7 +51,7 @@ fileprivate extension AppInfoPresenterImpl {
 
         var sectionRows: [Row] {
             switch self {
-            case .settings: return [.securitySettings, .appearanceSettings]
+            case .settings: return [.securitySettings, .appearanceSettings, .notificationsSettings]
             case .appStore: return [.rateApp, .shareApp]
             case .feedback: return [.roadmap, .suggestImprove, .reportProblem]
             case .sourceCode: return [.sourceCode]
@@ -88,6 +90,7 @@ public protocol AppInfoRouter: AnyObject {
     func route(shareItem: UIActivityItemSource)
     func routePrivacySettings()
     func routeAppearanceSettings()
+    func routeNotificationsSettings()
 }
 
 public class AppInfoPresenterImpl {
@@ -147,6 +150,7 @@ extension AppInfoPresenterImpl: SettingsPresenter {
         case .designer: useCase.event(.designer)
         case .donate: useCase.event(.donate)
         case .roadmap: useCase.event(.roadmap)
+        case .notificationsSettings: useCase.event(.notificationsSettings)
         }
     }
 }
@@ -170,5 +174,9 @@ extension AppInfoPresenterImpl: AppInfoUseCaseOutput {
 
     public func presentAppearanceSettings() {
         router.routeAppearanceSettings()
+    }
+
+    public func presentNotificationsSettings() {
+        router.routeNotificationsSettings()
     }
 }

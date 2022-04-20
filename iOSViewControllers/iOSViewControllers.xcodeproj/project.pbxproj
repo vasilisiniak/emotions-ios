@@ -12,6 +12,7 @@
 		1645531D26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */; };
 		167E16A92602423F00A8B0EC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167E16A82602423F00A8B0EC /* SettingsViewController.swift */; };
 		16812B2627F1E7980045002F /* EmotionEventsViewController+Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */; };
+		16AB3B99280EFE1700169C8F /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B98280EFE1700169C8F /* NotificationSettingsViewController.swift */; };
 		16AC775E2670CB8C0029B7CC /* TrendsViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */; };
 		16F7F36427FDAF52006F988F /* EventNameViewController+Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */; };
 		83010ACF2584FE770037D024 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; };
@@ -38,6 +39,7 @@
 		1645531C26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionNotFoundViewController+View.swift"; sourceTree = "<group>"; };
 		167E16A82602423F00A8B0EC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		16812B2527F1E7980045002F /* EmotionEventsViewController+Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmotionEventsViewController+Bubble.swift"; sourceTree = "<group>"; };
+		16AB3B98280EFE1700169C8F /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+View.swift"; sourceTree = "<group>"; };
 		16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventNameViewController+Bubble.swift"; sourceTree = "<group>"; };
 		83010ACE2584FE770037D024 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,15 @@
 			path = Trends;
 			sourceTree = "<group>";
 		};
+		16AB3B97280EFE0200169C8F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				167E16A82602423F00A8B0EC /* SettingsViewController.swift */,
+				16AB3B98280EFE1700169C8F /* NotificationSettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		8377F4632582CD09006C9D2F = {
 			isa = PBXGroup;
 			children = (
@@ -141,10 +152,10 @@
 				168759FF27F5E30800DBA53A /* Events */,
 				16875A0027F5E31100DBA53A /* Trends */,
 				168759FD27F5E2BA00DBA53A /* Emotions */,
+				16AB3B97280EFE0200169C8F /* Settings */,
 				83B9EE5E25857500007158F3 /* LogEventViewController.swift */,
 				839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */,
 				83020138258F899000D744DF /* EmotionsViewController.swift */,
-				167E16A82602423F00A8B0EC /* SettingsViewController.swift */,
 				830C7591258A2B5100F964BC /* Media.xcassets */,
 				8377F4712582CD09006C9D2F /* Info.plist */,
 			);
@@ -245,6 +256,7 @@
 				83020139258F899000D744DF /* EmotionsViewController.swift in Sources */,
 				167E16A92602423F00A8B0EC /* SettingsViewController.swift in Sources */,
 				16F7F36427FDAF52006F988F /* EventNameViewController+Bubble.swift in Sources */,
+				16AB3B99280EFE1700169C8F /* NotificationSettingsViewController.swift in Sources */,
 				16812B2627F1E7980045002F /* EmotionEventsViewController+Bubble.swift in Sources */,
 				830C7594258A2F3700F964BC /* EmotionEventsViewController+Cell.swift in Sources */,
 				83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */,

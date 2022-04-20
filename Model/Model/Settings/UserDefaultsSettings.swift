@@ -15,6 +15,7 @@ public final class UserDefaultsSettings {
         static let UseLegacyDiaryKey = "Model.SettingsImpl.UseLegacyDiaryKey"
         static let AppearanceKey = "Model.SettingsImpl.AppearanceKey"
         static let EraseImmediatelyKey = "Model.SettingsImpl.EraseImmediatelyKey"
+        static let RemindersKey = "Model.SettingsImpl.RemindersKey"
     }
 
     // MARK: - Private
@@ -98,6 +99,11 @@ extension UserDefaultsSettings: Settings {
     public var eraseImmediately: Bool {
         get { get(Constants.EraseImmediatelyKey) }
         set { set(newValue, key: Constants.EraseImmediatelyKey) }
+    }
+
+    public var reminders: Bool {
+        get { get(Constants.RemindersKey) }
+        set { set(newValue, key: Constants.RemindersKey) }
     }
 
     public func add(observer: @escaping Observer) -> AnyObject {

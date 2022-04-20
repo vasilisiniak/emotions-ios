@@ -6,6 +6,7 @@ import SafariServices
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
     var appearanceSettingsViewController: SettingsViewController { get }
+    var notificationsSettingsViewController: NotificationSettingsViewController { get }
 
     func appInfoViewController(router: AppInfoRouter) -> SettingsViewController
     func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
@@ -131,6 +132,12 @@ extension EmotionsViewController: AppInfoRouter, PrivacySettingsRouter, LogEvent
 
     public func routeAppearanceSettings() {
         let settings = composer.appearanceSettingsViewController
+        let navigation = (selectedViewController as? UINavigationController)
+        navigation?.pushViewController(settings, animated: true)
+    }
+
+    public func routeNotificationsSettings() {
+        let settings = composer.notificationsSettingsViewController
         let navigation = (selectedViewController as? UINavigationController)
         navigation?.pushViewController(settings, animated: true)
     }

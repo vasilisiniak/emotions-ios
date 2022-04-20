@@ -21,4 +21,5 @@ enum AppGroup {
     static let emailInfo = "https://support.apple.com/ru-ru/HT201320"
     static let faceIdInfo = "https://support.apple.com/ru-ru/HT204060"
     static let emailTheme = "[Emotions]"
+    static let reminder = "Что я сейчас чувствую?"
 }

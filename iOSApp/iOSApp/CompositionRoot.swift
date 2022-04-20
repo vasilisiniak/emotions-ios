@@ -9,6 +9,8 @@ final class CompositionRoot {
 
     private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
     private let lock = LockManagerImpl()
+    private let notifications = LocalNotificationsManager()
+    private lazy var reminders: RemindersManagerImpl = { RemindersManagerImpl(message: AppGroup.reminder, manager: notifications) }()
 
     // MARK: - Internal
 
@@ -87,6 +89,17 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             viewController: viewController,
             settings: AppGroup.settings,
             eventsProvider: AppGroup.emotionEventsProvider
+        ).configure()
+        return viewController
+    }
+
+    var notificationsSettingsViewController: NotificationSettingsViewController {
+        let viewController = NotificationSettingsViewController(style: .insetGrouped)
+        NotificationSettingsConnector(
+            viewController: viewController,
+            notifications: notifications,
+            reminders: reminders,
+            settings: AppGroup.settings
         ).configure()
         return viewController
     }
