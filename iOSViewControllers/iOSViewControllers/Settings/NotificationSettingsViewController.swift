@@ -62,6 +62,7 @@ public final class NotificationSettingsViewController: UITableViewController {
             cell.accessoryView = {
                 let switcher = UISwitch(frame: .zero, primaryAction: UIAction { [weak self] in
                     let value = ($0.sender as? UISwitch)?.isOn == true
+                    self?.tableView.reloadRows(at: [indexPath], with: .automatic)
                     self?.presenter.event(enabled: value)
                 })
                 switcher.isOn = enabled

@@ -4,8 +4,15 @@ import Utils
 
 public final class LocalNotificationsManager {
 
+    deinit {
+        if let token = token {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+
     // MARK: - Private
 
+    private var token: AnyObject?
     private var observers: [UUID: NotificationsManagerHandler] = [:]
 
     private var authorized = false {
@@ -38,6 +45,11 @@ public final class LocalNotificationsManager {
 
     public init() {
         check()
+
+        let name = UIApplication.didBecomeActiveNotification
+        token = NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+            self?.check()
+        }
     }
 }
 

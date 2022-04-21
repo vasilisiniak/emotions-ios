@@ -16,6 +16,7 @@ public final class UserDefaultsSettings {
         static let AppearanceKey = "Model.SettingsImpl.AppearanceKey"
         static let EraseImmediatelyKey = "Model.SettingsImpl.EraseImmediatelyKey"
         static let RemindersKey = "Model.SettingsImpl.RemindersKey"
+        static let NotificationsKey = "Model.SettingsImpl.NotificationsKey"
     }
 
     // MARK: - Private
@@ -108,6 +109,11 @@ extension UserDefaultsSettings: Settings {
     public var reminders: Data {
         get { get(Constants.RemindersKey) }
         set { set(newValue, key: Constants.RemindersKey) }
+    }
+
+    public var notifications: Bool {
+        get { get(Constants.NotificationsKey) }
+        set { set(newValue, key: Constants.NotificationsKey) }
     }
 
     public func add(observer: @escaping Observer) -> AnyObject {

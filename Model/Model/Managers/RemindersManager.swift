@@ -1,8 +1,10 @@
 import Foundation
 import Utils
 
-public protocol RemindersManager {
+public protocol RemindersManager: AnyObject {
+    var enabled: Bool { get set }
     var reminders: [Reminder] { get }
+
     func add(_ reminder: Reminder)
     func delete(_ reminder: Reminder)
     func add(observer: @escaping (RemindersManager) -> ()) -> AnyObject
@@ -72,9 +74,11 @@ public final class RemindersManagerImpl {
     private let manager: NotificationsManager
     private let settings: Settings
     private var observers: [UUID: (RemindersManager) -> ()] = [:]
+    private var token: AnyObject?
 
     private func scheduleNotifications() {
         manager.cancelScheduled()
+        guard enabled else { return }
         reminders
             .flatMap { $0.times }
             .map { NotificationObject(text: message, time: $0) }
@@ -87,10 +91,23 @@ public final class RemindersManagerImpl {
         self.message = message
         self.manager = manager
         self.settings = settings
+
+        token = self.manager.add { [weak self] _, event in
+            guard event == .update else { return }
+            self?.scheduleNotifications()
+        }
     }
 }
 
 extension RemindersManagerImpl: RemindersManager {
+    public var enabled: Bool {
+        get { settings.notifications }
+        set {
+            settings.notifications = newValue
+            scheduleNotifications()
+        }
+    }
+
     private(set) public var reminders: [Reminder] {
         get { (try? JSONDecoder().decode([Reminder].self, from: settings.reminders)) ?? [] }
         set { settings.reminders = (try? JSONEncoder().encode(newValue)) ?? Data() }

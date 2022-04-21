@@ -160,8 +160,6 @@ extension EmotionsViewController: EmotionsPresenterOutput {
             composer.trendsViewController(router: self),
             UINavigationController(rootViewController: composer.appInfoViewController(router: self))
         ]
-        selectedIndex = 3
-        routeNotificationsSettings()
     }
 
     public func show(message: String, title: String, button: String) {

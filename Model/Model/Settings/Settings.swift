@@ -15,4 +15,5 @@ public protocol Settings: AnyObject {
     var appearance: UIUserInterfaceStyle { get set }
     var eraseImmediately: Bool { get set }
     var reminders: Data { get set }
+    var notifications: Bool { get set }
 }

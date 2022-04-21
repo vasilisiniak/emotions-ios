@@ -47,7 +47,8 @@ public final class NotificationsSettingsUseCaseImpl {
     private func presentEnabled() {
         let available = notifications.enabled
         let hasAny = !remindersManager.reminders.isEmpty
-        output.present(enabled: available && hasAny)
+        let enabled = remindersManager.enabled
+        output.present(enabled: available && hasAny && enabled)
     }
 
     private func handleDenied() {
@@ -79,7 +80,8 @@ public final class NotificationsSettingsUseCaseImpl {
 
 extension NotificationsSettingsUseCaseImpl: NotificationsSettingsUseCase {
     public var reminders: [NotificationsSettingsUseCaseObjects.Reminder] {
-        remindersManager.reminders.map(NotificationsSettingsUseCaseObjects.Reminder.init(reminder:))
+        guard notifications.enabled && remindersManager.enabled else { return [] }
+        return remindersManager.reminders.map(NotificationsSettingsUseCaseObjects.Reminder.init(reminder:))
     }
 
     public func eventOutputReady() {
@@ -87,7 +89,9 @@ extension NotificationsSettingsUseCaseImpl: NotificationsSettingsUseCase {
     }
 
     public func event(enabled: Bool) {
+        remindersManager.enabled = false
         notifications.enabled = enabled
+        presentEnabled()
 
         guard enabled else { return }
         var observer: AnyObject?
@@ -95,10 +99,17 @@ extension NotificationsSettingsUseCaseImpl: NotificationsSettingsUseCase {
         observer = notifications.add { [weak self] _, event in
             defer { withExtendedLifetime(observer) { observer = nil } }
 
+            guard let self = self else { return }
             guard event == .update else { return }
-            guard self?.notifications.enabled == true else { return }
+            guard self.notifications.enabled == true else { return }
 
-            DispatchQueue.main.async { self?.output.presentAddReminder() }
+            DispatchQueue.main.async {
+                self.remindersManager.enabled = true
+                self.presentEnabled()
+                if self.remindersManager.reminders.isEmpty {
+                    self.output.presentAddReminder()
+                }
+            }
         }
     }
 
