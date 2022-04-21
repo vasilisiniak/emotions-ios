@@ -13,6 +13,7 @@
 		168759E927F4ADF200DBA53A /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759E827F4ADF200DBA53A /* SettingsPresenter.swift */; };
 		168759EF27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759EE27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift */; };
 		16AB3B96280EFD5400169C8F /* NotificationsSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B95280EFD5400169C8F /* NotificationsSettingsPresenter.swift */; };
+		16AB3BA328117B0800169C8F /* ReminderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3BA228117B0800169C8F /* ReminderPresenter.swift */; };
 		8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013A258F8BD200D744DF /* EmotionsPresenter.swift */; };
 		833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */; };
 		835573592586320B007F15C8 /* EventNamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835573582586320B007F15C8 /* EventNamePresenter.swift */; };
@@ -30,6 +31,7 @@
 		168759E827F4ADF200DBA53A /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		168759EE27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsPresenter.swift; sourceTree = "<group>"; };
 		16AB3B95280EFD5400169C8F /* NotificationsSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsPresenter.swift; sourceTree = "<group>"; };
+		16AB3BA228117B0800169C8F /* ReminderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPresenter.swift; sourceTree = "<group>"; };
 		8302013A258F8BD200D744DF /* EmotionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsPresenter.swift; sourceTree = "<group>"; };
 		833182CF2589F9AF00B2C9A2 /* EmotionEventsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionEventsPresenter.swift; sourceTree = "<group>"; };
 		835573582586320B007F15C8 /* EventNamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNamePresenter.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				168759E427F497D600DBA53A /* PrivacySettingsPresenter.swift */,
 				168759EE27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift */,
 				16AB3B95280EFD5400169C8F /* NotificationsSettingsPresenter.swift */,
+				16AB3BA228117B0800169C8F /* ReminderPresenter.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				8302013B258F8BD200D744DF /* EmotionsPresenter.swift in Sources */,
 				167E16AB26024BDA00A8B0EC /* AppInfoPresenter.swift in Sources */,
 				833182D02589F9AF00B2C9A2 /* EmotionEventsPresenter.swift in Sources */,
+				16AB3BA328117B0800169C8F /* ReminderPresenter.swift in Sources */,
 				168759E927F4ADF200DBA53A /* SettingsPresenter.swift in Sources */,
 				168759EF27F5DBCA00DBA53A /* AppearanceSettingsPresenter.swift in Sources */,
 			);

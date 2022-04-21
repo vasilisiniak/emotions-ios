@@ -9,11 +9,14 @@ final class CompositionRoot {
 
     private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
     private let lock = LockManagerImpl()
-    private let notifications = LocalNotificationsManager()
-    private lazy var reminders: RemindersManagerImpl = { RemindersManagerImpl(message: AppGroup.reminder, manager: notifications) }()
+
+    private lazy var reminders: RemindersManagerImpl = {
+        RemindersManagerImpl(message: AppGroup.reminder, manager: notifications, settings: AppGroup.settings)
+    }()
 
     // MARK: - Internal
 
+    let notifications = LocalNotificationsManager()
     let metricsManager: MetricsManager = MetricsManagerImpl()
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
     let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
@@ -93,13 +96,19 @@ extension CompositionRoot: EmotionsViewControllerComposer {
         return viewController
     }
 
-    var notificationsSettingsViewController: NotificationSettingsViewController {
+    func reminderViewController(router: ReminderRouter) -> ReminderViewController {
+        let viewController = ReminderViewController(style: .insetGrouped)
+        ReminderConnector(viewController: viewController, router: router, reminders: reminders).configure()
+        return viewController
+    }
+
+    func notificationsSettingsViewController(router: NotificationsSettingsRouter) -> NotificationSettingsViewController {
         let viewController = NotificationSettingsViewController(style: .insetGrouped)
         NotificationSettingsConnector(
             viewController: viewController,
+            router: router,
             notifications: notifications,
-            reminders: reminders,
-            settings: AppGroup.settings
+            reminders: reminders
         ).configure()
         return viewController
     }
