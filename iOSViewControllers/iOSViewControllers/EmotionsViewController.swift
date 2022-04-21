@@ -6,10 +6,11 @@ import SafariServices
 public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
     var appearanceSettingsViewController: SettingsViewController { get }
-    var notificationsSettingsViewController: NotificationSettingsViewController { get }
 
     func appInfoViewController(router: AppInfoRouter) -> SettingsViewController
     func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
+    func notificationsSettingsViewController(router: NotificationsSettingsRouter) -> NotificationSettingsViewController
+    func reminderViewController(router: ReminderRouter) -> ReminderViewController
     func trendsViewController(router: TrendsRouter) -> TrendsViewController
     func emotionEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
     func deletedEventsViewController(router: EmotionEventsRouter) -> EmotionEventsViewController
@@ -95,7 +96,7 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
     }
 }
 
-extension EmotionsViewController: EventNameRouter {
+extension EmotionsViewController: EventNameRouter, ReminderRouter {
     public func routeCancel() {
         dismiss(animated: true)
     }
@@ -137,9 +138,17 @@ extension EmotionsViewController: AppInfoRouter, PrivacySettingsRouter, LogEvent
     }
 
     public func routeNotificationsSettings() {
-        let settings = composer.notificationsSettingsViewController
+        let settings = composer.notificationsSettingsViewController(router: self)
         let navigation = (selectedViewController as? UINavigationController)
         navigation?.pushViewController(settings, animated: true)
+    }
+}
+
+extension EmotionsViewController: NotificationsSettingsRouter {
+    public func routeAddReminder() {
+        let reminder = composer.reminderViewController(router: self)
+        let navigation = UINavigationController(rootViewController: reminder)
+        present(navigation, animated: true)
     }
 }
 
@@ -151,6 +160,8 @@ extension EmotionsViewController: EmotionsPresenterOutput {
             composer.trendsViewController(router: self),
             UINavigationController(rootViewController: composer.appInfoViewController(router: self))
         ]
+        selectedIndex = 3
+        routeNotificationsSettings()
     }
 
     public func show(message: String, title: String, button: String) {

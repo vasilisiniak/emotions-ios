@@ -88,10 +88,9 @@ extension SettingsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = sections![indexPath.section].rows[indexPath.row]
 
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: row.style.identifier)
-        if cell == nil {
-            cell = UITableViewCell(style: row.style.style, reuseIdentifier: row.style.identifier)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: row.style.identifier)
+            ?? UITableViewCell(style: row.style.style, reuseIdentifier: row.style.identifier)
+
         cell.textLabel?.text = row.title
 
         switch row.style {
