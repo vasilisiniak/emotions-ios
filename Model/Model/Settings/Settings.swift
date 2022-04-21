@@ -14,5 +14,5 @@ public protocol Settings: AnyObject {
     var useLegacyDiary: Bool { get set }
     var appearance: UIUserInterfaceStyle { get set }
     var eraseImmediately: Bool { get set }
-    var reminders: Bool { get set }
+    var reminders: Data { get set }
 }

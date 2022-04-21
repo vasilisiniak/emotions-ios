@@ -1,12 +1,14 @@
 import Foundation
+import Utils
 
 public protocol RemindersManager {
     var reminders: [Reminder] { get }
     func add(_ reminder: Reminder)
     func delete(_ reminder: Reminder)
+    func add(observer: @escaping (RemindersManager) -> ()) -> AnyObject
 }
 
-public struct Reminder: Equatable {
+public struct Reminder: Equatable, Codable {
 
     // MARK: - Public
 
@@ -29,7 +31,7 @@ fileprivate extension Reminder {
     }
 
     private var first: TimeInterval {
-        next(of: begin)
+        TimeInterval.random(in: begin...min(end, begin + deltaMax))
     }
 
     var times: [TimeInterval] {
@@ -68,6 +70,8 @@ public final class RemindersManagerImpl {
 
     private let message: String
     private let manager: NotificationsManager
+    private let settings: Settings
+    private var observers: [UUID: (RemindersManager) -> ()] = [:]
 
     private func scheduleNotifications() {
         manager.cancelScheduled()
@@ -79,22 +83,35 @@ public final class RemindersManagerImpl {
 
     // MARK: - Public
 
-    public private(set) var reminders = [Reminder]()
-
-    public init(message: String, manager: NotificationsManager) {
+    public init(message: String, manager: NotificationsManager, settings: Settings) {
         self.message = message
         self.manager = manager
+        self.settings = settings
     }
 }
 
 extension RemindersManagerImpl: RemindersManager {
+    private(set) public var reminders: [Reminder] {
+        get { (try? JSONDecoder().decode([Reminder].self, from: settings.reminders)) ?? [] }
+        set { settings.reminders = (try? JSONEncoder().encode(newValue)) ?? Data() }
+    }
+
     public func add(_ reminder: Reminder) {
         reminders.append(reminder)
         scheduleNotifications()
+        observers.values.forEach { $0(self) }
     }
 
     public func delete(_ reminder: Reminder) {
         let index = reminders.firstIndex(of: reminder)!
         reminders.remove(at: index)
+        scheduleNotifications()
+        observers.values.forEach { $0(self) }
+    }
+
+    public func add(observer: @escaping (RemindersManager) -> ()) -> AnyObject {
+        let token = Token { [weak self] in self?.observers[$0] = nil }
+        observers[token.id] = observer
+        return token
     }
 }

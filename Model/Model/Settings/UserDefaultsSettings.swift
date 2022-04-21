@@ -37,6 +37,10 @@ public final class UserDefaultsSettings {
         defaults.bool(forKey: key)
     }
 
+    private func get(_ key: String) -> Data {
+        defaults.data(forKey: key) ?? Data()
+    }
+
     // MARK: - Public
 
     public init(defaults: UserDefaults) {
@@ -101,7 +105,7 @@ extension UserDefaultsSettings: Settings {
         set { set(newValue, key: Constants.EraseImmediatelyKey) }
     }
 
-    public var reminders: Bool {
+    public var reminders: Data {
         get { get(Constants.RemindersKey) }
         set { set(newValue, key: Constants.RemindersKey) }
     }
