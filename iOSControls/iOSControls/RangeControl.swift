@@ -216,10 +216,10 @@ public final class RangeControl: UIControl {
         limits.left.text = " "
         limits.right.text = " "
 
-        range.backgroundColor = .systemGray5
+        range.backgroundColor = UIColor(light: .systemGray5, dark: .systemGray3)
         selectedRange.backgroundColor = .systemBlue
-        left.view.backgroundColor = .systemBackground
-        right.view.backgroundColor = .systemBackground
+        left.view.backgroundColor = .white
+        right.view.backgroundColor = .white
 
         update()
     }

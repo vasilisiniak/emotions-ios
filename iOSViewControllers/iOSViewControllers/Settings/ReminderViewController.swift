@@ -22,6 +22,7 @@ public final class ReminderViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: presenter.add, handler: { [weak self] in self?.presenter.eventCreate() })
 
         tableView.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
+        tableView.backgroundColor = .groupedTableViewBackground
     }
 
     // MARK: - UITableViewDataSource

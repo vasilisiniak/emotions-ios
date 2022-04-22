@@ -37,4 +37,23 @@ extension UIColor {
 
         return (luminance > 0.5) ? .black : .white
     }
+
+    public convenience init(light: UIColor, dark: UIColor) {
+        self.init {
+            switch $0.userInterfaceStyle {
+            case .dark: return dark
+            case .light: return light
+            case .unspecified: return light
+            @unknown default: return light
+            }
+        }
+    }
+
+    public static var groupedTableViewBackground: UIColor {
+        UIColor(light: .systemGroupedBackground, dark: .black)
+    }
+
+    public static var groupedTableViewCellBackground: UIColor {
+        UIColor(light: .white, dark: .systemGray6)
+    }
 }

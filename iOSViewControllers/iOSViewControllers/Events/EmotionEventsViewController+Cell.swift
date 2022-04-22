@@ -8,7 +8,7 @@ extension EmotionEventsViewController {
         // MARK: - UITableViewCell
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: .subtitle, reuseIdentifier: Cell.reuseIdentifier)
+            super.init(style: .default, reuseIdentifier: Cell.reuseIdentifier)
             separatorInset = .zero
             selectionStyle = .none
             addSubviews()
