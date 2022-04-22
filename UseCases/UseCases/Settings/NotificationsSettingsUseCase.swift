@@ -27,6 +27,7 @@ public protocol NotificationsSettingsUseCaseOutput: AnyObject {
     func present(enabled: Bool)
     func presentDenied()
     func presentAddReminder()
+    func presentInfo()
 }
 
 public protocol NotificationsSettingsUseCase {
@@ -38,7 +39,19 @@ public protocol NotificationsSettingsUseCase {
 
 public final class NotificationsSettingsUseCaseImpl {
 
+    private enum Constants {
+        static let FirstRuleKey = "UseCases.NotificationsSettingsUseCaseImpl.FirstRuleKey"
+    }
+
     // MARK: - Private
+
+    private var firstRule: Bool {
+        get { UserDefaults.standard.bool(forKey: Constants.FirstRuleKey) }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Constants.FirstRuleKey)
+            UserDefaults.standard.synchronize()
+        }
+    }
 
     private let notifications: NotificationsManager
     private let remindersManager: RemindersManager
@@ -49,6 +62,19 @@ public final class NotificationsSettingsUseCaseImpl {
         let hasAny = !remindersManager.reminders.isEmpty
         let enabled = remindersManager.enabled
         output.present(enabled: available && hasAny && enabled)
+    }
+
+    private func presentInfo() {
+        guard !firstRule else { return }
+
+        let available = notifications.enabled
+        let hasAny = !remindersManager.reminders.isEmpty
+        let enabled = remindersManager.enabled
+
+        guard available && hasAny && enabled else { return }
+
+        firstRule = true
+        output.presentInfo()
     }
 
     private func handleDenied() {
@@ -86,6 +112,7 @@ extension NotificationsSettingsUseCaseImpl: NotificationsSettingsUseCase {
 
     public func eventOutputReady() {
         presentEnabled()
+        presentInfo()
     }
 
     public func event(enabled: Bool) {

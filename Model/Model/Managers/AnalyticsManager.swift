@@ -121,6 +121,8 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionEventsUseCaseImpl.FirstEventDisplay"))", forName: "edit_info_shown")
         Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionEventsUseCaseImpl.TrashFirstEventDisplay"))", forName: "trash_info_shown")
         Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.EmotionEventsUseCaseImpl.FirstEventDelete"))", forName: "delete_info_shown")
+        
+        Analytics.setUserProperty("\(UserDefaults.standard.bool(forKey: "UseCases.NotificationsSettingsUseCaseImpl.FirstRuleKey"))", forName: "edit_reminder_info_shown")
     }
 
     // MARK: - Public

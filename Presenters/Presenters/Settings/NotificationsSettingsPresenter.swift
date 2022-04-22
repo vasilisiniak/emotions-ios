@@ -98,4 +98,8 @@ extension NotificationsSettingsPresenterImpl: NotificationsSettingsUseCaseOutput
     public func presentAddReminder() {
         router.routeAddReminder()
     }
+
+    public func presentInfo() {
+        eventInfo()
+    }
 }
