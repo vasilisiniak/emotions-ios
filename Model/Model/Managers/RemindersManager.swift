@@ -48,6 +48,16 @@ fileprivate extension Reminder {
     }
 }
 
+fileprivate extension Array {
+    func limited(to size: Int) -> Self {
+        var res = self
+        while res.count > size, let i = res.indices.randomElement() {
+            res.remove(at: i)
+        }
+        return res
+    }
+}
+
 public final class RemindersManagerImpl {
 
     private struct NotificationObject: Notification {
@@ -80,6 +90,7 @@ public final class RemindersManagerImpl {
         manager.cancelScheduled()
         guard enabled else { return }
         reminders
+            .limited(to: 64)
             .flatMap { $0.times }
             .map { NotificationObject(text: message, time: $0) }
             .forEach(manager.schedule)
