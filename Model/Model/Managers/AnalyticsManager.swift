@@ -104,6 +104,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.reduceAnimation)", forName: "reduce_animation")
         Analytics.setUserProperty("\(settings.useLegacyDiary)", forName: "legacy_diary")
         Analytics.setUserProperty("\(settings.appearance.name)", forName: "appearance")
+        Analytics.setUserProperty("\(settings.notifications)", forName: "notifications")
     }
 
     private func trackDefaultsProperties() {
