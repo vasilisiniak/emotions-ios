@@ -16,6 +16,7 @@ public enum EmotionsUseCaseObjects {
         case v_1_19_appearance
         case v_1_21_trash
         case v_1_22_roadmap
+        case v_1_23_notifications
     }
 }
 
@@ -35,6 +36,7 @@ private extension News {
         case .v_1_19_appearance: return .v_1_19_appearance
         case .v_1_21_trash: return .v_1_21_trash
         case .v_1_22_roadmap: return .v_1_22_roadmap
+        case .v_1_23_notifications: return .v_1_23_notifications
         }
     }
 }

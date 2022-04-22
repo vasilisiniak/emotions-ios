@@ -19,6 +19,7 @@ public enum News {
     case v_1_19_appearance
     case v_1_21_trash
     case v_1_22_roadmap
+    case v_1_23_notifications
 }
 
 public final class NewsManagerImpl {
@@ -49,7 +50,8 @@ public final class NewsManagerImpl {
         "1.16": (version: "1.17", news: [.v_1_17_diary]),
         "1.17": (version: "1.19", news: [.v_1_19_appearance]),
         "1.19": (version: "1.21", news: [.v_1_21_trash]),
-        "1.21": (version: "1.22", news: [.v_1_22_roadmap])
+        "1.21": (version: "1.22", news: [.v_1_22_roadmap]),
+        "1.22": (version: "1.23", news: [.v_1_23_notifications])
     ]
 
     var isFreshInstall: Bool {
