@@ -128,6 +128,7 @@ extension LogEventUseCaseImpl: LogEventUseCase {
 
 extension LogEventUseCaseImpl: PromoManagerSender {
     public func presentShare() {
+        analytics.track(.requestShare)
         output.presentShareInfo()
     }
 
