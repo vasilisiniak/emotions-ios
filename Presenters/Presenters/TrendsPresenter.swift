@@ -1,6 +1,26 @@
 import UIKit
 import UseCases
 
+public enum TrendsPresenterObjects {
+
+    public struct Stat {
+
+        // MARK: - Internal
+
+        init(stats: TrendsUseCaseObjects.Stat, max: Double) {
+            name = stats.name
+            color = UIColor(hex: stats.color)
+            frequency = stats.frequency / max
+        }
+
+        // MARK: - Public
+
+        public let name: String
+        public let color: UIColor
+        public let frequency: Double
+    }
+}
+
 public protocol TrendsPresenterOutput: AnyObject {
     func show(noDataText: String, button: String?)
     func show(rangeTitle: String)
@@ -9,6 +29,7 @@ public protocol TrendsPresenterOutput: AnyObject {
     func show(noDataHidden: Bool)
     func show(rangeHidden: Bool)
     func show(colors: [UIColor])
+    func show(stats: [TrendsPresenterObjects.Stat])
 }
 
 public protocol TrendsRouter: AnyObject {
@@ -55,6 +76,14 @@ extension TrendsPresenterImpl: TrendsUseCaseOutput {
     public func present(colors: [String]) {
         output.show(colors: colors.map(UIColor.init(hex:)))
         output.show(rangeTitle: "Выбрано записей: \(colors.count)")
+    }
+
+    public func present(stats: [TrendsUseCaseObjects.Stat]) {
+        guard let max = stats.map(\.frequency).max() else {
+            output.show(stats: [])
+            return
+        }
+        output.show(stats: stats.map { TrendsPresenterObjects.Stat(stats: $0, max: max * 1.05) })
     }
 
     public func present(noData: Bool, becauseOfRange: Bool) {

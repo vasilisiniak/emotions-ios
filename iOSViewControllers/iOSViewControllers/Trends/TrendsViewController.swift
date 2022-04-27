@@ -59,6 +59,10 @@ extension TrendsViewController: TrendsPresenterOutput {
         trendsView.gradientView.colors = colors
     }
 
+    public func show(stats: [TrendsPresenterObjects.Stat]) {
+        trendsView.histogram.items = stats.map { Histogram.Item(name: $0.name, color: $0.color, value: $0.frequency) }
+    }
+
     public func show(range: (min: Date, max: Date)) {
         trendsView.dateRangePicker.range = range
     }

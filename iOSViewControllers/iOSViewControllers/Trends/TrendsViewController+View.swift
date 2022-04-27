@@ -17,12 +17,14 @@ extension TrendsViewController {
             addSubview(gradientView)
             addSubview(noDataView)
             addSubview(dateRangePicker)
+            addSubview(histogram)
         }
 
         private func makeConstraints() {
             gradientView.translatesAutoresizingMaskIntoConstraints = false
             noDataView.translatesAutoresizingMaskIntoConstraints = false
             dateRangePicker.translatesAutoresizingMaskIntoConstraints = false
+            histogram.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
                 gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -37,7 +39,11 @@ extension TrendsViewController {
                 noDataView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 noDataView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 noDataView.topAnchor.constraint(equalTo: topAnchor),
-                noDataView.bottomAnchor.constraint(equalTo: bottomAnchor)
+                noDataView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+                histogram.leadingAnchor.constraint(equalTo: leadingAnchor),
+                histogram.trailingAnchor.constraint(equalTo: trailingAnchor),
+                histogram.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
             ])
         }
 
@@ -46,6 +52,7 @@ extension TrendsViewController {
         let gradientView = GradientView()
         let noDataView = NoDataView()
         let dateRangePicker = DateRangePicker()
+        let histogram = Histogram()
 
         init() {
             super.init(frame: .zero)
