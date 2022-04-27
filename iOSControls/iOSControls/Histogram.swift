@@ -44,6 +44,8 @@ final public class Histogram: UIView {
         private func addLabel(_ item: Item) {
             let label = UILabel()
             label.text = item.name
+            label.textColor = .black
+            label.font = .preferredFont(forTextStyle: .body)
             label.textAlignment = .center
             label.adjustsFontForContentSizeCategory = true
 
@@ -87,6 +89,7 @@ final public class Histogram: UIView {
             label.layer.mask = mask
             label.text = item.name
             label.textColor = item.color.text
+            label.font = .preferredFont(forTextStyle: .body)
             label.textAlignment = .center
             label.adjustsFontForContentSizeCategory = true
 
