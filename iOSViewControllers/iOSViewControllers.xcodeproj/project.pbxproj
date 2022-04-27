@@ -119,6 +119,7 @@
 			children = (
 				83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */,
 				16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */,
+				839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */,
 			);
 			path = Trends;
 			sourceTree = "<group>";
@@ -160,7 +161,6 @@
 				168759FD27F5E2BA00DBA53A /* Emotions */,
 				16AB3B97280EFE0200169C8F /* Settings */,
 				83B9EE5E25857500007158F3 /* LogEventViewController.swift */,
-				839C92CD258F4ACE008C9C5A /* TrendsViewController.swift */,
 				83020138258F899000D744DF /* EmotionsViewController.swift */,
 				830C7591258A2B5100F964BC /* Media.xcassets */,
 				8377F4712582CD09006C9D2F /* Info.plist */,
