@@ -1,4 +1,5 @@
 import UIKit
+import WidgetKit
 import Model
 
 @UIApplicationMain final class AppDelegate: UIResponder {
@@ -35,8 +36,11 @@ extension AppDelegate: UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        WidgetCenter.shared.reloadAllTimelines()
+
         compositionRoot.promoManager.trackAppLaunch()
         compositionRoot.notifications.cancelDelivered()
+
         AppGroup.emotionEventsProvider.eraseExpired()
     }
 }

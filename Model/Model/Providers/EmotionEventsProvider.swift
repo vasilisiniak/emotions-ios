@@ -54,7 +54,13 @@ public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageEntity> 
     private let expirationInterval: TimeInterval = 3 * 24 * 60 * 60
     private let storage: Storage
     private var listeners: [EmotionEventsProviderListener] = []
-    private var cache: [EmotionEvent]!
+    private let cache: Bool
+    private var cachedData: [EmotionEvent]!
+
+    private var cached: [EmotionEvent] {
+        set { cachedData = newValue }
+        get { cache ? cachedData : uncachedEvents }
+    }
 
     private var uncachedEvents: [EmotionEvent] {
         let entities: [EmotionEventEntity] = storage.get()
@@ -62,27 +68,29 @@ public final class EmotionEventsProviderImpl<EmotionEventEntity: StorageEntity> 
     }
 
     private func updateCache() {
-        guard uncachedEvents != cache else { return }
-        cache = uncachedEvents
+        guard cache else { return }
+        guard uncachedEvents != cached else { return }
+        cached = uncachedEvents
         listeners.forEach { $0() }
     }
 
     // MARK: - Public
 
-    public init(storage: Storage) {
+    public init(storage: Storage, cache: Bool) {
         self.storage = storage
-        self.cache = uncachedEvents
+        self.cache = cache
+        self.cached = uncachedEvents
         self.storage.add { [weak self] in self?.updateCache() }
     }
 }
 
 extension EmotionEventsProviderImpl: EmotionEventsProvider {
     public var events: [EmotionEvent] {
-        cache.filter { $0.deleted == nil }
+        cached.filter { $0.deleted == nil }
     }
 
     public var deletedEvents: [EmotionEvent] {
-        cache.filter { $0.deleted != nil }
+        cached.filter { $0.deleted != nil }
     }
 
     public func delete(event: EmotionEvent) {

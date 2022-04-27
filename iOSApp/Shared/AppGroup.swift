@@ -3,12 +3,20 @@ import Model
 import Storage
 
 enum AppGroup {
-    static let emotionEventsProvider: EmotionEventsProvider = {
+
+    // MARK: - Private
+
+    private static func emotionEventsProvider(cache: Bool) -> EmotionEventsProvider {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.by.vasili.siniak.emotions")!
         let storeURL = containerURL.appendingPathComponent("emotions.sqlite")
         let storage = CoreDataStorage(model: "Model", url: storeURL, cloudKitGroup: "iCloud.by.vasili.siniak.emotions")
-        return EmotionEventsProviderImpl<EmotionEventEntity>(storage: storage)
-    }()
+        return EmotionEventsProviderImpl<EmotionEventEntity>(storage: storage, cache: cache)
+    }
+
+    // MARK: - Internal
+
+    static let emotionEventsProvider: EmotionEventsProvider = emotionEventsProvider(cache: true)
+    static let cachelessEventsProvider: EmotionEventsProvider = emotionEventsProvider(cache: false)
 
     static let groupsProvider: EmotionsGroupsProvider = EmotionsGroupsProviderImpl(url: Bundle.main.url(forResource: "Emotions", withExtension: "plist")!)
     static let settings: Settings = UserDefaultsSettings(defaults: UserDefaults(suiteName: "group.by.vasili.siniak.emotions")!)
