@@ -17,6 +17,7 @@ extension TrendsViewController {
             addSubview(gradientView)
             addSubview(noDataView)
             addSubview(dateRangePicker)
+            addSubview(blur)
             addSubview(histogram)
         }
 
@@ -24,6 +25,7 @@ extension TrendsViewController {
             gradientView.translatesAutoresizingMaskIntoConstraints = false
             noDataView.translatesAutoresizingMaskIntoConstraints = false
             dateRangePicker.translatesAutoresizingMaskIntoConstraints = false
+            blur.translatesAutoresizingMaskIntoConstraints = false
             histogram.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
@@ -41,8 +43,13 @@ extension TrendsViewController {
                 noDataView.topAnchor.constraint(equalTo: topAnchor),
                 noDataView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-                histogram.leadingAnchor.constraint(equalTo: leadingAnchor),
-                histogram.trailingAnchor.constraint(equalTo: trailingAnchor),
+                blur.leadingAnchor.constraint(equalTo: leadingAnchor),
+                blur.trailingAnchor.constraint(equalTo: trailingAnchor),
+                blur.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+
+                histogram.leadingAnchor.constraint(equalTo: blur.leadingAnchor),
+                histogram.trailingAnchor.constraint(equalTo: blur.trailingAnchor),
+                histogram.topAnchor.constraint(equalTo: blur.topAnchor, constant: blur.offset),
                 histogram.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
             ])
         }
@@ -53,6 +60,10 @@ extension TrendsViewController {
         let noDataView = NoDataView()
         let dateRangePicker = DateRangePicker()
         let histogram = Histogram()
+
+        let blur: GradientedTop<UIVisualEffectView> = create {
+            $0.view = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialLight))
+        }
 
         init() {
             super.init(frame: .zero)

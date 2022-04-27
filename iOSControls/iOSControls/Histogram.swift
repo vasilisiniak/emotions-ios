@@ -41,20 +41,6 @@ final public class Histogram: UIView {
 
         private var selectedMask: CAGradientLayer?
 
-        private func addBlur() {
-            let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-
-            blur.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(blur)
-
-            NSLayoutConstraint.activate([
-                blur.leadingAnchor.constraint(equalTo: leadingAnchor),
-                blur.trailingAnchor.constraint(equalTo: trailingAnchor),
-                blur.topAnchor.constraint(equalTo: topAnchor),
-                blur.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-        }
-
         private func addLabel(_ item: Item) {
             let label = UILabel()
             label.text = item.name
@@ -75,7 +61,9 @@ final public class Histogram: UIView {
         private func addSelected(_ item: Item) {
             let view = UIView()
             view.layer.cornerRadius = Constants.Radius
-            view.layer.masksToBounds = true
+            view.layer.shadowColor = UIColor.black.cgColor
+            view.layer.shadowRadius = 10
+            view.layer.shadowOpacity = 0.2
             view.backgroundColor = item.color
 
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -120,10 +108,10 @@ final public class Histogram: UIView {
         init(_ item: Item) {
             super.init(frame: .zero)
 
+            backgroundColor = item.color.withAlphaComponent(0.4)
             layer.cornerRadius = Constants.Radius
             layer.masksToBounds = true
 
-            addBlur()
             addLabel(item)
             addSelected(item)
             selectedMask = addSelectedLabel(item)
