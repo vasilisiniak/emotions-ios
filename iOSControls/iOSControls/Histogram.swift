@@ -82,8 +82,8 @@ final public class Histogram: UIView {
         private func addSelectedLabel(_ item: Item) -> CAGradientLayer {
             let mask = CAGradientLayer()
             mask.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-            mask.startPoint = CGPoint(x: item.value + 1e-10, y: 0.5)
-            mask.endPoint = CGPoint(x: item.value - 1e-10, y: 0.5)
+            mask.startPoint = CGPoint(x: item.value + 1e-3, y: 0.5)
+            mask.endPoint = CGPoint(x: item.value - 1e-3, y: 0.5)
 
             let label = UILabel()
             label.layer.mask = mask
