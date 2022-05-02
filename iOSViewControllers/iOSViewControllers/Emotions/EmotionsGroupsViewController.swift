@@ -476,7 +476,7 @@ extension EmotionsGroupsViewController: EmotionsGroupsPresenterOutput {
         }
 
         let diff = buildDiff(emotions: emotions, selectedNames: selectedNames)
-        guard !diff.old.isEmpty else {
+        guard !diff.old.isEmpty && !label else {
             reloadData(emotions: emotions, selectedNames: selectedNames, color: color)
             return
         }
