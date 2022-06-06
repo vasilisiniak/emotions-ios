@@ -5,12 +5,16 @@ public enum TrendsPresenterObjects {
 
     public struct Stat {
 
+        fileprivate enum Constants {
+            static let Threshold = 0.03
+        }
+
         // MARK: - Internal
 
-        init(stats: TrendsUseCaseObjects.Stat, max: Double) {
+        init(stats: TrendsUseCaseObjects.Stat, greatest: Double) {
             name = stats.name
             color = UIColor(hex: stats.color)
-            frequency = stats.frequency / max
+            frequency = max(Constants.Threshold, stats.frequency / greatest)
         }
 
         // MARK: - Public
@@ -83,7 +87,7 @@ extension TrendsPresenterImpl: TrendsUseCaseOutput {
             output.show(stats: [])
             return
         }
-        output.show(stats: stats.map { TrendsPresenterObjects.Stat(stats: $0, max: max * 1.05) })
+        output.show(stats: stats.map { TrendsPresenterObjects.Stat(stats: $0, greatest: (max + TrendsPresenterObjects.Stat.Constants.Threshold) / max) })
     }
 
     public func present(noData: Bool, becauseOfRange: Bool) {
