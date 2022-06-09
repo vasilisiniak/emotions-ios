@@ -11,8 +11,13 @@ public enum TrendsPresenterObjects {
 
         // MARK: - Internal
 
-        init(stats: TrendsUseCaseObjects.Stat, greatest: Double) {
-            name = stats.name
+        init(stats: TrendsUseCaseObjects.Stat, greatest: Double, total: Double?) {
+            if let total = total {
+                name = "\(stats.name) \(Int(stats.frequency * 100 / total))%"
+            }
+            else {
+                name = stats.name
+            }
             color = UIColor(hex: stats.color)
             frequency = max(Constants.Threshold, stats.frequency / greatest)
         }
@@ -87,7 +92,14 @@ extension TrendsPresenterImpl: TrendsUseCaseOutput {
             output.show(stats: [])
             return
         }
-        output.show(stats: stats.map { TrendsPresenterObjects.Stat(stats: $0, greatest: (max + TrendsPresenterObjects.Stat.Constants.Threshold) / max) })
+        let total = useCase.showPercentage ? stats.map(\.frequency).reduce(0, +) : nil
+        output.show(stats: stats.map {
+            TrendsPresenterObjects.Stat(
+                stats: $0,
+                greatest: max * (1 + TrendsPresenterObjects.Stat.Constants.Threshold),
+                total: total
+            )
+        })
     }
 
     public func present(noData: Bool, becauseOfRange: Bool) {

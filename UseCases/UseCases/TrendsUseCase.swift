@@ -23,6 +23,7 @@ public protocol TrendsUseCaseOutput: AnyObject {
 }
 
 public protocol TrendsUseCase {
+    var showPercentage: Bool { get }
     func eventOutputReady()
     func eventAdd()
     func event(selectedRange: (min: Date?, max: Date?))
@@ -35,6 +36,7 @@ public final class TrendsUseCaseImpl {
     private let eventsProvider: EmotionEventsProvider
     private let emotionsProvider: EmotionsGroupsProvider
     private let settings: Settings
+    private var token: AnyObject?
 
     private func presentData() {
         let events = eventsProvider.events
@@ -86,14 +88,21 @@ public final class TrendsUseCaseImpl {
         self.eventsProvider = eventsProvider
         self.emotionsProvider = emotionsProvider
         self.settings = settings
+
         self.eventsProvider.add { [weak self] in
             self?.presentRange()
+            self?.presentData()
+        }
+
+        token = self.settings.add { [weak self] _ in
             self?.presentData()
         }
     }
 }
 
 extension TrendsUseCaseImpl: TrendsUseCase {
+    public var showPercentage: Bool { settings.showPercentage }
+
     public func eventAdd() {
         output.presentEmotions()
     }
