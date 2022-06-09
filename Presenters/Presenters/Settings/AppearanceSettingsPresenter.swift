@@ -25,6 +25,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case legacyDiary(enabled: Bool)
             case reduceAnimation(enabled: Bool)
             case trash(enabled: Bool)
+            case percentage(enabled: Bool)
 
             var title: String {
                 switch self {
@@ -34,6 +35,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .legacyDiary: return "Старый вид дневника"
                 case .reduceAnimation: return "Минимизировать анимацию"
                 case .trash: return "Удалять в корзину"
+                case .percentage: return "Показывать % эмоций"
                 }
             }
 
@@ -45,6 +47,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .legacyDiary: return .switcher
                 case .reduceAnimation: return .switcher
                 case .trash: return .switcher
+                case .percentage: return .switcher
                 }
             }
 
@@ -56,6 +59,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .legacyDiary(let enabled): return enabled
                 case .reduceAnimation(let enabled): return enabled
                 case .trash(let enabled): return enabled
+                case .percentage(let enabled): return enabled
                 }
             }
         }
@@ -66,6 +70,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
         case legacyDiary(enabled: Bool)
         case reduceAnimation(enabled: Bool)
         case trash(enabled: Bool)
+        case percentage(enabled: Bool)
 
         var rows: [SettingsPresenterRow] { sectionRows }
 
@@ -77,6 +82,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .legacyDiary(let enabled): return [.legacyDiary(enabled: enabled)]
             case .reduceAnimation(let enabled): return [.reduceAnimation(enabled: enabled)]
             case .trash(let enabled): return [.trash(enabled: enabled)]
+            case .percentage(let enabled): return [.percentage(enabled: enabled)]
             }
         }
 
@@ -88,6 +94,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .legacyDiary: return ""
             case .reduceAnimation: return ""
             case .trash: return ""
+            case .percentage: return ""
             }
         }
 
@@ -99,6 +106,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .legacyDiary: return "Показывать эмоции в дневнике строкой вместо баблов"
             case .reduceAnimation: return "Убрать анимацию перемещения ячеек при выборе эмоций"
             case .trash: return "Удалять записи дневника сначала в корзину: из неё их можно удалить навсегда либо восстановить. Записи хранятся в корзине 3 дня, а затем удаляются автоматически"
+            case .percentage: return "Показывать частоту использования эмоций в процентах в разделе карты эмоций"
             }
         }
     }
@@ -109,13 +117,14 @@ public class AppearanceSettingsPresenterImpl {
     // MARK: - Private
 
     private var defaultSections: [Section] {
-        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false, trash: true)
+        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false, trash: true, percentage: false)
     }
 
-    private func sections(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, legacyDiary: Bool, reduceAnimation: Bool, trash: Bool) -> [Section] {
+    private func sections(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, legacyDiary: Bool, reduceAnimation: Bool, trash: Bool, percentage: Bool) -> [Section] {
         [
             .theme(style: theme),
             .trash(enabled: trash),
+            .percentage(enabled: percentage),
             .legacy(enabled: legacy),
             .compact(enabled: compact),
             .legacyDiary(enabled: legacyDiary),
@@ -157,6 +166,7 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
         case .compact: useCase.event(compact: switcher)
         case .legacyDiary: useCase.event(legacyDiary: switcher)
         case .reduceAnimation: useCase.event(reduceAnimation: switcher)
+        case .percentage: useCase.event(percentage: switcher)
         }
     }
 
@@ -168,13 +178,14 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
         case .compact: fatalError()
         case .legacyDiary: fatalError()
         case .reduceAnimation: fatalError()
+        case .percentage: fatalError()
         }
     }
 }
 
 extension AppearanceSettingsPresenterImpl: AppearanceSettingsUseCaseOutput {
-    public func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool) {
-        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation, trash: trash)
+    public func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool, percentage: Bool) {
+        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation, trash: trash, percentage: percentage)
         let update = sections.enumerated().flatMap { index, section in
             section.sectionRows.enumerated().map { row, _ in IndexPath(row: row, section: index) }
         }

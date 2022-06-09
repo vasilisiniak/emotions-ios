@@ -16,4 +16,5 @@ public protocol Settings: AnyObject {
     var eraseImmediately: Bool { get set }
     var reminders: Data { get set }
     var notifications: Bool { get set }
+    var showPercentage: Bool { get set }
 }

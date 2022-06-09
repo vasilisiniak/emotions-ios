@@ -17,6 +17,7 @@ public final class UserDefaultsSettings {
         static let EraseImmediatelyKey = "Model.SettingsImpl.EraseImmediatelyKey"
         static let RemindersKey = "Model.SettingsImpl.RemindersKey"
         static let NotificationsKey = "Model.SettingsImpl.NotificationsKey"
+        static let ShowPercentageKey = "Model.SettingsImpl.ShowPercentageKey"
     }
 
     // MARK: - Private
@@ -114,6 +115,11 @@ extension UserDefaultsSettings: Settings {
     public var notifications: Bool {
         get { get(Constants.NotificationsKey) }
         set { set(newValue, key: Constants.NotificationsKey) }
+    }
+
+    public var showPercentage: Bool {
+        get { get(Constants.ShowPercentageKey) }
+        set { set(newValue, key: Constants.ShowPercentageKey) }
     }
 
     public func add(observer: @escaping Observer) -> AnyObject {
