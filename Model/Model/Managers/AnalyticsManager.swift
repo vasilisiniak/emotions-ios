@@ -105,6 +105,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.useLegacyDiary)", forName: "legacy_diary")
         Analytics.setUserProperty("\(settings.appearance.name)", forName: "appearance")
         Analytics.setUserProperty("\(settings.notifications)", forName: "notifications")
+        Analytics.setUserProperty("\(settings.showPercentage)", forName: "show_percentage")
     }
 
     private func trackDefaultsProperties() {
