@@ -53,6 +53,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
             promoManager: promoManager,
             groupsProvider: AppGroup.groupsProvider,
             settings: AppGroup.settings,
+            state: state,
             appLink: AppGroup.appLink
         ).configure()
         return emotionsViewController

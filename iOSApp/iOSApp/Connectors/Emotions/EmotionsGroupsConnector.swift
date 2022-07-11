@@ -22,6 +22,7 @@ final class EmotionsGroupsConnector {
         promoManager: PromoManager,
         groupsProvider: EmotionsGroupsProvider,
         settings: Settings,
+        state: StateManager,
         appLink: String
     ) {
         self.viewController = viewController
@@ -32,6 +33,7 @@ final class EmotionsGroupsConnector {
             analytics: analytics,
             promoManager: promoManager,
             settings: settings,
+            state: state,
             appLink: appLink
         )
     }

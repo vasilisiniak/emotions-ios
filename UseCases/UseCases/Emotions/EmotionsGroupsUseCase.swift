@@ -82,6 +82,7 @@ public final class EmotionsGroupsUseCaseImpl {
     private let analytics: AnalyticsManager
     private let promoManager: PromoManager
     private let settings: Settings
+    private let state: StateManager
     private let appLink: String
     private var selectedGroupIndex = 0
     private var selectedColor: String!
@@ -91,6 +92,7 @@ public final class EmotionsGroupsUseCaseImpl {
     private var selectedEmotions: [String] = [] {
         didSet {
             updateSelectedColor()
+            state.emotionsGroupsState = (emotions: selectedEmotions, color: selectedColor)
             output.present(selectedEmotions: selectedEmotions, color: selectedColor)
         }
     }
@@ -171,17 +173,24 @@ public final class EmotionsGroupsUseCaseImpl {
         analytics: AnalyticsManager,
         promoManager: PromoManager,
         settings: Settings,
+        state: StateManager,
         appLink: String
     ) {
         self.emotionsProvider = emotionsProvider
         self.analytics = analytics
         self.promoManager = promoManager
         self.settings = settings
+        self.state = state
         self.appLink = appLink
 
         token = self.settings.add { [weak self] in
             self?.output.present(legacy: $0.useLegacyLayout)
             self?.presentEmotionsGroup()
+        }
+
+        if let state = state.emotionsGroupsState {
+            selectedEmotions = state.emotions
+            selectedColor = state.color
         }
     }
 }
@@ -221,6 +230,10 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
         output.present(groups: emotionsProvider.emotionsGroups.map(\.name))
         presentEmotionsGroup()
         presentClearNextAvailable()
+
+        if state.emotionNameState?.name != nil || state.emotionNameState?.details != nil || state.emotionNameState?.date != nil {
+            output.presentNext(selectedEmotions: selectedEmotions, color: selectedColor)
+        }
     }
 
     public func event(indexChange: Int) {
