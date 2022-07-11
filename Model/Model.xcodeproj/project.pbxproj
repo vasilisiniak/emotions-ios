@@ -11,6 +11,7 @@
 		160794022708908000572275 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160794012708908000572275 /* AnalyticsManager.swift */; };
 		160BB57627395B3F0060BA7E /* MigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB57527395B3F0060BA7E /* MigrationManager.swift */; };
 		160BB578273A78E10060BA7E /* NewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160BB577273A78E10060BA7E /* NewsManager.swift */; };
+		16239EA3287C3DC200B035D9 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16239EA2287C3DC200B035D9 /* StateManager.swift */; };
 		167F7CA526F7C9F80074DCAA /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DE23E92583F4410098337E /* Utils.framework */; };
 		16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16875A0627F5E3AE00DBA53A /* Settings.swift */; };
 		16AB3B88280854D100169C8F /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B87280854D100169C8F /* RemindersManager.swift */; };
@@ -31,6 +32,7 @@
 		160794012708908000572275 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		160BB57527395B3F0060BA7E /* MigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationManager.swift; sourceTree = "<group>"; };
 		160BB577273A78E10060BA7E /* NewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsManager.swift; sourceTree = "<group>"; };
+		16239EA2287C3DC200B035D9 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		16875A0627F5E3AE00DBA53A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		16AB3B87280854D100169C8F /* RemindersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
 		16AB3B91280D9FC900169C8F /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				160BB577273A78E10060BA7E /* NewsManager.swift */,
 				16EC2BB62782FBE400A96C5F /* LockManager.swift */,
 				16AB3B87280854D100169C8F /* RemindersManager.swift */,
+				16239EA2287C3DC200B035D9 /* StateManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				83A51B222582C539005131D7 /* EmotionsGroup.swift in Sources */,
 				16875A0727F5E3AE00DBA53A /* Settings.swift in Sources */,
 				16EC2BB72782FBE400A96C5F /* LockManager.swift in Sources */,
+				16239EA3287C3DC200B035D9 /* StateManager.swift in Sources */,
 				16AB3B92280D9FC900169C8F /* NotificationsManager.swift in Sources */,
 				16CF247827E2388400289E5D /* MetricsManager.swift in Sources */,
 				16AB3B88280854D100169C8F /* RemindersManager.swift in Sources */,

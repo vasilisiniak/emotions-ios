@@ -9,6 +9,7 @@ final class CompositionRoot {
 
     private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
     private let lock = LockManagerImpl()
+    private let state = UserDefaultsStateManager(defaults: UserDefaults.standard)
 
     private lazy var reminders: RemindersManagerImpl = {
         RemindersManagerImpl(message: AppGroup.reminder, manager: notifications, settings: AppGroup.settings)
