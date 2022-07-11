@@ -26,7 +26,7 @@ public enum EventNameUseCaseObjects {
 
 public protocol EventNameUseCaseOutput: AnyObject {
     func present(selectedEmotions: [EventNameUseCaseObjects.Emotion], color: String)
-    func present(date: Date, name: String, details: String?)
+    func present(date: Date, name: String?, details: String?)
     func present(addAvailable: Bool)
     func presentCancel()
     func presentEmotions()
@@ -52,6 +52,7 @@ public final class EventNameUseCaseImpl {
     private let eventsProvider: EmotionEventsProvider
     private let groupsProvider: EmotionsGroupsProvider
     private let analytics: AnalyticsManager
+    private let state: StateManager
     private let selectedEmotions: [String]
     private let color: String
     private var name: String?
@@ -69,6 +70,10 @@ public final class EventNameUseCaseImpl {
         output.present(selectedEmotions: emotions, color: color)
     }
 
+    private func saveState() {
+        state.emotionNameState = (name: name, details: details, date: date)
+    }
+
     // MARK: - Public
 
     public weak var output: EventNameUseCaseOutput!
@@ -77,14 +82,20 @@ public final class EventNameUseCaseImpl {
         eventsProvider: EmotionEventsProvider,
         groupsProvider: EmotionsGroupsProvider,
         analytics: AnalyticsManager,
+        state: StateManager,
         selectedEmotions: [String],
         color: String
     ) {
         self.eventsProvider = eventsProvider
         self.groupsProvider = groupsProvider
         self.analytics = analytics
+        self.state = state
         self.selectedEmotions = selectedEmotions
         self.color = color
+
+        name = state.emotionNameState?.name
+        details = state.emotionNameState?.details
+        date = state.emotionNameState?.date ?? Date()
     }
 }
 
@@ -93,30 +104,36 @@ extension EventNameUseCaseImpl: EventNameUseCase {
 
     public func eventOutputReady() {
         presentEmotions()
+        output.present(date: date, name: name, details: details)
         output.presentBackAddButtons()
-        output.present(addAvailable: false)
+        output.present(addAvailable: (name ?? "").count > 0)
     }
 
     public func eventCancel() {
+        state.emotionNameState = nil
         output.presentCancel()
     }
 
     public func event(nameChanged: String?) {
         name = nameChanged
+        saveState()
         output.present(addAvailable: (name ?? "").count > 0)
     }
 
     public func event(detailsChanged: String?) {
         details = detailsChanged
+        saveState()
     }
 
     public func event(dateChanged: Date) {
         date = dateChanged
+        saveState()
     }
 
     public func eventAdd() {
         let event = EmotionEvent(date: date, name: name!, details: details, emotions: selectedEmotions.joined(separator: ", "), color: color)
         eventsProvider.log(event: event)
+        state.emotionNameState = nil
         analytics.track(.eventCreated(hasDetails: (details?.isEmpty == false)))
         output.presentEmotions()
     }

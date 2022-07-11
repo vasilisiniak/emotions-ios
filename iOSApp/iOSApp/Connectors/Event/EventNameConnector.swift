@@ -21,6 +21,7 @@ final class EventNameConnector {
         eventsProvider: EmotionEventsProvider,
         groupsProvider: EmotionsGroupsProvider,
         analytics: AnalyticsManager,
+        state: StateManager,
         selectedEmotions: [String],
         color: String
     ) {
@@ -31,6 +32,7 @@ final class EventNameConnector {
             eventsProvider: eventsProvider,
             groupsProvider: groupsProvider,
             analytics: analytics,
+            state: state,
             selectedEmotions: selectedEmotions,
             color: color
         )

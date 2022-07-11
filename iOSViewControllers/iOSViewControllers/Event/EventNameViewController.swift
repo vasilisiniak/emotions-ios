@@ -181,7 +181,7 @@ extension EventNameViewController: EventNamePresenterOutput {
             .forEach { eventNameView.emotions.add(view: $0) }
     }
 
-    public func show(date: Date, name: String, details: String?) {
+    public func show(date: Date, name: String?, details: String?) {
         eventNameView.date.date = date
         self.name = name
         self.details = details

@@ -25,7 +25,7 @@ public protocol EventNamePresenterOutput: AnyObject {
     func show(addButton: String)
     func show(addButtonEnabled: Bool)
     func show(selectedEmotions: [EventNamePresenterObjects.Emotion])
-    func show(date: Date, name: String, details: String?)
+    func show(date: Date, name: String?, details: String?)
     func show(color: UIColor)
     func showKeyboard()
 }
@@ -113,7 +113,7 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
         router.routeEvents()
     }
 
-    public func present(date: Date, name: String, details: String?) {
+    public func present(date: Date, name: String?, details: String?) {
         output.show(date: date, name: name, details: details)
     }
 

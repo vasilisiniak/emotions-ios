@@ -67,6 +67,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
             eventsProvider: AppGroup.emotionEventsProvider,
             groupsProvider: AppGroup.groupsProvider,
             analytics: analytics,
+            state: state,
             selectedEmotions: selectedEmotions,
             color: color
         ).configure()
