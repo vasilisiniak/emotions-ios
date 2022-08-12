@@ -271,7 +271,7 @@ extension EmotionEventsViewController: EmotionEventsPresenterOutput {
             case .info:
                 right.append(
                     UIBarButtonItem(
-                        image: UIImage(named: "InfoIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
+                        image: UIImage(named: "EditIcon", in: Bundle(for: EmotionEventsViewController.self), with: nil),
                         primaryAction: UIAction { [presenter] _ in presenter?.eventInfoTap() }
                     )
                 )
