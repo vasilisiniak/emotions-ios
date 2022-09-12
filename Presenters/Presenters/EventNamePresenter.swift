@@ -145,7 +145,7 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
 
         switch useCase.mode {
         case .create: break
-        case .edit: emotions += [EventNamePresenterObjects.Emotion("Изменить", UIColor.secondarySystemBackground)]
+        case .edit: emotions += [EventNamePresenterObjects.Emotion("Изменить", UIColor.secondaryLabel)]
         }
 
         output.show(selectedEmotions: emotions)
