@@ -72,6 +72,10 @@ extension LogEventViewController: EventNameRouter {
     public func routeEvents() {
         fatalError()
     }
+
+    public func routeEdit(emotions: [String]) {
+        fatalError()
+    }
 }
 
 extension LogEventViewController: EmotionNotFoundRouter {

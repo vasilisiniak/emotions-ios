@@ -296,7 +296,7 @@ extension EmotionsGroupsViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return isSearching ? 0 : 1
+        case .notFound: return (!isSearching && (notFoundText?.isEmpty == false)) ? 1 : 0
         }
     }
 
@@ -353,7 +353,7 @@ extension EmotionsGroupsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
         case .emotions: return emotions.count
-        case .notFound: return isSearching ? 0 : 1
+        case .notFound: return (!isSearching && (notFoundText?.isEmpty == false)) ? 1 : 0
         }
     }
 

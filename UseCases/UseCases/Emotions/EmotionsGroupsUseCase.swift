@@ -5,6 +5,11 @@ import Utils
 
 public enum EmotionsGroupsUseCaseObjects {
 
+    public enum Mode {
+        case log
+        case edit
+    }
+
     public struct Emotion: Equatable {
 
         // MARK: - Public
@@ -31,9 +36,11 @@ public protocol EmotionsGroupsUseCaseOutput: AnyObject {
     func presentShareLater()
     func presentNotFound()
     func present(legacy: Bool)
+    func presentCancel()
 }
 
 public protocol EmotionsGroupsUseCase {
+    var mode: EmotionsGroupsUseCaseObjects.Mode { get }
     func eventOutputReady()
     func eventClear()
     func eventNext()
@@ -88,11 +95,18 @@ public final class EmotionsGroupsUseCaseImpl {
     private var selectedColor: String!
     private var token: AnyObject!
     private var search: String?
+    private let originalEmotions: [String]?
+    public let mode: EmotionsGroupsUseCaseObjects.Mode
 
     private var selectedEmotions: [String] = [] {
         didSet {
             updateSelectedColor()
-            state.emotionsGroupsState = (emotions: selectedEmotions, color: selectedColor)
+
+            switch mode {
+            case .log: state.emotionsGroupsState = (emotions: selectedEmotions, color: selectedColor)
+            case .edit: break
+            }
+
             output.present(selectedEmotions: selectedEmotions, color: selectedColor)
         }
     }
@@ -149,8 +163,14 @@ public final class EmotionsGroupsUseCaseImpl {
     }
 
     private func presentClearNextAvailable() {
-        output.present(clearAvailable: selectedEmotions.count > 0)
-        output.present(nextAvailable: selectedEmotions.count > 0)
+        switch mode {
+        case .log:
+            output.present(clearAvailable: !selectedEmotions.isEmpty)
+            output.present(nextAvailable: !selectedEmotions.isEmpty)
+        case .edit:
+            output.present(clearAvailable: true)
+            output.present(nextAvailable: (originalEmotions != selectedEmotions) && !selectedEmotions.isEmpty)
+        }
     }
 
     private func presentFirstLaunch() {
@@ -174,7 +194,8 @@ public final class EmotionsGroupsUseCaseImpl {
         promoManager: PromoManager,
         settings: Settings,
         state: StateManager,
-        appLink: String
+        appLink: String,
+        emotions: [String]
     ) {
         self.emotionsProvider = emotionsProvider
         self.analytics = analytics
@@ -183,14 +204,23 @@ public final class EmotionsGroupsUseCaseImpl {
         self.state = state
         self.appLink = appLink
 
+        originalEmotions = emotions
+        mode = emotions.isEmpty ? .log : .edit
+
         token = self.settings.add { [weak self] in
             self?.output.present(legacy: $0.useLegacyLayout)
             self?.presentEmotionsGroup()
         }
 
-        if let state = state.emotionsGroupsState {
-            selectedEmotions = state.emotions
-            selectedColor = state.color
+        switch mode {
+        case .log:
+            if let state = state.emotionsGroupsState {
+                selectedEmotions = state.emotions
+                selectedColor = state.color
+            }
+        case .edit:
+            selectedEmotions = emotions
+            updateSelectedColor()
         }
     }
 }
@@ -220,9 +250,14 @@ extension EmotionsGroupsUseCaseImpl: EmotionsGroupsUseCase {
     }
 
     public func eventClear() {
-        selectedEmotions = []
-        presentEmotionsGroup()
-        presentClearNextAvailable()
+        switch mode {
+        case .log:
+            selectedEmotions = []
+            presentEmotionsGroup()
+            presentClearNextAvailable()
+        case .edit:
+            output.presentCancel()
+        }
     }
 
     public func eventOutputReady() {

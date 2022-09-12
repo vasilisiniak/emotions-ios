@@ -33,6 +33,7 @@ public protocol EventNameUseCaseOutput: AnyObject {
     func presentEvents()
     func presentBackAddButtons()
     func presentCancelSaveButtons()
+    func presentEdit(emotions: [String])
 }
 
 public protocol EventNameUseCase {
@@ -42,6 +43,8 @@ public protocol EventNameUseCase {
     func event(detailsChanged: String?)
     func event(dateChanged: Date)
     func eventAdd()
+    func event(emotionsChanged: [String], color: String)
+    func eventEditEmotions()
     var mode: EventNameUseCaseObjects.Mode { get }
 }
 
@@ -136,5 +139,13 @@ extension EventNameUseCaseImpl: EventNameUseCase {
         state.emotionNameState = nil
         analytics.track(.eventCreated(hasDetails: (details?.isEmpty == false)))
         output.presentEmotions()
+    }
+
+    public func event(emotionsChanged: [String], color: String) {
+        fatalError()
+    }
+
+    public func eventEditEmotions() {
+        fatalError()
     }
 }

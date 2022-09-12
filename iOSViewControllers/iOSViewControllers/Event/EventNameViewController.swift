@@ -28,6 +28,7 @@ public final class EventNameViewController: UIViewController {
 
     public override func loadView() {
         view = eventNameView
+        eventNameView.emotions.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onEmotionsTap)))
     }
 
     // MARK: - Private
@@ -100,9 +101,17 @@ public final class EventNameViewController: UIViewController {
         presenter.event(detailsChanged: details)
     }
 
+    @objc private func onEmotionsTap() {
+        presenter.eventEmotionsTap()
+    }
+
     // MARK: - Public
 
     public var presenter: EventNamePresenter!
+
+    public func set(emotions: [String], color: String) {
+        presenter.event(emotionsChanged: emotions, color: color)
+    }
 }
 
 extension EventNameViewController: UITextViewDelegate {
@@ -176,6 +185,7 @@ extension EventNameViewController: EventNamePresenterOutput {
     }
 
     public func show(selectedEmotions: [EventNamePresenterObjects.Emotion]) {
+        eventNameView.emotions.removeAll()
         selectedEmotions
             .map { Bubble.create($0.name, $0.color) }
             .forEach { eventNameView.emotions.add(view: $0) }

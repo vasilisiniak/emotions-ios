@@ -12,6 +12,11 @@ public enum EventNamePresenterObjects {
             color = UIColor(hex: emotion.color)
         }
 
+        fileprivate init(_ name: String, _ color: UIColor) {
+            self.name = name
+            self.color = color
+        }
+
         // MARK: - Public
 
         public let name: String
@@ -33,6 +38,7 @@ public protocol EventNamePresenterOutput: AnyObject {
 public protocol EventNameRouter: AnyObject {
     func routeCancel()
     func routeEmotions()
+    func routeEdit(emotions: [String])
     func routeEvents()
 }
 
@@ -44,6 +50,8 @@ public protocol EventNamePresenter {
     func event(nameChanged: String?)
     func event(detailsChanged: String?)
     func event(dateChanged: Date)
+    func event(emotionsChanged: [String], color: String)
+    func eventEmotionsTap()
 }
 
 public final class EventNamePresenterImpl {
@@ -92,6 +100,17 @@ extension EventNamePresenterImpl: EventNamePresenter {
     public func eventCancelTap() {
         useCase.eventCancel()
     }
+
+    public func event(emotionsChanged: [String], color: String) {
+        useCase.event(emotionsChanged: emotionsChanged, color: color)
+    }
+
+    public func eventEmotionsTap() {
+        switch useCase.mode {
+        case .edit: useCase.eventEditEmotions()
+        case .create: break
+        }
+    }
 }
 
 extension EventNamePresenterImpl: EventNameUseCaseOutput {
@@ -122,12 +141,22 @@ extension EventNamePresenterImpl: EventNameUseCaseOutput {
     }
 
     public func present(selectedEmotions: [EventNameUseCaseObjects.Emotion], color: String) {
-        let emotions = selectedEmotions.map(EventNamePresenterObjects.Emotion.init(emotion:))
+        var emotions = selectedEmotions.map(EventNamePresenterObjects.Emotion.init(emotion:))
+
+        switch useCase.mode {
+        case .create: break
+        case .edit: emotions += [EventNamePresenterObjects.Emotion("Изменить", UIColor.secondarySystemBackground)]
+        }
+
         output.show(selectedEmotions: emotions)
         output.show(color: UIColor(hex: color))
     }
 
     public func presentCancel() {
         router.routeCancel()
+    }
+
+    public func presentEdit(emotions: [String]) {
+        router.routeEdit(emotions: emotions)
     }
 }

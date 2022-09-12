@@ -7,6 +7,7 @@ public final class EditEventNameUseCaseImpl {
         var date: Date
         var name: String
         var details: String?
+        var emotions: [String]
 
         var valid: Bool { !name.isEmpty }
     }
@@ -18,8 +19,8 @@ public final class EditEventNameUseCaseImpl {
     private let analytics: AnalyticsManager
     private let original: Event
     private var current: Event
-    private let selectedEmotions: [String]
-    private let color: String
+    private var selectedEmotions: [String]
+    private var color: String
 
     private func onChange() {
         let hasChanges = (original != current)
@@ -57,7 +58,7 @@ public final class EditEventNameUseCaseImpl {
         self.selectedEmotions = selectedEmotions
         self.color = color
 
-        original = Event(date: date, name: name, details: details)
+        original = Event(date: date, name: name, details: details, emotions: selectedEmotions)
         current = original
     }
 }
@@ -92,9 +93,21 @@ extension EditEventNameUseCaseImpl: EventNameUseCase {
     }
 
     public func eventAdd() {
-        let event = EmotionEvent(date: current.date, name: current.name, details: current.details, emotions: selectedEmotions.joined(separator: ", "), color: color)
+        let event = EmotionEvent(date: current.date, name: current.name, details: current.details, emotions: current.emotions.joined(separator: ", "), color: color)
         eventsProvider.update(event: event, for: original.date)
         analytics.track(.eventEdited(hasDetails: (current.details?.isEmpty == false)))
         output.presentEvents()
+    }
+
+    public func event(emotionsChanged: [String], color: String) {
+        current.emotions = emotionsChanged
+        selectedEmotions = emotionsChanged
+        self.color = color
+        presentEmotions()
+        onChange()
+    }
+
+    public func eventEditEmotions() {
+        output.presentEdit(emotions: selectedEmotions)
     }
 }

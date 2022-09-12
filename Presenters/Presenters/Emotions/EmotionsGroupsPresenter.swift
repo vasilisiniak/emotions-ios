@@ -43,6 +43,7 @@ public protocol EmotionsGroupsPresenterOutput: AnyObject {
 public protocol EmotionsGroupsRouter: AnyObject {
     func routeEventName(selectedEmotions: [String], color: String)
     func routeNotFound()
+    func routeCancel()
 }
 
 public protocol EmotionsGroupsPresenter {
@@ -104,9 +105,17 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsPresenter {
 
     public func eventViewReady() {
         output.show(title: "Выберите эмоции")
-        output.show(clearButton: "Очистить")
-        output.show(nextButton: "Записать")
-        output.show(notFound: "Моей эмоции нет в списке")
+
+        switch useCase.mode {
+        case .log:
+            output.show(clearButton: "Очистить")
+            output.show(nextButton: "Записать")
+            output.show(notFound: "Моей эмоции нет в списке")
+        case .edit:
+            output.show(clearButton: "Отмена")
+            output.show(nextButton: "Сохранить")
+        }
+
         useCase.eventOutputReady()
     }
 
@@ -195,5 +204,9 @@ extension EmotionsGroupsPresenterImpl: EmotionsGroupsUseCaseOutput {
 
     public func present(legacy: Bool) {
         output.show(legacy: legacy)
+    }
+
+    public func presentCancel() {
+        router.routeCancel()
     }
 }

@@ -45,18 +45,7 @@ extension CompositionRoot: LogEventViewControllerComposer {
     }
 
     func emotionsViewController(router: EmotionsGroupsRouter) -> EmotionsGroupsViewController {
-        let emotionsViewController = EmotionsGroupsViewController()
-        EmotionsGroupsConnector(
-            viewController: emotionsViewController,
-            router: router,
-            analytics: analytics,
-            promoManager: promoManager,
-            groupsProvider: AppGroup.groupsProvider,
-            settings: AppGroup.settings,
-            state: state,
-            appLink: AppGroup.appLink
-        ).configure()
-        return emotionsViewController
+        emotionsViewController(router: router, emotions: [])
     }
 
     func eventNameViewController(router: EventNameRouter, selectedEmotions: [String], color: String) -> EventNameViewController {
@@ -206,5 +195,21 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             mode: .deleted
         ).configure()
         return viewController
+    }
+
+    func emotionsViewController(router: EmotionsGroupsRouter, emotions: [String]) -> EmotionsGroupsViewController {
+        let emotionsViewController = EmotionsGroupsViewController()
+        EmotionsGroupsConnector(
+            viewController: emotionsViewController,
+            router: router,
+            analytics: analytics,
+            promoManager: promoManager,
+            groupsProvider: AppGroup.groupsProvider,
+            settings: AppGroup.settings,
+            state: state,
+            appLink: AppGroup.appLink,
+            emotions: emotions
+        ).configure()
+        return emotionsViewController
     }
 }

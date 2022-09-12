@@ -7,6 +7,7 @@ public protocol EmotionsViewControllerComposer: AnyObject {
     var logEventViewController: LogEventViewController { get }
     var appearanceSettingsViewController: SettingsViewController { get }
 
+    func emotionsViewController(router: EmotionsGroupsRouter, emotions: [String]) -> EmotionsGroupsViewController
     func appInfoViewController(router: AppInfoRouter) -> SettingsViewController
     func privacySettingsViewController(router: PrivacySettingsRouter) -> SettingsViewController
     func notificationsSettingsViewController(router: NotificationsSettingsRouter) -> NotificationSettingsViewController
@@ -98,11 +99,29 @@ extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
 
 extension EmotionsViewController: EventNameRouter, ReminderRouter {
     public func routeCancel() {
-        dismiss(animated: true)
+        topPresentedViewController.dismiss(animated: true)
     }
 
     public func routeEvents() {
         dismiss(animated: true)
+    }
+
+    public func routeEdit(emotions: [String]) {
+        let controller = UINavigationController(rootViewController: composer.emotionsViewController(router: self, emotions: emotions))
+        topPresentedViewController.present(controller, animated: true)
+    }
+}
+
+extension  EmotionsViewController: EmotionsGroupsRouter {
+    public func routeEventName(selectedEmotions: [String], color: String) {
+        let navigation = topPresentedViewController.presentingViewController as? UINavigationController
+        let controller = navigation?.viewControllers.first as? EventNameViewController
+        controller?.set(emotions: selectedEmotions, color: color)
+        topPresentedViewController.dismiss(animated: true)
+    }
+
+    public func routeNotFound() {
+        fatalError()
     }
 }
 
