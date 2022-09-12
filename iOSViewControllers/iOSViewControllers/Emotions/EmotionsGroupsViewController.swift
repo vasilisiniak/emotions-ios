@@ -154,6 +154,7 @@ public final class EmotionsGroupsViewController: UIViewController {
             emotionsGroupsView.segmentedControlBackground.backgroundColor = color.withAlphaComponent(0.2)
             emotionsGroupsView.tableView.backgroundColor = color.withAlphaComponent(0.2)
             emotionsGroupsView.collectionView.backgroundColor = color.withAlphaComponent(0.2)
+            emotionsGroupsView.footer.backgroundColor = color.withAlphaComponent(0.2)
         }
     }
 

@@ -29,6 +29,7 @@ extension EmotionsGroupsViewController {
             addSubview(label)
             addSubview(tableView)
             addSubview(collectionView)
+            addSubview(footer)
         }
 
         private func makeConstraints() {
@@ -37,6 +38,7 @@ extension EmotionsGroupsViewController {
             label.translatesAutoresizingMaskIntoConstraints = false
             tableView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.translatesAutoresizingMaskIntoConstraints = false
+            footer.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
                 segmentedControlBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -59,7 +61,12 @@ extension EmotionsGroupsViewController {
                 collectionView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
                 collectionView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
                 collectionView.topAnchor.constraint(equalTo: tableView.topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)
+                collectionView.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+
+                footer.leadingAnchor.constraint(equalTo: leadingAnchor),
+                footer.trailingAnchor.constraint(equalTo: trailingAnchor),
+                footer.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+                footer.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
 
             labelHeight = [
@@ -111,6 +118,8 @@ extension EmotionsGroupsViewController {
         }
 
         lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.layout)
+
+        let footer = UIView()
 
         let leftSwipeGestureRecognizer: UISwipeGestureRecognizer = {
             let recognizer = UISwipeGestureRecognizer()
