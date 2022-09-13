@@ -19,6 +19,7 @@ public enum EmotionsUseCaseObjects {
         case v_1_23_notifications
         case v_1_25_percentage
         case v_1_26_save_state
+        case v_1_27_edit_emotions
     }
 }
 
@@ -41,6 +42,7 @@ private extension News {
         case .v_1_23_notifications: return .v_1_23_notifications
         case .v_1_25_percentage: return .v_1_25_percentage
         case .v_1_26_save_state: return .v_1_26_save_state
+        case .v_1_27_edit_emotions: return .v_1_27_edit_emotions
         }
     }
 }
