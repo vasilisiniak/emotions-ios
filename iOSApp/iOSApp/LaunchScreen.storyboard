@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,10 +24,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="Z46-vt-Ulg" secondAttribute="top" constant="44" id="1l3-Cj-RlU"/>
-                            <constraint firstItem="Z46-vt-Ulg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="57O-l2-vo6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Z46-vt-Ulg" secondAttribute="trailing" id="X7P-AY-tu5"/>
-                            <constraint firstItem="Z46-vt-Ulg" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="bAu-ac-ALU"/>
+                            <constraint firstAttribute="top" secondItem="Z46-vt-Ulg" secondAttribute="top" id="1l3-Cj-RlU"/>
+                            <constraint firstItem="Z46-vt-Ulg" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="57O-l2-vo6"/>
+                            <constraint firstAttribute="trailing" secondItem="Z46-vt-Ulg" secondAttribute="trailing" id="X7P-AY-tu5"/>
+                            <constraint firstItem="Z46-vt-Ulg" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="bAu-ac-ALU"/>
                         </constraints>
                     </view>
                 </viewController>
