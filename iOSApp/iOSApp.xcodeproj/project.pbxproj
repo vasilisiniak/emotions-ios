@@ -27,7 +27,7 @@
 		834448DB25966FB500F68B84 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DA25966FB500F68B84 /* WidgetKit.framework */; };
 		834448DD25966FB500F68B84 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834448DC25966FB500F68B84 /* SwiftUI.framework */; };
 		834448E025966FB500F68B84 /* iOSWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448DF25966FB500F68B84 /* iOSWidget.swift */; };
-		834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 834448D925966FB500F68B84 /* iOSWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 834448D925966FB500F68B84 /* iOSWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		834448F52596777300F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
 		834449002596790600F68B84 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83921902258E842A00A7B69F /* Model.xcdatamodeld */; };
 		834449012596791800F68B84 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834448F42596777300F68B84 /* AppGroup.swift */; };
@@ -67,15 +67,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		834448EA25966FB800F68B84 /* Embed App Extensions */ = {
+		834448EA25966FB800F68B84 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed App Extensions */,
+				834448E625966FB800F68B84 /* iOSWidgetExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		83A51B7C2582C8E1005131D7 /* Embed Frameworks */ = {
@@ -322,7 +322,7 @@
 				8392C7B725825A940015D722 /* Resources */,
 				160794082708991A00572275 /* Clear GoogleService-Info.plist */,
 				83A51B7C2582C8E1005131D7 /* Embed Frameworks */,
-				834448EA25966FB800F68B84 /* Embed App Extensions */,
+				834448EA25966FB800F68B84 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -341,7 +341,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1230;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					834448D825966FB500F68B84 = {
 						CreatedOnToolsVersion = 12.3;
