@@ -21,8 +21,9 @@ public enum News {
     case v_1_22_roadmap
     case v_1_23_notifications
     case v_1_25_percentage
-    case v_1_26_save_state
-    case v_1_27_edit_emotions
+    case v_1_26_saveState
+    case v_1_27_editEmotions
+    case v_1_28_duplicateEvents
 }
 
 public final class NewsManagerImpl {
@@ -56,8 +57,9 @@ public final class NewsManagerImpl {
         "1.21": (version: "1.22", news: [.v_1_22_roadmap]),
         "1.22": (version: "1.23", news: [.v_1_23_notifications]),
         "1.23": (version: "1.25", news: [.v_1_25_percentage]),
-        "1.25": (version: "1.26", news: [.v_1_26_save_state]),
-        "1.26": (version: "1.27", news: [.v_1_27_edit_emotions])
+        "1.25": (version: "1.26", news: [.v_1_26_saveState]),
+        "1.26": (version: "1.27", news: [.v_1_27_editEmotions]),
+        "1.27": (version: "1.28", news: [.v_1_28_duplicateEvents])
     ]
 
     var isFreshInstall: Bool {
