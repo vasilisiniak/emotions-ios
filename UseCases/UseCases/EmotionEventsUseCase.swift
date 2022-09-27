@@ -68,6 +68,7 @@ public protocol EmotionEventsUseCase {
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
     func event(restoreEvent: EmotionEventsUseCaseObjects.Event)
+    func event(duplicateEvent: EmotionEventsUseCaseObjects.Event)
     func eventToggleExpand()
     func eventAdd()
     func eventInfoTap()
@@ -292,6 +293,19 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public func event(editEvent: EmotionEventsUseCaseObjects.Event) {
         analytics.track(.editEvent)
         output.present(editEvent: editEvent)
+    }
+
+    public func event(duplicateEvent: EmotionEventsUseCaseObjects.Event) {
+        analytics.track(.duplicateEvent)
+        eventsProvider.duplicate(event: events.first { $0.date == duplicateEvent.date }!)
+        presentEvents()
+        let newEvent = events
+            .sorted { $0.date > $1.date }
+            .first!
+        let emotions = newEvent.emotions
+            .components(separatedBy: ", ")
+            .map { EmotionEventsUseCaseObjects.Event.Emotion($0, color($0)) }
+        output.present(editEvent: EmotionEventsUseCaseObjects.Event(event: newEvent, emotions: emotions))
     }
 
     public func eventFaceIdInfo() {

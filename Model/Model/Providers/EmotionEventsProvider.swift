@@ -7,6 +7,7 @@ public protocol EmotionEventsProvider {
     var events: [EmotionEvent] { get }
     var deletedEvents: [EmotionEvent] { get }
     func log(event: EmotionEvent)
+    func duplicate(event: EmotionEvent)
     func delete(event: EmotionEvent)
     func erase(event: EmotionEvent)
     func eraseExpired()
@@ -123,6 +124,14 @@ extension EmotionEventsProviderImpl: EmotionEventsProvider {
     public func log(event: EmotionEvent) {
         let entity: EmotionEventEntity = storage.create()
         event.write(to: entity)
+        storage.add(entity: entity)
+        updateCache()
+    }
+
+    public func duplicate(event: EmotionEvent) {
+        let entity: EmotionEventEntity = storage.create()
+        event.write(to: entity)
+        entity.setValue(Date(), forKey: "date")
         storage.add(entity: entity)
         updateCache()
     }

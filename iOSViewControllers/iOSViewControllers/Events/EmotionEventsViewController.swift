@@ -131,6 +131,17 @@ public final class EmotionEventsViewController: UIViewController {
         isUpdating = false
     }
 
+    private func duplicate(indexPath: IndexPath) {
+        isUpdating = true
+        presenter.event(duplicateIndexPath: indexPath)
+        if numberOfSections(in: tableView) == tableView.numberOfSections {
+            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        } else {
+            tableView.insertSections(IndexSet(integer: 0), with: .automatic)
+        }
+        isUpdating = false
+    }
+
     private func edit(indexPath: IndexPath) {
         presenter.event(editIndexPath: indexPath)
     }
@@ -223,6 +234,13 @@ extension EmotionEventsViewController: UITableViewDataSource {
                     completion(true)
                 }
                 action.backgroundColor = .systemGreen
+                return action
+            case .duplicate:
+                let action = UIContextualAction(style: .normal, title: presenter.duplicateTitle) { [weak self] (_, _, completion) in
+                    self?.duplicate(indexPath: indexPath)
+                    completion(true)
+                }
+                action.backgroundColor = .systemBlue
                 return action
             }
         }

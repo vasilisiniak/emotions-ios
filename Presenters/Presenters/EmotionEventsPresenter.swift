@@ -97,6 +97,7 @@ public enum EmotionEventsPresenterObjects {
         case delete
         case restore
         case erase
+        case duplicate
     }
 }
 
@@ -126,6 +127,7 @@ public protocol EmotionEventsPresenter {
     var eraseTitle: String { get }
     var restoreTitle: String { get }
     var eraseAllTitle: String { get }
+    var duplicateTitle: String { get }
     var title: String? { get }
     var legacy: Bool { get }
     var sharable: Bool { get }
@@ -140,6 +142,7 @@ public protocol EmotionEventsPresenter {
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
     func event(restoreIndexPath: IndexPath)
+    func event(duplicateIndexPath: IndexPath)
     func event(tap: IndexPath)
     func eventAddTap()
     func eventInfoTap()
@@ -176,6 +179,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public var eraseTitle: String { "Стереть" }
     public var restoreTitle: String { "Восстановить" }
     public var eraseAllTitle: String { "Стереть все" }
+    public var duplicateTitle: String { "Создать копию" }
     public var legacy: Bool { useCase.legacy }
 
     public var title: String? {
@@ -194,7 +198,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
 
     public var editActions: [EmotionEventsPresenterObjects.EditAction] {
         switch useCase.mode {
-        case .normal: return [.delete, .edit]
+        case .normal: return [.delete, .edit, .duplicate]
         case .deleted: return [.erase, .restore]
         }
     }
@@ -251,6 +255,11 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
         useCase.event(restoreEvent: events.first { $0.date == event.date }!)
     }
 
+    public func event(duplicateIndexPath: IndexPath) {
+        let event = groups[duplicateIndexPath.section].events[duplicateIndexPath.row]
+        useCase.event(duplicateEvent: events.first { $0.date == event.date }!)
+    }
+
     public func event(tap indexPath: IndexPath) {
         guard !expandAll else { return }
 
@@ -297,7 +306,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsUseCaseOutput {
 
     public func presentSwipeInfo() {
         switch useCase.mode {
-        case .normal: output.show(message: "Свайпните запись влево, чтобы редактировать или удалить", button: "ОК")
+        case .normal: output.show(message: "Свайпните запись влево, чтобы редактировать, удалить или создать копию", button: "ОК")
         case .deleted: output.show(message: "Свайпните запись влево, чтобы восстановить или стереть навсегда", button: "ОК")
         }
     }
