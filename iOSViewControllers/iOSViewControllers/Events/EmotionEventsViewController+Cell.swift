@@ -9,7 +9,6 @@ extension EmotionEventsViewController {
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .default, reuseIdentifier: Cell.reuseIdentifier)
-            separatorInset = .zero
             selectionStyle = .none
             addSubviews()
             makeConstraints()
@@ -23,16 +22,27 @@ extension EmotionEventsViewController {
 
         // MARK: - Private
 
+        private let content: UIView = create {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 20
+            $0.layer.masksToBounds = false
+            $0.layer.shadowOpacity = 0.1
+            $0.layer.shadowColor = UIColor.black.cgColor
+            $0.layer.shadowOffset = CGSize(width: 0, height: 3)
+            $0.layer.shadowRadius = 7
+        }
         private func addSubviews() {
-            contentView.addSubview(nameLabel)
-            contentView.addSubview(detailsLabel)
-            contentView.addSubview(timeLabel)
-            contentView.addSubview(shareButton)
-            contentView.addSubview(emotions)
-            contentView.addSubview(emotionsLabel)
+            contentView.addSubview(content)
+            content.addSubview(nameLabel)
+            content.addSubview(detailsLabel)
+            content.addSubview(timeLabel)
+            content.addSubview(shareButton)
+            content.addSubview(emotions)
+            content.addSubview(emotionsLabel)
         }
 
         private func makeConstraints() {
+            content.translatesAutoresizingMaskIntoConstraints = false
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             detailsLabel.translatesAutoresizingMaskIntoConstraints = false
             timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -42,33 +52,45 @@ extension EmotionEventsViewController {
 
             timeLabel.setContentHuggingPriority(.required, for: .horizontal)
             timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+            detailsLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+            emotions.setContentHuggingPriority(.required, for: .vertical)
+            emotionsLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+
+            let bottom = content.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -15)
+            bottom.priority = .defaultHigh
+            bottom.isActive = true
 
             NSLayoutConstraint.activate([
-                nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-                nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+                content.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+                content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+                content.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 9),
+
+                nameLabel.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 24),
+                nameLabel.topAnchor.constraint(equalTo: content.topAnchor, constant: 16),
                 nameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor),
                 nameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor),
 
                 detailsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
                 detailsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
                 detailsLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+                detailsLabel.bottomAnchor.constraint(lessThanOrEqualTo: emotions.bottomAnchor),
 
-                timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+                timeLabel.trailingAnchor.constraint(equalTo: content.trailingAnchor, constant: -24),
 
                 shareButton.rightAnchor.constraint(equalTo: timeLabel.rightAnchor, constant: 2),
                 shareButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
 
-                emotions.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: -3),
-                emotions.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 10),
-                emotions.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor, constant: 3),
+                emotions.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor, constant: 0),
+                emotions.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 24),
+                emotions.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor, constant: 24),
                 emotions.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-                emotions.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -15),
+                emotions.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -24),
 
-                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 10),
-                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor),
+                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: 24),
+                emotionsLabel.topAnchor.constraint(greaterThanOrEqualTo: detailsLabel.bottomAnchor, constant: 24),
                 emotionsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
                 emotionsLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor),
-                emotionsLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -15)
+                emotionsLabel.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -24)
             ])
         }
 
@@ -78,15 +100,16 @@ extension EmotionEventsViewController {
 
         let nameLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = .preferredFont(forTextStyle: .headline)
+            $0.font = UIFontMetrics.default.scaledFont(for: .boldSystemFont(ofSize: 20))
             $0.numberOfLines = 0
         }
 
         let detailsLabel: PaddedLabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = .preferredFont(forTextStyle: .body)
+            $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 16))
+            $0.textColor = UIColor(hex: "292929")
             $0.numberOfLines = 0
-            $0.textInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+            $0.textInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         }
 
         let timeLabel: UILabel = create {
@@ -102,16 +125,19 @@ extension EmotionEventsViewController {
 
         let emotionsLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true
-            $0.font = .preferredFont(forTextStyle: .footnote)
+            $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 16))
             $0.numberOfLines = 0
         }
 
-        let emotions = LinearContainerView()
+        let emotions: LinearContainerView = create {
+            $0.paddingX = 10
+            $0.paddingY = 10
+        }
 
         var expanded = false {
             didSet {
-                [nameLabel, detailsLabel, emotionsLabel].forEach {
-                    $0.numberOfLines = (expanded ? 0 : 1)
+                [(nameLabel, 1), (detailsLabel, 3), (emotionsLabel, 1)].forEach {
+                    $0.numberOfLines = (expanded ? 0 : $1)
                 }
                 emotions.singleLine = !expanded
             }

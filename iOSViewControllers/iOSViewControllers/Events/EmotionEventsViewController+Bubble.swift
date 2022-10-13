@@ -10,10 +10,10 @@ extension EmotionEventsViewController {
         class func create(_ text: String, _ color: UIColor) -> UIView {
             let bubble = Rounded<PaddedLabel>()
             bubble.view.adjustsFontForContentSizeCategory = true
-            bubble.view.font = .preferredFont(forTextStyle: .footnote)
+            bubble.view.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 16))
             bubble.view.text = text
             bubble.view.textColor = color.text
-            bubble.view.textInsets = UIEdgeInsets(top: 2, left: 8, bottom: 3, right: 8)
+            bubble.view.textInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
             bubble.view.backgroundColor = color
             return bubble
         }

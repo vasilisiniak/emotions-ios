@@ -29,7 +29,7 @@ public final class LinearContainerView: UIView {
 
     private lazy var gradient: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.startPoint = CGPoint(x: 0.8, y: 0.5)
+        layer.startPoint = CGPoint(x: 0.7, y: 0.5)
         layer.endPoint = CGPoint(x: 1.0, y: 0.5)
         layer.colors = [
             UIColor.white.cgColor,

@@ -78,6 +78,7 @@ public final class EmotionEventsViewController: UIViewController {
         $0.dataSource = self
         $0.delegate = self
         $0.register(Cell.self, forCellReuseIdentifier: Cell.reuseIdentifier)
+        $0.separatorStyle = .none
     }
 
     private func layoutSubviews() {
@@ -183,7 +184,6 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.timeLabel.text = event.timeString
         cell.shareButton.isHidden = !presenter.sharable
         cell.backgroundColor = .systemBackground
-        cell.contentView.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
         cell.emotionsLabel.text = nil
         cell.emotions.removeAll()
