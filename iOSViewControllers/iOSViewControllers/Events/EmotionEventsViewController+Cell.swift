@@ -12,6 +12,7 @@ extension EmotionEventsViewController {
             selectionStyle = .none
             addSubviews()
             makeConstraints()
+            updateContentShadow()
         }
 
         // MARK: - NSCoding
@@ -20,15 +21,30 @@ extension EmotionEventsViewController {
             fatalError("init(coder:) has not been implemented")
         }
 
+        // MARK: - UITraitEnvironment
+
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            updateContentShadow()
+        }
+
         // MARK: - Private
 
+        private func updateContentShadow() {
+            if UITraitCollection.current.userInterfaceStyle == .dark {
+                content.layer.shadowOpacity = 0.3
+                content.layer.shadowOffset = .zero
+            }
+            else {
+                content.layer.shadowOpacity = 0.1
+                content.layer.shadowOffset = CGSize(width: 0, height: 3)
+            }
+            content.layer.shadowColor = UIColor(light: .black, dark: .white).cgColor
+        }
+
         private let content: UIView = create {
-            $0.backgroundColor = .white
+            $0.backgroundColor = UIColor(light: .white, dark: .black)
             $0.layer.cornerRadius = 20
             $0.layer.masksToBounds = false
-            $0.layer.shadowOpacity = 0.1
-            $0.layer.shadowColor = UIColor.black.cgColor
-            $0.layer.shadowOffset = CGSize(width: 0, height: 3)
             $0.layer.shadowRadius = 7
         }
         private func addSubviews() {
@@ -68,7 +84,7 @@ extension EmotionEventsViewController {
                 nameLabel.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 24),
                 nameLabel.topAnchor.constraint(equalTo: content.topAnchor, constant: 16),
                 nameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor),
-                nameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor),
+                nameLabel.firstBaselineAnchor.constraint(equalTo: timeLabel.firstBaselineAnchor),
 
                 detailsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
                 detailsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
@@ -107,7 +123,7 @@ extension EmotionEventsViewController {
         let detailsLabel: PaddedLabel = create {
             $0.adjustsFontForContentSizeCategory = true
             $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 16))
-            $0.textColor = UIColor(hex: "292929")
+            $0.textColor = UIColor(light: UIColor(hex: "292929"), dark: UIColor(hex: "d6d6d6"))
             $0.numberOfLines = 0
             $0.textInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         }
