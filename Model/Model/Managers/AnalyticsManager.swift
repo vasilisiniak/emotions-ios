@@ -107,6 +107,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.appearance.name)", forName: "appearance")
         Analytics.setUserProperty("\(settings.notifications)", forName: "notifications")
         Analytics.setUserProperty("\(settings.showPercentage)", forName: "show_percentage")
+        Analytics.setUserProperty("\(settings.colorDiary)", forName: "color_diary")
     }
 
     private func trackDefaultsProperties() {
