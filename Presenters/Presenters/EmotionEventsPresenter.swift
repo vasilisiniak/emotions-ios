@@ -130,6 +130,7 @@ public protocol EmotionEventsPresenter {
     var duplicateTitle: String { get }
     var title: String? { get }
     var legacy: Bool { get }
+    var color: Bool { get }
     var sharable: Bool { get }
     var editActions: [EmotionEventsPresenterObjects.EditAction] { get }
 
@@ -181,6 +182,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     public var eraseAllTitle: String { "Стереть все" }
     public var duplicateTitle: String { "Создать копию" }
     public var legacy: Bool { useCase.legacy }
+    public var color: Bool { useCase.color }
 
     public var title: String? {
         switch useCase.mode {

@@ -183,7 +183,8 @@ extension EmotionEventsViewController: UITableViewDataSource {
         cell.detailsLabel.text = event.details
         cell.timeLabel.text = event.timeString
         cell.shareButton.isHidden = !presenter.sharable
-        cell.backgroundColor = .systemBackground
+        cell.color.isHidden = !presenter.color
+        cell.color.backgroundColor = event.color.withAlphaComponent(0.2)
         cell.expanded = presenter.expanded(indexPath)
         cell.emotionsLabel.text = nil
         cell.emotions.removeAll()

@@ -10,6 +10,8 @@ extension EmotionEventsViewController {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .default, reuseIdentifier: Cell.reuseIdentifier)
             selectionStyle = .none
+            backgroundColor = UIColor(light: .white, dark: .black)
+
             addSubviews()
             makeConstraints()
             updateContentShadow()
@@ -49,6 +51,7 @@ extension EmotionEventsViewController {
         }
         private func addSubviews() {
             contentView.addSubview(content)
+            content.addSubview(color)
             content.addSubview(nameLabel)
             content.addSubview(detailsLabel)
             content.addSubview(timeLabel)
@@ -59,6 +62,7 @@ extension EmotionEventsViewController {
 
         private func makeConstraints() {
             content.translatesAutoresizingMaskIntoConstraints = false
+            color.translatesAutoresizingMaskIntoConstraints = false
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             detailsLabel.translatesAutoresizingMaskIntoConstraints = false
             timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +84,11 @@ extension EmotionEventsViewController {
                 content.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
                 content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
                 content.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 9),
+
+                color.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+                color.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+                color.topAnchor.constraint(equalTo: content.topAnchor),
+                color.bottomAnchor.constraint(equalTo: content.bottomAnchor),
 
                 nameLabel.leadingAnchor.constraint(equalTo: content.leadingAnchor, constant: 24),
                 nameLabel.topAnchor.constraint(equalTo: content.topAnchor, constant: 16),
@@ -113,6 +122,10 @@ extension EmotionEventsViewController {
         // MARK: - Internal
 
         static let reuseIdentifier = String(describing: UITableViewCell.self)
+
+        let color: UIView = create {
+            $0.layer.cornerRadius = 20
+        }
 
         let nameLabel: UILabel = create {
             $0.adjustsFontForContentSizeCategory = true

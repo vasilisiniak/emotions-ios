@@ -17,4 +17,5 @@ public protocol Settings: AnyObject {
     var reminders: Data { get set }
     var notifications: Bool { get set }
     var showPercentage: Bool { get set }
+    var colorDiary: Bool { get set }
 }

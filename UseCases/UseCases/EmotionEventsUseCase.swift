@@ -79,6 +79,7 @@ public protocol EmotionEventsUseCase {
 
     var mode: EmotionEventsUseCaseObjects.Mode { get }
     var legacy: Bool { get }
+    var color: Bool { get }
 }
 
 public final class EmotionEventsUseCaseImpl {
@@ -211,6 +212,7 @@ public final class EmotionEventsUseCaseImpl {
 
 extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public var legacy: Bool { settings.useLegacyDiary }
+    public var color: Bool { settings.colorDiary }
 
     public func eventOutputToBeShown() {
         if settings.useFaceId {

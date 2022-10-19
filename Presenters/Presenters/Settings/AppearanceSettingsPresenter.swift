@@ -26,6 +26,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case reduceAnimation(enabled: Bool)
             case trash(enabled: Bool)
             case percentage(enabled: Bool)
+            case colorDiary(enabled: Bool)
 
             var title: String {
                 switch self {
@@ -36,6 +37,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .reduceAnimation: return "Минимизировать анимацию"
                 case .trash: return "Удалять в корзину"
                 case .percentage: return "Показывать % эмоций"
+                case .colorDiary: return "Цветные записи в дневнике"
                 }
             }
 
@@ -48,6 +50,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .reduceAnimation: return .switcher
                 case .trash: return .switcher
                 case .percentage: return .switcher
+                case .colorDiary: return .switcher
                 }
             }
 
@@ -60,6 +63,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
                 case .reduceAnimation(let enabled): return enabled
                 case .trash(let enabled): return enabled
                 case .percentage(let enabled): return enabled
+                case .colorDiary(let enabled): return enabled
                 }
             }
         }
@@ -71,6 +75,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
         case reduceAnimation(enabled: Bool)
         case trash(enabled: Bool)
         case percentage(enabled: Bool)
+        case colorDiary(enabled: Bool)
 
         var rows: [SettingsPresenterRow] { sectionRows }
 
@@ -83,18 +88,20 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .reduceAnimation(let enabled): return [.reduceAnimation(enabled: enabled)]
             case .trash(let enabled): return [.trash(enabled: enabled)]
             case .percentage(let enabled): return [.percentage(enabled: enabled)]
+            case .colorDiary(let enabled): return [.colorDiary(enabled: enabled)]
             }
         }
 
         var title: String {
             switch self {
             case .theme: return ""
-            case .legacy: return ""
+            case .legacy: return "Список эмоций"
             case .compact: return ""
             case .legacyDiary: return ""
             case .reduceAnimation: return ""
-            case .trash: return ""
-            case .percentage: return ""
+            case .trash: return "Дневник"
+            case .percentage: return "Цветовая карта"
+            case .colorDiary: return ""
             }
         }
 
@@ -107,6 +114,7 @@ fileprivate extension AppearanceSettingsPresenterImpl {
             case .reduceAnimation: return "Убрать анимацию перемещения ячеек при выборе эмоций"
             case .trash: return "Удалять записи дневника сначала в корзину: из неё их можно удалить навсегда либо восстановить. Записи хранятся в корзине 3 дня, а затем удаляются автоматически"
             case .percentage: return "Показывать частоту использования эмоций в процентах в разделе карты эмоций"
+            case .colorDiary: return "Красить фон записи в дневнике в цвет самой сильной эмоции"
             }
         }
     }
@@ -117,18 +125,28 @@ public class AppearanceSettingsPresenterImpl {
     // MARK: - Private
 
     private var defaultSections: [Section] {
-        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false, trash: true, percentage: false)
+        sections(theme: .unspecified, legacy: false, compact: true, legacyDiary: false, reduceAnimation: false, trash: true, percentage: false, colorDiary: false)
     }
 
-    private func sections(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, legacyDiary: Bool, reduceAnimation: Bool, trash: Bool, percentage: Bool) -> [Section] {
+    private func sections(
+        theme: UIUserInterfaceStyle,
+        legacy: Bool,
+        compact: Bool,
+        legacyDiary: Bool,
+        reduceAnimation: Bool,
+        trash: Bool,
+        percentage: Bool,
+        colorDiary: Bool
+    ) -> [Section] {
         [
             .theme(style: theme),
-            .trash(enabled: trash),
-            .percentage(enabled: percentage),
             .legacy(enabled: legacy),
+            .reduceAnimation(enabled: reduceAnimation),
+            .trash(enabled: trash),
+            .colorDiary(enabled: colorDiary),
             .compact(enabled: compact),
             .legacyDiary(enabled: legacyDiary),
-            .reduceAnimation(enabled: reduceAnimation)
+            .percentage(enabled: percentage)
         ]
     }
 
@@ -167,6 +185,7 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
         case .legacyDiary: useCase.event(legacyDiary: switcher)
         case .reduceAnimation: useCase.event(reduceAnimation: switcher)
         case .percentage: useCase.event(percentage: switcher)
+        case .colorDiary: useCase.event(colorDiary: switcher)
         }
     }
 
@@ -179,13 +198,32 @@ extension AppearanceSettingsPresenterImpl: SettingsPresenter {
         case .legacyDiary: fatalError()
         case .reduceAnimation: fatalError()
         case .percentage: fatalError()
+        case .colorDiary: fatalError()
         }
     }
 }
 
 extension AppearanceSettingsPresenterImpl: AppearanceSettingsUseCaseOutput {
-    public func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool, percentage: Bool) {
-        let sections = sections(theme: theme, legacy: legacy, compact: compact, legacyDiary: legacyDiary, reduceAnimation: reduceAnimation, trash: trash, percentage: percentage)
+    public func present(
+        theme: UIUserInterfaceStyle,
+        legacy: Bool,
+        compact: Bool,
+        reduceAnimation: Bool,
+        legacyDiary: Bool,
+        trash: Bool,
+        percentage: Bool,
+        colorDiary: Bool
+    ) {
+        let sections = sections(
+            theme: theme,
+            legacy: legacy,
+            compact: compact,
+            legacyDiary: legacyDiary,
+            reduceAnimation: reduceAnimation,
+            trash: trash,
+            percentage: percentage,
+            colorDiary: colorDiary
+        )
         let update = sections.enumerated().flatMap { index, section in
             section.sectionRows.enumerated().map { row, _ in IndexPath(row: row, section: index) }
         }

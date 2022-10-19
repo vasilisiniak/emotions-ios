@@ -3,7 +3,7 @@ import UIKit
 import Model
 
 public protocol AppearanceSettingsUseCaseOutput: AnyObject {
-    func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool, percentage: Bool)
+    func present(theme: UIUserInterfaceStyle, legacy: Bool, compact: Bool, reduceAnimation: Bool, legacyDiary: Bool, trash: Bool, percentage: Bool, colorDiary: Bool)
     func presentTrashNotEmpty()
 }
 
@@ -15,6 +15,7 @@ public protocol AppearanceSettingsUseCase {
     func event(legacyDiary: Bool)
     func event(trash: Bool)
     func event(percentage: Bool)
+    func event(colorDiary: Bool)
     func event(theme: UIUserInterfaceStyle)
 }
 
@@ -33,7 +34,8 @@ public final class AppearanceSettingsUseCaseImpl {
             reduceAnimation: settings.reduceAnimation,
             legacyDiary: settings.useLegacyDiary,
             trash: !settings.eraseImmediately,
-            percentage: settings.showPercentage
+            percentage: settings.showPercentage,
+            colorDiary: settings.colorDiary
         )
     }
 
@@ -70,6 +72,10 @@ extension AppearanceSettingsUseCaseImpl: AppearanceSettingsUseCase {
 
     public func event(percentage: Bool) {
         settings.showPercentage = percentage
+    }
+
+    public func event(colorDiary: Bool) {
+        settings.colorDiary = colorDiary
     }
 
     public func event(trash: Bool) {
