@@ -22,6 +22,7 @@ public enum EmotionsUseCaseObjects {
         case v_1_27_editEmotions
         case v_1_28_duplicateEvents
         case v_1_29_colorDiary
+        case v_1_30_hotfix
     }
 }
 
@@ -47,6 +48,7 @@ private extension News {
         case .v_1_27_editEmotions: return .v_1_27_editEmotions
         case .v_1_28_duplicateEvents: return .v_1_28_duplicateEvents
         case .v_1_29_colorDiary: return .v_1_29_colorDiary
+        case .v_1_30_hotfix: return .v_1_30_hotfix
         }
     }
 }
