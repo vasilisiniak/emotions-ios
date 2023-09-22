@@ -16,7 +16,7 @@ public final class LinearContainerView: UIView {
     }
 
     public override var intrinsicContentSize: CGSize {
-        layout(for: engineBounds?.width ?? 0)
+        layout(for: bounds.width)
         let width = views.map(\.frame.maxX).max() ?? 0
         let height = views.map(\.frame.maxY).max() ?? 0
         return CGSize(width: width, height: height)
