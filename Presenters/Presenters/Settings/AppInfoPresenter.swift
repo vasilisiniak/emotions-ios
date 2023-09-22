@@ -30,7 +30,7 @@ fileprivate extension AppInfoPresenterImpl {
                 case .reportProblem: return "Сообщить о проблеме"
                 case .sourceCode: return "Исходный код приложения"
                 case .designer: return "Сергей Грабинский"
-                case .donate: return "Страница приложения"
+                case .donate: return "Страница разработчика"
                 case .roadmap: return "Предстоящие фичи"
                 case .notificationsSettings: return "Уведомления и напоминания"
                 }
@@ -78,7 +78,7 @@ fileprivate extension AppInfoPresenterImpl {
             case .feedback: return nil
             case .sourceCode: return nil
             case .design: return "Советы и идеи по UI/UX и всякому разному"
-            case .donate: return "Для развития этого приложения и создания новых"
+            case .donate: return nil
             }
         }
     }
