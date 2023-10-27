@@ -103,7 +103,7 @@ public final class EmotionsGroupsUseCaseImpl {
             updateSelectedColor()
 
             switch mode {
-            case .log: state.emotionsGroupsState = (emotions: selectedEmotions, color: selectedColor)
+            case .log: state.emotionsGroupsState = selectedEmotions.isEmpty ? nil : (emotions: selectedEmotions, color: selectedColor)
             case .edit: break
             }
 
