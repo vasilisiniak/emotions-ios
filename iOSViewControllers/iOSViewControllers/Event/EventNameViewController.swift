@@ -11,7 +11,7 @@ fileprivate extension UIColor {
 public final class EventNameViewController: UIViewController {
 
     deinit {
-        observers?.forEach { NotificationCenter.default.removeObserver($0) }
+        unsubscribeFromViewChanges()
     }
 
     // MARK: - UIViewController
@@ -23,6 +23,7 @@ public final class EventNameViewController: UIViewController {
 
     public override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        subscribeToViewChanges()
         presenter.eventViewDidAppear()
     }
 
@@ -33,7 +34,7 @@ public final class EventNameViewController: UIViewController {
 
     // MARK: - Private
 
-    private var observers: [AnyObject]?
+    private var viewChangesObservers: [AnyObject]?
 
     private var namePlaceholder: String? {
         didSet { name = name }
@@ -72,13 +73,20 @@ public final class EventNameViewController: UIViewController {
         $0.name.pasteDelegate = self
         $0.details.pasteDelegate = self
 
-        let name = UITextView.textDidChangeNotification
-        observers = [
-            NotificationCenter.default.addObserver(forName: name, object: $0.name, queue: .main) { [weak self] _ in self?.onNameChange() },
-            NotificationCenter.default.addObserver(forName: name, object: $0.details, queue: .main) { [weak self] _ in self?.onDetailsChange() }
-        ]
-
         $0.date.addAction(UIAction { [weak self] _ in self?.onDateChanged() }, for: .valueChanged)
+    }
+
+    private func subscribeToViewChanges() {
+        let name = UITextView.textDidChangeNotification
+        viewChangesObservers = [
+            NotificationCenter.default.addObserver(forName: name, object: eventNameView.name, queue: .main) { [weak self] _ in self?.onNameChange() },
+            NotificationCenter.default.addObserver(forName: name, object: eventNameView.details, queue: .main) { [weak self] _ in self?.onDetailsChange() }
+        ]
+    }
+
+    private func unsubscribeFromViewChanges() {
+        viewChangesObservers?.forEach { NotificationCenter.default.removeObserver($0) }
+        viewChangesObservers = nil
     }
 
     private func onBack() {
@@ -86,6 +94,7 @@ public final class EventNameViewController: UIViewController {
     }
 
     private func onAdd() {
+        unsubscribeFromViewChanges()
         presenter.eventAddTap()
     }
 
