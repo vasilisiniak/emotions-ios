@@ -411,7 +411,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\" 2>/dev/null\nexit 0\n";
+			shellScript = "cp \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		160794082708991A00572275 /* Clear GoogleService-Info.plist */ = {
@@ -423,6 +423,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/../private.GoogleService-Info.plist",
 				"$(SRCROOT)/$(PROJECT_NAME)/GoogleService-Info.plist",
 			);
 			name = "Clear GoogleService-Info.plist";
@@ -432,7 +433,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cat \"${SCRIPT_INPUT_FILE_0}\" > /dev/null\ngrep -vE 'key|string|true|false' \"${SCRIPT_INPUT_FILE_0}\" | tee \"${SCRIPT_INPUT_FILE_0}\" 1>/dev/null\n";
+			shellScript = "grep -vE 'key|string|true|false' \"${SCRIPT_INPUT_FILE_0}\" > \"${SCRIPT_INPUT_FILE_1}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
