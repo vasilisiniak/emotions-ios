@@ -80,6 +80,7 @@ public final class AnalyticsManagerImpl {
 
     private var notificationsObservers: [AnyObject]?
     private var settingsObserver: AnyObject?
+    private let lockStorage: LockManagerStorage
 
     private var hasValidFirebaseConfig: Bool {
         guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else { return false }
@@ -108,6 +109,7 @@ public final class AnalyticsManagerImpl {
         Analytics.setUserProperty("\(settings.notifications)", forName: "notifications")
         Analytics.setUserProperty("\(settings.showPercentage)", forName: "show_percentage")
         Analytics.setUserProperty("\(settings.colorDiary)", forName: "color_diary")
+        Analytics.setUserProperty("\(lockStorage.getLockSource() ?? "none")", forName: "faceid_source")
     }
 
     private func trackDefaultsProperties() {
@@ -130,7 +132,9 @@ public final class AnalyticsManagerImpl {
 
     // MARK: - Public
 
-    public init(settings: Settings) {
+    public init(settings: Settings, lockStorage: LockManagerStorage) {
+        self.lockStorage = lockStorage
+
         guard !optout else { return }
 
         guard hasValidFirebaseConfig else {
