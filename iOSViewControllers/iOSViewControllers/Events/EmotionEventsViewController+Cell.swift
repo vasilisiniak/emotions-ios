@@ -26,6 +26,7 @@ extension EmotionEventsViewController {
         // MARK: - UITraitEnvironment
 
         override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
             updateContentShadow()
         }
 

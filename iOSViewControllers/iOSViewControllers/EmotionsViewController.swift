@@ -57,6 +57,12 @@ public final class EmotionsViewController: UITabBarController {
 
     public var presenter: EmotionsPresenter!
     public weak var composer: EmotionsViewControllerComposer!
+
+    public func present(systemController: UIViewController) {
+        systemController.modalPresentationStyle = .overCurrentContext
+        systemController.modalTransitionStyle = .crossDissolve
+        present(systemController, animated: true)
+    }
 }
 
 extension EmotionsViewController: EmotionEventsRouter, TrendsRouter {
@@ -193,5 +199,11 @@ extension EmotionsViewController: UINavigationControllerDelegate { }
 extension EmotionsViewController: MFMailComposeViewControllerDelegate {
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true)
+    }
+}
+
+extension EmotionsViewController: PasscodeRouter {
+    public func routePasscodeCompleted(success: Bool) {
+        dismiss(animated: false)
     }
 }

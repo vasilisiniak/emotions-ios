@@ -2,25 +2,50 @@ import Foundation
 import iOSViewControllers
 import Presenters
 import Model
+import UseCases
 
 final class CompositionRoot {
 
     // MARK: - Private
 
-    private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings)
-    private let lock = LockManagerImpl()
+    private let analytics = AnalyticsManagerImpl(settings: AppGroup.settings, lockStorage: AppGroup.keychain)
     private let state = UserDefaultsStateManager(defaults: UserDefaults.standard)
+
+    private lazy var lock: LockManager & PasscodeManager = {
+        let lock = LockManagerImpl(storage: AppGroup.keychain)
+        lock.uiManager = self
+        return lock
+    }()
 
     private lazy var reminders: RemindersManagerImpl = {
         RemindersManagerImpl(message: AppGroup.reminder, manager: notifications, settings: AppGroup.settings)
     }()
+
+    private func passcodeViewController(
+        mode: PasscodeUseCaseObjects.Mode,
+        info: String,
+        completion: @escaping (_ success: Bool) -> ()
+    ) -> PasscodeViewController {
+
+        let viewController = PasscodeViewController()
+        PasscodeConnector(
+            viewController: viewController,
+            router: emotionsViewController,
+            mode: mode,
+            info: info,
+            manager: lock,
+            completion: completion
+        ).configure()
+
+        return viewController
+    }
 
     // MARK: - Internal
 
     let notifications = LocalNotificationsManager()
     let metricsManager: MetricsManager = MetricsManagerImpl()
     let promoManager: PromoManager = PromoManagerImpl(emotionsProvider: AppGroup.emotionEventsProvider)
-    let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
+    let migrationManager: MigrationManager = MigrationManagerImpl(eventsProvider: AppGroup.emotionEventsProvider, settings: AppGroup.settings, lockStorage: AppGroup.keychain)
     let newsManager: NewsManager = NewsManagerImpl(eventsProvider: AppGroup.emotionEventsProvider)
 
     lazy var emotionsViewController: EmotionsViewController = {
@@ -211,5 +236,16 @@ extension CompositionRoot: EmotionsViewControllerComposer {
             emotions: emotions
         ).configure()
         return emotionsViewController
+    }
+}
+
+extension CompositionRoot: LockManagerUI {
+
+    func displaySetPasscode(info: String, completion: @escaping (Bool) -> ()) {
+        emotionsViewController.present(systemController: passcodeViewController(mode: .setPasscode, info: info, completion: completion))
+    }
+    
+    func displayCheckPasscode(info: String, completion: @escaping (Bool) -> ()) {
+        emotionsViewController.present(systemController: passcodeViewController(mode: .checkPasscode, info: info, completion: completion))
     }
 }

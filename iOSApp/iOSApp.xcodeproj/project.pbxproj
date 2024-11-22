@@ -17,6 +17,7 @@
 		168759F127F5DDE800DBA53A /* AppearanceSettingsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168759F027F5DDE800DBA53A /* AppearanceSettingsConnector.swift */; };
 		16AB3B9D280F1A7A00169C8F /* NotificationSettingsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3B9C280F1A7A00169C8F /* NotificationSettingsConnector.swift */; };
 		16AB3BA728117C4E00169C8F /* ReminderConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3BA628117C4E00169C8F /* ReminderConnector.swift */; };
+		3443A8F32CEC9A0E0075B1F3 /* PasscodeConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443A8F22CEC9A0E0075B1F3 /* PasscodeConnector.swift */; };
 		8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8302013E258F8CAC00D744DF /* EmotionsConnector.swift */; };
 		830C75A2258E633F00F964BC /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830C75A1258E633F00F964BC /* CompositionRoot.swift */; };
 		833182B52589E35000B2C9A2 /* iOSControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 833182B32589E35000B2C9A2 /* iOSControls.framework */; };
@@ -110,6 +111,7 @@
 		16AB3B9C280F1A7A00169C8F /* NotificationSettingsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsConnector.swift; sourceTree = "<group>"; };
 		16AB3BA628117C4E00169C8F /* ReminderConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderConnector.swift; sourceTree = "<group>"; };
 		16F7F36527FDDBE1006F988F /* Model-3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model-3.0.xcdatamodel"; sourceTree = "<group>"; };
+		3443A8F22CEC9A0E0075B1F3 /* PasscodeConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeConnector.swift; sourceTree = "<group>"; };
 		8302013E258F8CAC00D744DF /* EmotionsConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsConnector.swift; sourceTree = "<group>"; };
 		830C75A1258E633F00F964BC /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		833182B32589E35000B2C9A2 /* iOSControls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSControls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 				8332CA02258A237B00AA285A /* EmotionEventsConnector.swift */,
 				839C92D3258F52B9008C9C5A /* TrendsConnector.swift */,
 				8302013E258F8CAC00D744DF /* EmotionsConnector.swift */,
+				3443A8F22CEC9A0E0075B1F3 /* PasscodeConnector.swift */,
 			);
 			path = Connectors;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				8355735B25863464007F15C8 /* EventNameConnector.swift in Sources */,
 				8392C7BD25825A940015D722 /* AppDelegate.swift in Sources */,
 				8302013F258F8CAC00D744DF /* EmotionsConnector.swift in Sources */,
+				3443A8F32CEC9A0E0075B1F3 /* PasscodeConnector.swift in Sources */,
 				16AB3BA728117C4E00169C8F /* ReminderConnector.swift in Sources */,
 				839C92D4258F52B9008C9C5A /* TrendsConnector.swift in Sources */,
 				1645532326F7F28F00C3E376 /* EmotionNotFoundConnector.swift in Sources */,

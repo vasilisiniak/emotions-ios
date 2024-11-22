@@ -62,8 +62,7 @@ public protocol EmotionEventsUseCaseOutput: AnyObject {
 
 public protocol EmotionEventsUseCase {
     func eventOutputReady()
-    func eventOutputToBeShown()
-    func eventOutputIsShown(info: String)
+    func eventOutputToBeShown(info: String)
     func event(shareEvent: EmotionEventsUseCaseObjects.Event)
     func event(deleteEvent: EmotionEventsUseCaseObjects.Event)
     func event(editEvent: EmotionEventsUseCaseObjects.Event)
@@ -214,18 +213,14 @@ extension EmotionEventsUseCaseImpl: EmotionEventsUseCase {
     public var legacy: Bool { settings.useLegacyDiary }
     public var color: Bool { settings.colorDiary }
 
-    public func eventOutputToBeShown() {
+    public func eventOutputToBeShown(info: String) {
         if settings.useFaceId {
             output.present(blur: true)
+            unlockEvents(info: info)
         }
         else {
             output.present(blur: false)
         }
-    }
-
-    public func eventOutputIsShown(info: String) {
-        guard settings.useFaceId else { return }
-        unlockEvents(info: info)
     }
 
     public func eventStartUnsafe() {

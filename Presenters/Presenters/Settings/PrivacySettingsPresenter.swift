@@ -68,6 +68,16 @@ public class PrivacySettingsPresenterImpl {
         [.settings(protect: protect, faceId: faceId)]
     }
 
+    private func chooseLock(indexPath: IndexPath) {
+        func handler(_ mode: PrivacySettingsUseCaseObjects.LockMode) -> () -> () {
+            { [useCase] in useCase?.eventEnableLock(mode: mode, info: "Включить защиту паролем") }
+        }
+        output.show(options: [
+            ("Стандартная защита телефона", handler(.system)),
+            ("Свой пароль", handler(.passcode))
+        ], cancel: ("Отмена", { [output] in output?.show(reload: indexPath) }))
+    }
+
     // MARK: - Public
 
     public weak var output: SettingsPresenterOutput!
@@ -87,7 +97,13 @@ extension PrivacySettingsPresenterImpl: SettingsPresenter {
     public func event(switcher: Bool, indexPath: IndexPath) {
         switch sections(protect: false, faceId: false)[indexPath.section].sectionRows[indexPath.row] {
         case .protect: useCase.event(protect: switcher, info: "Отключить защиту паролем")
-        case .faceId: useCase.event(faceId: switcher, info: switcher ? "Включить защиту паролем" : "Отключить защиту паролем")
+        case .faceId:
+            if switcher {
+                chooseLock(indexPath: indexPath)
+            }
+            else {
+                useCase.eventDisableLock(info: "Отключить защиту паролем")
+            }
         }
     }
 
