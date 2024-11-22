@@ -17,6 +17,10 @@
 		16AB3BA9281182B700169C8F /* ReminderViewController+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AB3BA8281182B700169C8F /* ReminderViewController+Cell.swift */; };
 		16AC775E2670CB8C0029B7CC /* TrendsViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */; };
 		16F7F36427FDAF52006F988F /* EventNameViewController+Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */; };
+		3443A8F12CEC99880075B1F3 /* PasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443A8F02CEC99880075B1F3 /* PasscodeViewController.swift */; };
+		3443A8F62CECAC160075B1F3 /* PasscodeViewController+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443A8F52CECAC160075B1F3 /* PasscodeViewController+View.swift */; };
+		3443A8F82CEDD2420075B1F3 /* PasscodeViewController+Keypad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443A8F72CEDD2420075B1F3 /* PasscodeViewController+Keypad.swift */; };
+		3443A8FA2CEDDF080075B1F3 /* PasscodeViewController+Passcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3443A8F92CEDDF080075B1F3 /* PasscodeViewController+Passcode.swift */; };
 		83010ACF2584FE770037D024 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83010ACE2584FE770037D024 /* Utils.framework */; };
 		83020139258F899000D744DF /* EmotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020138258F899000D744DF /* EmotionsViewController.swift */; };
 		83020144258F91A400D744DF /* TrendsViewController+NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */; };
@@ -46,6 +50,10 @@
 		16AB3BA8281182B700169C8F /* ReminderViewController+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderViewController+Cell.swift"; sourceTree = "<group>"; };
 		16AC775D2670CB8C0029B7CC /* TrendsViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+View.swift"; sourceTree = "<group>"; };
 		16F7F36327FDAF52006F988F /* EventNameViewController+Bubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventNameViewController+Bubble.swift"; sourceTree = "<group>"; };
+		3443A8F02CEC99880075B1F3 /* PasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeViewController.swift; sourceTree = "<group>"; };
+		3443A8F52CECAC160075B1F3 /* PasscodeViewController+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasscodeViewController+View.swift"; sourceTree = "<group>"; };
+		3443A8F72CEDD2420075B1F3 /* PasscodeViewController+Keypad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasscodeViewController+Keypad.swift"; sourceTree = "<group>"; };
+		3443A8F92CEDDF080075B1F3 /* PasscodeViewController+Passcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasscodeViewController+Passcode.swift"; sourceTree = "<group>"; };
 		83010ACE2584FE770037D024 /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83020138258F899000D744DF /* EmotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionsViewController.swift; sourceTree = "<group>"; };
 		83020143258F91A400D744DF /* TrendsViewController+NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrendsViewController+NoDataView.swift"; sourceTree = "<group>"; };
@@ -135,6 +143,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		3443A8F42CECA7C00075B1F3 /* Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				3443A8F02CEC99880075B1F3 /* PasscodeViewController.swift */,
+				3443A8F52CECAC160075B1F3 /* PasscodeViewController+View.swift */,
+				3443A8F72CEDD2420075B1F3 /* PasscodeViewController+Keypad.swift */,
+				3443A8F92CEDDF080075B1F3 /* PasscodeViewController+Passcode.swift */,
+			);
+			path = Passcode;
+			sourceTree = "<group>";
+		};
 		8377F4632582CD09006C9D2F = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +179,7 @@
 				16875A0027F5E31100DBA53A /* Trends */,
 				168759FD27F5E2BA00DBA53A /* Emotions */,
 				16AB3B97280EFE0200169C8F /* Settings */,
+				3443A8F42CECA7C00075B1F3 /* Passcode */,
 				83B9EE5E25857500007158F3 /* LogEventViewController.swift */,
 				83020138258F899000D744DF /* EmotionsViewController.swift */,
 				830C7591258A2B5100F964BC /* Media.xcassets */,
@@ -257,7 +277,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3443A8F82CEDD2420075B1F3 /* PasscodeViewController+Keypad.swift in Sources */,
 				1645531D26F7E59000C3E376 /* EmotionNotFoundViewController+View.swift in Sources */,
+				3443A8F62CECAC160075B1F3 /* PasscodeViewController+View.swift in Sources */,
 				8377F47E2582CD1E006C9D2F /* EmotionsGroupsViewController+View.swift in Sources */,
 				16AB3BA128117AE400169C8F /* ReminderViewController.swift in Sources */,
 				8377F47D2582CD1E006C9D2F /* EmotionsGroupsViewController.swift in Sources */,
@@ -269,6 +291,7 @@
 				16AB3BA9281182B700169C8F /* ReminderViewController+Cell.swift in Sources */,
 				830C7594258A2F3700F964BC /* EmotionEventsViewController+Cell.swift in Sources */,
 				83D82BC9258F80D000FB3B5E /* EmotionEventsViewController+View.swift in Sources */,
+				3443A8FA2CEDDF080075B1F3 /* PasscodeViewController+Passcode.swift in Sources */,
 				83557353258623D9007F15C8 /* EventNameViewController.swift in Sources */,
 				83020144258F91A400D744DF /* TrendsViewController+NoDataView.swift in Sources */,
 				831631B9259695C70052661E /* EmotionsGroupsViewController+Menu.swift in Sources */,
@@ -277,6 +300,7 @@
 				83557355258623F7007F15C8 /* EventNameViewController+View.swift in Sources */,
 				1608107C278F1A85003B07F0 /* EmotionsGroupsViewController+Cell.swift in Sources */,
 				8332CA01258A1F2500AA285A /* EmotionEventsViewController.swift in Sources */,
+				3443A8F12CEC99880075B1F3 /* PasscodeViewController.swift in Sources */,
 				16AC775E2670CB8C0029B7CC /* TrendsViewController+View.swift in Sources */,
 				1645531B26F7E18C00C3E376 /* EmotionNotFoundViewController.swift in Sources */,
 			);

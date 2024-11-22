@@ -9,6 +9,8 @@ public final class Rounded<V: UIView>: UIView {
 
         view.layer.masksToBounds = true
         view.layer.cornerRadius = bounds.height / 2
+
+        layoutHandler?(self)
     }
 
     public override var intrinsicContentSize: CGSize {
@@ -16,6 +18,8 @@ public final class Rounded<V: UIView>: UIView {
     }
 
     // MARK: - Public
+
+    public var layoutHandler: ((Rounded<V>) -> ())?
 
     public lazy var view: V = {
         let view = V()
