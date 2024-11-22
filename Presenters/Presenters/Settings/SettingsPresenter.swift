@@ -22,7 +22,8 @@ public protocol SettingsPresenterSection {
 public protocol SettingsPresenterOutput: AnyObject {
     func show(sections: [SettingsPresenterSection], update: [IndexPath])
     func show(message: String, okButton: String, infoButton: String?, okHandler: (() -> ())?)
-    func show(options: [(String, () -> ())], cancel: String)
+    func show(options: [(String, () -> ())], cancel: (String, () -> ()))
+    func show(reload: IndexPath)
 }
 
 public protocol SettingsPresenter {

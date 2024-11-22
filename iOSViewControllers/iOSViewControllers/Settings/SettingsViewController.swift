@@ -159,12 +159,16 @@ extension SettingsViewController: SettingsPresenterOutput {
         present(alert, animated: true)
     }
 
-    public func show(options: [(String, () -> ())], cancel: String) {
+    public func show(options: [(String, () -> ())], cancel: (String, () -> ())) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         options.forEach { name, handler in
             alert.addAction(UIAlertAction(title: name, style: .default, handler: { _ in handler() }))
         }
-        alert.addAction(UIAlertAction(title: cancel, style: .cancel))
+        alert.addAction(UIAlertAction(title: cancel.0, style: .cancel, handler: { _ in cancel.1() }))
         present(alert, animated: true)
+    }
+
+    public func show(reload: IndexPath) {
+        tableView.reloadRows(at: [reload], with: .automatic)
     }
 }

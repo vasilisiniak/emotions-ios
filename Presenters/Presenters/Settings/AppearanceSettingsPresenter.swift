@@ -158,7 +158,7 @@ public class AppearanceSettingsPresenterImpl {
             ("Системная", handler(.unspecified)),
             ("Светлая", handler(.light)),
             ("Тёмная", handler(.dark))
-        ], cancel: "Отмена")
+        ], cancel: ("Отмена", {}))
     }
 
     // MARK: - Public
