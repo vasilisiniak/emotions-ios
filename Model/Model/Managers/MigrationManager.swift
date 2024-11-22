@@ -13,6 +13,8 @@ public final class MigrationManagerImpl {
     // MARK: - Private
 
     private let eventsProvider: EmotionEventsProvider
+    private let settings: Settings
+    private let lockStorage: LockManagerStorage
 
     private var lastMigratedVersion: String? {
         get { UserDefaults.standard.string(forKey: Constants.VersionKey) }
@@ -26,7 +28,8 @@ public final class MigrationManagerImpl {
     }
 
     private lazy var migrations = [
-        "1.0" : migrate_1_0_to_1_7
+        "1.0": migrate_1_0_to_1_7,
+        "1.7": migrate_1_7_to_1_32
     ]
 
     private func migrate_1_0_to_1_7() -> String {
@@ -37,10 +40,21 @@ public final class MigrationManagerImpl {
         return "1.7"
     }
 
+    private func migrate_1_7_to_1_32() -> String {
+        if settings.useFaceId {
+            if !lockStorage.setLockSource(source: LockManagerSource.system.rawValue) {
+                print("Error while setting system lock source while migrating from 1.7 to 1.32")
+            }
+        }
+        return "1.32"
+    }
+
     // MARK: - Public
 
-    public init(eventsProvider: EmotionEventsProvider) {
+    public init(eventsProvider: EmotionEventsProvider, settings: Settings, lockStorage: LockManagerStorage) {
         self.eventsProvider = eventsProvider
+        self.settings = settings
+        self.lockStorage = lockStorage
     }
 }
 
