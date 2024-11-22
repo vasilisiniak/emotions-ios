@@ -42,8 +42,6 @@ public final class EmotionEventsViewController: UIViewController {
                 self?.presenter.eventEndUnsafe()
             }
         ]
-
-        presenter.eventViewDidAppear()
     }
 
     public override func viewDidDisappear(_ animated: Bool) {

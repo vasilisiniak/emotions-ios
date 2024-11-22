@@ -138,7 +138,6 @@ public protocol EmotionEventsPresenter {
 
     func eventViewReady()
     func eventViewWillAppear()
-    func eventViewDidAppear()
     func event(shareIndexPath: IndexPath)
     func event(deleteIndexPath: IndexPath)
     func event(editIndexPath: IndexPath)
@@ -206,11 +205,7 @@ extension EmotionEventsPresenterImpl: EmotionEventsPresenter {
     }
 
     public func eventViewWillAppear() {
-        useCase.eventOutputToBeShown()
-    }
-
-    public func eventViewDidAppear() {
-        useCase.eventOutputIsShown(info: "Получить доступ к дневнику")
+        useCase.eventOutputToBeShown(info: "Получить доступ к дневнику")
     }
 
     public func eventStartUnsafe() {
