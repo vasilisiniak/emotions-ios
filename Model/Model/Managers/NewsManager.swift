@@ -27,6 +27,7 @@ public enum News {
     case v_1_29_colorDiary
     case v_1_30_hotfix
     case v_1_31_widget
+    case v_1_33_passcode
 }
 
 public final class NewsManagerImpl {
@@ -65,7 +66,8 @@ public final class NewsManagerImpl {
         "1.27": (version: "1.28", news: [.v_1_28_duplicateEvents]),
         "1.28": (version: "1.29", news: [.v_1_29_colorDiary]),
         "1.29": (version: "1.30", news: [.v_1_30_hotfix]),
-        "1.30": (version: "1.31", news: [.v_1_31_widget])
+        "1.30": (version: "1.31", news: [.v_1_31_widget]),
+        "1.31": (version: "1.33", news: [.v_1_33_passcode])
     ]
 
     var isFreshInstall: Bool {
