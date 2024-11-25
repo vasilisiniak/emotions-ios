@@ -22,9 +22,17 @@ public final class EventNameViewController: UIViewController {
     }
 
     public override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         subscribeToViewChanges()
         presenter.eventViewDidAppear()
+
+        eventNameView.name.invalidateIntrinsicContentSize()
+        eventNameView.details.invalidateIntrinsicContentSize()
+        eventNameView.setNeedsLayout()
+
+        UIView.animate(withDuration: 0.1) {
+            self.eventNameView.layoutIfNeeded()
+        }
     }
 
     public override func loadView() {
