@@ -15,6 +15,11 @@ public final class LinearContainerView: UIView {
         invalidateIntrinsicContentSize()
     }
 
+    public override func invalidateIntrinsicContentSize() {
+        super.invalidateIntrinsicContentSize()
+        invalidateSupersIntrinsticContentSize()
+    }
+
     public override var intrinsicContentSize: CGSize {
         layout(for: bounds.width)
         let width = views.map(\.frame.maxX).max() ?? 0
@@ -44,26 +49,6 @@ public final class LinearContainerView: UIView {
         return maxX > bounds.maxX
     }
 
-    private var engineBounds: CGRect? {
-        let objcSelector = NSSelectorFromString("_nsis_compatibleBoundsInEngine:")
-        typealias CFunction = @convention(c) (AnyObject, Selector, Any) -> CGRect
-
-        let impl = class_getMethodImplementation(type(of: self).self, objcSelector)
-        let callableImpl = unsafeBitCast(impl, to: CFunction.self)
-
-        return layoutEngine.flatMap { callableImpl(self, objcSelector, $0) }
-    }
-
-    private var layoutEngine: Any? {
-        let objcSelector = NSSelectorFromString("nsli_layoutEngine")
-        typealias CFunction = @convention(c) (AnyObject, Selector) -> Any
-
-        let impl = class_getMethodImplementation(type(of: self).self, objcSelector)
-        let callableImpl = unsafeBitCast(impl, to: CFunction.self)
-
-        return callableImpl(self, objcSelector)
-    }
-
     private func layout(for width: CGFloat) {
         guard width != self.width else { return }
         self.width = width
@@ -82,6 +67,17 @@ public final class LinearContainerView: UIView {
             $0.frame.origin.x = x
             $0.frame.origin.y = y
             x += $0.frame.width + paddingX
+        }
+    }
+
+    private func invalidateSupersIntrinsticContentSize() {
+        var next = superview
+        while let view = next {
+            if NSStringFromClass(type(of: view)) == "UITableViewCellContentView" {
+                view.invalidateIntrinsicContentSize()
+                break
+            }
+            next = view.superview
         }
     }
 
