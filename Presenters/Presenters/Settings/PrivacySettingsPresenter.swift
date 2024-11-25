@@ -32,25 +32,29 @@ fileprivate extension PrivacySettingsPresenterImpl {
             }
         }
 
-        case settings(protect: Bool, faceId: Bool)
+        case protect(protect: Bool)
+        case faceId(faceId: Bool)
 
         var rows: [SettingsPresenterRow] { sectionRows }
 
         var sectionRows: [Row] {
             switch self {
-            case .settings(let protect, let faceId): return [Row.protect(protect: protect), Row.faceId(enabled: faceId)]
+            case .protect(let protect): return [Row.protect(protect: protect)]
+            case .faceId(let faceId): return [Row.faceId(enabled: faceId)]
             }
         }
 
         var title: String {
             switch self {
-            case .settings: return ""
+            case .protect: return ""
+            case .faceId: return ""
             }
         }
 
         var subtitle: String? {
             switch self {
-            case .settings: return "Замылить некоторые страницы приложения, когда оно отображается в списке открытых"
+            case .protect: return "Замылить личные страницы приложения, когда оно отображается в списке открытых"
+            case .faceId: return "Для изменения типа защиты между FaceID/TouchID и своим паролем выключите защиту и включите снова"
             }
         }
     }
@@ -65,7 +69,7 @@ public class PrivacySettingsPresenterImpl {
     // MARK: - Private
 
     private func sections(protect: Bool, faceId: Bool) -> [Section] {
-        [.settings(protect: protect, faceId: faceId)]
+        [.protect(protect: protect), .faceId(faceId: faceId)]
     }
 
     private func chooseLock(indexPath: IndexPath) {
