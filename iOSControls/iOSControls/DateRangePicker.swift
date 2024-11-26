@@ -50,11 +50,16 @@ public final class DateRangePicker: UIControl {
     private func makeConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        fromDatePicker.translatesAutoresizingMaskIntoConstraints = false
+        toDatePicker.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            fromDatePicker.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            toDatePicker.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
 
             stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
