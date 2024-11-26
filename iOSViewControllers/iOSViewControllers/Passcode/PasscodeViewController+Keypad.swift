@@ -67,7 +67,7 @@ extension PasscodeViewController {
             button.setContentCompressionResistancePriority(.required, for: .horizontal)
             button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
 
-            button.layoutHandler = { $0.view.titleLabel?.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: $0.frame.height / 2)) }
+            button.layoutHandler = { $0.view.titleLabel?.font = .systemFont(ofSize: $0.frame.height / 2) }
 
             button.view.addAction(UIAction { [button] _ in
                 button.view.backgroundColor = .quaternaryLabel

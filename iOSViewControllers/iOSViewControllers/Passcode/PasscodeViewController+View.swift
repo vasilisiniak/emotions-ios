@@ -72,24 +72,31 @@ extension PasscodeViewController {
         let info: UILabel = create {
             $0.textColor = .label
             $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 24))
+            $0.adjustsFontSizeToFitWidth = true
+            $0.adjustsFontForContentSizeCategory = true
             $0.text = " "
         }
 
         let task: UILabel = create {
             $0.textColor = .label
             $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 18))
+            $0.adjustsFontSizeToFitWidth = true
+            $0.adjustsFontForContentSizeCategory = true
             $0.text = " "
         }
 
         let error: UILabel = create {
             $0.textColor = .label
             $0.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 18))
+            $0.adjustsFontSizeToFitWidth = true
+            $0.adjustsFontForContentSizeCategory = true
             $0.text = " "
         }
 
         let cancel: UIButton = {
             let button = UIButton(type: .system)
             button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: .systemFont(ofSize: 16))
+            button.titleLabel?.adjustsFontForContentSizeCategory = true
             button.setTitleColor(.label, for: .normal)
             return button
         }()
